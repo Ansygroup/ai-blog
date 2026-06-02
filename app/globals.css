@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root { --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, 'Helvetica Neue', Arial, sans-serif; --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-sans); }
+  ::selection { background: #fbbf24; color: #1e293b; }
+}
+
+@layer components {
+  .prose-blog {
+    @apply max-w-3xl mx-auto;
+  }
+  .prose-blog h1 { @apply text-4xl md:text-5xl font-bold tracking-tight mb-6 mt-2; }
+  .prose-blog h2 { @apply text-3xl font-bold mt-12 mb-4 scroll-mt-24 border-b border-slate-200 pb-2; }
+  .prose-blog h3 { @apply text-2xl font-semibold mt-8 mb-3 scroll-mt-24; }
+  .prose-blog h4 { @apply text-xl font-semibold mt-6 mb-2; }
+  .prose-blog p { @apply text-lg leading-relaxed text-slate-700 mb-5; }
+  .prose-blog a { @apply text-blue-600 hover:text-blue-800 underline underline-offset-2 decoration-blue-300 hover:decoration-blue-600 transition; }
+  .prose-blog ul { @apply list-disc pl-6 mb-5 space-y-2 text-slate-700; }
+  .prose-blog ol { @apply list-decimal pl-6 mb-5 space-y-2 text-slate-700; }
+  .prose-blog li { @apply text-lg leading-relaxed; }
+  .prose-blog blockquote { @apply border-l-4 border-blue-500 bg-blue-50 pl-5 pr-4 py-3 my-6 italic text-slate-700 rounded-r; }
+  .prose-blog code { @apply bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded text-sm font-mono; }
+  .prose-blog pre { @apply bg-slate-900 text-slate-100 rounded-lg p-4 overflow-x-auto my-6 text-sm; }
+  .prose-blog pre code { @apply bg-transparent text-slate-100 p-0; }
+  .prose-blog img { @apply rounded-lg shadow-md my-6 w-full; }
+  .prose-blog table { @apply w-full my-6 border-collapse; }
+  .prose-blog th { @apply bg-slate-100 border border-slate-300 px-3 py-2 text-left font-semibold; }
+  .prose-blog td { @apply border border-slate-300 px-3 py-2; }
+  .prose-blog hr { @apply my-10 border-slate-200; }
+  .prose-blog .lead { @apply text-xl text-slate-600 leading-relaxed mb-8 font-light; }
+  .prose-blog .affiliate-callout { @apply bg-amber-50 border-2 border-amber-300 rounded-lg p-5 my-6; }
+  .prose-blog .key-takeaways { @apply bg-emerald-50 border-l-4 border-emerald-500 p-5 my-6 rounded-r; }
+  .prose-blog .key-takeaways h4 { @apply text-emerald-800 mt-0; }
+}
