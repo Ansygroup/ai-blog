@@ -22,6 +22,9 @@ export const metadata = {
   creator: siteConfig.author,
   publisher: siteConfig.name,
   formatDetection: { email: false, address: false, telephone: false },
+  verification: {
+    google: '4MTtjFO5dCr1gexus_gewxdL819Nzx-EFZXggeYuNY8',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
