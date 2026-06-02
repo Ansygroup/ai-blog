@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+.env.local
+.env
+.vercel/
+*.log
+.DS_Store
+public/*.txt
+!public/robots.txt
+!public/llms.txt
+!public/llms-full.txt
