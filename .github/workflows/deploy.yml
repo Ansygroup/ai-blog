@@ -20,8 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: npm }
-      - run: npm ci
+        with:
+          node-version: 20
+      - run: npm install
       - name: SEO audit
         run: node scripts/seo-audit.js
       - name: Smoke test (no server)
@@ -48,8 +49,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: npm }
-      - run: npm ci
+        with:
+          node-version: 20
+      - run: npm install
       - run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
@@ -63,8 +65,10 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
       - uses: actions/upload-artifact@v4
-        with: { name: nextjs, path: .next, retention-days: 7 }
-
+        with:
+          name: nextjs
+          path: .next
+          retention-days: 7
       # Deploy to Vercel (requires VERCEL_TOKEN secret)
       - name: Deploy to Vercel
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -73,7 +77,6 @@ jobs:
           vercel deploy --prod --yes --token "${{ secrets.VERCEL_TOKEN }}"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-
       # 24/7 content auto-generation: rotate through keyword queue
       # Uses a separate branch to avoid the infinite-loop problem.
       - name: Auto-generate next post (if queue has items)
@@ -100,7 +103,6 @@ jobs:
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       # Ping IndexNow for instant Bing/AI-engine indexing
       - name: IndexNow submit
         if: always()
