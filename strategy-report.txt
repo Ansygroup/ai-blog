@@ -1,0 +1,40 @@
+🧠 Content Strategy Agent
+
+📊 Analyzing existing content...
+📊 **Category Coverage:**
+  ✅ Best Of: 6 posts (target: 5)
+  ✅ Reviews: 5 posts (target: 5)
+  ⚠️ Tutorials: 4 posts (target: 5)
+  ⚠️ Comparisons: 3 posts (target: 5)
+
+🔍 **Content Gaps (Underserved Categories):**
+
+📝 **Quality Checks:**
+  ⚠️ "AI Automation with Zapier 2026: 12 Workflows That Save Hours" — thin content (727 words)
+  ⚠️ "AI Tools for YouTube Creators 2026: Top Picks" — thin content (890 words)
+  ⚠️ "AI Video Generators Compared: Top Tools" — thin content (723 words)
+  ⚠️ "Best AI Image Generators 2026: Top Picks" — thin content (896 words)
+  ⚠️ "Best AI Tools for Small Business 2026" — thin content (904 words)
+  ⚠️ "Best AI Tools for Students 2026" — thin content (767 words)
+  ⚠️ "Best Free AI Tools 2026: Top Picks" — thin content (681 words)
+  ⚠️ "ChatGPT vs Claude vs Gemini 2026: We Tested All Three (Winner)" — thin content (718 words)
+  ⚠️ "Copy.ai vs Jasper 2026: 15-Task Test, Pricing, and the Winner" — thin content (892 words)
+  ⚠️ "How to Make Money with AI in 2026: 12 Real Ways ($500-$50K/mo)" — thin content (829 words)
+  ⚠️ "How to Use ChatGPT for SEO in 2026: 15 Prompts and Workflows" — thin content (903 words)
+  ⚠️ "Jasper AI Review 2026: 6 Months and $588 Spent, the Verdict" — thin content (692 words)
+  ⚠️ "Notion AI Review 2026: Boost Productivity" — thin content (860 words)
+  ⚠️ "Prompt Engineering for Marketers: Unlocking AI Potential" — thin content (929 words)
+  ⚠️ "Rytr Review 2026: Budget AI Writer" — thin content (598 words)
+  ⚠️ "Surfer SEO Review 2026: 47 Articles Later, Here Is the Data" — thin content (734 words)
+  ⚠️ "Writesonic Review 2026: AI Writer" — thin content (659 words)
+
+🏷️ **Tags Used:** 76 unique tags across 18 posts
+
+🕰️ **Stale Content (>6 months old):** 5 posts
+  ⏳ "AI Video Generators Compared: Top Tools" (2024-09-16)
+  ⏳ "Best Free AI Tools 2026: Top Picks" (2024-10-04)
+  ⏳ "How to Use ChatGPT for SEO in 2026: 15 Prompts and Workflows" (2023-12-01)
+  ⏳ "Notion AI Review 2026: Boost Productivity" (2024-09-16)
+  ⏳ "Prompt Engineering for Marketers: Unlocking AI Potential" (2024-09-16)
+
+✅ Content strategy analysis complete.
