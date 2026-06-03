@@ -6,6 +6,7 @@ import AdSlot from '../components/AdSlot';
 import NewsletterCTA from '../components/NewsletterCTA';
 import Script from 'next/script';
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 // System font stack — zero network requests, instant LCP, no Google Fonts dependency.
 // Browsers use the OS's best modern UI font (San Francisco, Segoe UI, Inter if installed, etc.).
@@ -76,6 +77,7 @@ export default function RootLayout({ children }) {
         <main className="min-h-screen">{children}</main>
         <NewsletterCTA />
         <Analytics />
+        <SpeedInsights />
         <Footer />
 
         {/* Google AdSense — auto ads. Replace ca-pub-xxx with your code. */}
