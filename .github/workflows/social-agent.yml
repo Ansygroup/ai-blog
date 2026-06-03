@@ -1,0 +1,72 @@
+name: Social Agent — Share new content
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [main]
+    paths: ['content/posts/**']
+  workflow_dispatch:
+
+jobs:
+  social:
+    name: Post to social channels
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Get new posts
+        id: posts
+        run: |
+          NEW_FILES=$(git diff --name-only HEAD~1 -- content/posts/ || echo "")
+          if [ -z "$NEW_FILES" ]; then
+            echo "No new posts found."
+            echo "has_posts=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "has_posts=true" >> $GITHUB_OUTPUT
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$NEW_FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Generate social posts
+        if: steps.posts.outputs.has_posts == 'true'
+        run: |
+          for f in ${{ steps.posts.outputs.files }}; do
+            if [ ! -f "$f" ]; then continue; fi
+            TITLE=$(head -30 "$f" | grep "^title:" | sed 's/^title: *["\x27]//;s/["\x27]$//')
+            EXCERPT=$(head -30 "$f" | grep "^excerpt:" | sed 's/^excerpt: *["\x27]//;s/["\x27]$//')
+            SLUG=$(basename "$f" .mdx)
+            URL="${{ secrets.NEXT_PUBLIC_SITE_URL }}/posts/$SLUG"
+            echo "=== $TITLE ==="
+            echo "URL: $URL"
+            echo "Twitter: $TITLE $URL"
+            echo "LinkedIn: $EXCERPT $URL"
+          done > social-posts.txt
+          cat social-posts.txt
+
+      - name: Post to Twitter
+        if: steps.posts.outputs.has_posts == 'true'
+        run: |
+          echo "Twitter API not configured yet."
+          echo "Would post:"
+          head -5 social-posts.txt
+        env:
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+
+      - name: Post to LinkedIn
+        if: steps.posts.outputs.has_posts == 'true'
+        run: |
+          echo "LinkedIn API not configured yet."
+          echo "Would post:"
+          head -5 social-posts.txt
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}

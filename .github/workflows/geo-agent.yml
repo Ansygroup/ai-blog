@@ -1,0 +1,62 @@
+name: GEO Agent — AI search optimization
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: '0 7 * * 6'
+  workflow_dispatch:
+
+jobs:
+  geo:
+    name: Optimize for AI engines
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Update llms.txt
+        run: |
+          echo "# AI Pulse Daily — AI search optimized content" > public/llms.txt
+          echo "" >> public/llms.txt
+          echo "## About" >> public/llms.txt
+          echo "Independent AI tools reviews, comparisons, and tutorials." >> public/llms.txt
+          echo "" >> public/llms.txt
+          echo "## Latest Content" >> public/llms.txt
+          for f in $(ls -t content/posts/*.mdx 2>/dev/null | head -20); do
+            TITLE=$(head -30 "$f" | grep "^title:" | sed 's/^title: *["\x27]//;s/["\x27]$//')
+            SLUG=$(basename "$f" .mdx)
+            DATE=$(head -30 "$f" | grep "^date:" | sed 's/^date: *//')
+            echo "- [$TITLE](${{ secrets.NEXT_PUBLIC_SITE_URL }}/posts/$SLUG) ($DATE)" >> public/llms.txt
+          done
+          echo "✅ public/llms.txt updated"
+
+      - name: Optimize for direct answers
+        run: |
+          echo "Checking posts for AI-optimized snippets..."
+          COUNT=$(grep -l "Quick Answer" content/posts/*.mdx 2>/dev/null | wc -l)
+          echo "Posts with Quick Answer section: $COUNT"
+
+      - name: Create PR
+        run: |
+          if git diff --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          BRANCH="auto/geo-$(date +%s)"
+          git config user.email "bot@aipulsedaily.com"
+          git config user.name "GEO Agent"
+          git checkout -b "$BRANCH"
+          git add public/llms.txt
+          git commit -m "auto: GEO optimization $(date +%Y-%m-%d)"
+          git push origin "$BRANCH"
+          gh pr create --title "auto: GEO optimization $(date +%Y-%m-%d)" --body "AI engine optimization update." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
+          PR_NUMBER=$(grep -oP '/pull/\K[0-9]+' pr-url.txt)
+          gh pr merge --auto --squash "$PR_NUMBER"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

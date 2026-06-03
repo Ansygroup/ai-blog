@@ -1,0 +1,57 @@
+name: Bing Trust Agent — URL submission
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  bing:
+    name: Submit URLs to Bing
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Collect all post URLs
+        run: |
+          echo "[" > sitemap-urls.json
+          FIRST=true
+          for f in content/posts/*.mdx; do
+            SLUG=$(basename "$f" .mdx)
+            if [ "$FIRST" = true ]; then FIRST=false; else echo "," >> sitemap-urls.json; fi
+            echo -n "{\"url\":\"${{ secrets.NEXT_PUBLIC_SITE_URL }}/posts/$SLUG\"}" >> sitemap-urls.json
+          done
+          echo "]" >> sitemap-urls.json
+          echo "Collected $(wc -l < sitemap-urls.json) URLs"
+
+      - name: Submit to Bing Webmaster API
+        run: |
+          API_KEY="${{ secrets.BING_WEBMASTER_API_KEY }}"
+          SITE="${{ secrets.NEXT_PUBLIC_SITE_URL }}"
+          if [ -z "$API_KEY" ]; then
+            echo "Bing API key not configured — using IndexNow instead."
+            node scripts/indexnow-submit.js || true
+            exit 0
+          fi
+          echo "Submitting URLs to Bing Webmaster API..."
+          curl -s -X POST "https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=$API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{\"siteUrl\":\"$SITE\",\"urlList\":$(cat sitemap-urls.json)}" || echo "Bing submission failed (non-fatal)"
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+
+      - name: IndexNow fallback
+        if: always()
+        run: node scripts/indexnow-submit.js || true
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}

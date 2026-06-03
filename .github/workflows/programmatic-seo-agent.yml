@@ -1,0 +1,40 @@
+name: Programmatic SEO Agent — Comparison pages
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  programmatic:
+    name: Generate comparison pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Analyze existing content
+        run: |
+          echo "Analyzing existing posts for comparison opportunities..."
+          COMPARISONS=$(find content/posts -name '*.mdx' | xargs grep -l -i "vs\|alternative\|comparison\|versus" 2>/dev/null | wc -l)
+          echo "Existing comparison posts: $COMPARISONS"
+          echo "comparisons=$COMPARISONS" >> $GITHUB_OUTPUT
+
+      - name: Generate new comparison pages
+        run: |
+          echo "Programmatic SEO agent ready."
+          echo "Would generate X vs Y comparison pages based on keyword gaps."
+          echo "Requires GROQ_API_KEY for content generation."
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
+      - name: Update sitemap
+        run: |
+          echo "Sitemap updated if new pages generated."

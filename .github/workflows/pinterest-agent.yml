@@ -1,0 +1,67 @@
+name: Pinterest Agent — Auto pin generation
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [main]
+    paths: ['content/posts/**']
+  workflow_dispatch:
+
+jobs:
+  pinterest:
+    name: Generate and schedule pins
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Get new posts
+        id: posts
+        run: |
+          NEW_FILES=$(git diff --name-only HEAD~1 -- content/posts/ || echo "")
+          if [ -z "$NEW_FILES" ]; then
+            echo "No new posts."
+            echo "has_posts=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "has_posts=true" >> $GITHUB_OUTPUT
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$NEW_FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Generate pin data
+        if: steps.posts.outputs.has_posts == 'true'
+        run: |
+          for f in ${{ steps.posts.outputs.files }}; do
+            if [ ! -f "$f" ]; then continue; fi
+            TITLE=$(head -30 "$f" | grep "^title:" | sed 's/^title: *["\x27]//;s/["\x27]$//')
+            EXCERPT=$(head -30 "$f" | grep "^excerpt:" | sed 's/^excerpt: *["\x27]//;s/["\x27]$//')
+            COVER=$(head -30 "$f" | grep "^cover:" | sed 's/^cover: *//')
+            SLUG=$(basename "$f" .mdx)
+            URL="${{ secrets.NEXT_PUBLIC_SITE_URL }}/posts/$SLUG"
+            echo "Pin ready:"
+            echo "  Title: $TITLE"
+            echo "  Description: $EXCERPT"
+            echo "  Image: $COVER"
+            echo "  URL: $URL"
+            echo "  Board: AI Tools Reviews"
+          done > pin-data.txt
+          cat pin-data.txt
+
+      - name: Publish pins (placeholder)
+        if: steps.posts.outputs.has_posts == 'true'
+        run: |
+          if [ -z "${{ secrets.PINTEREST_ACCESS_TOKEN }}" ]; then
+            echo "Pinterest API token not configured."
+            echo "Would publish pins when token is set."
+            exit 0
+          fi
+          echo "Publishing pins to Pinterest..."

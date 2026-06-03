@@ -1,0 +1,59 @@
+name: Editor Agent — Content Quality Review
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths: ['content/posts/**']
+  workflow_dispatch:
+
+jobs:
+  review:
+    name: Review content quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Check new posts
+        id: check
+        run: |
+          CHANGED=$(git diff --name-only origin/main...HEAD -- content/posts/ || echo "")
+          if [ -z "$CHANGED" ]; then
+            echo "No post changes detected."
+            echo "has_posts=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "has_posts=true" >> $GITHUB_OUTPUT
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Validate frontmatter
+        if: steps.check.outputs.has_posts == 'true'
+        run: |
+          ERRORS=0
+          for f in ${{ steps.check.outputs.files }}; do
+            if [ ! -f "$f" ]; then continue; fi
+            echo "--- Checking $f ---"
+            if ! head -30 "$f" | grep -q "^title:"; then echo "  ❌ Missing title"; ERRORS=$((ERRORS+1)); fi
+            if ! head -30 "$f" | grep -q "^excerpt:"; then echo "  ❌ Missing excerpt"; ERRORS=$((ERRORS+1)); fi
+            if ! head -30 "$f" | grep -q "^date:"; then echo "  ❌ Missing date"; ERRORS=$((ERRORS+1)); fi
+            if ! head -30 "$f" | grep -q "^category:"; then echo "  ❌ Missing category"; ERRORS=$((ERRORS+1)); fi
+            if ! head -30 "$f" | grep -q "^tags:"; then echo "  ❌ Missing tags"; ERRORS=$((ERRORS+1)); fi
+            WORD_COUNT=$(wc -w < "$f")
+            if [ "$WORD_COUNT" -lt 500 ]; then echo "  ❌ Too short ($WORD_COUNT words, need 500+)"; ERRORS=$((ERRORS+1)); fi
+          done
+          if [ "$ERRORS" -gt 0 ]; then
+            echo "Found $ERRORS issues — requesting fixes."
+            exit 1
+          fi
+          echo "✅ All checks passed"

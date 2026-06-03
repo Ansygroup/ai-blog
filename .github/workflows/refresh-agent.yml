@@ -1,0 +1,78 @@
+name: Refresh Agent — Update stale content
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    name: Refresh stale posts
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Find stale posts
+        run: |
+          echo "Checking posts older than 30 days..."
+          STALE=0
+          for f in content/posts/*.mdx; do
+            FILE_DATE=$(head -30 "$f" | grep "^date:" | sed 's/^date: *//')
+            if [ -z "$FILE_DATE" ]; then continue; fi
+            FILE_TS=$(date -d "$FILE_DATE" +%s 2>/dev/null || echo 0)
+            NOW=$(date +%s)
+            AGE=$(( (NOW - FILE_TS) / 86400 ))
+            if [ "$AGE" -gt 30 ]; then
+              echo "  🕰️ $f ($AGE days old)"
+              STALE=$((STALE+1))
+            fi
+          done
+          echo "stale_count=$STALE" >> $GITHUB_OUTPUT
+          echo "Stale posts: $STALE"
+
+      - name: Update lastUpdated dates
+        if: steps.find.outputs.stale_count != '0'
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          for f in content/posts/*.mdx; do
+            FILE_DATE=$(head -30 "$f" | grep "^date:" | sed 's/^date: *//')
+            if [ -z "$FILE_DATE" ]; then continue; fi
+            FILE_TS=$(date -d "$FILE_DATE" +%s 2>/dev/null || echo 0)
+            NOW=$(date +%s)
+            AGE=$(( (NOW - FILE_TS) / 86400 ))
+            if [ "$AGE" -gt 30 ]; then
+              if grep -q "^lastUpdated:" "$f"; then
+                sed -i "s/^lastUpdated:.*/lastUpdated: $TODAY/" "$f"
+              else
+                sed -i "/^date:/a lastUpdated: $TODAY" "$f"
+              fi
+              echo "  ✅ Updated $f"
+            fi
+          done
+
+      - name: Create PR
+        run: |
+          if git diff --quiet; then
+            echo "No stale posts to refresh."
+            exit 0
+          fi
+          BRANCH="auto/refresh-$(date +%s)"
+          git config user.email "bot@aipulsedaily.com"
+          git config user.name "Refresh Agent"
+          git checkout -b "$BRANCH"
+          git add content/posts/
+          git commit -m "auto: refresh stale content $(date +%Y-%m-%d)"
+          git push origin "$BRANCH"
+          gh pr create --title "auto: content refresh $(date +%Y-%m-%d)" --body "Updated lastModified dates for stale posts." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
+          PR_NUMBER=$(grep -oP '/pull/\K[0-9]+' pr-url.txt)
+          gh pr merge --auto --squash "$PR_NUMBER"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
