@@ -20,25 +20,25 @@ for (const f of files) {
   const title = (c.match(/^title:\s*"([^"]+)"/m) || [])[1];
   if (!title) continue;
 
-  // Find body (after first \n---\n)
-  const sep = c.indexOf('\n---\n');
+  // Find body (after first --- separator, handles \n and \r\n)
+  const sep = c.search(/\r?\n---\r?\n/);
   if (sep < 0) continue;
   const fm = c.slice(0, sep);
-  let body = c.slice(sep + 5);
+  let body = c.slice(sep + (c[sep] === '\r' ? 6 : 5));
 
   // Remove the first H1 that matches the title (case-insensitive, trim punctuation)
   const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
   const titleNorm = norm(title);
 
   // Pattern: optional leading whitespace, #, then text, possibly with trailing whitespace
+  const nl = c.includes('\r\n') ? '\r\n' : '\n';
   let removed = false;
-  body = body.replace(/^(\s*)# ([^\n]+)\n/, (m, ws, txt) => {
+  body = body.replace(new RegExp(`^(\\s*)# ([^\\n]+)\\r?\\n`), (m, ws, txt) => {
     if (removed) return m;
     if (norm(txt) === titleNorm) {
       removed = true;
       return ''; // delete
     }
-    // If H1 doesn't match title but is the very first thing, also remove (likely leftover)
     if (m.index === 0) {
       removed = true;
       return '';
@@ -47,7 +47,7 @@ for (const f of files) {
   });
 
   if (removed) {
-    fs.writeFileSync(fp, fm + '\n---\n' + body, 'utf8');
+    fs.writeFileSync(fp, fm + nl + '---' + nl + body, 'utf8');
     fixed++;
     console.log(`  🗑  ${f}`);
   }

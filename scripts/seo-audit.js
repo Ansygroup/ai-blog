@@ -16,7 +16,7 @@ console.log(`🔍 Auditing ${files.length} posts...\n`);
 
 for (const file of files) {
   const content = fs.readFileSync(path.join(POSTS_DIR, file), 'utf8');
-  const fmMatch = content.match(/^---\n([\s\S]+?)\n---\n([\s\S]+)$/);
+  const fmMatch = content.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]+)$/);
   if (!fmMatch) { console.error(`❌ ${file}: malformed frontmatter`); errors++; continue; }
   const fm = fmMatch[1]; const body = fmMatch[2];
   const get = (k) => new RegExp(`^${k}:\\s*"?([^"\\n]*)"?`, 'm').exec(fm)?.[1] || '';
