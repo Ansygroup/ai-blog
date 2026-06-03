@@ -1,13 +1,5 @@
 [
   {
-    "topic": "grammarly go review 2026",
-    "category": "Reviews",
-    "keywords": [
-      "grammarly",
-      "ai writing assistant"
-    ]
-  },
-  {
     "topic": "anyword review 2026",
     "category": "Reviews",
     "keywords": [
@@ -380,6 +372,81 @@
     "keywords": [
       "ai learning",
       "study tools"
+    ]
+  },
+  {
+    "topic": "best ai tools for video editing 2026",
+    "category": "Best Of",
+    "keywords": [
+      "ai video editing",
+      "video tools",
+      "descript",
+      "runway"
+    ]
+  },
+  {
+    "topic": "best ai tools for podcasters 2026",
+    "category": "Best Of",
+    "keywords": [
+      "ai podcast",
+      "audio editing",
+      "otter.ai",
+      "descript"
+    ]
+  },
+  {
+    "topic": "midjourney vs firefly vs dalle 2026",
+    "category": "Comparisons",
+    "keywords": [
+      "midjourney",
+      "firefly",
+      "dall-e",
+      "image gen"
+    ]
+  },
+  {
+    "topic": "how to use ai for ad copy 2026",
+    "category": "Tutorials",
+    "keywords": [
+      "ai ad copy",
+      "google ads ai",
+      "facebook ads ai"
+    ]
+  },
+  {
+    "topic": "how to use ai for seo content clusters 2026",
+    "category": "Tutorials",
+    "keywords": [
+      "content clusters",
+      "seo ai",
+      "topic clusters"
+    ]
+  },
+  {
+    "topic": "how to use ai for landing pages 2026",
+    "category": "Tutorials",
+    "keywords": [
+      "ai landing page",
+      "copywriting",
+      "conversion"
+    ]
+  },
+  {
+    "topic": "ai tools for freelancers 2026",
+    "category": "Best Of",
+    "keywords": [
+      "freelance ai",
+      "productivity ai",
+      "ai for freelancers"
+    ]
+  },
+  {
+    "topic": "best ai writing tools for fiction 2026",
+    "category": "Best Of",
+    "keywords": [
+      "ai fiction writing",
+      "creative writing ai",
+      "novel ai"
     ]
   }
 ]
