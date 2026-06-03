@@ -4,9 +4,10 @@ import { siteConfig } from '../../lib/config';
 import AdSlot from '../../components/AdSlot';
 
 export const metadata = {
-  title: 'AI Tool Comparisons — Side-by-Side Reviews | AI Pulse Daily',
+  title: 'AI Tool Comparisons — Side-by-Side Reviews',
   description: 'In-depth side-by-side comparisons of the best AI tools. We test ChatGPT vs Claude vs Gemini, Jasper vs Copy.ai, and more.',
   alternates: { canonical: `${siteConfig.url}/comparisons` },
+  openGraph: { url: `${siteConfig.url}/comparisons` },
 };
 
 export default function ComparisonsPage() {

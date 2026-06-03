@@ -4,9 +4,10 @@ import { siteConfig } from '../../lib/config';
 import AdSlot from '../../components/AdSlot';
 
 export const metadata = {
-  title: 'Best AI Tools 2026 — Curated Rankings & Reviews | AI Pulse Daily',
+  title: 'Best AI Tools 2026 — Curated Rankings & Reviews',
   description: 'Curated "best of" lists ranking the top AI tools in every category. Best AI writing tools, image generators, code assistants, and more.',
   alternates: { canonical: `${siteConfig.url}/best` },
+  openGraph: { url: `${siteConfig.url}/best` },
 };
 
 export default function BestPage() {

@@ -1,4 +1,11 @@
-export const metadata = { title: 'Privacy Policy' };
+import { siteConfig } from '../../lib/config';
+
+export const metadata = {
+  title: 'Privacy Policy',
+  description: `How ${siteConfig.name} collects, uses, and protects your personal data. Privacy-first analytics, cookie policy, and your GDPR/CCPA rights.`,
+  alternates: { canonical: `${siteConfig.url}/privacy` },
+  openGraph: { url: `${siteConfig.url}/privacy` },
+};
 
 export default function PrivacyPage() {
   return (

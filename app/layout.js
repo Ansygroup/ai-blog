@@ -48,7 +48,8 @@ export const metadata = {
     types: { 'application/rss+xml': `${siteConfig.url}/rss.xml` },
   },
   icons: { icon: '/favicon.svg' },
-  verification: { google: '', bing: '' },
+  manifest: '/manifest.webmanifest',
+  // verification: { google: 'YOUR_GSC_CODE', bing: 'YOUR_BING_CODE' },
 };
 
 export const viewport = {

@@ -1,6 +1,11 @@
 import { siteConfig } from '../../lib/config';
 
-export const metadata = { title: 'About', description: `About ${siteConfig.name}: who we are, how we test, and our editorial standards.` };
+export const metadata = {
+  title: 'About',
+  description: `About ${siteConfig.name}: who we are, how we test AI tools on 10 real tasks, and our strict editorial standards. Independent since 2024.`,
+  alternates: { canonical: `${siteConfig.url}/about` },
+  openGraph: { url: `${siteConfig.url}/about` },
+};
 
 export default function AboutPage() {
   return (

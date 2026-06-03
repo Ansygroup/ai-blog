@@ -1,4 +1,11 @@
-export const metadata = { title: 'Affiliate Disclosure' };
+import { siteConfig } from '../../lib/config';
+
+export const metadata = {
+  title: 'Affiliate Disclosure',
+  description: `${siteConfig.name} transparently discloses how we earn revenue: affiliate links, display ads, and sponsored content. We never accept payment for positive reviews.`,
+  alternates: { canonical: `${siteConfig.url}/disclosure` },
+  openGraph: { url: `${siteConfig.url}/disclosure` },
+};
 
 export default function DisclosurePage() {
   return (

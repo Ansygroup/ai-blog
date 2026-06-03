@@ -30,7 +30,7 @@ for (const file of files) {
 
   if (!title) issues.push('missing title');
   else if (title.length < 30) issues.push(`title too short (${title.length} chars)`);
-  else if (title.length > 65) issues.push(`title too long (${title.length} chars)`);
+  else if (title.length > 60) issues.push(`title too long (${title.length} chars)`);
 
   if (!excerpt) issues.push('missing excerpt');
   else if (excerpt.length < 120) issues.push(`excerpt too short (${excerpt.length} chars)`);

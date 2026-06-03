@@ -4,9 +4,10 @@ import { siteConfig } from '../../lib/config';
 import AdSlot from '../../components/AdSlot';
 
 export const metadata = {
-  title: 'AI Tutorials — Step-by-Step Guides | AI Pulse Daily',
+  title: 'AI Tutorials — Step-by-Step Guides',
   description: 'Step-by-step AI tutorials: how to use ChatGPT, Midjourney, Claude, and more. Practical guides for marketers, creators, and developers.',
   alternates: { canonical: `${siteConfig.url}/tutorials` },
+  openGraph: { url: `${siteConfig.url}/tutorials` },
 };
 
 export default function TutorialsPage() {

@@ -19,7 +19,7 @@ require('dotenv').config({ path: path.join(__dirname, '..', '.env.local') });
 
 const HOST = process.env.NEXT_PUBLIC_SITE_URL?.replace(/^https?:\/\//, '').replace(/\/$/, '') || 'ai-blog-ten-steel.vercel.app';
 const KEY = process.env.INDEXNOW_KEY;
-if (!KEY) { console.error('❌ INDEXNOW_KEY missing in .env.local'); process.exit(1); }
+if (!KEY) { console.error('❌ INDEXNOW_KEY missing — set INDEXNOW_KEY env var'); process.exit(1); }
 
 const urlList = [
   `${process.env.NEXT_PUBLIC_SITE_URL}/`,

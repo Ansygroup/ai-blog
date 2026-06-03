@@ -1,5 +1,10 @@
 import { siteConfig } from '../../lib/config';
-export const metadata = { title: 'Contact' };
+export const metadata = {
+  title: 'Contact',
+  description: `Get in touch with ${siteConfig.name}. Editorial inquiries, press partnerships, and affiliate opportunities. Response within 1-3 business days.`,
+  alternates: { canonical: `${siteConfig.url}/contact` },
+  openGraph: { url: `${siteConfig.url}/contact` },
+};
 export default function ContactPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-12 prose-blog">

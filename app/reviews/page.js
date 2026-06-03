@@ -4,9 +4,10 @@ import { siteConfig } from '../../lib/config';
 import AdSlot from '../../components/AdSlot';
 
 export const metadata = {
-  title: 'All AI Tool Reviews, Tutorials & Comparisons',
+  title: 'All AI Tool Reviews, Tutorials & Comparisons — 2026',
   description: `Browse ${getAllPosts().length}+ in-depth AI tool reviews, step-by-step tutorials, and side-by-side comparisons. Updated weekly.`,
   alternates: { canonical: `${siteConfig.url}/reviews` },
+  openGraph: { url: `${siteConfig.url}/reviews` },
 };
 
 export default function ReviewsPage() {

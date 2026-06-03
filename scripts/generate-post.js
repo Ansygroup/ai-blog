@@ -253,9 +253,9 @@ async function getProvider() {
   // Auto-detect if user only set one of the keys
   let provider = requested;
   if (requested === 'groq' && !process.env.GROQ_API_KEY) {
-    if (process.env.OPENROUTER_API_KEY) provider = 'openrouter';
-    else if (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY) provider = 'gemini';
-    else if (process.env.OPENAI_API_KEY) provider = 'openai';
+    if (process.env.OPENROUTER_API_KEY) { provider = 'openrouter'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to openrouter`); }
+    else if (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY) { provider = 'gemini'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to gemini`); }
+    else if (process.env.OPENAI_API_KEY) { provider = 'openai'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to openai`); }
   }
   const factory = PROVIDERS[provider];
   if (!factory) {
@@ -452,7 +452,7 @@ Return ONLY the markdown with frontmatter — no preamble, no commentary.`;
     // Adaptive backoff: longer sleep between posts so we don't trip TPM limits on 70B
     // 2s after a success, 8s after a failure (rate limit recovery)
     if (i < topics.length - 1) {
-      const sleepSec = fail > 0 ? 8 : 2;
+      const sleepSec = fail > 0 ? 30 : 10;
       process.stdout.write(`   ⏱  waiting ${sleepSec}s before next post...\n`);
       await new Promise((r) => setTimeout(r, sleepSec * 1000));
     }

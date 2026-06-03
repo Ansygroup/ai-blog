@@ -25,11 +25,30 @@ export async function GET() {
   const categoryUrls = categories.map((c) => `${base}/category/${c.name.toLowerCase().replace(/\s+/g, '-')}`);
   const tagUrls = tags.map((t) => `${base}/tag/${t.name.toLowerCase().replace(/\s+/g, '-')}`);
 
+  const now = new Date().toISOString().split('T')[0];
+
+  const priorityFor = (u) => {
+    if (u === base + '/') return '1.0';
+    if (pageUrls.includes(u)) return '0.9';
+    if (postUrls.includes(u)) return '0.8';
+    if (categoryUrls.includes(u)) return '0.7';
+    return '0.6';
+  };
+
+  const lastmodFor = (u) => {
+    if (postUrls.includes(u)) {
+      const slug = u.replace(base + '/posts/', '');
+      const post = posts.find((p) => p.slug === slug);
+      if (post) return post.lastUpdated || post.date || now;
+    }
+    return now;
+  };
+
   const allUrls = [...pageUrls, ...postUrls, ...categoryUrls, ...tagUrls];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allUrls.map((u) => `  <url><loc>${u}</loc><changefreq>weekly</changefreq><priority>${u === base + '/' ? '1.0' : '0.8'}</priority></url>`).join('\n')}
+${allUrls.map((u) => `  <url><loc>${u}</loc><lastmod>${lastmodFor(u)}</lastmod><changefreq>weekly</changefreq><priority>${priorityFor(u)}</priority></url>`).join('\n')}
 </urlset>`;
   return new NextResponse(xml, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=3600' } });
 }

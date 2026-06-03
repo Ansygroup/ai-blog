@@ -39,10 +39,6 @@ for (const f of files) {
       removed = true;
       return ''; // delete
     }
-    if (m.index === 0) {
-      removed = true;
-      return '';
-    }
     return m;
   });
 
