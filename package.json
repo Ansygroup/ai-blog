@@ -23,6 +23,7 @@
     "intelligence:full": "node scripts/content-refresher.js --refresh && node scripts/seo-optimizer.js --fix && node scripts/auto-internal-link.js && node scripts/seo-audit.js"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "dotenv": "^16.4.5",
     "gray-matter": "^4.0.3",
     "next": "^14.2.35",
