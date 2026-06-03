@@ -41,7 +41,7 @@ jobs:
           git config user.email "bot@aipulsedaily.com"
           git config user.name "Programmatic SEO Agent"
           git checkout -b "$BRANCH"
-          git add content/comparisons/
+          git add content/posts/
           git commit -m "auto: new comparison pages $(date +%Y-%m-%d)"
           git push origin "$BRANCH"
           gh pr create --title "auto: programmatic SEO pages $(date +%Y-%m-%d)" --body "Auto-generated comparison pages." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
