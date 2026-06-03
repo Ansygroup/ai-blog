@@ -22,9 +22,6 @@ export const metadata = {
   creator: siteConfig.author,
   publisher: siteConfig.name,
   formatDetection: { email: false, address: false, telephone: false },
-  verification: {
-    google: '4MTtjFO5dCr1gexus_gewxdL819Nzx-EFZXggeYuNY8',
-  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -32,14 +29,14 @@ export const metadata = {
     title: siteConfig.name,
     description: siteConfig.tagline,
     siteName: siteConfig.name,
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: siteConfig.name }],
+    images: [{ url: '/og-default.svg', width: 1200, height: 630, alt: siteConfig.name }],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.name,
     description: siteConfig.tagline,
     creator: '@yourhandle',
-    images: ['/og-default.png'],
+    images: ['/og-default.svg'],
   },
   robots: {
     index: true,
@@ -50,6 +47,7 @@ export const metadata = {
     canonical: siteConfig.url,
     types: { 'application/rss+xml': `${siteConfig.url}/rss.xml` },
   },
+  icons: { icon: '/favicon.svg' },
   verification: { google: 'PASTE-YOUR-GSC-CODE', bing: 'PASTE-YOUR-BING-CODE' },
 };
 
@@ -137,7 +135,7 @@ function websiteJsonLd() {
       '@type': 'Organization',
       name: siteConfig.name,
       url: siteConfig.url,
-      logo: { '@type': 'ImageObject', url: `${siteConfig.url}/logo.png` },
+      logo: { '@type': 'ImageObject', url: `${siteConfig.url}/logo.svg` },
     },
   };
 }

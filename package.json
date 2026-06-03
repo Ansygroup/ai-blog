@@ -13,7 +13,15 @@
     "indexnow": "node scripts/indexnow-submit.js",
     "smoke": "node scripts/smoke-test.js",
     "smoke:start": "node scripts/smoke-test.js --start-server",
-    "workflows:check": "node scripts/validate-workflows.js"
+    "workflows:check": "node scripts/validate-workflows.js",
+    "links:auto": "node scripts/auto-internal-link.js",
+    "seo:optimize": "node scripts/seo-optimizer.js",
+    "seo:optimize:fix": "node scripts/seo-optimizer.js --fix",
+    "content:strategy": "node scripts/content-strategy.js",
+    "content:strategy:fill": "node scripts/content-strategy.js --fill-queue",
+    "content:refresh": "node scripts/content-refresher.js",
+    "content:refresh:run": "node scripts/content-refresher.js --refresh",
+    "intelligence:full": "node scripts/content-refresher.js --refresh && node scripts/seo-optimizer.js --fix && node scripts/auto-internal-link.js && node scripts/seo-audit.js"
   },
   "dependencies": {
     "next": "^14.2.35",

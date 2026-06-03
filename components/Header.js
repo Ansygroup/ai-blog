@@ -1,7 +1,17 @@
 import Link from 'next/link';
 import { siteConfig } from '../lib/config';
+import { getAllCategories } from '../lib/posts';
 
 export default function Header() {
+  const categories = getAllCategories();
+  const navLinks = [
+    { href: '/reviews', label: 'Reviews' },
+    { href: '/comparisons', label: 'Comparisons' },
+    { href: '/tutorials', label: 'Tutorials' },
+    ...(categories.some((c) => c.name === 'Best Of') ? [{ href: '/best', label: 'Best Of' }] : []),
+    { href: '/about', label: 'About' },
+  ];
+
   return (
     <header className="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,11 +25,9 @@ export default function Header() {
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
             <Link href="/" className="hover:text-blue-600 transition">Home</Link>
-            <Link href="/reviews" className="hover:text-blue-600 transition">Reviews</Link>
-            <Link href="/comparisons" className="hover:text-blue-600 transition">Comparisons</Link>
-            <Link href="/tutorials" className="hover:text-blue-600 transition">Tutorials</Link>
-            <Link href="/best" className="hover:text-blue-600 transition">Best Of</Link>
-            <Link href="/about" className="hover:text-blue-600 transition">About</Link>
+            {navLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="hover:text-blue-600 transition">{link.label}</Link>
+            ))}
           </nav>
           <div className="flex items-center gap-3">
             <Link href="/search" aria-label="Search" className="p-2 hover:bg-slate-100 rounded-full transition">

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# LLMs.txt — AI engine index of this site's authoritative content
+# See: https://llmstxt.org
+Sitemap: https://yourdomain.com/sitemap.xml

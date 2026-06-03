@@ -27,7 +27,6 @@
  */
 const fs = require('fs');
 const path = require('path');
-const http = require('http');
 const { spawn } = require('child_process');
 
 const args = process.argv.slice(2);
@@ -44,15 +43,15 @@ const START_SERVER = args.includes('--start-server');
 let serverProc = null;
 
 async function fetchText(path) {
-  return new Promise((resolve, reject) => {
-    const req = http.get(`${BASE}${path}`, (res) => {
-      let data = '';
-      res.on('data', (c) => (data += c));
-      res.on('end', () => resolve({ status: res.statusCode, body: data, headers: res.headers }));
-    });
-    req.on('error', reject);
-    req.setTimeout(10000, () => req.destroy(new Error('timeout')));
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+  try {
+    const res = await fetch(`${BASE}${path}`, { signal: controller.signal });
+    const body = await res.text();
+    return { status: res.status, body, headers: Object.fromEntries(res.headers.entries()) };
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 const tests = [];
@@ -253,7 +252,9 @@ async function waitForServer(maxWaitSec = 30) {
   const start = Date.now();
   while (Date.now() - start < maxWaitSec * 1000) {
     try {
-      const r = await fetchText('/');
+      const c = new AbortController();
+      setTimeout(() => c.abort(), 3000);
+      const r = await fetch(`${BASE}/`, { signal: c.signal });
       if (r.status === 200) return true;
     } catch (_) {}
     await new Promise((r) => setTimeout(r, 1000));

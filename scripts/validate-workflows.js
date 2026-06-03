@@ -3,7 +3,7 @@ const path = require('path');
 
 const required = ['name:', 'on:', 'jobs:'];
 let allOk = true;
-for (const f of ['.github/workflows/deploy.yml', '.github/workflows/scheduled-content.yml']) {
+for (const f of ['.github/workflows/deploy.yml', '.github/workflows/scheduled-content.yml', '.github/workflows/intelligence-loop.yml']) {
   const fp = path.resolve(__dirname, '..', f);
   if (!fs.existsSync(fp)) { console.log('  ❌', f, '| missing'); allOk = false; continue; }
   const c = fs.readFileSync(fp, 'utf8');

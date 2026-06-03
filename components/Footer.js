@@ -20,7 +20,7 @@ export default function Footer() {
             <li><Link href="/comparisons" className="hover:text-white">Comparisons</Link></li>
             <li><Link href="/tutorials" className="hover:text-white">Tutorials</Link></li>
             <li><Link href="/best" className="hover:text-white">Best Of Lists</Link></li>
-            <li><Link href="/rss.xml" className="hover:text-white">RSS Feed</Link></li>
+            <li><Link href="/reviews" className="hover:text-white">All Articles</Link></li>
           </ul>
         </div>
         <div>
