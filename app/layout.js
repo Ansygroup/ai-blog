@@ -49,7 +49,7 @@ export const metadata = {
   },
   icons: { icon: '/favicon.svg' },
   manifest: '/manifest.webmanifest',
-  // verification: { google: 'YOUR_GSC_CODE', bing: 'YOUR_BING_CODE' },
+  verification: { google: 'y7AXfkgsUGiewK9dcouEB5kyOFYhOxIIxm8j_qEkUCE', bing: '' },
 };
 
 export const viewport = {
