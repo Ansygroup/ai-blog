@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AdSlot from '../components/AdSlot';
 import NewsletterCTA from '../components/NewsletterCTA';
+
 import Script from 'next/script';
 import { Analytics } from "@vercel/analytics/next";
 
@@ -63,6 +64,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" style={{ fontFamily: systemFontStack }}>
       <head>
+        {/* Dark mode init — runs before paint to prevent flash */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          try { if (localStorage.theme === 'dark' || (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark'); } catch(e) {}
+        `}} />
         {/* AI Search Engine crawler permissions — CRITICAL for GEO */}
         {/* JSON-LD inline (not next/script) so it's in the initial SSR HTML — crawlers and AI engines read the raw HTML */}
         <script
@@ -71,7 +76,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
       </head>
-      <body className="bg-slate-50 text-slate-900 antialiased" style={{ fontFamily: systemFontStack }}>
+      <body className="bg-slate-50 dark:bg-dark-bg text-slate-900 dark:text-dark-text antialiased" style={{ fontFamily: systemFontStack }}>
         <Header />
         <main className="min-h-screen">{children}</main>
         <NewsletterCTA />

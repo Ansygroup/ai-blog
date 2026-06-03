@@ -306,7 +306,6 @@ author: "Editorial Team"
 category: "<Reviews|Comparisons|Tutorials|Best Of|AI News>"
 tags: ["tag1", "tag2", "tag3", "tag4", "tag5"]
 cover: "https://images.unsplash.com/photo-XXXXX?w=1200"
-rating: 4.5
 draft: false
 ---
 
@@ -391,14 +390,15 @@ async function generatePost(provider, topicObj) {
 Primary keyword: "${topic}"
 Related keywords to weave in naturally: ${keywords}
 Category: ${category}
-Target length: 2,200-2,800 words
+Target length: 2,500-3,000 words
 Tone: expert, friendly, slightly opinionated. Use specific numbers, examples, and tool names.
 Include a real product comparison table where relevant.
 The intro must be under 80 words.
 Every H2 should be a question or contain the primary keyword phrase.
+NEVER repeat the same H2 heading twice — each H2 must be unique.
 The FAQ must have 4-6 real questions people ask on Google.
 Cite at least 2 real competitors / alternatives in the article.
-Return ONLY the markdown with frontmatter — no preamble, no commentary.`;
+CRITICAL: Return ONLY the markdown with frontmatter — absolutely no preamble, no commentary, no explanation before or after the markdown. Start directly with "---" and end with the markdown content.`;
 
   const content = await provider.generateText(userPrompt, SYSTEM_PROMPT);
 

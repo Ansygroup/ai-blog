@@ -2,10 +2,12 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '../../../lib/posts';
 import { renderSafeMarkdown } from '../../../lib/markdown';
-import { articleJsonLd, breadcrumbJsonLd, faqJsonLd } from '../../../lib/schema';
+import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, productReviewJsonLd, howtoJsonLd } from '../../../lib/schema';
 import { siteConfig } from '../../../lib/config';
 import AdSlot from '../../../components/AdSlot';
 import PostCard from '../../../components/PostCard';
+import TableOfContents from '../../../components/TableOfContents';
+import ShareButtons from '../../../components/ShareButtons';
 
 export const dynamic = 'force-static';
 
@@ -55,6 +57,17 @@ export default async function PostPage({ params }) {
         { name: 'Home', url: siteConfig.url }, { name: post.category || 'Article', url: `${siteConfig.url}/category/${(post.category || '').toLowerCase().replace(/\s+/g, '-')}` }, { name: post.title, url }
       ])) }} />
       {faqs && <script id="ld-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs)) }} />}
+      {post.rating && <script id="ld-review" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productReviewJsonLd({
+        name: post.title,
+        description: post.excerpt,
+        image: post.cover,
+        rating: { value: post.rating, count: 1 },
+      })) }} />}
+      {post.content.toLowerCase().includes('how to') && <script id="ld-howto" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howtoJsonLd({
+        name: post.title,
+        description: post.excerpt,
+        steps: [{ name: 'Overview', text: post.excerpt }],
+      })) }} />}
 
       <nav className="text-sm text-slate-500 mb-6" aria-label="Breadcrumb">
         <ol className="flex items-center gap-2">
@@ -104,6 +117,8 @@ export default async function PostPage({ params }) {
             </div>
           )}
 
+          <ShareButtons title={post.title} url={url} />
+
           {/* FAQ section (renders from <details> blocks in markdown if present) */}
           {faqs && faqs.length > 0 && (
             <section className="mt-12 bg-slate-50 border border-slate-200 rounded-xl p-6">
@@ -124,7 +139,8 @@ export default async function PostPage({ params }) {
         </div>
 
         {/* Sidebar */}
-        <aside className="space-y-6">
+        <aside className="space-y-8">
+          <TableOfContents />
           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-5">
             <h3 className="font-bold text-lg mb-2">📧 Free AI Brief</h3>
             <p className="text-sm text-slate-700 mb-3">The 5 biggest AI tool launches and deals every week.</p>

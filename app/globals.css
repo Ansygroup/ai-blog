@@ -35,4 +35,15 @@
   .prose-blog .affiliate-callout { @apply bg-amber-50 border-2 border-amber-300 rounded-lg p-5 my-6; }
   .prose-blog .key-takeaways { @apply bg-emerald-50 border-l-4 border-emerald-500 p-5 my-6 rounded-r; }
   .prose-blog .key-takeaways h4 { @apply text-emerald-800 mt-0; }
+  .dark .prose-blog h2 { @apply border-dark-border; }
+  .dark .prose-blog p { @apply text-dark-text; }
+  .dark .prose-blog li { @apply text-dark-text; }
+  .dark .prose-blog blockquote { @apply bg-dark-card border-blue-600 text-dark-text; }
+  .dark .prose-blog code { @apply bg-dark-card text-pink-300; }
+  .dark .prose-blog th { @apply bg-dark-card border-dark-border text-dark-text; }
+  .dark .prose-blog td { @apply border-dark-border text-dark-text; }
+  .dark .prose-blog .key-takeaways { @apply bg-emerald-900/20 border-emerald-600; }
+  .anchor-link { @apply ml-2 text-slate-300 dark:text-slate-600 no-underline hover:text-blue-500 dark:hover:text-blue-400 transition-opacity opacity-0 group-hover:opacity-100; }
+  .prose-blog h2:hover .anchor-link, .prose-blog h3:hover .anchor-link { @apply opacity-100; }
+  .anchor-icon { @apply text-lg font-bold; }
 }
