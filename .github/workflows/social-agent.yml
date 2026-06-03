@@ -12,7 +12,7 @@ on:
 
 jobs:
   social:
-    name: Post to social channels
+    name: Generate social posts
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -28,7 +28,7 @@ jobs:
         run: |
           NEW_FILES=$(git diff --name-only HEAD~1 -- content/posts/ || echo "")
           if [ -z "$NEW_FILES" ]; then
-            echo "No new posts found."
+            echo "No new posts."
             echo "has_posts=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -37,36 +37,26 @@ jobs:
           echo "$NEW_FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Generate social posts
+      - name: Generate social content
         if: steps.posts.outputs.has_posts == 'true'
         run: |
           for f in ${{ steps.posts.outputs.files }}; do
-            if [ ! -f "$f" ]; then continue; fi
-            TITLE=$(head -30 "$f" | grep "^title:" | sed 's/^title: *["\x27]//;s/["\x27]$//')
-            EXCERPT=$(head -30 "$f" | grep "^excerpt:" | sed 's/^excerpt: *["\x27]//;s/["\x27]$//')
-            SLUG=$(basename "$f" .mdx)
-            URL="${{ secrets.NEXT_PUBLIC_SITE_URL }}/posts/$SLUG"
-            echo "=== $TITLE ==="
-            echo "URL: $URL"
-            echo "Twitter: $TITLE $URL"
-            echo "LinkedIn: $EXCERPT $URL"
-          done > social-posts.txt
-          cat social-posts.txt
+            if [ -f "$f" ]; then node scripts/social-content.js "$f"; fi
+          done
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
 
-      - name: Post to Twitter
+      - name: Commit social content
         if: steps.posts.outputs.has_posts == 'true'
         run: |
-          echo "Twitter API not configured yet."
-          echo "Would post:"
-          head -5 social-posts.txt
+          BRANCH="auto/social-$(date +%s)"
+          git config user.email "bot@aipulsedaily.com"
+          git config user.name "Social Agent"
+          git checkout -b "$BRANCH"
+          git add public/social/
+          git commit -m "auto: social content for new posts" || exit 0
+          git push origin "$BRANCH"
+          gh pr create --title "auto: social content $(date +%Y-%m-%d)" --body "Generated social media posts." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
+          gh pr merge --auto --squash "$(grep -oP '/pull/\K[0-9]+' pr-url.txt)"
         env:
-          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
-
-      - name: Post to LinkedIn
-        if: steps.posts.outputs.has_posts == 'true'
-        run: |
-          echo "LinkedIn API not configured yet."
-          echo "Would post:"
-          head -5 social-posts.txt
-        env:
-          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

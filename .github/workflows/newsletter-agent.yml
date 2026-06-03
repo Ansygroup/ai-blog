@@ -16,40 +16,29 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-node@v4
         with: { node-version: 20, cache: npm }
       - run: npm ci
 
-      - name: Find this week's posts
-        run: |
-          ONE_WEEK_AGO=$(date -d "7 days ago" +%s)
-          echo "=== This Week's Posts ==="
-          for f in $(ls -t content/posts/*.mdx 2>/dev/null); do
-            FILE_DATE=$(head -30 "$f" | grep "^date:" | sed 's/^date: *//')
-            if [ -z "$FILE_DATE" ]; then continue; fi
-            FILE_TS=$(date -d "$FILE_DATE" +%s 2>/dev/null || echo 0)
-            if [ "$FILE_TS" -gt "$ONE_WEEK_AGO" ]; then
-              TITLE=$(head -30 "$f" | grep "^title:" | sed 's/^title: *["\x27]//;s/["\x27]$//')
-              SLUG=$(basename "$f" .mdx)
-              echo "  - $TITLE ($SLUG)"
-            fi
-          done > weekly-posts.txt
-          cat weekly-posts.txt
+      - name: Generate newsletter
+        run: node scripts/newsletter-generator.js
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
 
-      - name: Generate digest HTML
+      - name: Commit newsletter
         run: |
-          echo "=== AI Pulse Daily — Weekly Digest ==="
-          echo ""
-          echo "This week's top AI tool reviews:"
-          echo ""
-          cat weekly-posts.txt
-          echo ""
-          echo "---"
-          echo "Would send via email when newsletter API is configured."
-
-      - name: Save digest
-        run: |
-          mkdir -p public/digests
-          cat weekly-posts.txt > public/digests/weekly-$(date +%Y-%m-%d).txt
+          if git diff --quiet; then
+            echo "No new posts this week."
+            exit 0
+          fi
+          BRANCH="auto/newsletter-$(date +%s)"
+          git config user.email "bot@aipulsedaily.com"
+          git config user.name "Newsletter Agent"
+          git checkout -b "$BRANCH"
+          git add public/digests/
+          git commit -m "auto: weekly digest $(date +%Y-%m-%d)"
+          git push origin "$BRANCH"
+          gh pr create --title "auto: weekly digest $(date +%Y-%m-%d)" --body "Auto-generated newsletter digest." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
+          gh pr merge --auto --squash "$(grep -oP '/pull/\K[0-9]+' pr-url.txt)"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
