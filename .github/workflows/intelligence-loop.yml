@@ -43,6 +43,7 @@ jobs:
           node scripts/content-strategy.js --fill-queue 2>&1 || echo "suggestion_failed=true" >> $GITHUB_OUTPUT
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
 
       - name: SEO optimization
         if: inputs.skip_optimization != 'true'

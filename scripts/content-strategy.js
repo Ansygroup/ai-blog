@@ -95,6 +95,57 @@ function analyzeContent(posts) {
   return report.join('\n');
 }
 
+// ---- Apify Trend Research ----
+async function apifyTrendResearch() {
+  const apiKey = process.env.APIFY_API_KEY;
+  if (!apiKey) { console.log('  ℹ️  No APIFY_API_KEY — skipping web research\n'); return ''; }
+
+  const queries = ['best AI tools 2026', 'AI trends 2026', 'new AI tools launched', 'AI news today', 'AI tools for business', 'ChatGPT alternatives 2026'];
+  let allResults = [];
+
+  for (const q of queries) {
+    try {
+      const res = await fetch(`https://api.apify.com/v2/acts/apify~google-search-scraper/runs?token=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          keyword: q, maxPagesPerQuery: 1, resultsPerPage: 3,
+          mobileResults: false, languageCode: 'en',
+        }),
+      });
+      if (!res.ok) continue;
+      const { data } = await res.json();
+      if (!data?.id) continue;
+
+      // Wait for actor to finish (max 30s)
+      for (let attempt = 0; attempt < 15; attempt++) {
+        await new Promise((r) => setTimeout(r, 2000));
+        const statusRes = await fetch(`https://api.apify.com/v2/acts/apify~google-search-scraper/runs/${data.id}?token=${apiKey}`);
+        const status = await statusRes.json();
+        if (status.data?.status === 'SUCCEEDED') {
+          const outRes = await fetch(`https://api.apify.com/v2/acts/apify~google-search-scraper/runs/${data.id}/dataset/items?token=${apiKey}`);
+          const items = await outRes.json();
+          if (Array.isArray(items)) {
+            for (const item of items.slice(0, 3)) {
+              if (item.title && item.url) {
+                allResults.push({ title: item.title, snippet: (item.description || '').slice(0, 200), url: item.url });
+              }
+            }
+          }
+          break;
+        }
+        if (status.data?.status === 'FAILED') break;
+      }
+    } catch (e) {
+      // silent — fall back gracefully
+    }
+  }
+
+  if (allResults.length === 0) return '';
+  console.log(`  🌐 Web research: ${allResults.length} real results from Google\n`);
+  return allResults.map((r, i) => `${i + 1}. ${r.title}\n   ${r.snippet}\n   ${r.url}`).join('\n');
+}
+
 // ---- AI Suggestion Generator ----
 async function generateSuggestions(posts, queue) {
   const apiKey = process.env.GROQ_API_KEY || process.env.OPENAI_API_KEY || process.env.GEMINI_API_KEY;
@@ -107,6 +158,9 @@ async function generateSuggestions(posts, queue) {
   const existingTopics = posts.map((p) => p.title);
   const queuedTopics = queue.map((q) => q.topic);
 
+  console.log('  🔍 Searching Google for trending AI topics...');
+  const webData = await apifyTrendResearch();
+
   const prompt = `You are a content strategy expert for an AI tools review blog.
 
 EXISTING POSTS (${posts.length} total):
@@ -114,6 +168,8 @@ ${existingTopics.map((t, i) => `  ${i + 1}. ${t}`).join('\n')}
 
 CURRENT QUEUE (${queuedTopics.length} topics):
 ${queuedTopics.map((t, i) => `  ${i + 1}. ${t}`).join('\n')}
+
+${webData ? `REAL SEARCH RESULTS FROM GOOGLE (use these for data-driven insights):\n${webData}\n` : ''}
 
 Analyze the gaps and suggest 8-12 NEW high-intent AI niche topics that:
 1. Are NOT already covered by existing posts or in the queue
