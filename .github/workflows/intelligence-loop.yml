@@ -98,7 +98,7 @@ jobs:
           NEXT_PUBLIC_SITE_NAME: ${{ secrets.NEXT_PUBLIC_SITE_NAME }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
-      - name: Create PR with changes
+      - name: Create PR with changes and enable auto-merge
         run: |
           if git diff --quiet; then
             echo "No changes to push."
@@ -144,7 +144,9 @@ jobs:
           )" \
             --base main \
             --head "$BRANCH" \
-            --label "auto-generated"
+            --label "auto-generated" | tee pr-url.txt
+          PR_NUMBER=$(grep -oP '/pull/\K[0-9]+' pr-url.txt)
+          gh pr merge --auto --squash "$PR_NUMBER"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
