@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com',
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://ai-blog-ten-steel.vercel.app',
   generateRobotsTxt: false, // we ship our own GEO-optimized robots.txt in /public
   changefreq: 'weekly',
   priority: 0.7,

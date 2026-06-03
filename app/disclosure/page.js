@@ -22,7 +22,7 @@ export default function DisclosurePage() {
       <h2>Our affiliate partners</h2>
       <p>Current partners include (but are not limited to): Jasper AI, Surfer SEO, NordVPN, Copy.ai, and Amazon. Affiliate programs are subject to change.</p>
       <h2>Questions?</h2>
-      <p>Email hello@yourdomain.com with any questions about our affiliate relationships.</p>
+      <p>Email hello@ai-blog-ten-steel.vercel.app with any questions about our affiliate relationships.</p>
     </div>
   );
 }

@@ -35,7 +35,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: siteConfig.name,
     description: siteConfig.tagline,
-    creator: '@yourhandle',
+    creator: '@aipulsedaily',
     images: ['/og-default.svg'],
   },
   robots: {
@@ -48,7 +48,7 @@ export const metadata = {
     types: { 'application/rss+xml': `${siteConfig.url}/rss.xml` },
   },
   icons: { icon: '/favicon.svg' },
-  verification: { google: 'PASTE-YOUR-GSC-CODE', bing: 'PASTE-YOUR-BING-CODE' },
+  verification: { google: '', bing: '' },
 };
 
 export const viewport = {

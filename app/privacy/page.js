@@ -16,7 +16,7 @@ export default function PrivacyPage() {
       <h2>Children's privacy</h2>
       <p>This site is not directed at children under 13. We do not knowingly collect data from children.</p>
       <h2>Contact</h2>
-      <p>Email: hello@yourdomain.com</p>
+      <p>Email: hello@ai-blog-ten-steel.vercel.app</p>
     </div>
   );
 }

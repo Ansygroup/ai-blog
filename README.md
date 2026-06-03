@@ -7,7 +7,7 @@
 #   3. Multiple monetization streams
 #   4. 24/7 automated content publishing
 #
-# Stack: Next.js 14 (App Router) + Tailwind + MDX + OpenAI
+# Stack: Next.js 14 (App Router) + Tailwind + MDX + Groq
 # Hosting: Vercel (free) or any Node host
 # ==============================================
 
@@ -19,9 +19,9 @@ cd ai-blog
 npm install
 cp .env.example .env.local
 # Edit .env.local — at minimum, set:
-#   NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+#   NEXT_PUBLIC_SITE_URL=https://ai-blog-ten-steel.vercel.app
 #   NEXT_PUBLIC_SITE_NAME="Your AI Blog"
-#   OPENAI_API_KEY=sk-...   (for content generation)
+#   GROQ_API_KEY=gsk-...   (for content generation, free)
 ```
 
 ### 2. Run locally

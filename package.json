@@ -9,7 +9,6 @@
     "start": "next start -p 3000",
     "post:generate": "node scripts/generate-post.js",
     "seo:audit": "node scripts/seo-audit.js",
-    "ads:setup": "node scripts/ads-setup.js",
     "indexnow": "node scripts/indexnow-submit.js",
     "smoke": "node scripts/smoke-test.js",
     "smoke:start": "node scripts/smoke-test.js --start-server",

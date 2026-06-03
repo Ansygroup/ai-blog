@@ -138,7 +138,7 @@ async function makeOpenRouterProvider() {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${apiKey}`,
-          'HTTP-Referer': 'https://aipulsedaily.example.com',
+          'HTTP-Referer': 'https://ai-blog-ten-steel.vercel.app',
           'X-Title': 'AI Pulse Daily',
         },
         body: JSON.stringify({

@@ -17,7 +17,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env.local') });
 
 const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ai-blog-ten-steel.vercel.app';
 
 function getAllPosts() {
   return fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.mdx')).map((f) => {

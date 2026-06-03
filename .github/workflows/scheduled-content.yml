@@ -38,7 +38,7 @@ jobs:
             exit 0
           fi
           BRANCH="auto/content-$(date +%s)"
-          git config user.email "bot@yourdomain.com"
+          git config user.email "bot@ai-blog-ten-steel.vercel.app"
           git config user.name "Auto-Publisher"
           git checkout -b "$BRANCH"
           git add content/posts/ scripts/keyword-queue.json

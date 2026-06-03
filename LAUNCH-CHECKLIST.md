@@ -78,7 +78,7 @@ Cloudflare is free and gives you CDN + bot protection + faster global load.
 **Google Search Console:** https://search.google.com/search-console
 1. Add property → URL prefix → enter your full https:// domain
 2. Verify via DNS TXT record (Cloudflare → DNS → Add record)
-3. Sitemaps → submit `https://yourdomain.com/sitemap.xml`
+3. Sitemaps → submit `https://ai-blog-ten-steel.vercel.app/sitemap.xml`
 4. URL Inspection → test one post URL → click "Request indexing"
 
 **Bing Webmaster Tools:** https://www.bing.com/webmasters
@@ -120,7 +120,7 @@ Apply to all 4 on day 2. They take days/weeks to approve, so submit early.
 
 **Plausible (privacy-first, no cookie banner needed):** https://plausible.io
 - Add site, get snippet
-- Set `NEXT_PUBLIC_PLAUSIBLE_DOMAIN=yourdomain.com` in Vercel env
+- Set `NEXT_PUBLIC_PLAUSIBLE_DOMAIN=ai-blog-ten-steel.vercel.app` in Vercel env
 - Redeploy
 
 **Microsoft Clarity (free, unlimited heatmaps + session recordings):** https://clarity.microsoft.com

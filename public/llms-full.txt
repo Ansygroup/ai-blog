@@ -3,4 +3,4 @@ Allow: /
 
 # LLMs.txt — AI engine index of this site's authoritative content
 # See: https://llmstxt.org
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://ai-blog-ten-steel.vercel.app/sitemap.xml
