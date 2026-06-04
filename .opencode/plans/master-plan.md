@@ -1,10 +1,10 @@
-# MASTER PLAN: AI Pulse Daily — 14 Agent System
+# MASTER PLAN: AI Pulse Daily — 15 Agent System
 
 ## Status: ✅ FULLY OPERATIONAL (14 agents + 5 backing scripts)
 
 ---
 
-## Part A: New Workflows (10 files)
+## Part A: New Workflows (11 files)
 
 | # | File | Agent | Schedule | Purpose |
 |---|------|-------|----------|---------|
@@ -18,6 +18,7 @@
 | 8 | `.github/workflows/amazon-affiliate-agent.yml` | Amazon Affiliate | on publish | Insert affiliate links, track |
 | 9 | `.github/workflows/bing-trust-agent.yml` | Bing Trust | daily | Bing URL submission, IndexNow, monitor |
 | 10 | `.github/workflows/pinterest-agent.yml` | Pinterest | on publish | Auto-generate pins, schedule, boards |
+| 11 | `.github/workflows/queue-refill.yml` | Queue Refill | every 6h | Keep keyword queue ≥ 10 topics |
 
 ---
 
@@ -67,6 +68,16 @@ Phase 2: New workflows (A)
   → Commit: "feat: 9 new agent workflows — editor, social, analytics, seo, geo, refresh, newsletter, affiliate, bing"
 
 Phase 3: Push all → System goes live
+
+## ✅ Post-Deployment Additions
+- Queue Refill Agent (every 6h, keeps ≥10 topics in keyword queue)
+- Programmatic generator script (7 comparison pairs)
+- Newsletter generator script (weekly digest to public/digests/)
+- Social content generator script (Twitter/LinkedIn copy)
+- Analytics report script (weekly stats to public/reports/)
+- Affiliate linker script (keyword→Amazon product mapping)
+- Search page → proper Client Component
+- Category slug → shared slugify utility
 ```
 
 ## Validation
