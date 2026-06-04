@@ -471,6 +471,176 @@
           "category": "tablets"
         }
       ]
+    },
+    "smart-home": {
+      "name": "🏠 Smart Home & Automation",
+      "description": "Best smart home devices to automate your life in 2026 — smart speakers, displays, thermostats, and more.",
+      "query": "best smart home devices 2026",
+      "products": [
+        {
+          "asin": "B0BLC8ZN4S",
+          "name": "Amazon Echo Dot (5th Gen, 2022)",
+          "slug": "echo-dot-5th-gen",
+          "price": 49.99,
+          "image": "https://m.media-amazon.com/images/I/61nR3C7vGSL._AC_SL1500_.jpg",
+          "rating": 4.7,
+          "reviewsCount": 135000,
+          "description": "Amazon Echo Dot with improved sound quality, temperature sensor, motion detection, Alexa voice control, and Eero mesh Wi-Fi support.",
+          "highlights": ["Best-selling smart speaker", "Temperature sensor", "Eero support", "Improved sound"],
+          "features": {"Speaker": "1.73\" front-firing", "Smart home hub": "Built-in (Sidewalk)", "Sensors": "Temperature, motion", "Connectivity": "Wi-Fi 5, Bluetooth 5.0", "Smart assistant": "Alexa", "Color": "Glacier White, Charcoal, Lavender"},
+          "category": "smart-home"
+        },
+        {
+          "asin": "B0BL8VB4PC",
+          "name": "Amazon Echo Show 8 (3rd Gen, 2023)",
+          "slug": "echo-show-8-3rd",
+          "price": 149.99,
+          "image": "https://m.media-amazon.com/images/I/61jKz8q7L7L._AC_SL1500_.jpg",
+          "rating": 4.5,
+          "reviewsCount": 28000,
+          "description": "8-inch HD smart display with spatial audio, adaptive color, built-in Zigbee smart home hub, 13MP camera with auto-framing, and Alexa.",
+          "highlights": ["Spatial audio", "Adaptive color display", "Zigbee hub", "Auto-framing camera"],
+          "features": {"Display": "8\" HD (1280x800)", "Speaker": "2\" full-range + passive radiator", "Camera": "13MP with auto-framing", "Smart hub": "Zigbee, Matter", "Connectivity": "Wi-Fi 6, Bluetooth 5.0", "Assistant": "Alexa"},
+          "category": "smart-home"
+        },
+        {
+          "asin": "B08HR99N6J",
+          "name": "Google Nest Hub (2nd Gen)",
+          "slug": "google-nest-hub-2nd",
+          "price": 99.99,
+          "image": "https://m.media-amazon.com/images/I/61PzYZr3M6L._AC_SL1500_.jpg",
+          "rating": 4.5,
+          "reviewsCount": 42000,
+          "description": "7-inch Smart Display with Google Assistant, Soli sleep sensing, Quick Gestures, media streaming, and smart home control hub.",
+          "highlights": ["Soli sleep sensing", "Quick Gestures", "Google Assistant", "Smart home hub"],
+          "features": {"Display": "7\" touchscreen", "Speaker": "Full-range 1.7\" driver", "Sensors": "Soli, light, temperature", "Assistant": "Google Assistant", "Connectivity": "Wi-Fi 5, Bluetooth 5.0", "Compatibility": "Google Home, Matter"},
+          "category": "smart-home"
+        },
+        {
+          "asin": "B09CNFLQ9P",
+          "name": "Google Nest Learning Thermostat (4th Gen)",
+          "slug": "nest-learning-thermostat",
+          "price": 249.99,
+          "image": "https://m.media-amazon.com/images/I/61PzYZr3M6L._AC_SL1500_.jpg",
+          "rating": 4.4,
+          "reviewsCount": 32000,
+          "description": "Smart thermostat that learns your schedule, programs itself, and helps save energy. Compatible with 95% of HVAC systems, Nest Renew, and Matter.",
+          "highlights": ["Self-learning", "Energy savings", "Matter compatible", "Remote control"],
+          "features": {"Compatibility": "95% of HVAC", "Display": "HD color screen", "Sensors": "Temperature, humidity, occupancy", "Connectivity": "Wi-Fi 5, Bluetooth, Thread", "Power": "C-wire or Nest Power Connector", "Savings": "Average 10-12% on heating, 15% on cooling"},
+          "category": "smart-home"
+        },
+        {
+          "asin": "B0B2KJ2H9N",
+          "name": "Philips Hue White & Color Ambiance Starter Kit",
+          "slug": "philips-hue-starter",
+          "price": 189.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.6,
+          "reviewsCount": 18000,
+          "description": "Smart lighting starter kit with 4 A19 LED bulbs and Hue Bridge. 16 million colors, voice control with Alexa/Google/Apple, and customizable routines.",
+          "highlights": ["16M colors", "Voice control", "Custom routines", "Hue Bridge included"],
+          "features": {"Bulbs": "4x A19 800 lumens", "Bridge": "Hue Bridge v2", "Colors": "16 million", "Protocol": "Zigbee, Matter compatible", "Voice": "Alexa, Google, Apple HomeKit", "Smart home": "Works with Hue ecosystem"},
+          "category": "smart-home"
+        },
+        {
+          "asin": "B08BJC6H1Z",
+          "name": "TP-Link Kasa Smart Plug Mini (4-Pack)",
+          "slug": "kasa-smart-plug",
+          "price": 39.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.7,
+          "reviewsCount": 45000,
+          "description": "Compact Wi-Fi smart plugs with energy monitoring, scheduling, remote control via Kasa app, voice control with Alexa/Google, and no hub required.",
+          "highlights": ["Energy monitoring", "No hub required", "Compact design", "Voice control"],
+          "features": {"Outlets": "4-pack", "Connectivity": "Wi-Fi 2.4GHz", "App": "Kasa", "Voice": "Alexa, Google Assistant", "Features": "Energy monitoring, scheduling, remote control", "Rating": "15A, 120VAC"},
+          "category": "smart-home"
+        }
+      ]
+    },
+    "storage": {
+      "name": "💾 SSDs & Storage Solutions",
+      "description": "Fast NVMe SSDs, external drives, and NAS solutions for AI workloads and developers in 2026.",
+      "query": "best NVMe SSDs for AI 2026",
+      "products": [
+        {
+          "asin": "B0BHJD6F3X",
+          "name": "Samsung 990 Pro 2TB NVMe SSD",
+          "slug": "samsung-990-pro",
+          "price": 209.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.8,
+          "reviewsCount": 15000,
+          "description": "PCIe 4.0 NVMe M.2 SSD with sequential read speeds up to 7,450 MB/s and write speeds up to 6,900 MB/s. Optimized for gaming and heavy workloads.",
+          "highlights": ["7,450 MB/s reads", "PCIe 4.0", "2TB capacity", "Hardware encryption"],
+          "features": {"Capacity": "2TB", "Interface": "PCIe 4.0 NVMe M.2", "Read": "7,450 MB/s", "Write": "6,900 MB/s", "NAND": "Samsung V-NAND 3-bit MLC", "DWPD": "0.3 (600 TBW)"},
+          "category": "storage"
+        },
+        {
+          "asin": "B0B7CK6J8N",
+          "name": "WD Black SN850X 2TB NVMe SSD",
+          "slug": "wd-black-sn850x",
+          "price": 189.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.7,
+          "reviewsCount": 12000,
+          "description": "PCIe Gen4 NVMe M.2 SSD with speeds up to 7,300 MB/s. Game Mode 2.0 with load balancing, predictive caching, and overhead monitoring.",
+          "highlights": ["7,300 MB/s reads", "Game Mode 2.0", "Competitive pricing", "2TB capacity"],
+          "features": {"Capacity": "2TB", "Interface": "PCIe 4.0 NVMe M.2", "Read": "7,300 MB/s", "Write": "6,300 MB/s", "NAND": "3D TLC NAND", "DWPD": "0.3 (600 TBW)"},
+          "category": "storage"
+        },
+        {
+          "asin": "B0B8L8L8L8",
+          "name": "Samsung T7 Shield 2TB External SSD",
+          "slug": "samsung-t7-shield",
+          "price": 179.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.7,
+          "reviewsCount": 28000,
+          "description": "Rugged external SSD with IP65 water/dust resistance, 3-meter drop protection, read speeds up to 1,050 MB/s, and USB 3.2 Gen 2 interface.",
+          "highlights": ["IP65 rated", "3m drop proof", "1,050 MB/s reads", "USB 3.2 Gen 2"],
+          "features": {"Capacity": "2TB", "Interface": "USB 3.2 Gen 2 (USB-C)", "Read": "1,050 MB/s", "Write": "1,000 MB/s", "Durability": "IP65, 3m drop", "Encryption": "AES 256-bit"},
+          "category": "storage"
+        },
+        {
+          "asin": "B0BLC8ZN4S",
+          "name": "Synology DiskStation DS923+ 4-Bay NAS",
+          "slug": "synology-ds923-plus",
+          "price": 499.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.6,
+          "reviewsCount": 6200,
+          "description": "4-bay NAS with AMD Ryzen R1600 dual-core processor, 4GB DDR4 ECC, dual M.2 NVMe slots, 10GbE upgrade option, and Synology DiskStation Manager.",
+          "highlights": ["4-bay expandable", "Dual M.2 NVMe cache", "10GbE ready", "DSM operating system"],
+          "features": {"Bays": "4 (up to 72TB)", "CPU": "AMD Ryzen R1600", "RAM": "4GB DDR4 ECC (max 32GB)", "Cache": "Dual M.2 NVMe", "Network": "2x 1GbE (10GbE upgrade)", "USB": "2x USB 3.2"},
+          "category": "storage"
+        },
+        {
+          "asin": "B08JC6H1ZP",
+          "name": "Sabrent Rocket 4 Plus 4TB NVMe SSD",
+          "slug": "sabrent-rocket-4-plus",
+          "price": 399.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.6,
+          "reviewsCount": 8500,
+          "description": "Massive 4TB PCIe Gen4 NVMe M.2 SSD with read speeds up to 7,100 MB/s. Ideal for AI datasets, video editing, and large-scale development.",
+          "highlights": ["4TB massive capacity", "7,100 MB/s reads", "AI dataset ready", "PCIe 4.0"],
+          "features": {"Capacity": "4TB", "Interface": "PCIe 4.0 NVMe M.2", "Read": "7,100 MB/s", "Write": "6,600 MB/s", "NAND": "3D TLC NAND", "DWPD": "0.3 (1,200 TBW)"},
+          "category": "storage"
+        },
+        {
+          "asin": "B0B8B8B8B8",
+          "name": "WD My Passport 5TB Portable HDD",
+          "slug": "wd-my-passport-5tb",
+          "price": 119.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.6,
+          "reviewsCount": 38000,
+          "description": "5TB portable external hard drive with USB 3.2 Gen 1, hardware encryption, backup software, and slim design. Massive storage for backups and archives.",
+          "highlights": ["5TB capacity", "Hardware encryption", "Auto backup", "USB 3.2 Gen 1"],
+          "features": {"Capacity": "5TB", "Interface": "USB 3.2 Gen 1 (USB-C)", "Speed": "140 MB/s", "Encryption": "AES 256-bit", "Software": "WD Backup, WD Drive Utilities", "Warranty": "3-year limited"},
+          "category": "storage"
+        }
+      ]
     }
   }
 }
