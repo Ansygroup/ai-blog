@@ -400,7 +400,7 @@ CRITICAL: Return ONLY the markdown with frontmatter — no preamble or commentar
 
   // Strip code fences if model wrapped it
   let cleaned = content.replace(/^```markdown\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '');
-  // Fix date and lastUpdated to actual today
+  // Fix date and lastUpdated to actual today (use m flag for multiline)
   const todayStr = new Date().toISOString().split('T')[0];
   cleaned = cleaned.replace(/^date:\s*["']?[^"'\n]+["']?/m, `date: "${todayStr}"`);
   cleaned = cleaned.replace(/^lastUpdated:\s*["']?[^"'\n]+["']?/m, `lastUpdated: "${todayStr}"`);

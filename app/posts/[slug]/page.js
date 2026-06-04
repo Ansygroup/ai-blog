@@ -9,6 +9,7 @@ import PostCard from '../../../components/PostCard';
 import TableOfContents from '../../../components/TableOfContents';
 import ShareButtons from '../../../components/ShareButtons';
 import ProgressBar from '../../../components/ProgressBar';
+import RelatedProducts from '../../../components/RelatedProducts';
 
 export const dynamic = 'force-static';
 
@@ -119,6 +120,8 @@ export default async function PostPage({ params }) {
               </div>
             </div>
           )}
+
+          <RelatedProducts tags={post.tags} category={post.category} limit={3} />
 
           {/* Prev/Next navigation */}
           <nav className="mt-10 pt-6 border-t border-slate-200 dark:border-dark-border flex flex-col sm:flex-row justify-between gap-4">

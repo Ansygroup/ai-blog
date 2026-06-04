@@ -1,47 +1,5 @@
 [
   {
-    "topic": "cursor vs github copilot vs codeium 2026",
-    "category": "Comparisons",
-    "keywords": [
-      "cursor",
-      "copilot",
-      "codeium"
-    ]
-  },
-  {
-    "topic": "gamma vs tome vs beautiful ai 2026",
-    "category": "Comparisons",
-    "keywords": [
-      "ai presentations"
-    ]
-  },
-  {
-    "topic": "jasper vs writesonic vs copy ai 2026",
-    "category": "Comparisons",
-    "keywords": [
-      "jasper",
-      "writesonic",
-      "copy ai"
-    ]
-  },
-  {
-    "topic": "claude 4 vs gpt-4o vs gemini 1.5 2026",
-    "category": "Comparisons",
-    "keywords": [
-      "claude 4",
-      "gpt-4o",
-      "gemini"
-    ]
-  },
-  {
-    "topic": "notion ai vs clickup ai 2026",
-    "category": "Comparisons",
-    "keywords": [
-      "notion ai",
-      "clickup ai"
-    ]
-  },
-  {
     "topic": "frase vs surfer seo vs clearscope 2026",
     "category": "Comparisons",
     "keywords": [
@@ -381,6 +339,24 @@
       "AI project management",
       "project management software",
       "team collaboration"
+    ]
+  },
+  {
+    "topic": "how to use ai for market research 2026",
+    "category": "Tutorials",
+    "keywords": [
+      "ai market research",
+      "consumer insights ai",
+      "market analysis ai"
+    ]
+  },
+  {
+    "topic": "ai tools for seo agencies 2026",
+    "category": "Reviews",
+    "keywords": [
+      "seo agency ai",
+      "enterprise ai seo",
+      "surfer seo"
     ]
   }
 ]
