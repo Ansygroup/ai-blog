@@ -1,8 +1,11 @@
 import Link from 'next/link';
+import fs from 'fs';
+import path from 'path';
 import { getAllPosts, getAllCategories, slugify } from '../lib/posts';
 import { siteConfig } from '../lib/config';
 import { breadcrumbJsonLd, faqJsonLd, organizationJsonLd } from '../lib/schema';
 import PostCard from '../components/PostCard';
+import ProductCard from '../components/ProductCard';
 import AdSlot from '../components/AdSlot';
 
 export const dynamic = 'force-static';
@@ -26,6 +29,14 @@ export default function HomePage() {
   const secondary = posts.slice(1, 4);
   const grid = posts.slice(4, 13);
   const categories = getAllCategories().slice(0, 8);
+
+  const dbPath = path.join(process.cwd(), 'scripts', 'amazon-db.json');
+  let topProducts = [];
+  try {
+    const raw = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
+    const all = Object.values(raw).flat();
+    topProducts = all.sort((a, b) => (b.reviews || 0) - (a.reviews || 0)).slice(0, 6);
+  } catch (e) { /* no db */ }
 
   const homeFaqs = [
     { question: 'How do you test AI tools?', answer: 'We sign up for paid plans, run the same 10 real-world tasks across every tool, and rate output quality, speed, pricing, and support. Each review includes a transparent scoring rubric.' },
@@ -88,6 +99,21 @@ export default function HomePage() {
             <div className="space-y-4">
               {secondary.map((p) => <PostCard key={p.slug} post={p} />)}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* TOP PICKS FROM STORE */}
+      {topProducts.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">🛒 Top Picks from Our Store</h2>
+            <Link href="/recommendations" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline text-sm">Browse all products →</Link>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {topProducts.map((p) => (
+              <ProductCard key={p.asin} product={p} />
+            ))}
           </div>
         </section>
       )}
