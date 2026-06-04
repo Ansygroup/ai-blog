@@ -80,45 +80,62 @@ async function makeGroqProvider() {
     async generateText(prompt, systemPrompt) {
       let lastErr;
       for (const model of models) {
-        try {
-          const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-            body: JSON.stringify({
-              model,
-              messages: [
-                { role: 'system', content: systemPrompt },
-                { role: 'user', content: prompt },
-              ],
-              temperature: 0.7,
-              max_tokens: 4500,
-            }),
-          });
-          if (res.ok) {
-            const data = await res.json();
-            return data.choices?.[0]?.message?.content?.trim() || '';
+        let retries = 0;
+        while (retries <= 1) {
+          try {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+              body: JSON.stringify({
+                model,
+                messages: [
+                  { role: 'system', content: systemPrompt },
+                  { role: 'user', content: prompt },
+                ],
+                temperature: 0.7,
+                max_tokens: 4500,
+              }),
+            });
+            if (res.ok) {
+              const data = await res.json();
+              return data.choices?.[0]?.message?.content?.trim() || '';
+            }
+            const errText = await res.text();
+            // 429 = rate limit — retry once, then switch model
+            if (res.status === 429) {
+              retries++;
+              if (retries <= 1) {
+                console.log(`   ⏳ ${model}: 429 — retrying in 8s...`);
+                await new Promise((r) => setTimeout(r, 8000));
+                lastErr = new Error(`Groq ${res.status}: ${errText.slice(0, 120)}`);
+                continue;
+              }
+              console.log(`   ⏳ ${model}: 429 again — switching to next model`);
+              lastErr = new Error(`Groq ${res.status}: ${errText.slice(0, 120)}`);
+              await new Promise((r) => setTimeout(r, 3000));
+              break;
+            }
+            // 413 = too long — try next model
+            if (res.status === 413) {
+              console.log(`   ⏳ ${model}: ${res.status} — too long, switching to next model`);
+              lastErr = new Error(`Groq ${res.status}: ${errText.slice(0, 120)}`);
+              await new Promise((r) => setTimeout(r, 5000));
+              break;
+            }
+            // 400 with "decommissioned" or other model errors → try next
+            if (res.status === 400 && /decommissioned|not supported|not found|invalid model/i.test(errText)) {
+              console.log(`   ⏳ ${model}: 400 (model gone) — switching to next`);
+              lastErr = new Error(`Groq ${res.status}: ${errText.slice(0, 120)}`);
+              break;
+            }
+            // Hard error — don't retry
+            throw new Error(`Groq ${res.status}: ${errText.slice(0, 200)}`);
+          } catch (err) {
+            if (err.message.startsWith('Groq ')) throw err;
+            lastErr = err;
+            console.log(`   ⏳ ${model}: network error — switching to next`);
+            break;
           }
-          const errText = await res.text();
-          // 429 = rate limit, 413 = too long. On 429/400 (model unavailable) try the next fallback.
-          if (res.status === 429 || res.status === 413) {
-            console.log(`   ⏳ ${model}: ${res.status} — switching to next model`);
-            lastErr = new Error(`Groq ${res.status}: ${errText.slice(0, 120)}`);
-            await new Promise((r) => setTimeout(r, 5000));
-            continue;
-          }
-          // 400 with "decommissioned" or other model errors → try next
-          if (res.status === 400 && /decommissioned|not supported|not found|invalid model/i.test(errText)) {
-            console.log(`   ⏳ ${model}: 400 (model gone) — switching to next`);
-            lastErr = new Error(`Groq ${res.status}: ${errText.slice(0, 120)}`);
-            continue;
-          }
-          // Hard error — don't retry
-          throw new Error(`Groq ${res.status}: ${errText.slice(0, 200)}`);
-        } catch (err) {
-          // Network error or hard error
-          if (err.message.startsWith('Groq ')) throw err;
-          lastErr = err;
-          console.log(`   ⏳ ${model}: network error — switching to next`);
         }
       }
       throw lastErr || new Error('All Groq models failed');
@@ -297,13 +314,19 @@ function getTopics() {
 const SYSTEM_PROMPT = `You are a senior SEO content writer for an independent AI tools review site.
 You write long-form, deeply researched, E-E-A-T-compliant articles optimized for BOTH Google search (SEO) AND AI search engines like Perplexity, ChatGPT, and Google AI Overviews (GEO = Generative Engine Optimization).
 
-Your output must be valid Markdown with YAML frontmatter. Use this structure:
+CRITICAL RULES:
+1. QUALITY: Minimum 1500 words not counting frontmatter. Minimum 5 H2 headings. Include a FAQ section with 4-6 questions.
+2. GEO SECTIONS (REQUIRED): Every post MUST have <div class="key-takeaways"> and <div class="quick-answer"> after the H1.
+3. AMAZON LINKS: When relevant to the topic, naturally mention products available on Amazon and link them with Amazon URLs using the format https://www.amazon.com/dp/XXXX?tag=ansy07-20. For example, if writing about AI tools, mention laptops or monitors that readers might need.
+4. COVER IMAGE: Use a real Unsplash photo URL: https://images.unsplash.com/photo-XXXXX?w=1200. Pick a relevant photo ID.
+
+Your output must be valid Markdown with YAML frontmatter. Use this exact structure:
 
 ---
 title: "<SEO title 50-60 chars>"
 slug: "<auto>"
-excerpt: "<150-160 char meta>"
-description: "<same>"
+excerpt: "<150-160 char meta description including primary keyword>"
+description: "<same as excerpt>"
 date: "<YYYY-MM-DD>"
 lastUpdated: "<YYYY-MM-DD>"
 author: "Editorial Team"
@@ -313,15 +336,15 @@ cover: "https://images.unsplash.com/photo-XXXXX?w=1200"
 draft: false
 ---
 
-# <H1>
+# <H1 — include primary keyword>
 
-<2-3 sentence hook. Primary keyword in first sentence.>
+<2-3 sentence hook. Primary keyword in first sentence. Keep it punchy.>
 
 <div class="key-takeaways">
 
 ## Key Takeaways
 
-- 3-5 bullet summary points (pulled by AI engines as TL;DR)
+- 3-5 bullet summary points with specific numbers and data
 
 </div>
 
@@ -329,52 +352,62 @@ draft: false
 
 ## Quick Answer
 
-<2-3 sentence direct answer. Start with recommendation, not background.>
+<2-3 sentence direct answer. Start with a clear recommendation, not background.>
 
 </div>
 
 ## What Is <Primary Keyword>?
 
-<Define topic. 2-3 paragraphs. Use primary keyword 2-3 times naturally.>
+<Define topic. 2-3 paragraphs with specific examples. Use primary keyword 2-3 times.>
 
-## How We Test
+## How We Tested
 
-<1 paragraph methodology — E-E-A-T trust signal for Google and AI engines.>
+<1 paragraph methodology — E-E-A-T trust signal. Include time spent, number of tools tested, criteria.>
 
-<5-8 main H2 sections 200-400 words each. NEVER repeat same H2 heading twice.>
+<5-8 main H2 sections, 250-400 words each. NEVER repeat same H2 heading twice. Each section must have specific tool names, prices, and data. Include 1-2 Amazon affiliate links naturally within the content where relevant (e.g., "paired with a [Dell UltraSharp 4K monitor](https://www.amazon.com/dp/B09N3ZN2YY?tag=ansy07-20)").>
 
 ## Pros and Cons
 
 | Pros | Cons |
 |------|------|
-| <point> | <point> |
+| <specific point> | <specific point> |
+| <specific point> | <specific point> |
 
-## Pricing
+## Pricing Overview
 
-<Structured pricing info — AI engines love tables.>
+<Structured pricing — AI engines love comparison tables.>
 
 ## Who Should Use This?
 
-<2-3 short user personas.>
+<2-3 specific user personas with tool recommendations.>
 
 ## Who Should Skip This?
 
-<Honest counter-recommendation.>
+<Honest counter-recommendation with alternative suggestions.>
 
 ## FAQ
 
-### <Real user question>
-<2-3 sentence answer>
+### <Real question people search>
+<2-3 sentence answer with specific details>
 
-(repeat 4-6 unique questions)
+### <Real question people search>
+<2-3 sentence answer with specific details>
+
+### <Real question people search>
+<2-3 sentence answer with specific details>
+
+### <Real question people search>
+<2-3 sentence answer with specific details>
+
+(minimum 4 questions, 6 max)
 
 ## Final Verdict
 
-<3-4 sentence verdict. Bold the final recommendation.>
+<3-4 sentence verdict. Bold the final recommendation. Include a comparison to a runner-up.>
 
 ---
 
-**About the author:** Editorial Team tests AI tools hands-on. [Disclosure: affiliate links.]`;
+**About the author:** Editorial Team tests AI tools hands-on. Prices and ratings are accurate as of publication date. [Disclosure: This post contains affiliate links. As an Amazon Associate we earn from qualifying purchases.]`;
 
 async function generatePost(provider, topicObj) {
   const topic = topicObj.topic;
@@ -409,9 +442,22 @@ CRITICAL: Return ONLY the markdown with frontmatter — no preamble or commentar
   const slugMatch = cleaned.match(/^slug:\s*["']?([^"'\n]+)["']?/m);
   const slug = slugMatch ? slugMatch[1].trim() : slugify(topic);
 
+  // Quality check
+  const body = cleaned.match(/^---\n[\s\S]+?\n---\n([\s\S]+)$/)?.[1] || cleaned;
+  const wordCount = body.trim().split(/\s+/).filter(Boolean).length;
+  const h2Count = (body.match(/^## /gm) || []).length;
+  const hasFaq = body.includes('## FAQ');
+  const hasGEO = body.includes('class="key-takeaways"') && body.includes('class="quick-answer"');
+  const warnings = [];
+  if (wordCount < 800) warnings.push(`thin content (${wordCount} words)`);
+  if (h2Count < 3) warnings.push(`only ${h2Count} H2 headings`);
+  if (!hasFaq) warnings.push('missing FAQ');
+  if (!hasGEO) warnings.push('missing GEO sections');
+  if (warnings.length > 0) console.log(`   ⚠  ${warnings.join(', ')}`);
+
   const filePath = path.join(POSTS_DIR, `${slug}.mdx`);
   fs.writeFileSync(filePath, cleaned, 'utf8');
-  console.log(`✅ Wrote ${filePath} (${(cleaned.length / 1024).toFixed(1)} KB)`);
+  console.log(`✅ Wrote ${filePath} (${(cleaned.length / 1024).toFixed(1)} KB, ${wordCount} words, ${h2Count} H2)`);
 
   // Remove from queue if it was there
   if (fromQueue) {
@@ -449,10 +495,9 @@ CRITICAL: Return ONLY the markdown with frontmatter — no preamble or commentar
       console.error(`❌ Failed: ${t.topic}\n   ${err.message}`);
       fail++;
     }
-    // Adaptive backoff: longer sleep between posts so we don't trip TPM limits on 70B
-    // 2s after a success, 8s after a failure (rate limit recovery)
+    // Adaptive backoff: longer sleep between posts so we don't trip rate limits
     if (i < topics.length - 1) {
-      const sleepSec = fail > 0 ? 30 : 10;
+      const sleepSec = fail > 0 ? 15 : 8;
       process.stdout.write(`   ⏱  waiting ${sleepSec}s before next post...\n`);
       await new Promise((r) => setTimeout(r, sleepSec * 1000));
     }
