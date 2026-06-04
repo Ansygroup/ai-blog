@@ -56,6 +56,10 @@ export default function RecommendationsPage() {
 
         {/* Category buttons */}
         <div className="flex flex-wrap gap-3 mb-10">
+          <Link href="/recommendations/search" className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 hover:border-blue-500 px-4 py-2.5 rounded-xl transition group">
+            <span className="text-lg">🔍</span>
+            <span className="font-medium text-slate-900 dark:text-dark-text ml-1">Search Products</span>
+          </Link>
           {entries.map(([slug, cat]) => (
             <Link key={slug} href={`/recommendations/${slug}`} className="bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border hover:border-blue-500 px-4 py-2.5 rounded-xl transition group">
               <span className="text-lg">{cat.name.split(' ')[0]}</span>
