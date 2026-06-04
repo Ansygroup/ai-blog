@@ -399,7 +399,11 @@ CRITICAL: Return ONLY the markdown with frontmatter — no preamble or commentar
   const content = await provider.generateText(userPrompt, SYSTEM_PROMPT);
 
   // Strip code fences if model wrapped it
-  const cleaned = content.replace(/^```markdown\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '');
+  let cleaned = content.replace(/^```markdown\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '');
+  // Fix date and lastUpdated to actual today
+  const todayStr = new Date().toISOString().split('T')[0];
+  cleaned = cleaned.replace(/^date:\s*["']?[^"'\n]+["']?/m, `date: "${todayStr}"`);
+  cleaned = cleaned.replace(/^lastUpdated:\s*["']?[^"'\n]+["']?/m, `lastUpdated: "${todayStr}"`);
 
   // Derive slug from frontmatter or topic
   const slugMatch = cleaned.match(/^slug:\s*["']?([^"'\n]+)["']?/m);
