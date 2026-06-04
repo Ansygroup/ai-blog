@@ -33,9 +33,9 @@ export async function generateMetadata({ params }) {
       modifiedTime: post.lastUpdated || post.date,
       authors: [post.author || siteConfig.author],
       tags: post.tags,
-      images: post.cover ? [{ url: post.cover, width: 1200, height: 630 }] : undefined,
+      images: [{ url: `${siteConfig.url}/og/${post.slug}`, width: 1200, height: 630 }],
     },
-    twitter: { card: 'summary_large_image', title: post.title, description: post.excerpt, images: post.cover ? [post.cover] : undefined },
+    twitter: { card: 'summary_large_image', title: post.title, description: post.excerpt, images: [`${siteConfig.url}/og/${post.slug}`] },
   };
 }
 
