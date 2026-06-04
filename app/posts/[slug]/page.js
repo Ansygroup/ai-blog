@@ -47,7 +47,7 @@ export default async function PostPage({ params }) {
   const contentHtml = await renderSafeMarkdown(post.content);
 
   const url = `${siteConfig.url}/posts/${post.slug}`;
-  const related = getRelatedPosts(post.slug, post.category, 3);
+  const related = getRelatedPosts(post.slug, post.category, post.tags || [], 3);
   const faqs = parseFAQs(post.content);
 
   return (
