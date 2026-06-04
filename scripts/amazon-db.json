@@ -7,84 +7,21 @@
       "query": "best laptops for AI development 2026",
       "products": [
         {
-          "asin": "B0CX23V2ZK",
-          "name": "MacBook Air M3 13-inch",
-          "slug": "macbook-air-m3",
-          "price": 1099,
-          "image": "https://m.media-amazon.com/images/I/71Vl5IoO2iL._AC_SL1500_.jpg",
-          "rating": 4.7,
-          "reviewsCount": 8200,
-          "description": "Apple M3 chip, 8-core CPU, 10-core GPU, 8GB unified memory, 13.6-inch Liquid Retina display, up to 18 hours battery life.",
-          "highlights": ["Apple M3 chip", "18-hour battery", "Fanless design", "13.6-inch display"],
-          "features": {"Processor": "Apple M3", "RAM": "8GB", "Storage": "256GB SSD", "Display": "13.6\" Liquid Retina", "Weight": "2.7 lbs"},
-          "category": "laptops"
-        },
-        {
-          "asin": "B0CM5K5H5P",
-          "name": "MacBook Pro M3 Pro 14-inch",
-          "slug": "macbook-pro-m3",
-          "price": 1999,
-          "image": "https://m.media-amazon.com/images/I/61H7qZ8M-hL._AC_SL1500_.jpg",
-          "rating": 4.8,
-          "reviewsCount": 5400,
-          "description": "Apple M3 Pro chip, 11-core CPU, 14-core GPU, 18GB unified memory, 14.2-inch Liquid Retina XDR display.",
-          "highlights": ["M3 Pro chip", "Liquid Retina XDR", "18GB unified memory", "22-hour battery"],
-          "features": {"Processor": "Apple M3 Pro", "RAM": "18GB", "Storage": "512GB SSD", "Display": "14.2\" Liquid Retina XDR", "Weight": "3.5 lbs"},
-          "category": "laptops"
-        },
-        {
-          "asin": "B0C8B5LQ8H",
-          "name": "Dell XPS 15 OLED",
-          "slug": "dell-xps-15",
-          "price": 1799,
-          "image": "https://m.media-amazon.com/images/I/71pLb7QbK+L._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 3200,
-          "description": "Intel Core i7-13700H, 16GB DDR5, 512GB SSD, 15.6-inch 3.5K OLED InfinityEdge display, Intel Arc graphics.",
-          "highlights": ["3.5K OLED display", "Intel i7-13700H", "Premium build", "Thin & light"],
-          "features": {"Processor": "Intel i7-13700H", "RAM": "16GB DDR5", "Storage": "512GB SSD", "Display": "15.6\" 3.5K OLED", "Weight": "4.2 lbs"},
-          "category": "laptops"
-        },
-        {
-          "asin": "B0BV8G6H9P",
-          "name": "Lenovo ThinkPad X1 Carbon Gen 11",
-          "slug": "thinkpad-x1-carbon",
-          "price": 1649,
-          "image": "https://m.media-amazon.com/images/I/61w6dQ6Kt3L._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 1800,
-          "description": "Intel Core i7-1365U, 16GB LPDDR5, 512GB SSD, 14-inch WUXGA IPS display, Thunderbolt 4, fingerprint reader.",
-          "highlights": ["Ultralight 2.48 lbs", "Military-grade durability", "Excellent keyboard", "Thunderbolt 4"],
-          "features": {"Processor": "Intel i7-1365U", "RAM": "16GB LPDDR5", "Storage": "512GB SSD", "Display": "14\" WUXGA IPS", "Weight": "2.48 lbs"},
-          "category": "laptops"
-        },
-        {
-          "asin": "B0BV8F19WN",
-          "name": "ASUS ROG Zephyrus G14",
-          "slug": "asus-rog-zephyrus-g14",
-          "price": 1499,
-          "image": "https://m.media-amazon.com/images/I/81LwhpIE1NL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 2900,
-          "description": "AMD Ryzen 9 7940HS, NVIDIA GeForce RTX 4060, 16GB DDR5, 1TB SSD, 14-inch QHD 165Hz display.",
-          "highlights": ["RTX 4060 GPU", "165Hz QHD display", "AMD Ryzen 9", "Compact 14-inch"],
-          "features": {"Processor": "AMD Ryzen 9 7940HS", "GPU": "RTX 4060", "RAM": "16GB DDR5", "Storage": "1TB SSD", "Display": "14\" QHD 165Hz"},
-          "category": "laptops"
-        },
-        {
-          "asin": "B0CQ1L1H7P",
-          "name": "Microsoft Surface Laptop 6",
-          "slug": "surface-laptop-6",
-          "price": 1299,
-          "image": "https://m.media-amazon.com/images/I/61dAqNeFo7L._AC_SL1500_.jpg",
-          "rating": 4.4,
-          "reviewsCount": 1200,
-          "description": "Intel Core Ultra 7, 16GB LPDDR5x, 512GB SSD, 13.5-inch PixelSense touchscreen, Windows 11 Pro, AI Copilot key.",
-          "highlights": ["AI Copilot key", "PixelSense touch", "Intel Core Ultra 7", "Premium design"],
-          "features": {"Processor": "Intel Core Ultra 7", "RAM": "16GB LPDDR5x", "Storage": "512GB SSD", "Display": "13.5\" PixelSense Touch", "Weight": "2.89 lbs"},
-          "category": "laptops"
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
+          "category": "laptops",
+          "url": ""
         }
-      ]
+      ],
+      "lastScraped": "2026-06-04T20:10:59.170Z"
     },
     "headphones": {
       "name": "🎧 Headphones & Audio",
@@ -92,71 +29,21 @@
       "query": "best noise cancelling headphones 2026",
       "products": [
         {
-          "asin": "B09XS9P1BS",
-          "name": "Sony WH-1000XM5 Wireless",
-          "slug": "sony-wh1000xm5",
-          "price": 328,
-          "image": "https://m.media-amazon.com/images/I/51D1M9l7R8L._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 28500,
-          "description": "Industry-leading noise cancellation, 30-hour battery, crystal-clear hands-free calling, multipoint connection, adaptive sound control.",
-          "highlights": ["Best ANC on market", "30-hour battery", "Multipoint connection", "Comfortable fit"],
-          "features": {"Type": "Over-ear", "ANC": "Yes (Adaptive)", "Battery": "30 hours", "Driver": "30mm", "Weight": "8.8 oz", "Connectivity": "Bluetooth 5.2, USB-C"},
-          "category": "headphones"
-        },
-        {
-          "asin": "B0CHWRX2HR",
-          "name": "Apple AirPods Pro 2 (USB-C)",
-          "slug": "airpods-pro-2",
-          "price": 189,
-          "image": "https://m.media-amazon.com/images/I/61SUjWGTf7L._AC_SL1500_.jpg",
-          "rating": 4.7,
-          "reviewsCount": 45000,
-          "description": "Adaptive audio, active noise cancellation, personalized spatial audio, USB-C charging case with Find My and speaker.",
-          "highlights": ["Adaptive audio", "Spatial audio", "USB-C case", "Find My support"],
-          "features": {"Type": "In-ear TWS", "ANC": "Yes (Adaptive)", "Battery": "6h (30h case)", "Chip": "H2", "Weight": "0.19 oz each", "Connectivity": "Bluetooth 5.3, USB-C, MagSafe"},
-          "category": "headphones"
-        },
-        {
-          "asin": "B0CD1KX3Y2",
-          "name": "Bose QuietComfort Ultra",
-          "slug": "bose-qc-ultra",
-          "price": 349,
-          "image": "https://m.media-amazon.com/images/I/51Q9Wf7vJGL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 12400,
-          "description": "World-class noise cancellation, Immersive Audio with head tracking, CustomTune technology, 24-hour battery, Bluetooth 5.3.",
-          "highlights": ["CustomTune ANC", "Immersive Audio", "Head tracking", "Premium comfort"],
-          "features": {"Type": "Over-ear", "ANC": "Yes (CustomTune)", "Battery": "24 hours", "Driver": "35mm", "Weight": "9.2 oz", "Connectivity": "Bluetooth 5.3, USB-C"},
-          "category": "headphones"
-        },
-        {
-          "asin": "B0DLJ2ZQFV",
-          "name": "Apple AirPods Max (USB-C)",
-          "slug": "airpods-max",
-          "price": 479,
-          "image": "https://m.media-amazon.com/images/I/61H8qK7Qj-L._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 18000,
-          "description": "Apple-designed dynamic driver, active noise cancellation, spatial audio with dynamic head tracking, USB-C charging, 20-hour battery.",
-          "highlights": ["Apple H1 chip", "Spatial audio", "Premium build", "20-hour battery"],
-          "features": {"Type": "Over-ear", "ANC": "Yes", "Battery": "20 hours", "Driver": "Apple dynamic", "Weight": "13.6 oz", "Connectivity": "Bluetooth 5.0, USB-C, Lightning"},
-          "category": "headphones"
-        },
-        {
-          "asin": "B0C8Q7L6N9",
-          "name": "Sony WF-1000XM5 Earbuds",
-          "slug": "sony-wf1000xm5",
-          "price": 248,
-          "image": "https://m.media-amazon.com/images/I/61Bl4zrsP8L._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 9800,
-          "description": "World's smallest and lightest noise-cancelling earbuds, auto noise canceling, exceptional voice pickup, 8-hour battery, IPX4 water resistance.",
-          "highlights": ["Smallest ANC earbuds", "8-hour battery", "IPX4 water resistant", "Exceptional call quality"],
-          "features": {"Type": "In-ear TWS", "ANC": "Yes (Auto)", "Battery": "8h (24h case)", "Driver": "8.4mm", "Weight": "0.17 oz each", "Connectivity": "Bluetooth 5.3, USB-C, Qi"},
-          "category": "headphones"
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
+          "category": "headphones",
+          "url": ""
         }
-      ]
+      ],
+      "lastScraped": "2026-06-04T20:12:10.651Z"
     },
     "monitors": {
       "name": "🖥️ Monitors & Displays",
@@ -164,71 +51,21 @@
       "query": "best monitors for programming 2026",
       "products": [
         {
-          "asin": "B09N3ZN2YY",
-          "name": "Dell UltraSharp U2723QE 27-inch 4K",
-          "slug": "dell-ultrasharp-u2723qe",
-          "price": 429,
-          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
-          "rating": 4.7,
-          "reviewsCount": 6200,
-          "description": "27-inch 4K UHD (3840x2160) IPS Black panel, USB-C hub with 90W charging, built-in KVM, 100% sRGB, 100% Rec 709, factory-calibrated Delta E < 2.",
-          "highlights": ["IPS Black technology", "USB-C hub 90W", "Built-in KVM", "Factory calibrated"],
-          "features": {"Size": "27\"", "Resolution": "4K UHD (3840x2160)", "Panel": "IPS Black", "Refresh": "60Hz", "Ports": "USB-C 90W, HDMI, DP, USB-A", "VESA": "100x100mm"},
-          "category": "monitors"
-        },
-        {
-          "asin": "B09R6H2MZ9",
-          "name": "LG UltraGear 27GP950-B 4K Gaming",
-          "slug": "lg-ultragear-27gp950",
-          "price": 599,
-          "image": "https://m.media-amazon.com/images/I/81FSx2gnFZL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 4100,
-          "description": "27-inch 4K UHD Nano IPS 1ms, 160Hz (OC), HDMI 2.1, DisplayPort 1.4, NVIDIA G-Sync Compatible, VESA DisplayHDR 600.",
-          "highlights": ["4K 160Hz Nano IPS", "HDMI 2.1", "G-Sync Compatible", "DisplayHDR 600"],
-          "features": {"Size": "27\"", "Resolution": "4K UHD (3840x2160)", "Panel": "Nano IPS", "Refresh": "160Hz (OC)", "HDR": "DisplayHDR 600", "Ports": "HDMI 2.1x2, DP 1.4, USB-A"},
-          "category": "monitors"
-        },
-        {
-          "asin": "B0B4H6H1K9",
-          "name": "Apple Studio Display",
-          "slug": "apple-studio-display",
-          "price": 1599,
-          "image": "https://m.media-amazon.com/images/I/51q2jfehg0L._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 3800,
-          "description": "27-inch 5K Retina display, 12MP Ultra Wide camera with Center Stage, six-speaker sound system, three-mic array, Thunderbolt 3 hub.",
-          "highlights": ["5K Retina display", "Center Stage camera", "Six-speaker system", "Thunderbolt hub"],
-          "features": {"Size": "27\"", "Resolution": "5K (5120x2880)", "Panel": "IPS", "Refresh": "60Hz", "Camera": "12MP Ultra Wide", "Ports": "Thunderbolt 3, USB-C x3"},
-          "category": "monitors"
-        },
-        {
-          "asin": "B0BNF2J6N1",
-          "name": "Samsung Odyssey OLED G8 34-inch",
-          "slug": "samsung-odyssey-oled-g8",
-          "price": 899,
-          "image": "https://m.media-amazon.com/images/I/81LhQZq8Z5L._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 2100,
-          "description": "34-inch ultra-wide QD-OLED, 175Hz, 0.03ms response, 21:9 aspect ratio, AMD FreeSync Premium Pro, DisplayHDR True Black 400.",
-          "highlights": ["QD-OLED panel", "175Hz ultra-wide", "0.03ms response", "True Black 400"],
-          "features": {"Size": "34\" UW", "Resolution": "3440x1440", "Panel": "QD-OLED", "Refresh": "175Hz", "HDR": "DisplayHDR True Black 400", "Curvature": "1800R"},
-          "category": "monitors"
-        },
-        {
-          "asin": "B0BZ8FJ6N3",
-          "name": "ASUS ProArt PA279CRV 27-inch 4K",
-          "slug": "asus-proart-pa279crv",
-          "price": 449,
-          "image": "https://m.media-amazon.com/images/I/71YjRrq8v1L._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 1600,
-          "description": "27-inch 4K UHD IPS, 99% DCI-P3, Calman Verified, USB-C with 96W power delivery, built-in SD card reader, VESA mountable.",
-          "highlights": ["99% DCI-P3", "Calman Verified", "USB-C 96W PD", "Built-in SD reader"],
-          "features": {"Size": "27\"", "Resolution": "4K UHD (3840x2160)", "Panel": "IPS", "Refresh": "60Hz", "Color": "99% DCI-P3, 100% sRGB", "Ports": "USB-C 96W, HDMI 2.0, DP 1.4"},
-          "category": "monitors"
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
+          "category": "monitors",
+          "url": ""
         }
-      ]
+      ],
+      "lastScraped": "2026-06-04T20:12:46.289Z"
     },
     "ai-books": {
       "name": "📚 AI & Tech Books",
@@ -236,84 +73,21 @@
       "query": "best artificial intelligence books 2026",
       "products": [
         {
-          "asin": "B0BZ8Z8Z8Z",
-          "name": "ChatGPT for Dummies",
-          "slug": "chatgpt-for-dummies",
-          "price": 19.99,
-          "image": "https://m.media-amazon.com/images/I/71Tgx3BB3TL._AC_SL1500_.jpg",
-          "rating": 4.4,
-          "reviewsCount": 3200,
-          "description": "The easy and practical guide to understanding and using ChatGPT. From prompt writing to advanced use cases, this book covers it all for beginners and pros alike.",
-          "highlights": ["Beginner friendly", "200+ practical prompts", "Updated for GPT-4", "Real-world examples"],
-          "features": {"Format": "Paperback/Kindle", "Pages": "368", "Publisher": "Wiley", "Released": "2024", "Level": "Beginner"},
-          "category": "ai-books"
-        },
-        {
-          "asin": "B00LZ8Z8Z8",
-          "name": "Superintelligence: Paths, Dangers, Strategies",
-          "slug": "superintelligence",
-          "price": 13.99,
-          "image": "https://m.media-amazon.com/images/I/71Nr2YLB7QL._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 8900,
-          "description": "Nick Bostrom's seminal work on the future of artificial intelligence. Explores the path to superintelligence and the existential risks and opportunities it presents.",
-          "highlights": ["Foundational AI text", "Nick Bostrom", "Rigorously researched", "Thought-provoking"],
-          "features": {"Format": "Paperback/Kindle", "Pages": "352", "Publisher": "Oxford University Press", "Released": "2014", "Level": "Advanced"},
-          "category": "ai-books"
-        },
-        {
-          "asin": "B01HZ8Z8Z8",
-          "name": "Life 3.0: Being Human in the Age of Artificial Intelligence",
-          "slug": "life-3-0",
-          "price": 12.99,
-          "image": "https://m.media-amazon.com/images/I/71TcSVpUIYL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 7200,
-          "description": "Max Tegmark's exploration of how AI will reshape every aspect of our lives — from work and warfare to law and society. A must-read for understanding our AI future.",
-          "highlights": ["Max Tegmark", "Broad perspective", "Accessible writing", "Future scenarios"],
-          "features": {"Format": "Paperback/Kindle", "Pages": "384", "Publisher": "Vintage", "Released": "2018", "Level": "Intermediate"},
-          "category": "ai-books"
-        },
-        {
-          "asin": "B0CJZ8Z8Z8",
-          "name": "The AI Revolution in Medicine: GPT-4 and Beyond",
-          "slug": "ai-revolution-medicine",
-          "price": 24.99,
-          "image": "https://m.media-amazon.com/images/I/81vq1P5GLTL._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 1400,
-          "description": "How AI is transforming healthcare, from diagnosis to treatment planning. Written by leading medical AI researchers at Microsoft and beyond.",
-          "highlights": ["Healthcare focus", "Practical use cases", "Expert authors", "Latest research"],
-          "features": {"Format": "Paperback/Kindle", "Pages": "288", "Publisher": "Pearson", "Released": "2024", "Level": "Intermediate"},
-          "category": "ai-books"
-        },
-        {
-          "asin": "B0CQ1M2N7P",
-          "name": "Prompt Engineering for Generative AI",
-          "slug": "prompt-engineering",
-          "price": 29.99,
-          "image": "https://m.media-amazon.com/images/I/81eC6qWqS8L._AC_SL1500_.jpg",
-          "rating": 4.3,
-          "reviewsCount": 2100,
-          "description": "Master the art and science of prompt engineering. Learn to design effective prompts for ChatGPT, Claude, Gemini, and other large language models.",
-          "highlights": ["Practical guide", "Multi-model focus", "Advanced techniques", "Real examples"],
-          "features": {"Format": "Paperback/Kindle", "Pages": "350", "Publisher": "O'Reilly", "Released": "2025", "Level": "All levels"},
-          "category": "ai-books"
-        },
-        {
-          "asin": "B0BZ8Z8Z9A",
-          "name": "Nexus: A Brief History of Information Networks",
-          "slug": "nexus-information-networks",
-          "price": 22.99,
-          "image": "https://m.media-amazon.com/images/I/81vq1P5GLTL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 3800,
-          "description": "From the Stone Age to AI, Yuval Noah Harari explores how information networks have shaped human history — and what the AI revolution means for democracy.",
-          "highlights": ["Yuval Noah Harari", "Big-picture view", "AI & democracy", "Bestselling author"],
-          "features": {"Format": "Hardcover/Kindle", "Pages": "528", "Publisher": "Random House", "Released": "2024", "Level": "All levels"},
-          "category": "ai-books"
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
+          "category": "ai-books",
+          "url": ""
         }
-      ]
+      ],
+      "lastScraped": "2026-06-04T20:13:22.045Z"
     },
     "webcams": {
       "name": "🎥 Webcams & Streaming Gear",
@@ -321,84 +95,21 @@
       "query": "best webcams for streaming 2026",
       "products": [
         {
-          "asin": "B08NTS7VW3",
-          "name": "Logitech Brio 4K Ultra HD Webcam",
-          "slug": "logitech-brio-4k",
-          "price": 169,
-          "image": "https://m.media-amazon.com/images/I/61l5nJGw+GL._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 12500,
-          "description": "4K Ultra HD webcam with HDR, RightLight 3 for low-light conditions, 5x digital zoom, IR sensor for facial recognition, and triple microphone array.",
-          "highlights": ["True 4K resolution", "HDR support", "Windows Hello IR", "RightLight 3"],
-          "features": {"Resolution": "4K (3840x2160)", "FOV": "90° adjustable", "Mic": "Dual omnidirectional", "Zoom": "5x digital", "Mount": "Clip/tripod", "OS": "macOS/Windows/Chrome"},
-          "category": "webcams"
-        },
-        {
-          "asin": "B07S7Q8L7N",
-          "name": "Elgato Facecam",
-          "slug": "elgato-facecam",
-          "price": 149,
-          "image": "https://m.media-amazon.com/images/I/61KZ8w7Z7qL._AC_SL1500_.jpg",
-          "rating": 4.4,
-          "reviewsCount": 6800,
-          "description": "Full HD 1080p60 studio-grade webcam with advanced image settings, ultra-low latency, internal flash memory for settings, and premium all-glass lens.",
-          "highlights": ["1080p60 studio quality", "No software needed", "Settings on camera", "All-glass lens"],
-          "features": {"Resolution": "1080p (1920x1080)", "FPS": "60 fps", "Mic": "None (external recommended)", "FOV": "82°", "Mount": "Monitor/tripod", "Connection": "USB 3.0"},
-          "category": "webcams"
-        },
-        {
-          "asin": "B08GX3H4KX",
-          "name": "Elgato Stream Deck MK.2",
-          "slug": "elgato-stream-deck-mk2",
-          "price": 99,
-          "image": "https://m.media-amazon.com/images/I/61Q8z7rNVjL._AC_SL1500_.jpg",
-          "rating": 4.7,
-          "reviewsCount": 15200,
-          "description": "15 customizable LCD keys to streamline content creation, streaming, and productivity. One-touch actions for OBS, Twitch, Twitter, Photoshop, and more.",
-          "highlights": ["15 LCD keys", "Customizable actions", "Wide integration", "Productivity boost"],
-          "features": {"Keys": "15 LCD", "Connection": "USB-C", "Compatibility": "macOS/Windows/iOS", "Switch type": "Mechanical", "Cable": "5 ft detachable"},
-          "category": "webcams"
-        },
-        {
-          "asin": "B00N1YPXW2",
-          "name": "Blue Yeti USB Microphone",
-          "slug": "blue-yeti-usb",
-          "price": 109,
-          "image": "https://m.media-amazon.com/images/I/71IrFpR8EoL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 34200,
-          "description": "Professional USB condenser microphone with Blue's custom condenser capsules, four pickup patterns, mute button, headphone volume control, and plug-and-play operation.",
-          "highlights": ["Four pickup patterns", "Studio-quality sound", "Plug and play", "Built-in headphone amp"],
-          "features": {"Type": "Condenser USB", "Patterns": "Cardioid, bidirectional, omni, stereo", "Frequency": "20Hz-20kHz", "Sample rate": "48kHz", "Connection": "USB-C", "Weight": "3.5 lbs"},
-          "category": "webcams"
-        },
-        {
-          "asin": "B07QSCK7WK",
-          "name": "Rode NT-USB Mini",
-          "slug": "rode-nt-usb-mini",
-          "price": 99,
-          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 5600,
-          "description": "Compact USB condenser microphone with studio-grade sound, built-in pop filter, adjustable desktop stand, and zero-latency headphone monitoring.",
-          "highlights": ["Studio-grade sound", "Compact design", "Built-in pop filter", "Zero-latency monitoring"],
-          "features": {"Type": "Condenser USB", "Pattern": "Cardioid", "Frequency": "20Hz-20kHz", "Sample rate": "48kHz", "Connection": "USB-C", "Includes": "Desk stand, USB cable"},
-          "category": "webcams"
-        },
-        {
-          "asin": "B08D3J8K9L",
-          "name": "Elgato Wave:3 Premium Mic",
-          "slug": "elgato-wave-3",
-          "price": 149,
-          "image": "https://m.media-amazon.com/images/I/61L5nJG9+GL._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 7200,
-          "description": "Premium USB condenser microphone with Clipguard anti-distortion technology, capacitive mute button, and Wave Link mixing software for streamers.",
-          "highlights": ["Clipguard anti-distortion", "Capacitive mute", "Wave Link software", "Broadcast quality"],
-          "features": {"Type": "Condenser USB", "Pattern": "Cardioid", "Frequency": "70Hz-20kHz", "Sample rate": "96kHz/24-bit", "Connection": "USB-C", "Features": "Clipguard, capacitive mute"},
-          "category": "webcams"
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
+          "category": "webcams",
+          "url": ""
         }
-      ]
+      ],
+      "lastScraped": "2026-06-04T20:14:23.232Z"
     },
     "tablets": {
       "name": "📱 Tablets & E-Readers",
@@ -406,71 +117,21 @@
       "query": "best tablets for reading 2026",
       "products": [
         {
-          "asin": "B0D3J6K6RZ",
-          "name": "Apple iPad Pro M4 11-inch",
-          "slug": "ipad-pro-m4",
-          "price": 999,
-          "image": "https://m.media-amazon.com/images/I/81AxqPMTVEL._AC_SL1500_.jpg",
-          "rating": 4.7,
-          "reviewsCount": 7200,
-          "description": "Apple M4 chip, 11-inch Ultra Retina XDR display (Tandem OLED), 256GB, Thunderbolt 4, Wi-Fi 6E, Apple Pencil Pro support.",
-          "highlights": ["M4 chip", "Tandem OLED display", "Ultra-thin design", "Apple Pencil Pro"],
-          "features": {"Chip": "Apple M4", "Display": "11\" Ultra Retina XDR (Tandem OLED)", "Storage": "256GB", "Camera": "12MP Wide + 10MP Ultra Wide", "Connection": "Thunderbolt 4, Wi-Fi 6E, Bluetooth 5.3", "Weight": "0.98 lbs"},
-          "category": "tablets"
-        },
-        {
-          "asin": "B0D3J8K7N5",
-          "name": "Apple iPad Air M2 13-inch",
-          "slug": "ipad-air-m2",
-          "price": 799,
-          "image": "https://m.media-amazon.com/images/I/81AxqPMTVEL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 3400,
-          "description": "Apple M2 chip, 13-inch Liquid Retina display, 128GB, landscape front camera with Center Stage, Wi-Fi 6E, Apple Pencil Pro support.",
-          "highlights": ["M2 chip", "13-inch display", "Landscape camera", "Apple Pencil Pro"],
-          "features": {"Chip": "Apple M2", "Display": "13\" Liquid Retina", "Storage": "128GB", "Camera": "12MP landscape Ultra Wide", "Connection": "USB-C, Wi-Fi 6E, Bluetooth 5.3", "Weight": "1.36 lbs"},
-          "category": "tablets"
-        },
-        {
-          "asin": "B08KTZ8249",
-          "name": "Kindle Paperwhite (11th Gen)",
-          "slug": "kindle-paperwhite",
-          "price": 139,
-          "image": "https://m.media-amazon.com/images/I/61Vd4Wv1glL._AC_SL1500_.jpg",
-          "rating": 4.7,
-          "reviewsCount": 42500,
-          "description": "6.8-inch display with 300 ppi, adjustable warm light, waterproof (IPX8), weeks-long battery life, USB-C charging, and 20% faster page turns.",
-          "highlights": ["300 ppi display", "Waterproof IPX8", "Warm light", "Weeks battery life"],
-          "features": {"Display": "6.8\" 300 ppi Carta 1200", "Storage": "16GB", "Waterproof": "IPX8", "Battery": "Up to 10 weeks", "Lighting": "Adjustable warm light", "Connection": "USB-C, Wi-Fi"},
-          "category": "tablets"
-        },
-        {
-          "asin": "B0CX2B7ZBH",
-          "name": "Apple Pencil Pro",
-          "slug": "apple-pencil-pro",
-          "price": 129,
-          "image": "https://m.media-amazon.com/images/I/31jB0v6zULL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 8900,
-          "description": "New Apple Pencil with squeeze gesture, barrel roll, haptic feedback, Find My support, USB-C charging, magnetic attachment, and pixel-perfect precision.",
-          "highlights": ["Squeeze gesture", "Barrel roll", "Haptic feedback", "Find My support"],
-          "features": {"Compatibility": "iPad Pro M4, iPad Air M2", "Charging": "USB-C, magnetic", "Sensors": "Squeeze, gyroscope, accelerometer", "Latency": "9ms", "Weight": "0.73 oz", "Features": "Hover, haptic feedback"},
-          "category": "tablets"
-        },
-        {
-          "asin": "B0932Q6J62",
-          "name": "Apple AirTag (4-Pack)",
-          "slug": "apple-airtag-4pack",
-          "price": 89,
-          "image": "https://m.media-amazon.com/images/I/71MHTD3qZaL._AC_SL1500_.jpg",
-          "rating": 4.7,
-          "reviewsCount": 56500,
-          "description": "Keep track of your valuable items with Apple AirTag. Precision Finding with Ultra Wideband, replaceable battery, IP67 water resistant, and Find My network.",
-          "highlights": ["Precision Finding", "UWB technology", "Find My network", "Replaceable battery"],
-          "features": {"Connectivity": "Bluetooth, UWB, NFC", "Waterproof": "IP67", "Battery": "CR2032 (1 year)", "Network": "Find My (billions of devices)", "Weight": "0.39 oz each", "Pack": "4 AirTags"},
-          "category": "tablets"
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
+          "category": "tablets",
+          "url": ""
         }
-      ]
+      ],
+      "lastScraped": "2026-06-04T20:14:53.877Z"
     },
     "smart-home": {
       "name": "🏠 Smart Home & Automation",
@@ -486,8 +147,20 @@
           "rating": 4.7,
           "reviewsCount": 135000,
           "description": "Amazon Echo Dot with improved sound quality, temperature sensor, motion detection, Alexa voice control, and Eero mesh Wi-Fi support.",
-          "highlights": ["Best-selling smart speaker", "Temperature sensor", "Eero support", "Improved sound"],
-          "features": {"Speaker": "1.73\" front-firing", "Smart home hub": "Built-in (Sidewalk)", "Sensors": "Temperature, motion", "Connectivity": "Wi-Fi 5, Bluetooth 5.0", "Smart assistant": "Alexa", "Color": "Glacier White, Charcoal, Lavender"},
+          "highlights": [
+            "Best-selling smart speaker",
+            "Temperature sensor",
+            "Eero support",
+            "Improved sound"
+          ],
+          "features": {
+            "Speaker": "1.73\" front-firing",
+            "Smart home hub": "Built-in (Sidewalk)",
+            "Sensors": "Temperature, motion",
+            "Connectivity": "Wi-Fi 5, Bluetooth 5.0",
+            "Smart assistant": "Alexa",
+            "Color": "Glacier White, Charcoal, Lavender"
+          },
           "category": "smart-home"
         },
         {
@@ -499,8 +172,20 @@
           "rating": 4.5,
           "reviewsCount": 28000,
           "description": "8-inch HD smart display with spatial audio, adaptive color, built-in Zigbee smart home hub, 13MP camera with auto-framing, and Alexa.",
-          "highlights": ["Spatial audio", "Adaptive color display", "Zigbee hub", "Auto-framing camera"],
-          "features": {"Display": "8\" HD (1280x800)", "Speaker": "2\" full-range + passive radiator", "Camera": "13MP with auto-framing", "Smart hub": "Zigbee, Matter", "Connectivity": "Wi-Fi 6, Bluetooth 5.0", "Assistant": "Alexa"},
+          "highlights": [
+            "Spatial audio",
+            "Adaptive color display",
+            "Zigbee hub",
+            "Auto-framing camera"
+          ],
+          "features": {
+            "Display": "8\" HD (1280x800)",
+            "Speaker": "2\" full-range + passive radiator",
+            "Camera": "13MP with auto-framing",
+            "Smart hub": "Zigbee, Matter",
+            "Connectivity": "Wi-Fi 6, Bluetooth 5.0",
+            "Assistant": "Alexa"
+          },
           "category": "smart-home"
         },
         {
@@ -512,8 +197,20 @@
           "rating": 4.5,
           "reviewsCount": 42000,
           "description": "7-inch Smart Display with Google Assistant, Soli sleep sensing, Quick Gestures, media streaming, and smart home control hub.",
-          "highlights": ["Soli sleep sensing", "Quick Gestures", "Google Assistant", "Smart home hub"],
-          "features": {"Display": "7\" touchscreen", "Speaker": "Full-range 1.7\" driver", "Sensors": "Soli, light, temperature", "Assistant": "Google Assistant", "Connectivity": "Wi-Fi 5, Bluetooth 5.0", "Compatibility": "Google Home, Matter"},
+          "highlights": [
+            "Soli sleep sensing",
+            "Quick Gestures",
+            "Google Assistant",
+            "Smart home hub"
+          ],
+          "features": {
+            "Display": "7\" touchscreen",
+            "Speaker": "Full-range 1.7\" driver",
+            "Sensors": "Soli, light, temperature",
+            "Assistant": "Google Assistant",
+            "Connectivity": "Wi-Fi 5, Bluetooth 5.0",
+            "Compatibility": "Google Home, Matter"
+          },
           "category": "smart-home"
         },
         {
@@ -525,8 +222,20 @@
           "rating": 4.4,
           "reviewsCount": 32000,
           "description": "Smart thermostat that learns your schedule, programs itself, and helps save energy. Compatible with 95% of HVAC systems, Nest Renew, and Matter.",
-          "highlights": ["Self-learning", "Energy savings", "Matter compatible", "Remote control"],
-          "features": {"Compatibility": "95% of HVAC", "Display": "HD color screen", "Sensors": "Temperature, humidity, occupancy", "Connectivity": "Wi-Fi 5, Bluetooth, Thread", "Power": "C-wire or Nest Power Connector", "Savings": "Average 10-12% on heating, 15% on cooling"},
+          "highlights": [
+            "Self-learning",
+            "Energy savings",
+            "Matter compatible",
+            "Remote control"
+          ],
+          "features": {
+            "Compatibility": "95% of HVAC",
+            "Display": "HD color screen",
+            "Sensors": "Temperature, humidity, occupancy",
+            "Connectivity": "Wi-Fi 5, Bluetooth, Thread",
+            "Power": "C-wire or Nest Power Connector",
+            "Savings": "Average 10-12% on heating, 15% on cooling"
+          },
           "category": "smart-home"
         },
         {
@@ -538,8 +247,20 @@
           "rating": 4.6,
           "reviewsCount": 18000,
           "description": "Smart lighting starter kit with 4 A19 LED bulbs and Hue Bridge. 16 million colors, voice control with Alexa/Google/Apple, and customizable routines.",
-          "highlights": ["16M colors", "Voice control", "Custom routines", "Hue Bridge included"],
-          "features": {"Bulbs": "4x A19 800 lumens", "Bridge": "Hue Bridge v2", "Colors": "16 million", "Protocol": "Zigbee, Matter compatible", "Voice": "Alexa, Google, Apple HomeKit", "Smart home": "Works with Hue ecosystem"},
+          "highlights": [
+            "16M colors",
+            "Voice control",
+            "Custom routines",
+            "Hue Bridge included"
+          ],
+          "features": {
+            "Bulbs": "4x A19 800 lumens",
+            "Bridge": "Hue Bridge v2",
+            "Colors": "16 million",
+            "Protocol": "Zigbee, Matter compatible",
+            "Voice": "Alexa, Google, Apple HomeKit",
+            "Smart home": "Works with Hue ecosystem"
+          },
           "category": "smart-home"
         },
         {
@@ -551,8 +272,20 @@
           "rating": 4.7,
           "reviewsCount": 45000,
           "description": "Compact Wi-Fi smart plugs with energy monitoring, scheduling, remote control via Kasa app, voice control with Alexa/Google, and no hub required.",
-          "highlights": ["Energy monitoring", "No hub required", "Compact design", "Voice control"],
-          "features": {"Outlets": "4-pack", "Connectivity": "Wi-Fi 2.4GHz", "App": "Kasa", "Voice": "Alexa, Google Assistant", "Features": "Energy monitoring, scheduling, remote control", "Rating": "15A, 120VAC"},
+          "highlights": [
+            "Energy monitoring",
+            "No hub required",
+            "Compact design",
+            "Voice control"
+          ],
+          "features": {
+            "Outlets": "4-pack",
+            "Connectivity": "Wi-Fi 2.4GHz",
+            "App": "Kasa",
+            "Voice": "Alexa, Google Assistant",
+            "Features": "Energy monitoring, scheduling, remote control",
+            "Rating": "15A, 120VAC"
+          },
           "category": "smart-home"
         }
       ]
@@ -571,8 +304,20 @@
           "rating": 4.8,
           "reviewsCount": 15000,
           "description": "PCIe 4.0 NVMe M.2 SSD with sequential read speeds up to 7,450 MB/s and write speeds up to 6,900 MB/s. Optimized for gaming and heavy workloads.",
-          "highlights": ["7,450 MB/s reads", "PCIe 4.0", "2TB capacity", "Hardware encryption"],
-          "features": {"Capacity": "2TB", "Interface": "PCIe 4.0 NVMe M.2", "Read": "7,450 MB/s", "Write": "6,900 MB/s", "NAND": "Samsung V-NAND 3-bit MLC", "DWPD": "0.3 (600 TBW)"},
+          "highlights": [
+            "7,450 MB/s reads",
+            "PCIe 4.0",
+            "2TB capacity",
+            "Hardware encryption"
+          ],
+          "features": {
+            "Capacity": "2TB",
+            "Interface": "PCIe 4.0 NVMe M.2",
+            "Read": "7,450 MB/s",
+            "Write": "6,900 MB/s",
+            "NAND": "Samsung V-NAND 3-bit MLC",
+            "DWPD": "0.3 (600 TBW)"
+          },
           "category": "storage"
         },
         {
@@ -584,8 +329,20 @@
           "rating": 4.7,
           "reviewsCount": 12000,
           "description": "PCIe Gen4 NVMe M.2 SSD with speeds up to 7,300 MB/s. Game Mode 2.0 with load balancing, predictive caching, and overhead monitoring.",
-          "highlights": ["7,300 MB/s reads", "Game Mode 2.0", "Competitive pricing", "2TB capacity"],
-          "features": {"Capacity": "2TB", "Interface": "PCIe 4.0 NVMe M.2", "Read": "7,300 MB/s", "Write": "6,300 MB/s", "NAND": "3D TLC NAND", "DWPD": "0.3 (600 TBW)"},
+          "highlights": [
+            "7,300 MB/s reads",
+            "Game Mode 2.0",
+            "Competitive pricing",
+            "2TB capacity"
+          ],
+          "features": {
+            "Capacity": "2TB",
+            "Interface": "PCIe 4.0 NVMe M.2",
+            "Read": "7,300 MB/s",
+            "Write": "6,300 MB/s",
+            "NAND": "3D TLC NAND",
+            "DWPD": "0.3 (600 TBW)"
+          },
           "category": "storage"
         },
         {
@@ -597,8 +354,20 @@
           "rating": 4.7,
           "reviewsCount": 28000,
           "description": "Rugged external SSD with IP65 water/dust resistance, 3-meter drop protection, read speeds up to 1,050 MB/s, and USB 3.2 Gen 2 interface.",
-          "highlights": ["IP65 rated", "3m drop proof", "1,050 MB/s reads", "USB 3.2 Gen 2"],
-          "features": {"Capacity": "2TB", "Interface": "USB 3.2 Gen 2 (USB-C)", "Read": "1,050 MB/s", "Write": "1,000 MB/s", "Durability": "IP65, 3m drop", "Encryption": "AES 256-bit"},
+          "highlights": [
+            "IP65 rated",
+            "3m drop proof",
+            "1,050 MB/s reads",
+            "USB 3.2 Gen 2"
+          ],
+          "features": {
+            "Capacity": "2TB",
+            "Interface": "USB 3.2 Gen 2 (USB-C)",
+            "Read": "1,050 MB/s",
+            "Write": "1,000 MB/s",
+            "Durability": "IP65, 3m drop",
+            "Encryption": "AES 256-bit"
+          },
           "category": "storage"
         },
         {
@@ -610,8 +379,20 @@
           "rating": 4.6,
           "reviewsCount": 6200,
           "description": "4-bay NAS with AMD Ryzen R1600 dual-core processor, 4GB DDR4 ECC, dual M.2 NVMe slots, 10GbE upgrade option, and Synology DiskStation Manager.",
-          "highlights": ["4-bay expandable", "Dual M.2 NVMe cache", "10GbE ready", "DSM operating system"],
-          "features": {"Bays": "4 (up to 72TB)", "CPU": "AMD Ryzen R1600", "RAM": "4GB DDR4 ECC (max 32GB)", "Cache": "Dual M.2 NVMe", "Network": "2x 1GbE (10GbE upgrade)", "USB": "2x USB 3.2"},
+          "highlights": [
+            "4-bay expandable",
+            "Dual M.2 NVMe cache",
+            "10GbE ready",
+            "DSM operating system"
+          ],
+          "features": {
+            "Bays": "4 (up to 72TB)",
+            "CPU": "AMD Ryzen R1600",
+            "RAM": "4GB DDR4 ECC (max 32GB)",
+            "Cache": "Dual M.2 NVMe",
+            "Network": "2x 1GbE (10GbE upgrade)",
+            "USB": "2x USB 3.2"
+          },
           "category": "storage"
         },
         {
@@ -623,8 +404,20 @@
           "rating": 4.6,
           "reviewsCount": 8500,
           "description": "Massive 4TB PCIe Gen4 NVMe M.2 SSD with read speeds up to 7,100 MB/s. Ideal for AI datasets, video editing, and large-scale development.",
-          "highlights": ["4TB massive capacity", "7,100 MB/s reads", "AI dataset ready", "PCIe 4.0"],
-          "features": {"Capacity": "4TB", "Interface": "PCIe 4.0 NVMe M.2", "Read": "7,100 MB/s", "Write": "6,600 MB/s", "NAND": "3D TLC NAND", "DWPD": "0.3 (1,200 TBW)"},
+          "highlights": [
+            "4TB massive capacity",
+            "7,100 MB/s reads",
+            "AI dataset ready",
+            "PCIe 4.0"
+          ],
+          "features": {
+            "Capacity": "4TB",
+            "Interface": "PCIe 4.0 NVMe M.2",
+            "Read": "7,100 MB/s",
+            "Write": "6,600 MB/s",
+            "NAND": "3D TLC NAND",
+            "DWPD": "0.3 (1,200 TBW)"
+          },
           "category": "storage"
         },
         {
@@ -636,8 +429,20 @@
           "rating": 4.6,
           "reviewsCount": 38000,
           "description": "5TB portable external hard drive with USB 3.2 Gen 1, hardware encryption, backup software, and slim design. Massive storage for backups and archives.",
-          "highlights": ["5TB capacity", "Hardware encryption", "Auto backup", "USB 3.2 Gen 1"],
-          "features": {"Capacity": "5TB", "Interface": "USB 3.2 Gen 1 (USB-C)", "Speed": "140 MB/s", "Encryption": "AES 256-bit", "Software": "WD Backup, WD Drive Utilities", "Warranty": "3-year limited"},
+          "highlights": [
+            "5TB capacity",
+            "Hardware encryption",
+            "Auto backup",
+            "USB 3.2 Gen 1"
+          ],
+          "features": {
+            "Capacity": "5TB",
+            "Interface": "USB 3.2 Gen 1 (USB-C)",
+            "Speed": "140 MB/s",
+            "Encryption": "AES 256-bit",
+            "Software": "WD Backup, WD Drive Utilities",
+            "Warranty": "3-year limited"
+          },
           "category": "storage"
         }
       ]
@@ -656,8 +461,20 @@
           "rating": 4.6,
           "reviewsCount": 8500,
           "description": "Tenkeyless wireless mechanical keyboard with Logitech MX Master series compatibility, wireless multi-device, and low-profile switches.",
-          "highlights": ["Wireless multi-device", "Low-profile switches", "Backlit keys", "USB-C rechargeable"],
-          "features": {"Layout": "Tenkeyless (84 keys)", "Switches": "Low-profile tactile/linear/clicky", "Connection": "Bluetooth, Logi Bolt", "Battery": "Up to 15 days", "Multi-device": "Up to 3", "Weight": "1.97 lbs"},
+          "highlights": [
+            "Wireless multi-device",
+            "Low-profile switches",
+            "Backlit keys",
+            "USB-C rechargeable"
+          ],
+          "features": {
+            "Layout": "Tenkeyless (84 keys)",
+            "Switches": "Low-profile tactile/linear/clicky",
+            "Connection": "Bluetooth, Logi Bolt",
+            "Battery": "Up to 15 days",
+            "Multi-device": "Up to 3",
+            "Weight": "1.97 lbs"
+          },
           "category": "keyboards"
         },
         {
@@ -669,8 +486,20 @@
           "rating": 4.5,
           "reviewsCount": 4200,
           "description": "75% custom mechanical keyboard with Gateron Jupiter switches, QMK/VIA support, aluminum body, and wireless Bluetooth connectivity.",
-          "highlights": ["Full aluminum body", "QMK/VIA programmable", "Hot-swappable switches", "75% layout"],
-          "features": {"Layout": "75% (81 keys)", "Case": "CNC aluminum", "Switches": "Gateron Jupiter hot-swappable", "Connection": "Bluetooth 5.1, USB-C", "Battery": "4000mAh", "RGB": "Per-key south-facing"},
+          "highlights": [
+            "Full aluminum body",
+            "QMK/VIA programmable",
+            "Hot-swappable switches",
+            "75% layout"
+          ],
+          "features": {
+            "Layout": "75% (81 keys)",
+            "Case": "CNC aluminum",
+            "Switches": "Gateron Jupiter hot-swappable",
+            "Connection": "Bluetooth 5.1, USB-C",
+            "Battery": "4000mAh",
+            "RGB": "Per-key south-facing"
+          },
           "category": "keyboards"
         },
         {
@@ -682,8 +511,20 @@
           "rating": 4.7,
           "reviewsCount": 32000,
           "description": "Ergonomic wireless mouse with 8K DPI optical sensor, quiet click switches, MagSpeed scroll wheel, and multi-device up to 3 devices.",
-          "highlights": ["8K DPI optical sensor", "MagSpeed scroll wheel", "Ergonomic design", "Quiet clicks"],
-          "features": {"Sensor": "8K DPI optical", "Buttons": "7 programmable", "Scroll": "MagSpeed electromagnetic", "Connection": "Bluetooth 5.0, Logi Bolt", "Battery": "Up to 70 days", "Weight": "4.97 oz"},
+          "highlights": [
+            "8K DPI optical sensor",
+            "MagSpeed scroll wheel",
+            "Ergonomic design",
+            "Quiet clicks"
+          ],
+          "features": {
+            "Sensor": "8K DPI optical",
+            "Buttons": "7 programmable",
+            "Scroll": "MagSpeed electromagnetic",
+            "Connection": "Bluetooth 5.0, Logi Bolt",
+            "Battery": "Up to 70 days",
+            "Weight": "4.97 oz"
+          },
           "category": "keyboards"
         },
         {
@@ -695,34 +536,70 @@
           "rating": 4.6,
           "reviewsCount": 18000,
           "description": "Ultra-lightweight wireless gaming mouse at 63g, Focus Pro 30K optical sensor, optical switches, and 90-hour battery life.",
-          "highlights": ["63g ultra-light", "Focus Pro 30K sensor", "90-hour battery", "Optical switches"],
-          "features": {"Weight": "63g", "Sensor": "Focus Pro 30K", "Switches": "Razer Optical Gen-3", "Connection": "Razer HyperSpeed Wireless, Bluetooth, USB-C", "Battery": "90 hours", "DPI": "30,000"},
+          "highlights": [
+            "63g ultra-light",
+            "Focus Pro 30K sensor",
+            "90-hour battery",
+            "Optical switches"
+          ],
+          "features": {
+            "Weight": "63g",
+            "Sensor": "Focus Pro 30K",
+            "Switches": "Razer Optical Gen-3",
+            "Connection": "Razer HyperSpeed Wireless, Bluetooth, USB-C",
+            "Battery": "90 hours",
+            "DPI": "30,000"
+          },
           "category": "keyboards"
         },
         {
           "asin": "B0BLVJK2C8",
           "name": "Wooting 60HE+",
           "slug": "wooting-60he-plus",
-          "price": 175.00,
+          "price": 175,
           "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
           "rating": 4.7,
           "reviewsCount": 3200,
           "description": "60% analog mechanical keyboard with Hall Effect magnetic switches, adjustable actuation, rapid trigger, and 0.1mm precision.",
-          "highlights": ["Analog magnetic switches", "Adjustable actuation", "Rapid trigger", "0.1mm precision"],
-          "features": {"Layout": "60% (61 keys)", "Switches": "Lekker magnetic analog", "Actuation": "0.1-4.0mm adjustable", "Connection": "USB-C detachable", "Polling": "1000Hz", "Features": "Rapid Trigger, DKS, Toggle"},
+          "highlights": [
+            "Analog magnetic switches",
+            "Adjustable actuation",
+            "Rapid trigger",
+            "0.1mm precision"
+          ],
+          "features": {
+            "Layout": "60% (61 keys)",
+            "Switches": "Lekker magnetic analog",
+            "Actuation": "0.1-4.0mm adjustable",
+            "Connection": "USB-C detachable",
+            "Polling": "1000Hz",
+            "Features": "Rapid Trigger, DKS, Toggle"
+          },
           "category": "keyboards"
         },
         {
           "asin": "B0C8B7K6N5",
           "name": "Apple Magic Keyboard with Touch ID",
           "slug": "apple-magic-keyboard-touch-id",
-          "price": 149.00,
+          "price": 149,
           "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
           "rating": 4.6,
           "reviewsCount": 15000,
           "description": "Full-size wireless keyboard with Touch ID fingerprint sensor, scissor mechanism keys, rechargeable battery, and seamless Mac integration.",
-          "highlights": ["Touch ID sensor", "Scissor mechanism keys", "USB-C chargeable", "Apple silicon optimized"],
-          "features": {"Layout": "Full-size (109 keys)", "Keys": "Scissor mechanism", "Connection": "Bluetooth 5.3, USB-C", "Battery": "Rechargeable (month+ per charge)", "Compatibility": "Mac with Apple silicon", "Color": "Silver, Space Black"},
+          "highlights": [
+            "Touch ID sensor",
+            "Scissor mechanism keys",
+            "USB-C chargeable",
+            "Apple silicon optimized"
+          ],
+          "features": {
+            "Layout": "Full-size (109 keys)",
+            "Keys": "Scissor mechanism",
+            "Connection": "Bluetooth 5.3, USB-C",
+            "Battery": "Rechargeable (month+ per charge)",
+            "Compatibility": "Mac with Apple silicon",
+            "Color": "Silver, Space Black"
+          },
           "category": "keyboards"
         }
       ]
@@ -736,65 +613,125 @@
           "asin": "B07VJ8NW8V",
           "name": "Herman Miller Aeron Chair",
           "slug": "herman-miller-aeron",
-          "price": 1395.00,
+          "price": 1395,
           "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
           "rating": 4.5,
           "reviewsCount": 12000,
           "description": "Iconic ergonomic office chair with PostureFit SL back support, 8Z Pellicle suspension, adjustable armrests, and breathable mesh design.",
-          "highlights": ["PostureFit SL support", "Breathable mesh", "12-year warranty", "Size A/B/C available"],
-          "features": {"Type": "High-back mesh", "Material": "Pellicle mesh", "Support": "PostureFit SL lumbar", "Arms": "Adjustable 4D", "Weight capacity": "350 lbs", "Warranty": "12-year"},
+          "highlights": [
+            "PostureFit SL support",
+            "Breathable mesh",
+            "12-year warranty",
+            "Size A/B/C available"
+          ],
+          "features": {
+            "Type": "High-back mesh",
+            "Material": "Pellicle mesh",
+            "Support": "PostureFit SL lumbar",
+            "Arms": "Adjustable 4D",
+            "Weight capacity": "350 lbs",
+            "Warranty": "12-year"
+          },
           "category": "office-chairs"
         },
         {
           "asin": "B0B4N1F1K1",
           "name": "Steelcase Gesture",
           "slug": "steelcase-gesture",
-          "price": 1299.00,
+          "price": 1299,
           "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
           "rating": 4.6,
           "reviewsCount": 5800,
           "description": "Premium ergonomic chair with CoreEqual flexor system, live-back technology, and highly adjustable arms that mimic natural arm movement.",
-          "highlights": ["Live-back technology", "CoreEqual flexor", "Natural arm movement", "Premium build"],
-          "features": {"Type": "Mid-back mesh", "Material": "3D knit/leather", "Support": "CoreEqual flexor system", "Arms": "3D adjustable", "Weight capacity": "400 lbs", "Warranty": "Lifetime"},
+          "highlights": [
+            "Live-back technology",
+            "CoreEqual flexor",
+            "Natural arm movement",
+            "Premium build"
+          ],
+          "features": {
+            "Type": "Mid-back mesh",
+            "Material": "3D knit/leather",
+            "Support": "CoreEqual flexor system",
+            "Arms": "3D adjustable",
+            "Weight capacity": "400 lbs",
+            "Warranty": "Lifetime"
+          },
           "category": "office-chairs"
         },
         {
           "asin": "B0B8B8B8B9",
           "name": "Herman Miller Embody",
           "slug": "herman-miller-embody",
-          "price": 1695.00,
+          "price": 1695,
           "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
           "rating": 4.7,
           "reviewsCount": 7200,
           "description": "Back support innovation with pixelated support matrix, Backfit adjustable backrest, and patented tilt mechanism for natural movement.",
-          "highlights": ["Pixelated support matrix", "Backfit adjustment", "Patented tilt", "Breathable fabric"],
-          "features": {"Type": "Full-back fabric", "Material": "Rythmic fabric", "Support": "Pixelated support matrix", "Arms": "Adjustable height/width", "Weight capacity": "300 lbs", "Warranty": "12-year"},
+          "highlights": [
+            "Pixelated support matrix",
+            "Backfit adjustment",
+            "Patented tilt",
+            "Breathable fabric"
+          ],
+          "features": {
+            "Type": "Full-back fabric",
+            "Material": "Rythmic fabric",
+            "Support": "Pixelated support matrix",
+            "Arms": "Adjustable height/width",
+            "Weight capacity": "300 lbs",
+            "Warranty": "12-year"
+          },
           "category": "office-chairs"
         },
         {
           "asin": "B09XYZ1ABC",
           "name": "Branch Ergonomic Chair",
           "slug": "branch-ergonomic-chair",
-          "price": 349.00,
+          "price": 349,
           "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
           "rating": 4.4,
           "reviewsCount": 8500,
           "description": "Affordable ergonomic chair with adjustable lumbar support, seat depth, armrests, tilt tension, and breathable mesh back.",
-          "highlights": ["Budget-friendly", "Fully adjustable", "Mesh back", "Great value"],
-          "features": {"Type": "Mid-back mesh", "Material": "Mesh + foam seat", "Support": "Adjustable lumbar", "Arms": "3D adjustable", "Weight capacity": "300 lbs", "Seat depth": "Adjustable"},
+          "highlights": [
+            "Budget-friendly",
+            "Fully adjustable",
+            "Mesh back",
+            "Great value"
+          ],
+          "features": {
+            "Type": "Mid-back mesh",
+            "Material": "Mesh + foam seat",
+            "Support": "Adjustable lumbar",
+            "Arms": "3D adjustable",
+            "Weight capacity": "300 lbs",
+            "Seat depth": "Adjustable"
+          },
           "category": "office-chairs"
         },
         {
           "asin": "B0CQ1M2N8K",
           "name": "Autonomous ErgoChair Pro",
           "slug": "autonomous-ergochair-pro",
-          "price": 499.00,
+          "price": 499,
           "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
           "rating": 4.4,
           "reviewsCount": 11000,
           "description": "Popular ergonomic office chair with adjustable headrest, lumbar support, tilt lock, 2D armrests, and breathable mesh back.",
-          "highlights": ["Adjustable headrest", "Tilt lock", "Mesh back", "Affordable ergonomics"],
-          "features": {"Type": "Mid-back mesh", "Material": "Mesh + foam", "Support": "Adjustable lumbar", "Arms": "2D adjustable", "Tilt": "Lockable tilt", "Weight capacity": "300 lbs"},
+          "highlights": [
+            "Adjustable headrest",
+            "Tilt lock",
+            "Mesh back",
+            "Affordable ergonomics"
+          ],
+          "features": {
+            "Type": "Mid-back mesh",
+            "Material": "Mesh + foam",
+            "Support": "Adjustable lumbar",
+            "Arms": "2D adjustable",
+            "Tilt": "Lockable tilt",
+            "Weight capacity": "300 lbs"
+          },
           "category": "office-chairs"
         },
         {
@@ -806,8 +743,20 @@
           "rating": 4.5,
           "reviewsCount": 22000,
           "description": "Best-selling budget ergonomic chair with 3D adjustable headrest, adjustable lumbar, flip-up armrests, tilt lock, and high-density foam seat.",
-          "highlights": ["Best-selling budget chair", "3D adjustable headrest", "Flip-up armrests", "Great lumbar support"],
-          "features": {"Type": "High-back mesh", "Material": "Mesh + high-density foam", "Support": "Adjustable lumbar", "Arms": "Flip-up 2D", "Tilt": "Multi-angle lock", "Weight capacity": "330 lbs"},
+          "highlights": [
+            "Best-selling budget chair",
+            "3D adjustable headrest",
+            "Flip-up armrests",
+            "Great lumbar support"
+          ],
+          "features": {
+            "Type": "High-back mesh",
+            "Material": "Mesh + high-density foam",
+            "Support": "Adjustable lumbar",
+            "Arms": "Flip-up 2D",
+            "Tilt": "Multi-angle lock",
+            "Weight capacity": "330 lbs"
+          },
           "category": "office-chairs"
         }
       ]
