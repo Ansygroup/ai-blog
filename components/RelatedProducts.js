@@ -61,13 +61,13 @@ export default function RelatedProducts({ tags, category, limit = 3 }) {
         {products.map((p) => {
           const url = `https://www.amazon.com/dp/${p.asin}?tag=${TAG}`;
           return (
-            <a key={p.asin} href={url} target="_blank" rel="noopener sponsored" className="flex items-center gap-3 bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border hover:border-blue-400 rounded-lg p-3 transition group">
+            <Link key={p.asin} href={`/recommendations/products/${p.slug}`} className="flex items-center gap-3 bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border hover:border-blue-400 rounded-lg p-3 transition group">
               <img src={p.image} alt={p.name} width={64} height={64} className="rounded-lg object-cover flex-shrink-0" loading="lazy" />
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-semibold text-slate-900 dark:text-dark-text truncate group-hover:text-blue-600 transition">{p.name}</p>
                 <p className="text-xs text-slate-500 dark:text-dark-muted">${p.price} · {p.rating}★</p>
               </div>
-            </a>
+            </Link>
           );
         })}
       </div>
