@@ -1,0 +1,49 @@
+name: Amazon Intelligence Agent — Scrape + Write + Publish
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  amazon-intel:
+    name: Amazon product intelligence
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Scrape Amazon products via Apify
+        run: node scripts/amazon-scraper.js
+        env:
+          APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
+          AMAZON_ASSOCIATES_TAG: ${{ secrets.AMAZON_ASSOCIATES_TAG }}
+
+      - name: Generate article from product data
+        run: node scripts/amazon-article-generator.js
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          AMAZON_ASSOCIATES_TAG: ${{ secrets.AMAZON_ASSOCIATES_TAG }}
+
+      - name: Commit changes
+        run: |
+          git config user.email "bot@aipulsedaily.com"
+          git config user.name "Amazon Intelligence Agent"
+          git add scripts/amazon-db.json content/posts/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          BRANCH="auto/amazon-$(date +%s)"
+          git checkout -b "$BRANCH"
+          git commit -m "auto: amazon products & articles $(date +%Y-%m-%d)"
+          git push origin "$BRANCH"
+          gh pr create --title "auto: amazon products & articles $(date +%Y-%m-%d)" \
+            --body "Updated product database from Apify scraper + new articles." \
+            --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
+          gh pr merge --auto --squash "$(grep -oP '/pull/\K[0-9]+' pr-url.txt)"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

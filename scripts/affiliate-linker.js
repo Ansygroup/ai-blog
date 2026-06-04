@@ -4,32 +4,41 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env.local') });
 
 const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
+const DB_PATH = path.join(__dirname, 'amazon-db.json');
 
 const TAG = process.env.AMAZON_ASSOCIATES_TAG || 'ansy07-20';
-const STORE = process.env.AMAZON_STORE_ID || 'aibolg-20';
 
-const KEYWORD_PRODUCT_MAP = [
-  { keywords: ['chatgpt', 'openai', 'gpt-4'], product: 'ChatGPT Plus', url: 'https://www.amazon.com/dp/B0B6W1Q8T7' },
-  { keywords: ['claude', 'anthropic'], product: 'Claude Pro', url: 'https://www.amazon.com/dp/B0C1H1J9F2' },
-  { keywords: ['jasper', 'jarvis'], product: 'Jasper AI', url: 'https://www.amazon.com/dp/B0B5G8H5X5' },
-  { keywords: ['midjourney', 'ai art', 'ai image'], product: 'Midjourney', url: 'https://www.amazon.com/dp/B0BZ8Z8Z8Z' },
-  { keywords: ['notion', 'notes', 'writing'], product: 'Notion AI', url: 'https://www.amazon.com/dp/B0B6W1Q8T7' },
-  { keywords: ['copy.ai'], product: 'Copy.ai', url: 'https://www.amazon.com/dp/B0B6W1Q8T7' },
-  { keywords: ['writesonic'], product: 'Writesonic', url: 'https://www.amazon.com/dp/B0B6W1Q8T7' },
-  { keywords: ['rytr'], product: 'Rytr', url: 'https://www.amazon.com/dp/B0B6W1Q8T7' },
-  { keywords: ['surfer', 'seo', 'content optimization'], product: 'Surfer SEO', url: 'https://www.amazon.com/dp/B0B6W1Q8T7' },
-  { keywords: ['nordvpn', 'vpn', 'privacy'], product: 'NordVPN', url: 'https://www.amazon.com/dp/B0B6W1Q8T7' },
-];
+function buildKeywordMap() {
+  const db = JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
+  const map = [];
+  for (const [, cat] of Object.entries(db.categories)) {
+    for (const p of cat.products) {
+      const nameLower = p.name.toLowerCase();
+      const words = nameLower.replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 3);
+      const brands = ['apple', 'sony', 'bose', 'dell', 'lenovo', 'asus', 'lg', 'samsung', 'logitech', 'elgato', 'rode', 'blue', 'microsoft', 'kindle'];
+      const matchedBrands = brands.filter(b => nameLower.includes(b));
+      map.push({
+        keywords: [...words, ...matchedBrands, ...cat.name.toLowerCase().split(' ')],
+        product: p.name,
+        url: `https://www.amazon.com/dp/${p.asin}?tag=${TAG}`,
+      });
+    }
+  }
+  return map;
+}
 
 const files = process.argv.slice(2).filter(a => a && !a.startsWith('--'));
 
 (async () => {
   if (files.length === 0) {
     console.log('Usage: node scripts/affiliate-linker.js <file1> <file2> ...');
+    console.log('Reads product data from amazon-db.json and inserts contextual affiliate links.');
     process.exit(0);
   }
 
+  const KEYWORD_PRODUCT_MAP = buildKeywordMap();
   let modified = 0;
+
   for (const raw of files) {
     const file = fs.existsSync(raw) ? raw : path.join(POSTS_DIR, raw);
     if (!fs.existsSync(file)) { console.log(`  Skipped (not found): ${raw}`); continue; }
@@ -38,12 +47,11 @@ const files = process.argv.slice(2).filter(a => a && !a.startsWith('--'));
     const contentLower = content.toLowerCase();
     let fileModified = false;
 
-    if (!contentLower.includes('affiliate') && !contentLower.includes('amazon')) {
+    if (!contentLower.includes('affiliate') && !contentLower.includes('amazon') && !contentLower.includes('tag=')) {
       for (const mapping of KEYWORD_PRODUCT_MAP) {
         for (const kw of mapping.keywords) {
           if (contentLower.includes(kw) && !content.includes(mapping.url)) {
-            const amazonUrl = `${mapping.url}?tag=${TAG}&store=${STORE}`;
-            content += `\n\n*Check ${mapping.product} on [Amazon](${amazonUrl}) — affiliate link.*\n`;
+            content += `\n\n*Check ${mapping.product} on [Amazon](${mapping.url}) — affiliate link.*\n`;
             console.log(`  ✅ ${mapping.product} → ${path.basename(file)}`);
             fileModified = true;
             break;

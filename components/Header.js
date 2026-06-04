@@ -10,6 +10,7 @@ export default function Header() {
     { href: '/comparisons', label: 'Comparisons' },
     { href: '/tutorials', label: 'Tutorials' },
     ...(categories.some((c) => c.name === 'Best Of') ? [{ href: '/best', label: 'Best Of' }] : []),
+    { href: '/recommendations', label: '🛒 Store' },
     { href: '/about', label: 'About' },
   ];
 
