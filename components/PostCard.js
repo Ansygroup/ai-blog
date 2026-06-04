@@ -9,11 +9,11 @@ export default function PostCard({ post }) {
         </Link>
       )}
       <div className="p-5">
-        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-dark-muted mb-2">
+        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-dark-muted mb-2 flex-wrap">
           {post.category && <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-0.5 rounded-full font-semibold uppercase tracking-wide">{post.category}</span>}
-          <span>·</span>
           <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
           {post.readingTime && <><span>·</span><span>{post.readingTime} min read</span></>}
+          {post.lastUpdated && new Date(post.lastUpdated) > new Date(post.date) && <><span>·</span><span className="text-emerald-600 dark:text-emerald-400 font-medium">Updated</span></>}
         </div>
         <h3 className="text-xl font-bold mb-2 leading-snug">
           <Link href={`/posts/${post.slug}`} className="hover:text-blue-600 transition">{post.title}</Link>

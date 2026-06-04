@@ -66,8 +66,9 @@ export default function HomePage() {
                   <span>·</span>
                   <time>{new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
                 </div>
-                <h3 className="text-3xl font-bold mb-3"><Link href={`/posts/${featured.slug}`} className="hover:text-blue-600 transition">{featured.title}</Link></h3>
-                <p className="text-slate-600 mb-4">{featured.excerpt}</p>
+                <h3 className="text-3xl font-bold mb-3"><Link href={`/posts/${featured.slug}`} className="hover:text-blue-600 dark:hover:text-blue-400 transition">{featured.title}</Link></h3>
+                {featured.rating && <div className="flex items-center gap-2 mb-3"><span className="text-amber-500 text-lg">{'★'.repeat(Math.round(featured.rating))}{'☆'.repeat(5 - Math.round(featured.rating))}</span><span className="text-sm text-slate-500">{featured.rating}/5</span></div>}
+                <p className="text-slate-600 dark:text-dark-text mb-4">{featured.excerpt}</p>
                 <Link href={`/posts/${featured.slug}`} className="text-blue-600 font-semibold hover:underline">Read the full review →</Link>
               </div>
             </div>
@@ -93,17 +94,29 @@ export default function HomePage() {
 
       <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_MID} />
 
+      {/* Newsletter CTA */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-8 md:p-12 text-center text-white">
+          <h2 className="text-3xl font-bold mb-3">📧 Get the Free AI Brief</h2>
+          <p className="text-blue-100 text-lg mb-6 max-w-lg mx-auto">The 5 biggest AI tool launches and deals every week. Zero spam, unsubscribe anytime.</p>
+          <form action="https://app.convertkit.com/forms/6699069/subscriptions" method="post" target="_blank" className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <input name="email_address" type="email" placeholder="your@email.com" required className="flex-1 px-4 py-3 rounded-lg text-slate-900 placeholder-slate-400 border-0" />
+            <button type="submit" className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-6 py-3 rounded-lg transition whitespace-nowrap">Subscribe Free</button>
+          </form>
+        </div>
+      </section>
+
       {/* FAQ for AI engines (GEO) + humans */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h2 className="text-3xl font-bold mb-8">Frequently Asked Questions</h2>
         <div className="space-y-4">
           {homeFaqs.map((f, i) => (
-            <details key={i} className="bg-white border border-slate-200 rounded-lg p-5 group">
-              <summary className="font-semibold text-lg cursor-pointer flex justify-between items-center">
+            <details key={i} className="bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border rounded-lg p-5 group">
+              <summary className="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-900 dark:text-dark-text">
                 {f.question}
                 <span className="text-blue-600 group-open:rotate-45 transition text-2xl leading-none">+</span>
               </summary>
-              <p className="mt-3 text-slate-700 leading-relaxed">{f.answer}</p>
+              <p className="mt-3 text-slate-700 dark:text-dark-text leading-relaxed">{f.answer}</p>
             </details>
           ))}
         </div>
