@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { siteConfig } from '../../../../lib/config';
 import { breadcrumbJsonLd } from '../../../../lib/schema';
+import { getAllPosts } from '../../../../lib/posts';
 import ProductCard from '../../../../components/ProductCard';
 import AmazonDisclosure from '../../../../components/AmazonDisclosure';
 
@@ -59,6 +60,14 @@ export default function ProductPage({ params }) {
   const category = db.categories[product.categorySlug];
   const relatedProducts = category.products.filter((p) => p.slug !== product.slug).slice(0, 4);
   const amazonUrl = `https://www.amazon.com/dp/${product.asin}?tag=${TAG}`;
+
+  const allPosts = getAllPosts();
+  const productTags = [product.categorySlug, product.name.split(' ').slice(0, 3).join(' ').toLowerCase()];
+  const relatedArticles = allPosts.filter((p) => {
+    const tags = (p.tags || []).map(t => t.toLowerCase());
+    const cat = (p.category || '').toLowerCase();
+    return tags.some(t => productTags.some(pt => t.includes(pt) || pt.includes(t))) || productTags.some(pt => cat.includes(pt));
+  }).slice(0, 3);
 
   const productSchema = {
     '@context': 'https://schema.org',
@@ -150,6 +159,23 @@ export default function ProductPage({ params }) {
             <h2 className="text-xl font-bold mb-4">Compare with Similar Products</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {relatedProducts.map((p) => <ProductCard key={p.asin} product={p} />)}
+            </div>
+          </section>
+        )}
+
+        {relatedArticles.length > 0 && (
+          <section className="mb-10 pt-6 border-t border-slate-200 dark:border-dark-border">
+            <h2 className="text-xl font-bold mb-4">📖 Related Articles</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {relatedArticles.map((p) => (
+                <Link key={p.slug} href={`/posts/${p.slug}`} className="group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-lg transition">
+                  {p.cover && <img src={p.cover} alt={p.title} loading="lazy" width="400" height="225" className="w-full aspect-video object-cover group-hover:opacity-95 transition" />}
+                  <div className="p-4">
+                    <h3 className="font-semibold text-sm leading-snug line-clamp-2 group-hover:text-blue-600 transition">{p.title}</h3>
+                    {p.excerpt && <p className="text-xs text-slate-500 dark:text-dark-muted mt-1 line-clamp-2">{p.excerpt}</p>}
+                  </div>
+                </Link>
+              ))}
             </div>
           </section>
         )}
