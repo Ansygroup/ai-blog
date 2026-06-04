@@ -72,7 +72,7 @@ export default function HomePage() {
           <h2 className="text-2xl font-bold mb-6">🔥 Featured Review</h2>
           <div className="grid lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 group bg-white dark:bg-dark-card rounded-2xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-xl transition">
-              {featured.cover && <Link href={`/posts/${featured.slug}`}><img src={featured.cover} alt={featured.title} loading="lazy" className="w-full aspect-video object-cover group-hover:opacity-95 transition" /></Link>}
+              {featured.cover && <Link href={`/posts/${featured.slug}`}><img src={featured.cover} alt={featured.title} loading="lazy" width="800" height="450" className="w-full aspect-video object-cover group-hover:opacity-95 transition" /></Link>}
               <div className="p-6">
                 <div className="flex items-center gap-2 text-xs text-slate-500 mb-3">
                   {featured.category && <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-0.5 rounded-full font-semibold uppercase">{featured.category}</span>}

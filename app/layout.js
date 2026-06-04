@@ -64,6 +64,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" style={{ fontFamily: systemFontStack }}>
       <head>
+        {/* Preconnect & DNS-prefetch for third-party origins */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
         {/* Dark mode init — runs before paint to prevent flash */}
         <script dangerouslySetInnerHTML={{ __html: `
           try { if (localStorage.theme === 'dark' || (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark'); } catch(e) {}

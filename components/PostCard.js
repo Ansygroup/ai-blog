@@ -5,7 +5,7 @@ export default function PostCard({ post }) {
     <article className="group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 transition">
       {post.cover && (
         <Link href={`/posts/${post.slug}`} className="block aspect-video bg-slate-100 overflow-hidden">
-          <img src={post.cover} alt={post.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+          <img src={post.cover} alt={post.title} loading="lazy" width="400" height="225" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
         </Link>
       )}
       <div className="p-5">

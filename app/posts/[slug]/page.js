@@ -101,7 +101,7 @@ export default async function PostPage({ params }) {
             </div>
           </header>
 
-          {post.cover && <img src={post.cover} alt={post.title} loading="lazy" className="w-full rounded-xl shadow-md mb-8" />}
+          {post.cover && <img src={post.cover} alt={post.title} loading="lazy" width="1200" height="630" className="w-full rounded-xl shadow-md mb-8" />}
 
           <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />
 
