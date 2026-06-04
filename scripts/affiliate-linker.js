@@ -21,58 +21,49 @@ const KEYWORD_PRODUCT_MAP = [
   { keywords: ['nordvpn', 'vpn', 'privacy'], product: 'NordVPN', url: 'https://www.amazon.com/dp/B0B6W1Q8T7' },
 ];
 
-const args = process.argv.slice(2);
-const fileArg = args.find(a => !a.startsWith('--'));
+const files = process.argv.slice(2).filter(a => a && !a.startsWith('--'));
 
 (async () => {
-  if (!fileArg) {
-    console.log('Usage: node scripts/affiliate-linker.js <file>');
-    console.log('       node scripts/affiliate-linker.js --all');
+  if (files.length === 0) {
+    console.log('Usage: node scripts/affiliate-linker.js <file1> <file2> ...');
     process.exit(0);
   }
 
-  let files = [];
-  if (fileArg === '--all') {
-    files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.mdx')).map(f => path.join(POSTS_DIR, f));
-  } else if (fs.existsSync(fileArg)) {
-    files = [fileArg];
-  } else {
-    console.log(`File not found: ${fileArg}`);
-    process.exit(1);
-  }
+  let modified = 0;
+  for (const raw of files) {
+    const file = fs.existsSync(raw) ? raw : path.join(POSTS_DIR, raw);
+    if (!fs.existsSync(file)) { console.log(`  Skipped (not found): ${raw}`); continue; }
 
-  for (const file of files) {
     let content = fs.readFileSync(file, 'utf8');
     const contentLower = content.toLowerCase();
-    let modified = false;
+    let fileModified = false;
 
-    if (!content.includes('affiliate') && !contentLower.includes('amazon')) {
+    if (!contentLower.includes('affiliate') && !contentLower.includes('amazon')) {
       for (const mapping of KEYWORD_PRODUCT_MAP) {
         for (const kw of mapping.keywords) {
           if (contentLower.includes(kw) && !content.includes(mapping.url)) {
             const amazonUrl = `${mapping.url}?tag=${TAG}&store=${STORE}`;
-            const affiliateNote = `\n\n*Check ${mapping.product} on [Amazon](${amazonUrl}) — affiliate link.*\n`;
-            content += affiliateNote;
-            console.log(`  ✅ Added ${mapping.product} link to ${path.basename(file)}`);
-            modified = true;
+            content += `\n\n*Check ${mapping.product} on [Amazon](${amazonUrl}) — affiliate link.*\n`;
+            console.log(`  ✅ ${mapping.product} → ${path.basename(file)}`);
+            fileModified = true;
             break;
           }
         }
-        if (modified) break;
+        if (fileModified) break;
       }
     }
 
-    if (modified) {
-      const disclosure = `\n\n---\n\n*Disclosure: Some links in this article are affiliate links. We may earn a commission at no extra cost to you.*\n`;
+    if (fileModified) {
       if (!contentLower.includes('disclosure')) {
-        content += disclosure;
+        content += `\n\n---\n\n*Disclosure: Some links in this article are affiliate links. We may earn a commission at no extra cost to you.*\n`;
       }
       fs.writeFileSync(file, content, 'utf8');
+      modified++;
       console.log(`  ✅ Updated: ${path.basename(file)}`);
     } else {
-      console.log(`  Skipped: ${path.basename(file)} (already has links or no matching keywords)`);
+      console.log(`  Skipped: ${path.basename(file)}`);
     }
   }
 
-  console.log('\nDone.');
+  console.log(`\nDone. ${modified} files updated with affiliate links.`);
 })();
