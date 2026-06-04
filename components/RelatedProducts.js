@@ -14,6 +14,8 @@ const CATEGORY_KEYWORDS = {
   tablets: ['tablet', 'ipad', 'kindle', 'ereader', 'note taking', 'reading'],
   'smart-home': ['smart home', 'alexa', 'google home', 'automation', 'thermostat', 'echo', 'nest'],
   storage: ['ssd', 'storage', 'hard drive', 'nvme', 'nas', 'backup', 'external drive'],
+  keyboards: ['keyboard', 'mouse', 'mechanical', 'peripheral', 'ergonomic', 'typing', 'keychron', 'logitech'],
+  'office-chairs': ['chair', 'ergonomic', 'office', 'desk', 'sitting', 'back pain', 'posture', 'aeron', 'gesture'],
 };
 
 function getDb() {

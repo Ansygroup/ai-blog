@@ -438,9 +438,16 @@ CRITICAL: Return ONLY the markdown with frontmatter — no preamble or commentar
   cleaned = cleaned.replace(/^date:\s*["']?[^"'\n]+["']?/m, `date: "${todayStr}"`);
   cleaned = cleaned.replace(/^lastUpdated:\s*["']?[^"'\n]+["']?/m, `lastUpdated: "${todayStr}"`);
 
-  // Derive slug from frontmatter or topic
+  // Derive slug from frontmatter or topic. Validate to prevent bad slugs like "excerpt:..."
+  let slug = slugify(topic);
   const slugMatch = cleaned.match(/^slug:\s*["']?([^"'\n]+)["']?/m);
-  const slug = slugMatch ? slugMatch[1].trim() : slugify(topic);
+  if (slugMatch) {
+    const candidate = slugMatch[1].trim().toLowerCase();
+    // Only use the regex match if it looks like a valid slug (no YAML key names, no colons)
+    if (!/^(title|excerpt|description|date|author|category|tags|cover|draft|slug)[:\s]/.test(candidate) && !candidate.includes(':') && candidate.length > 5) {
+      slug = candidate;
+    }
+  }
 
   // Quality check
   const body = cleaned.match(/^---\n[\s\S]+?\n---\n([\s\S]+)$/)?.[1] || cleaned;

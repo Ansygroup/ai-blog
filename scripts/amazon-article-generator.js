@@ -16,6 +16,8 @@ const CATEGORY_POSTS = {
   tablets: { title: 'Best Tablets & E-Readers for Reading & Note-Taking 2026', slug: 'best-tablets-ereaders-2026', description: 'The best tablets and e-readers for reading, note-taking, and creative work in 2026.' },
   'smart-home': { title: 'Best Smart Home Devices for 2026', slug: 'best-smart-home-devices-2026', description: 'The best smart home devices to automate your life in 2026. Echo, Nest, smart lights, and more.' },
   storage: { title: 'Best SSDs & Storage for AI Work 2026', slug: 'best-ssds-storage-ai-2026', description: 'Fast storage solutions for AI workloads. NVMe SSDs, external drives, and NAS for developers in 2026.' },
+  keyboards: { title: 'Best Keyboards & Peripherals for Developers 2026', slug: 'best-keyboards-developers-2026', description: 'The best mechanical keyboards, mice, and peripherals for coding and content creation in 2026.' },
+  'office-chairs': { title: 'Best Ergonomic Office Chairs for Developers 2026', slug: 'best-ergonomic-office-chairs-2026', description: 'The best ergonomic office chairs for long coding sessions and home offices in 2026.' },
 };
 
 async function callGroq(prompt) {

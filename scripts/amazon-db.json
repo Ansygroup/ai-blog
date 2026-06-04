@@ -641,6 +641,176 @@
           "category": "storage"
         }
       ]
+    },
+    "keyboards": {
+      "name": "⌨️ Keyboards & Peripherals",
+      "description": "Best mechanical keyboards, mice, and peripherals for developers and creators in 2026.",
+      "query": "best mechanical keyboards for programming 2026",
+      "products": [
+        {
+          "asin": "B09HX7P1BS",
+          "name": "Logitech MX Mechanical Mini",
+          "slug": "logitech-mx-mechanical-mini",
+          "price": 149.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.6,
+          "reviewsCount": 8500,
+          "description": "Tenkeyless wireless mechanical keyboard with Logitech MX Master series compatibility, wireless multi-device, and low-profile switches.",
+          "highlights": ["Wireless multi-device", "Low-profile switches", "Backlit keys", "USB-C rechargeable"],
+          "features": {"Layout": "Tenkeyless (84 keys)", "Switches": "Low-profile tactile/linear/clicky", "Connection": "Bluetooth, Logi Bolt", "Battery": "Up to 15 days", "Multi-device": "Up to 3", "Weight": "1.97 lbs"},
+          "category": "keyboards"
+        },
+        {
+          "asin": "B0BGYYK6P8",
+          "name": "Keychron Q1 Pro",
+          "slug": "keychron-q1-pro",
+          "price": 199.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.5,
+          "reviewsCount": 4200,
+          "description": "75% custom mechanical keyboard with Gateron Jupiter switches, QMK/VIA support, aluminum body, and wireless Bluetooth connectivity.",
+          "highlights": ["Full aluminum body", "QMK/VIA programmable", "Hot-swappable switches", "75% layout"],
+          "features": {"Layout": "75% (81 keys)", "Case": "CNC aluminum", "Switches": "Gateron Jupiter hot-swappable", "Connection": "Bluetooth 5.1, USB-C", "Battery": "4000mAh", "RGB": "Per-key south-facing"},
+          "category": "keyboards"
+        },
+        {
+          "asin": "B07D38V7BN",
+          "name": "Logitech MX Master 3S",
+          "slug": "logitech-mx-master-3s",
+          "price": 99.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.7,
+          "reviewsCount": 32000,
+          "description": "Ergonomic wireless mouse with 8K DPI optical sensor, quiet click switches, MagSpeed scroll wheel, and multi-device up to 3 devices.",
+          "highlights": ["8K DPI optical sensor", "MagSpeed scroll wheel", "Ergonomic design", "Quiet clicks"],
+          "features": {"Sensor": "8K DPI optical", "Buttons": "7 programmable", "Scroll": "MagSpeed electromagnetic", "Connection": "Bluetooth 5.0, Logi Bolt", "Battery": "Up to 70 days", "Weight": "4.97 oz"},
+          "category": "keyboards"
+        },
+        {
+          "asin": "B0B4B1B1B1",
+          "name": "Razer DeathAdder V3 Pro",
+          "slug": "razer-deathadder-v3-pro",
+          "price": 149.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.6,
+          "reviewsCount": 18000,
+          "description": "Ultra-lightweight wireless gaming mouse at 63g, Focus Pro 30K optical sensor, optical switches, and 90-hour battery life.",
+          "highlights": ["63g ultra-light", "Focus Pro 30K sensor", "90-hour battery", "Optical switches"],
+          "features": {"Weight": "63g", "Sensor": "Focus Pro 30K", "Switches": "Razer Optical Gen-3", "Connection": "Razer HyperSpeed Wireless, Bluetooth, USB-C", "Battery": "90 hours", "DPI": "30,000"},
+          "category": "keyboards"
+        },
+        {
+          "asin": "B0BLVJK2C8",
+          "name": "Wooting 60HE+",
+          "slug": "wooting-60he-plus",
+          "price": 175.00,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.7,
+          "reviewsCount": 3200,
+          "description": "60% analog mechanical keyboard with Hall Effect magnetic switches, adjustable actuation, rapid trigger, and 0.1mm precision.",
+          "highlights": ["Analog magnetic switches", "Adjustable actuation", "Rapid trigger", "0.1mm precision"],
+          "features": {"Layout": "60% (61 keys)", "Switches": "Lekker magnetic analog", "Actuation": "0.1-4.0mm adjustable", "Connection": "USB-C detachable", "Polling": "1000Hz", "Features": "Rapid Trigger, DKS, Toggle"},
+          "category": "keyboards"
+        },
+        {
+          "asin": "B0C8B7K6N5",
+          "name": "Apple Magic Keyboard with Touch ID",
+          "slug": "apple-magic-keyboard-touch-id",
+          "price": 149.00,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.6,
+          "reviewsCount": 15000,
+          "description": "Full-size wireless keyboard with Touch ID fingerprint sensor, scissor mechanism keys, rechargeable battery, and seamless Mac integration.",
+          "highlights": ["Touch ID sensor", "Scissor mechanism keys", "USB-C chargeable", "Apple silicon optimized"],
+          "features": {"Layout": "Full-size (109 keys)", "Keys": "Scissor mechanism", "Connection": "Bluetooth 5.3, USB-C", "Battery": "Rechargeable (month+ per charge)", "Compatibility": "Mac with Apple silicon", "Color": "Silver, Space Black"},
+          "category": "keyboards"
+        }
+      ]
+    },
+    "office-chairs": {
+      "name": "🪑 Office & Ergonomic Chairs",
+      "description": "Best ergonomic office chairs for long coding sessions, home offices, and productivity in 2026.",
+      "query": "best ergonomic office chairs for programming 2026",
+      "products": [
+        {
+          "asin": "B07VJ8NW8V",
+          "name": "Herman Miller Aeron Chair",
+          "slug": "herman-miller-aeron",
+          "price": 1395.00,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.5,
+          "reviewsCount": 12000,
+          "description": "Iconic ergonomic office chair with PostureFit SL back support, 8Z Pellicle suspension, adjustable armrests, and breathable mesh design.",
+          "highlights": ["PostureFit SL support", "Breathable mesh", "12-year warranty", "Size A/B/C available"],
+          "features": {"Type": "High-back mesh", "Material": "Pellicle mesh", "Support": "PostureFit SL lumbar", "Arms": "Adjustable 4D", "Weight capacity": "350 lbs", "Warranty": "12-year"},
+          "category": "office-chairs"
+        },
+        {
+          "asin": "B0B4N1F1K1",
+          "name": "Steelcase Gesture",
+          "slug": "steelcase-gesture",
+          "price": 1299.00,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.6,
+          "reviewsCount": 5800,
+          "description": "Premium ergonomic chair with CoreEqual flexor system, live-back technology, and highly adjustable arms that mimic natural arm movement.",
+          "highlights": ["Live-back technology", "CoreEqual flexor", "Natural arm movement", "Premium build"],
+          "features": {"Type": "Mid-back mesh", "Material": "3D knit/leather", "Support": "CoreEqual flexor system", "Arms": "3D adjustable", "Weight capacity": "400 lbs", "Warranty": "Lifetime"},
+          "category": "office-chairs"
+        },
+        {
+          "asin": "B0B8B8B8B9",
+          "name": "Herman Miller Embody",
+          "slug": "herman-miller-embody",
+          "price": 1695.00,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.7,
+          "reviewsCount": 7200,
+          "description": "Back support innovation with pixelated support matrix, Backfit adjustable backrest, and patented tilt mechanism for natural movement.",
+          "highlights": ["Pixelated support matrix", "Backfit adjustment", "Patented tilt", "Breathable fabric"],
+          "features": {"Type": "Full-back fabric", "Material": "Rythmic fabric", "Support": "Pixelated support matrix", "Arms": "Adjustable height/width", "Weight capacity": "300 lbs", "Warranty": "12-year"},
+          "category": "office-chairs"
+        },
+        {
+          "asin": "B09XYZ1ABC",
+          "name": "Branch Ergonomic Chair",
+          "slug": "branch-ergonomic-chair",
+          "price": 349.00,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.4,
+          "reviewsCount": 8500,
+          "description": "Affordable ergonomic chair with adjustable lumbar support, seat depth, armrests, tilt tension, and breathable mesh back.",
+          "highlights": ["Budget-friendly", "Fully adjustable", "Mesh back", "Great value"],
+          "features": {"Type": "Mid-back mesh", "Material": "Mesh + foam seat", "Support": "Adjustable lumbar", "Arms": "3D adjustable", "Weight capacity": "300 lbs", "Seat depth": "Adjustable"},
+          "category": "office-chairs"
+        },
+        {
+          "asin": "B0CQ1M2N8K",
+          "name": "Autonomous ErgoChair Pro",
+          "slug": "autonomous-ergochair-pro",
+          "price": 499.00,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.4,
+          "reviewsCount": 11000,
+          "description": "Popular ergonomic office chair with adjustable headrest, lumbar support, tilt lock, 2D armrests, and breathable mesh back.",
+          "highlights": ["Adjustable headrest", "Tilt lock", "Mesh back", "Affordable ergonomics"],
+          "features": {"Type": "Mid-back mesh", "Material": "Mesh + foam", "Support": "Adjustable lumbar", "Arms": "2D adjustable", "Tilt": "Lockable tilt", "Weight capacity": "300 lbs"},
+          "category": "office-chairs"
+        },
+        {
+          "asin": "B0C8N7K6L5",
+          "name": "Sihoo M57 Ergonomic Chair",
+          "slug": "sihoo-m57",
+          "price": 259.99,
+          "image": "https://m.media-amazon.com/images/I/71rqI3aGNHL._AC_SL1500_.jpg",
+          "rating": 4.5,
+          "reviewsCount": 22000,
+          "description": "Best-selling budget ergonomic chair with 3D adjustable headrest, adjustable lumbar, flip-up armrests, tilt lock, and high-density foam seat.",
+          "highlights": ["Best-selling budget chair", "3D adjustable headrest", "Flip-up armrests", "Great lumbar support"],
+          "features": {"Type": "High-back mesh", "Material": "Mesh + high-density foam", "Support": "Adjustable lumbar", "Arms": "Flip-up 2D", "Tilt": "Multi-angle lock", "Weight capacity": "330 lbs"},
+          "category": "office-chairs"
+        }
+      ]
     }
   }
 }
