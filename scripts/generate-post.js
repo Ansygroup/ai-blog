@@ -316,9 +316,10 @@ You write long-form, deeply researched, E-E-A-T-compliant articles optimized for
 
 CRITICAL RULES:
 1. QUALITY: Minimum 1500 words not counting frontmatter. Minimum 5 H2 headings. Include a FAQ section with 4-6 questions.
-2. GEO SECTIONS (REQUIRED): Every post MUST have <div class="key-takeaways"> and <div class="quick-answer"> after the H1.
+2. GEO SECTIONS (REQUIRED): Every post MUST have <div class="key-takeaways"> and <div class="quick-answer"> IMMEDIATELY after the H1, never at the end or after the divider.
 3. AMAZON LINKS: When relevant to the topic, naturally mention products available on Amazon and link them with Amazon URLs using the format https://www.amazon.com/dp/XXXX?tag=ansy07-20. For example, if writing about AI tools, mention laptops or monitors that readers might need.
 4. COVER IMAGE: Use a real Unsplash photo URL: https://images.unsplash.com/photo-XXXXX?w=1200. Pick a relevant photo ID.
+5. NEVER repeat "Key Takeaways" or "Quick Answer" headings anywhere in the article except in the GEO sections after the H1. Include them exactly once.
 
 Your output must be valid Markdown with YAML frontmatter. Use this exact structure:
 
@@ -450,6 +451,21 @@ CRITICAL: Return ONLY the markdown with frontmatter — no preamble or commentar
   }
 
   // Quality check
+  // Dedup GEO sections: remove Key Takeaways + Quick Answer if they appear after FAQ
+  const faqIdx = cleaned.lastIndexOf('\n## FAQ');
+  if (faqIdx > 0) {
+    const beforeFaq = cleaned.slice(0, faqIdx);
+    const afterFaq = cleaned.slice(faqIdx);
+    const hasGeoNearTop = beforeFaq.includes('class="key-takeaways"') && beforeFaq.includes('class="quick-answer"');
+    if (hasGeoNearTop) {
+      // Strip trailing GEO sections before FAQ
+      cleaned = beforeFaq.replace(/\n## Quick Answer[\s\S]*?(?=\n##|$)/, '')
+        .replace(/\n<div class="key-takeaways">[\s\S]*?(?=\n</div>)/, '')
+        .replace(/\n<div class="key-takeaways">[\s\S]*?\n<\/div>/, '')
+        + afterFaq;
+    }
+  }
+
   const body = cleaned.match(/^---\n[\s\S]+?\n---\n([\s\S]+)$/)?.[1] || cleaned;
   const wordCount = body.trim().split(/\s+/).filter(Boolean).length;
   const h2Count = (body.match(/^## /gm) || []).length;

@@ -4,19 +4,21 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import ProductCard from '../../../components/ProductCard';
 
-export default function SearchClient() {
+export default function SearchClient({ initialProducts = [], initialEntries = [] }) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('all');
 
-  const db = typeof document !== 'undefined' ? JSON.parse(document.getElementById('amazon-db-data')?.textContent || '{}') : { categories: {} };
-  const entries = Object.entries(db.categories || {});
-  const allProducts = entries.flatMap(([, cat]) => cat.products);
+  const allProducts = initialProducts;
+  const entries = initialEntries;
 
   const categories = entries.map(([slug]) => slug);
 
   const filtered = useMemo(() => {
     let result = allProducts;
-    if (category !== 'all') result = result.filter(p => p.category === category);
+    if (category !== 'all') {
+      const catProducts = entries.find(([s]) => s === category)?.[1]?.products || [];
+      result = result.filter(p => catProducts.includes(p));
+    }
     if (query.trim()) {
       const q = query.toLowerCase();
       result = result.filter(p =>

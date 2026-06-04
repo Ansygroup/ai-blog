@@ -11,10 +11,12 @@ export const metadata = {
 
 export default function SearchPage() {
   const db = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'scripts', 'amazon-db.json'), 'utf8'));
+  const entries = Object.entries(db.categories || {});
+  const allProducts = entries.flatMap(([, cat]) => cat.products);
   return (
     <>
       <script id="amazon-db-data" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(db) }} />
-      <SearchClient />
+      <SearchClient initialProducts={allProducts} initialEntries={entries} />
     </>
   );
 }
