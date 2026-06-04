@@ -49,7 +49,7 @@ function slugify(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace
     console.log(`Generating: ${a} vs ${b}...`);
     const content = await callGroq(`Write a detailed comparison article: "${a} vs ${b} 2026 — Which Is Better?".
 Include: intro, feature comparison table, pricing, pros/cons for each, use cases, FAQ, final verdict.
-Format: YAML frontmatter (title, excerpt, date, category: "${cat}", tags), then markdown body.
+Format: YAML frontmatter with title, excerpt, date, category: "${cat}", tags as a JSON array like ["tag1", "tag2"]. Then markdown body.
 Target: 1500-2000 words. Return ONLY the markdown with frontmatter.`);
     if (!content) { console.log(`  Failed to generate ${slug}`); continue; }
     const cleaned = content.replace(/^```markdown\s*/i, '').replace(/^```\s*/, '').replace(/```\s*$/, '');
