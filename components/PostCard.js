@@ -2,15 +2,15 @@ import Link from 'next/link';
 
 export default function PostCard({ post }) {
   return (
-    <article className="group bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg hover:border-blue-300 transition">
+    <article className="group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 transition">
       {post.cover && (
         <Link href={`/posts/${post.slug}`} className="block aspect-video bg-slate-100 overflow-hidden">
           <img src={post.cover} alt={post.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
         </Link>
       )}
       <div className="p-5">
-        <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
-          {post.category && <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold uppercase tracking-wide">{post.category}</span>}
+        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-dark-muted mb-2">
+          {post.category && <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-0.5 rounded-full font-semibold uppercase tracking-wide">{post.category}</span>}
           <span>·</span>
           <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
           {post.readingTime && <><span>·</span><span>{post.readingTime} min read</span></>}
@@ -23,7 +23,7 @@ export default function PostCard({ post }) {
           <Link href={`/posts/${post.slug}`} className="text-blue-600 font-semibold group-hover:underline">
             Read review →
           </Link>
-          {post.rating && <span className="text-amber-500 font-bold">★ {post.rating}/5</span>}
+          {post.rating && <span className="text-amber-500 font-bold">{'★'.repeat(Math.round(post.rating))}{'☆'.repeat(5 - Math.round(post.rating))} {post.rating}</span>}
         </div>
       </div>
     </article>
