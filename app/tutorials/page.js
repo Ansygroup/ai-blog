@@ -1,27 +1,49 @@
+import Link from 'next/link';
 import { getAllPosts } from '../../lib/posts';
 import PostCard from '../../components/PostCard';
 import { siteConfig } from '../../lib/config';
+import { breadcrumbJsonLd } from '../../lib/schema';
 import AdSlot from '../../components/AdSlot';
 
 export const metadata = {
-  title: 'AI Tutorials — Step-by-Step Guides',
-  description: 'Step-by-step AI tutorials: how to use ChatGPT, Midjourney, Claude, and more. Practical guides for marketers, creators, and developers.',
+  title: 'AI Tutorials — Step-by-Step Guides 2026',
+  description: 'Step-by-step tutorials on using the best AI tools. From ChatGPT prompts to AI image generation, learn with practical guides.',
   alternates: { canonical: `${siteConfig.url}/tutorials` },
-  openGraph: { url: `${siteConfig.url}/tutorials` },
+  openGraph: {
+    title: 'AI Tutorials — Step-by-Step Guides 2026',
+    description: 'Step-by-step tutorials on using the best AI tools.',
+    url: `${siteConfig.url}/tutorials`,
+    siteName: siteConfig.name,
+    type: 'website',
+  },
 };
 
 export default function TutorialsPage() {
   const posts = getAllPosts().filter((p) => p.category === 'Tutorials');
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <header className="mb-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">AI Tutorials</h1>
-        <p className="text-lg text-slate-600 max-w-2xl">Step-by-step tutorials to help you master AI tools. From prompt engineering to building AI workflows.</p>
-      </header>
-      <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((p) => <PostCard key={p.slug} post={p} />)}
+    <>
+      <script id="ld-tutorials-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
+        { name: 'Home', url: siteConfig.url },
+        { name: 'Tutorials', url: `${siteConfig.url}/tutorials` },
+      ])) }} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
+          <ol className="flex items-center gap-2">
+            <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
+            <li>/</li>
+            <li className="text-slate-700 dark:text-dark-text">Tutorials</li>
+          </ol>
+        </nav>
+        <header className="mb-10">
+          <p className="text-sm text-slate-500 dark:text-dark-muted uppercase tracking-wider mb-2">Learn</p>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">AI Tutorials 2026</h1>
+          <p className="text-lg text-slate-600 dark:text-dark-muted max-w-2xl">Step-by-step tutorials on using the best AI tools. From ChatGPT prompts to AI image generation, learn with practical guides.</p>
+        </header>
+        <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((p) => <PostCard key={p.slug} post={p} />)}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

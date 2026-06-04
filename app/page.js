@@ -1,11 +1,24 @@
 import Link from 'next/link';
 import { getAllPosts, getAllCategories, slugify } from '../lib/posts';
 import { siteConfig } from '../lib/config';
-import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, organizationJsonLd } from '../lib/schema';
+import { breadcrumbJsonLd, faqJsonLd, organizationJsonLd } from '../lib/schema';
 import PostCard from '../components/PostCard';
 import AdSlot from '../components/AdSlot';
 
 export const dynamic = 'force-static';
+
+export const metadata = {
+  title: siteConfig.title,
+  description: siteConfig.description,
+  alternates: { canonical: siteConfig.url },
+  openGraph: {
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    type: 'website',
+  },
+};
 
 export default function HomePage() {
   const posts = getAllPosts();
