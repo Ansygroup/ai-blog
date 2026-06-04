@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getAllPosts, getAllCategories } from '../lib/posts';
+import { getAllPosts, getAllCategories, slugify } from '../lib/posts';
 import { siteConfig } from '../lib/config';
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, organizationJsonLd } from '../lib/schema';
 import PostCard from '../components/PostCard';
@@ -46,7 +46,7 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex gap-3 overflow-x-auto pb-2">
           {categories.map((c) => (
-            <Link key={c.name} href={`/category/${c.name.toLowerCase().replace(/\s+/g, '-')}`} className="whitespace-nowrap bg-white border border-slate-200 hover:border-blue-500 hover:text-blue-700 px-4 py-2 rounded-full text-sm font-medium transition">
+            <Link key={c.name} href={`/category/${slugify(c.name)}`} className="whitespace-nowrap bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border hover:border-blue-500 dark:hover:border-blue-400 hover:text-blue-700 dark:hover:text-blue-400 px-4 py-2 rounded-full text-sm font-medium transition">
               {c.name} <span className="text-slate-400">({c.count})</span>
             </Link>
           ))}
@@ -58,11 +58,11 @@ export default function HomePage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
           <h2 className="text-2xl font-bold mb-6">🔥 Featured Review</h2>
           <div className="grid lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl transition">
+            <div className="lg:col-span-2 group bg-white dark:bg-dark-card rounded-2xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-xl transition">
               {featured.cover && <Link href={`/posts/${featured.slug}`}><img src={featured.cover} alt={featured.title} loading="lazy" className="w-full aspect-video object-cover group-hover:opacity-95 transition" /></Link>}
               <div className="p-6">
                 <div className="flex items-center gap-2 text-xs text-slate-500 mb-3">
-                  {featured.category && <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold uppercase">{featured.category}</span>}
+                  {featured.category && <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-0.5 rounded-full font-semibold uppercase">{featured.category}</span>}
                   <span>·</span>
                   <time>{new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
                 </div>

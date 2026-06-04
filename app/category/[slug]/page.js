@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getAllCategories, getPostsByCategory } from '../../../lib/posts';
+import { getAllCategories, getPostsByCategory, getCategoryBySlug, slugify } from '../../../lib/posts';
 import PostCard from '../../../components/PostCard';
 import { siteConfig } from '../../../lib/config';
 import AdSlot from '../../../components/AdSlot';
@@ -7,16 +7,16 @@ import AdSlot from '../../../components/AdSlot';
 export const dynamic = 'force-static';
 
 export function generateStaticParams() {
-  return getAllCategories().map((c) => ({ slug: c.name.toLowerCase().replace(/\s+/g, '-') }));
+  return getAllCategories().map((c) => ({ slug: slugify(c.name) }));
 }
 
 export function generateMetadata({ params }) {
-  const name = params.slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+  const name = getCategoryBySlug(params.slug);
   return { title: `${name} — AI Tools, Reviews & Guides`, description: `The best ${name.toLowerCase()} content: reviews, comparisons, and tutorials.` };
 }
 
 export default function CategoryPage({ params }) {
-  const name = params.slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+  const name = getCategoryBySlug(params.slug);
   const posts = getPostsByCategory(name);
   if (!posts.length) notFound();
   return (
