@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '../../../lib/posts';
+import { getAllPostSlugs, getPostBySlug, getRelatedPosts, getAdjacentPosts } from '../../../lib/posts';
 import { renderSafeMarkdown } from '../../../lib/markdown';
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, productReviewJsonLd, howtoJsonLd } from '../../../lib/schema';
 import { siteConfig } from '../../../lib/config';
@@ -48,6 +48,7 @@ export default async function PostPage({ params }) {
 
   const url = `${siteConfig.url}/posts/${post.slug}`;
   const related = getRelatedPosts(post.slug, post.category, post.tags || [], 3);
+  const { prev, next } = getAdjacentPosts(post.slug);
   const faqs = parseFAQs(post.content);
 
   return (
@@ -118,6 +119,22 @@ export default async function PostPage({ params }) {
               </div>
             </div>
           )}
+
+          {/* Prev/Next navigation */}
+          <nav className="mt-10 pt-6 border-t border-slate-200 dark:border-dark-border flex flex-col sm:flex-row justify-between gap-4">
+            <div className="flex-1">
+              {prev && <Link href={`/posts/${prev.slug}`} className="group block text-left">
+                <span className="text-xs text-slate-500 dark:text-dark-muted uppercase tracking-wider">← Previous</span>
+                <span className="block text-sm font-semibold text-slate-700 dark:text-dark-text group-hover:text-blue-600 transition truncate">{prev.title}</span>
+              </Link>}
+            </div>
+            <div className="flex-1 text-right">
+              {next && <Link href={`/posts/${next.slug}`} className="group block text-right">
+                <span className="text-xs text-slate-500 dark:text-dark-muted uppercase tracking-wider">Next →</span>
+                <span className="block text-sm font-semibold text-slate-700 dark:text-dark-text group-hover:text-blue-600 transition truncate">{next.title}</span>
+              </Link>}
+            </div>
+          </nav>
 
           <ShareButtons title={post.title} url={url} />
 
