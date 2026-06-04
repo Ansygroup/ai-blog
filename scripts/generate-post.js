@@ -280,9 +280,13 @@ function slugify(s) {
 }
 
 function getTopics() {
+  const queue = JSON.parse(fs.readFileSync(KEYWORD_QUEUE, 'utf8'));
   if (fromQueue) {
-    return JSON.parse(fs.readFileSync(KEYWORD_QUEUE, 'utf8')).slice(0, batchSize);
+    return queue.slice(0, batchSize);
   }
+  // Check if topic is in queue for correct category
+  const match = queue.find((t) => t.topic.toLowerCase() === topicArg.toLowerCase());
+  if (match) return [match];
   return [{ topic: topicArg, keywords: [topicArg], category: 'AI Tools' }];
 }
 
