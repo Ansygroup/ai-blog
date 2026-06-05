@@ -21,7 +21,7 @@
           "url": ""
         }
       ],
-      "lastScraped": "2026-06-05T04:09:30.244Z"
+      "lastScraped": "2026-06-05T09:59:37.065Z"
     },
     "headphones": {
       "name": "🎧 Headphones & Audio",
@@ -43,7 +43,7 @@
           "url": ""
         }
       ],
-      "lastScraped": "2026-06-05T04:10:05.995Z"
+      "lastScraped": "2026-06-05T10:00:13.407Z"
     },
     "monitors": {
       "name": "🖥️ Monitors & Displays",
@@ -65,7 +65,7 @@
           "url": ""
         }
       ],
-      "lastScraped": "2026-06-05T04:10:46.714Z"
+      "lastScraped": "2026-06-05T10:00:54.582Z"
     },
     "ai-books": {
       "name": "📚 AI & Tech Books",
@@ -87,7 +87,7 @@
           "url": ""
         }
       ],
-      "lastScraped": "2026-06-05T04:11:27.343Z"
+      "lastScraped": "2026-06-05T10:01:30.580Z"
     },
     "webcams": {
       "name": "🎥 Webcams & Streaming Gear",
@@ -109,7 +109,7 @@
           "url": ""
         }
       ],
-      "lastScraped": "2026-06-05T04:12:03.062Z"
+      "lastScraped": "2026-06-05T10:02:11.325Z"
     },
     "tablets": {
       "name": "📱 Tablets & E-Readers",
@@ -131,7 +131,7 @@
           "url": ""
         }
       ],
-      "lastScraped": "2026-06-05T04:12:38.580Z"
+      "lastScraped": "2026-06-05T10:02:46.878Z"
     },
     "smart-home": {
       "name": "🏠 Smart Home & Automation",
