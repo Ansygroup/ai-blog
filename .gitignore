@@ -6,6 +6,7 @@ out/
 .vercel/
 *.log
 .DS_Store
+graphify-out/
 public/*.txt
 !public/robots.txt
 !public/llms.txt
