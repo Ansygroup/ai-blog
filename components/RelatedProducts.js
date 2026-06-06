@@ -45,7 +45,7 @@ export default function RelatedProducts({ tags, category, limit = 3 }) {
   let products = [];
   for (const match of matches) {
     const cat = db.categories[match.slug];
-    if (cat) products.push(...cat.products.slice(0, 2));
+    if (cat) products.push(...cat.products.filter(p => p.slug && p.asin).slice(0, 2));
     if (products.length >= limit) break;
   }
   products = products.slice(0, limit);

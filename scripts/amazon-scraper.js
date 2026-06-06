@@ -99,7 +99,11 @@ async function scrapeCategory(category, query) {
   for (const [slug, query] of Object.entries(CATEGORIES)) {
     try {
       const products = await scrapeCategory(slug, query);
-      if (!products || !products.length) { failed++; continue; }
+      if (!products || !products.length) {
+        console.log(`  ⏭ ${slug}: scrape returned nothing, keeping existing products`);
+        failed++;
+        continue;
+      }
 
       // Add affiliate URL
       products.forEach(p => {
@@ -111,6 +115,7 @@ async function scrapeCategory(category, query) {
       updated++;
     } catch (err) {
       console.log(`  ❌ ${slug}: ${err.message}`);
+      console.log(`  ⏭ ${slug}: keeping existing products from DB`);
       failed++;
     }
   }

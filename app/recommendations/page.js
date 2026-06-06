@@ -27,8 +27,8 @@ export const metadata = {
 
 export default function RecommendationsPage() {
   const db = getDb();
-  const entries = Object.entries(db.categories);
-  const allProducts = entries.flatMap(([, cat]) => cat.products);
+  const entries = Object.entries(db.categories).filter(([, cat]) => cat.products?.length > 0);
+  const allProducts = entries.flatMap(([, cat]) => cat.products.filter(p => p.slug && p.asin));
   const featured = allProducts.sort((a, b) => (b.reviewsCount || 0) - (a.reviewsCount || 0)).slice(0, 4);
 
   return (
@@ -85,7 +85,7 @@ export default function RecommendationsPage() {
               <Link href={`/recommendations/${slug}`} className="text-sm text-blue-600 hover:underline">View all →</Link>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {cat.products.slice(0, 4).map((p) => <ProductCard key={p.asin} product={p} />)}
+              {cat.products.filter(p => p.slug && p.asin).slice(0, 4).map((p) => <ProductCard key={p.asin} product={p} />)}
             </div>
           </section>
         ))}

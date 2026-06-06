@@ -31,7 +31,7 @@ export const metadata = {
 export default function BestPage() {
   const db = getDb();
   const entries = Object.entries(db.categories);
-  const allProducts = entries.flatMap(([slug, cat]) => cat.products.map(p => ({ ...p, category: cat.name, categorySlug: slug })));
+  const allProducts = entries.flatMap(([slug, cat]) => cat.products.filter(p => p.slug && p.asin).map(p => ({ ...p, category: cat.name, categorySlug: slug })));
   const byScore = [...allProducts].sort((a, b) => {
     const aScore = (a.rating || 0) * Math.log10((a.reviewsCount || 1) + 1);
     const bScore = (b.rating || 0) * Math.log10((b.reviewsCount || 1) + 1);

@@ -20,7 +20,7 @@ function getAllProducts() {
   const db = getDb();
   const all = [];
   for (const [catSlug, cat] of Object.entries(db.categories)) {
-    for (const p of cat.products) {
+    for (const p of cat.products.filter(p => p.slug)) {
       all.push({ ...p, categorySlug: catSlug });
     }
   }

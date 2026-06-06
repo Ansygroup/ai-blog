@@ -3,6 +3,7 @@ import Link from 'next/link';
 const TAG = 'ansy07-20';
 
 export default function ProductCard({ product }) {
+  if (!product?.slug || !product?.asin) return null;
   const amazonUrl = `https://www.amazon.com/dp/${product.asin}?tag=${TAG}`;
   return (
     <article className="group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 transition flex flex-col">
