@@ -7,111 +7,21 @@
       "query": "best laptops for AI development 2026",
       "products": [
         {
-          "asin": "B0DLHY2BJ6",
-          "name": "Apple MacBook Pro 14\" M4 Pro (24GB/512GB)",
-          "slug": "macbook-pro-14-m4-pro",
-          "price": 1999,
-          "image": "https://m.media-amazon.com/images/I/619XhjE2rEL._AC_SL1500_.jpg",
-          "rating": 4.7,
-          "reviewsCount": 2500,
-          "description": "MacBook Pro with M4 Pro chip featuring 12-core CPU and 16-core GPU, 24GB unified memory, 512GB SSD, and 14.2-inch Liquid Retina XDR Display.",
-          "highlights": [
-            "M4 Pro chip",
-            "Liquid Retina XDR",
-            "24GB unified memory",
-            "Up to 22h battery"
-          ],
-          "features": {
-            "Chip": "Apple M4 Pro (12-core CPU, 16-core GPU)",
-            "Display": "14.2\" Liquid Retina XDR",
-            "Memory": "24GB Unified Memory",
-            "Storage": "512GB SSD",
-            "Battery": "Up to 22 hours",
-            "Weight": "3.52 lbs"
-          },
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
           "category": "laptops",
-          "url": "https://www.amazon.com/dp/B0DLHY2BJ6?tag=ansy07-20"
-        },
-        {
-          "asin": "B0FMHRXGK4",
-          "name": "Lenovo ThinkPad X1 Carbon Gen 13 Aura Edition",
-          "slug": "thinkpad-x1-carbon-gen-13",
-          "price": 2049,
-          "image": "https://m.media-amazon.com/images/I/71XDPT7rE6L._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 380,
-          "description": "14\" 2.8K OLED touch laptop with Intel Core Ultra 7 265U vPro, 64GB LPDDR5X, 1TB SSD, Wi-Fi 7, and Windows 11 Pro.",
-          "highlights": [
-            "2.8K OLED touch",
-            "Intel Core Ultra 7",
-            "64GB RAM",
-            "Wi-Fi 7"
-          ],
-          "features": {
-            "Chip": "Intel Core Ultra 7 265U vPro",
-            "Display": "14\" 2.8K OLED Touch",
-            "Memory": "64GB LPDDR5X",
-            "Storage": "1TB SSD",
-            "OS": "Windows 11 Pro",
-            "Weight": "2.15 lbs"
-          },
-          "category": "laptops",
-          "url": "https://www.amazon.com/dp/B0FMHRXGK4?tag=ansy07-20"
-        },
-        {
-          "asin": "B0C4B9MWHY",
-          "name": "Samsung Galaxy Book4 Ultra (2024)",
-          "slug": "samsung-galaxy-book4-ultra",
-          "price": 2399.99,
-          "image": "https://m.media-amazon.com/images/I/71dF8d0TgxL._AC_SL1500_.jpg",
-          "rating": 4.4,
-          "reviewsCount": 1200,
-          "description": "16\" 3K AMOLED laptop with Intel Core Ultra 9, NVIDIA RTX 4070, 32GB RAM, 1TB SSD, and Windows 11.",
-          "highlights": [
-            "3K AMOLED display",
-            "Intel Core Ultra 9",
-            "RTX 4070",
-            "1TB SSD"
-          ],
-          "features": {
-            "Chip": "Intel Core Ultra 9",
-            "GPU": "NVIDIA RTX 4070",
-            "Display": "16\" 3K AMOLED",
-            "Memory": "32GB DDR5",
-            "Storage": "1TB SSD",
-            "Battery": "Up to 12 hours"
-          },
-          "category": "laptops",
-          "url": "https://www.amazon.com/dp/B0C4B9MWHY?tag=ansy07-20"
-        },
-        {
-          "asin": "B0CX23V2XF",
-          "name": "Apple MacBook Air 15\" M3 (16GB/512GB)",
-          "slug": "macbook-air-15-m3",
-          "price": 1499,
-          "image": "https://m.media-amazon.com/images/I/71FfN1TzRlL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 3200,
-          "description": "15-inch MacBook Air with M3 chip, 16GB unified memory, 512GB SSD, and 15.3-inch Liquid Retina display.",
-          "highlights": [
-            "M3 chip",
-            "15.3\" display",
-            "18h battery",
-            "Thin & light"
-          ],
-          "features": {
-            "Chip": "Apple M3 (8-core CPU, 10-core GPU)",
-            "Display": "15.3\" Liquid Retina",
-            "Memory": "16GB Unified Memory",
-            "Storage": "512GB SSD",
-            "Battery": "Up to 18 hours",
-            "Weight": "3.3 lbs"
-          },
-          "category": "laptops",
-          "url": "https://www.amazon.com/dp/B0CX23V2XF?tag=ansy07-20"
+          "url": ""
         }
       ],
-      "lastScraped": "2026-06-06T19:29:25.113Z"
+      "lastScraped": "2026-06-06T19:38:35.293Z"
     },
     "headphones": {
       "name": "🎧 Headphones & Audio",
@@ -119,85 +29,21 @@
       "query": "best noise cancelling headphones 2026",
       "products": [
         {
-          "asin": "B09XS7JWHH",
-          "name": "Sony WH-1000XM5 Wireless Noise Canceling Headphones",
-          "slug": "sony-wh-1000xm5",
-          "price": 328,
-          "image": "https://m.media-amazon.com/images/I/61G5Y7ZEHZL._AC_SL1500_.jpg",
-          "rating": 4.2,
-          "reviewsCount": 45000,
-          "description": "Industry-leading noise canceling headphones with Auto NC Optimizer, crystal clear hands-free calling, and 30-hour battery life.",
-          "highlights": [
-            "Industry-leading ANC",
-            "Auto NC Optimizer",
-            "30h battery",
-            "Crystal clear calls"
-          ],
-          "features": {
-            "Type": "Over-ear wireless",
-            "Driver": "30mm",
-            "Frequency": "4Hz-40kHz",
-            "Battery": "30 hours (ANC on)",
-            "Charging": "USB-C (3h full)",
-            "Weight": "8.82 oz"
-          },
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
           "category": "headphones",
-          "url": "https://www.amazon.com/dp/B09XS7JWHH?tag=ansy07-20"
-        },
-        {
-          "asin": "B0CHX7QQW6",
-          "name": "Apple AirPods Pro (2nd Gen) with USB-C MagSafe",
-          "slug": "airpods-pro-2-usbc",
-          "price": 249.99,
-          "image": "https://m.media-amazon.com/images/I/61SUj2aRiEL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 52000,
-          "description": "AirPods Pro 2 with USB-C, Adaptive Audio, 2x more Active Noise Cancellation, Personalized Spatial Audio, and H2 chip.",
-          "highlights": [
-            "2x more ANC",
-            "Adaptive Audio",
-            "H2 chip",
-            "USB-C charging"
-          ],
-          "features": {
-            "Chip": "Apple H2",
-            "ANC": "2x more than Gen 1",
-            "Audio": "Personalized Spatial Audio",
-            "Battery": "6h (30h with case)",
-            "Water": "IP54",
-            "Charging": "USB-C, MagSafe, Qi"
-          },
-          "category": "headphones",
-          "url": "https://www.amazon.com/dp/B0CHX7QQW6?tag=ansy07-20"
-        },
-        {
-          "asin": "B09KLVZS6N",
-          "name": "Bose QuietComfort Ultra Headphones",
-          "slug": "bose-qc-ultra",
-          "price": 429,
-          "image": "https://m.media-amazon.com/images/I/61CMZ1OBzEL._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 18000,
-          "description": "Bose QuietComfort Ultra with world-class noise cancellation, Immersive Audio, CustomTune, and up to 24 hours battery life.",
-          "highlights": [
-            "Immersive Audio",
-            "CustomTune ANC",
-            "24h battery",
-            "Comfortable fit"
-          ],
-          "features": {
-            "Type": "Over-ear wireless",
-            "Driver": "Custom Bose",
-            "Audio": "Bose Immersive Audio",
-            "ANC": "CustomTune",
-            "Battery": "24 hours",
-            "Charging": "USB-C"
-          },
-          "category": "headphones",
-          "url": "https://www.amazon.com/dp/B09KLVZS6N?tag=ansy07-20"
+          "url": ""
         }
       ],
-      "lastScraped": "2026-06-06T19:29:25.119Z"
+      "lastScraped": "2026-06-06T19:39:16.145Z"
     },
     "monitors": {
       "name": "🖥️ Monitors & Displays",
@@ -205,85 +51,21 @@
       "query": "best monitors for programming 2026",
       "products": [
         {
-          "asin": "B09TQZP9CL",
-          "name": "Dell UltraSharp U2723QE 27\" 4K IPS Black Monitor",
-          "slug": "dell-u2723qe",
-          "price": 559.99,
-          "image": "https://m.media-amazon.com/images/I/71N0g1FqCbL._AC_SL1500_.jpg",
-          "rating": 4.4,
-          "reviewsCount": 8200,
-          "description": "27\" 4K UHD monitor with IPS Black technology, 2000:1 contrast ratio, USB-C hub with 90W PD, factory-calibrated colors.",
-          "highlights": [
-            "IPS Black panel",
-            "2000:1 contrast",
-            "USB-C 90W PD",
-            "Factory calibrated"
-          ],
-          "features": {
-            "Size": "27\" 4K UHD",
-            "Panel": "IPS Black",
-            "Contrast": "2000:1",
-            "Brightness": "400 cd/m²",
-            "Ports": "USB-C 90W, DP, HDMI, RJ45",
-            "Color": "100% sRGB, 98% DCI-P3"
-          },
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
           "category": "monitors",
-          "url": "https://www.amazon.com/dp/B09TQZP9CL?tag=ansy07-20"
-        },
-        {
-          "asin": "B0CJHM6ZYC",
-          "name": "Apple Studio Display (Standard Glass)",
-          "slug": "apple-studio-display",
-          "price": 1599,
-          "image": "https://m.media-amazon.com/images/I/71cMEmbemfL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 15000,
-          "description": "27\" 5K Retina display with 12MP Ultra Wide camera with Center Stage, six-speaker sound system, and three-mic array.",
-          "highlights": [
-            "5K Retina",
-            "Center Stage camera",
-            "Six-speaker audio",
-            "Thunderbolt 3"
-          ],
-          "features": {
-            "Size": "27\" 5K Retina",
-            "Resolution": "5120x2880",
-            "Camera": "12MP Ultra Wide",
-            "Audio": "6-speaker + 3-mic",
-            "Ports": "Thunderbolt 3 (96W), 3x USB-C",
-            "Brightness": "600 nits"
-          },
-          "category": "monitors",
-          "url": "https://www.amazon.com/dp/B0CJHM6ZYC?tag=ansy07-20"
-        },
-        {
-          "asin": "B0CSFJ3K1T",
-          "name": "LG 27GP950-B UltraGear 4K Gaming Monitor",
-          "slug": "lg-27gp950-b",
-          "price": 549.99,
-          "image": "https://m.media-amazon.com/images/I/71dR5fvyULL._AC_SL1500_.jpg",
-          "rating": 4.5,
-          "reviewsCount": 12000,
-          "description": "27\" 4K UHD Nano IPS gaming monitor with 160Hz refresh rate, 1ms response, HDMI 2.1, and VESA DisplayHDR 600.",
-          "highlights": [
-            "4K 160Hz",
-            "Nano IPS 1ms",
-            "HDMI 2.1",
-            "DisplayHDR 600"
-          ],
-          "features": {
-            "Size": "27\" 4K UHD",
-            "Panel": "Nano IPS",
-            "Refresh": "160Hz",
-            "Response": "1ms GTG",
-            "HDR": "DisplayHDR 600",
-            "Ports": "HDMI 2.1, DP 1.4, USB"
-          },
-          "category": "monitors",
-          "url": "https://www.amazon.com/dp/B0CSFJ3K1T?tag=ansy07-20"
+          "url": ""
         }
       ],
-      "lastScraped": "2026-06-06T19:29:25.120Z"
+      "lastScraped": "2026-06-06T19:39:56.885Z"
     },
     "ai-books": {
       "name": "📚 AI & Tech Books",
@@ -291,85 +73,21 @@
       "query": "best artificial intelligence books 2026",
       "products": [
         {
-          "asin": "1101970316",
-          "name": "Life 3.0: Being Human in the Age of AI by Max Tegmark",
-          "slug": "life-3-0",
-          "price": 14.99,
-          "image": "https://m.media-amazon.com/images/I/71ziM5f7bFL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 7500,
-          "description": "NYT bestseller exploring how AI will affect crime, war, justice, jobs, society, and our sense of being human. By MIT professor Max Tegmark.",
-          "highlights": [
-            "NYT Bestseller",
-            "MIT professor",
-            "AI & society",
-            "Future scenarios"
-          ],
-          "features": {
-            "Pages": "384",
-            "Publisher": "Vintage",
-            "Published": "July 2018",
-            "Format": "Paperback",
-            "ISBN": "978-1101970317",
-            "Author": "Max Tegmark"
-          },
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
           "category": "ai-books",
-          "url": "https://www.amazon.com/dp/1101970316?tag=ansy07-20"
-        },
-        {
-          "asin": "0198739834",
-          "name": "Superintelligence: Paths, Dangers, Strategies by Nick Bostrom",
-          "slug": "superintelligence",
-          "price": 14.99,
-          "image": "https://m.media-amazon.com/images/I/81L6oRKlGbL._AC_SL1500_.jpg",
-          "rating": 4.3,
-          "reviewsCount": 4587,
-          "description": "The seminal work on AI risk that sparked global conversation. Oxford philosopher Nick Bostrom explores paths to superintelligence and control.",
-          "highlights": [
-            "#1 AI bestseller",
-            "AI risk analysis",
-            "Oxford professor",
-            "Control problem"
-          ],
-          "features": {
-            "Pages": "432",
-            "Publisher": "Oxford University Press",
-            "Published": "May 2016",
-            "Format": "Paperback",
-            "ISBN": "978-0198739838",
-            "Author": "Nick Bostrom"
-          },
-          "category": "ai-books",
-          "url": "https://www.amazon.com/dp/0198739834?tag=ansy07-20"
-        },
-        {
-          "asin": "B085T55LGK",
-          "name": "The Alignment Problem: Machine Learning and Human Values by Brian Christian",
-          "slug": "alignment-problem",
-          "price": 16.81,
-          "image": "https://m.media-amazon.com/images/I/81NyeAiw9RL._AC_SL1500_.jpg",
-          "rating": 4.6,
-          "reviewsCount": 589,
-          "description": "A jaw-dropping exploration of everything that can go wrong when we build AI systems and the movement to fix it.",
-          "highlights": [
-            "AI alignment",
-            "Machine learning ethics",
-            "Bestselling author",
-            "Real-world cases"
-          ],
-          "features": {
-            "Pages": "496",
-            "Publisher": "W. W. Norton",
-            "Published": "October 2020",
-            "Format": "Paperback",
-            "ISBN": "978-0393357820",
-            "Author": "Brian Christian"
-          },
-          "category": "ai-books",
-          "url": "https://www.amazon.com/dp/B085T55LGK?tag=ansy07-20"
+          "url": ""
         }
       ],
-      "lastScraped": "2026-06-06T19:29:25.120Z"
+      "lastScraped": "2026-06-06T19:41:03.289Z"
     },
     "webcams": {
       "name": "🎥 Webcams & Streaming Gear",
@@ -377,85 +95,21 @@
       "query": "best webcams for streaming 2026",
       "products": [
         {
-          "asin": "B01N5UOYC4",
-          "name": "Logitech Brio 4K Ultra HD Webcam",
-          "slug": "logitech-brio-4k",
-          "price": 148,
-          "image": "https://m.media-amazon.com/images/I/61SNLN1S9yL._AC_SL1500_.jpg",
-          "rating": 4.2,
-          "reviewsCount": 28000,
-          "description": "Ultra 4K HD webcam with noise-canceling mics, HD auto light correction, wide field of view, and 5x HD zoom. Works with Teams, Zoom, Google Voice.",
-          "highlights": [
-            "4K resolution",
-            "Auto light correction",
-            "Noise-canceling mics",
-            "5x HD zoom"
-          ],
-          "features": {
-            "Resolution": "4K Ultra HD",
-            "FOV": "90°/78°/65°",
-            "Mic": "Dual omni with noise cancel",
-            "Light": "RightLight 3 + HDR",
-            "Mount": "Universal clip",
-            "Compatibility": "Windows, Mac, ChromeOS"
-          },
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
           "category": "webcams",
-          "url": "https://www.amazon.com/dp/B01N5UOYC4?tag=ansy07-20"
-        },
-        {
-          "asin": "B09DXYT3C6",
-          "name": "Elgato Facecam 1080p60 Webcam",
-          "slug": "elgato-facecam",
-          "price": 199.99,
-          "image": "https://m.media-amazon.com/images/I/61TXmVwchdL._AC_SL1500_.jpg",
-          "rating": 4.3,
-          "reviewsCount": 9600,
-          "description": "Premium 1080p60 webcam with Sony STARVIS sensor, advanced image engine, and uncompressed video for streaming and professional video calls.",
-          "highlights": [
-            "Sony STARVIS sensor",
-            "1080p60 uncompressed",
-            "Advanced image engine",
-            "Studio-quality"
-          ],
-          "features": {
-            "Resolution": "1080p60",
-            "Sensor": "Sony STARVIS",
-            "FOV": "82°",
-            "Connection": "USB 3.0 (USB-C)",
-            "Mic": "None (external recommended)",
-            "App": "Camera Hub"
-          },
-          "category": "webcams",
-          "url": "https://www.amazon.com/dp/B09DXYT3C6?tag=ansy07-20"
-        },
-        {
-          "asin": "B08JH7J6L3",
-          "name": "Razer Kiyo Pro Ultra Webcam",
-          "slug": "razer-kiyo-pro-ultra",
-          "price": 299.99,
-          "image": "https://m.media-amazon.com/images/I/71RVtBom4DL._AC_SL1500_.jpg",
-          "rating": 4.1,
-          "reviewsCount": 5200,
-          "description": "Ultra-wide 4K webcam with Sony IMX585 sensor, adaptive light sensor, HDR, and professional-grade image quality for streaming and calls.",
-          "highlights": [
-            "Sony IMX585 sensor",
-            "4K Ultra-wide",
-            "Adaptive light sensor",
-            "HDR support"
-          ],
-          "features": {
-            "Resolution": "4K @30fps / 1080p @60fps",
-            "Sensor": "Sony IMX585",
-            "FOV": "90°-66° adjustable",
-            "Connection": "USB 3.0",
-            "HDR": "Yes",
-            "Mic": "Stereo"
-          },
-          "category": "webcams",
-          "url": "https://www.amazon.com/dp/B08JH7J6L3?tag=ansy07-20"
+          "url": ""
         }
       ],
-      "lastScraped": "2026-06-06T19:29:25.120Z"
+      "lastScraped": "2026-06-06T19:42:14.528Z"
     },
     "tablets": {
       "name": "📱 Tablets & E-Readers",
@@ -463,85 +117,21 @@
       "query": "best tablets for reading 2026",
       "products": [
         {
-          "asin": "B0GQVTNDLR",
-          "name": "Apple iPad Air 11\" M4 (128GB Wi-Fi)",
-          "slug": "ipad-air-11-m4",
-          "price": 599,
-          "image": "https://m.media-amazon.com/images/I/81ea3qBp7wL._AC_SL1500_.jpg",
-          "rating": 4.7,
-          "reviewsCount": 1800,
-          "description": "iPad Air with M4 chip, 11-inch Liquid Retina display, Touch ID, 12MP cameras, Wi-Fi 7, and all-day battery life in a thin and light design.",
-          "highlights": [
-            "M4 chip",
-            "Apple Intelligence",
-            "Liquid Retina display",
-            "Touch ID"
-          ],
-          "features": {
-            "Chip": "Apple M4",
-            "Display": "11\" Liquid Retina",
-            "Storage": "128GB",
-            "Camera": "12MP Wide + 12MP Ultra Wide",
-            "Connection": "Wi-Fi 7, Bluetooth 5.3",
-            "Battery": "Up to 10 hours"
-          },
+          "asin": "",
+          "name": "",
+          "slug": "",
+          "price": 0,
+          "image": "",
+          "rating": 0,
+          "reviewsCount": 0,
+          "description": "",
+          "highlights": [],
+          "features": {},
           "category": "tablets",
-          "url": "https://www.amazon.com/dp/B0GQVTNDLR?tag=ansy07-20"
-        },
-        {
-          "asin": "B0CZB5RHWX",
-          "name": "Amazon Kindle Scribe (16GB) with Premium Pen",
-          "slug": "kindle-scribe",
-          "price": 399.99,
-          "image": "https://m.media-amazon.com/images/I/61iIDPF4MCL._AC_SL1500_.jpg",
-          "rating": 4.4,
-          "reviewsCount": 15000,
-          "description": "Kindle and notebook in one with redesigned flush-front display, upgraded Premium Pen that writes like on paper, notebook summarization.",
-          "highlights": [
-            "Write on books & docs",
-            "Premium Pen included",
-            "Notebook summarization",
-            "Flush-front display"
-          ],
-          "features": {
-            "Display": "10.2\" 300ppi e-ink",
-            "Storage": "16GB",
-            "Pen": "Premium Pen (no charge needed)",
-            "Battery": "Weeks per charge",
-            "Connectivity": "Wi-Fi, Bluetooth",
-            "Weight": "15.3 oz"
-          },
-          "category": "tablets",
-          "url": "https://www.amazon.com/dp/B0CZB5RHWX?tag=ansy07-20"
-        },
-        {
-          "asin": "B0C4BC6R95",
-          "name": "Samsung Galaxy Tab S9 11\" 128GB Wi-Fi",
-          "slug": "samsung-galaxy-tab-s9",
-          "price": 799.99,
-          "image": "https://m.media-amazon.com/images/I/61HF3jZ8q5L._AC_SL1500_.jpg",
-          "rating": 4.7,
-          "reviewsCount": 8500,
-          "description": "Premium Android tablet with Snapdragon 8 Gen 2, Dynamic AMOLED 2X 120Hz display, IP68 water resistance, S Pen included.",
-          "highlights": [
-            "Dynamic AMOLED 120Hz",
-            "Snapdragon 8 Gen 2",
-            "IP68 water resistant",
-            "S Pen included"
-          ],
-          "features": {
-            "Chip": "Snapdragon 8 Gen 2",
-            "Display": "11\" AMOLED 120Hz",
-            "Storage": "128GB (expandable)",
-            "RAM": "8GB",
-            "Battery": "8400mAh",
-            "Water": "IP68"
-          },
-          "category": "tablets",
-          "url": "https://www.amazon.com/dp/B0C4BC6R95?tag=ansy07-20"
+          "url": ""
         }
       ],
-      "lastScraped": "2026-06-06T19:29:25.120Z"
+      "lastScraped": "2026-06-06T19:43:10.730Z"
     },
     "smart-home": {
       "name": "🏠 Smart Home & Automation",
