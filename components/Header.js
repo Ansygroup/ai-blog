@@ -6,6 +6,7 @@ import ThemeToggle from './ThemeToggle';
 export default function Header() {
   const categories = getAllCategories();
   const navLinks = [
+    { href: '/posts', label: 'Articles' },
     { href: '/reviews', label: 'Reviews' },
     { href: '/comparisons', label: 'Comparisons' },
     { href: '/tutorials', label: 'Tutorials' },

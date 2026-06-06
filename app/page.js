@@ -127,7 +127,7 @@ export default function HomePage() {
           {grid.map((p) => <PostCard key={p.slug} post={p} />)}
         </div>
         <div className="text-center mt-10">
-          <Link href="/reviews" className="inline-block bg-slate-900 hover:bg-slate-800 text-white font-semibold px-6 py-3 rounded-lg transition">View all articles →</Link>
+          <Link href="/posts" className="inline-block bg-slate-900 hover:bg-slate-800 text-white font-semibold px-6 py-3 rounded-lg transition">View all articles →</Link>
         </div>
       </section>
 

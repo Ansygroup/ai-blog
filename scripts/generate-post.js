@@ -460,7 +460,6 @@ CRITICAL: Return ONLY the markdown with frontmatter — no preamble or commentar
     if (hasGeoNearTop) {
       // Strip trailing GEO sections before FAQ
       cleaned = beforeFaq.replace(/\n## Quick Answer[\s\S]*?(?=\n##|$)/, '')
-        .replace(/\n<div class="key-takeaways">[\s\S]*?(?=\n</div>)/, '')
         .replace(/\n<div class="key-takeaways">[\s\S]*?\n<\/div>/, '')
         + afterFaq;
     }

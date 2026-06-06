@@ -236,7 +236,7 @@
       "query": "best artificial intelligence books 2026",
       "products": [
         {
-          "asin": "B0BZ8Z8Z8Z",
+          "asin": "B0CW5K9BL6",
           "name": "ChatGPT for Dummies",
           "slug": "chatgpt-for-dummies",
           "price": 19.99,
@@ -249,7 +249,7 @@
           "category": "ai-books"
         },
         {
-          "asin": "B00LZ8Z8Z8",
+          "asin": "0198739834",
           "name": "Superintelligence: Paths, Dangers, Strategies",
           "slug": "superintelligence",
           "price": 13.99,
@@ -262,7 +262,7 @@
           "category": "ai-books"
         },
         {
-          "asin": "B01HZ8Z8Z8",
+          "asin": "1101970316",
           "name": "Life 3.0: Being Human in the Age of Artificial Intelligence",
           "slug": "life-3-0",
           "price": 12.99,
@@ -275,7 +275,7 @@
           "category": "ai-books"
         },
         {
-          "asin": "B0CJZ8Z8Z8",
+          "asin": "0138200130",
           "name": "The AI Revolution in Medicine: GPT-4 and Beyond",
           "slug": "ai-revolution-medicine",
           "price": 24.99,
@@ -288,7 +288,7 @@
           "category": "ai-books"
         },
         {
-          "asin": "B0CQ1M2N7P",
+          "asin": "B0D4FBPLX1",
           "name": "Prompt Engineering for Generative AI",
           "slug": "prompt-engineering",
           "price": 29.99,
@@ -301,7 +301,7 @@
           "category": "ai-books"
         },
         {
-          "asin": "B0BZ8Z8Z9A",
+          "asin": "059373422X",
           "name": "Nexus: A Brief History of Information Networks",
           "slug": "nexus-information-networks",
           "price": 22.99,
@@ -406,7 +406,7 @@
       "query": "best tablets for reading 2026",
       "products": [
         {
-          "asin": "B0D3J6K6RZ",
+          "asin": "B0D3J9G6SP",
           "name": "Apple iPad Pro M4 11-inch",
           "slug": "ipad-pro-m4",
           "price": 999,
@@ -419,7 +419,7 @@
           "category": "tablets"
         },
         {
-          "asin": "B0D3J8K7N5",
+          "asin": "B0D3J8W54H",
           "name": "Apple iPad Air M2 13-inch",
           "slug": "ipad-air-m2",
           "price": 799,
@@ -589,7 +589,7 @@
           "category": "storage"
         },
         {
-          "asin": "B0B8L8L8L8",
+          "asin": "B09VLHR4JC",
           "name": "Samsung T7 Shield 2TB External SSD",
           "slug": "samsung-t7-shield",
           "price": 179.99,
@@ -628,7 +628,7 @@
           "category": "storage"
         },
         {
-          "asin": "B0B8B8B8B8",
+          "asin": "B07VP5X239",
           "name": "WD My Passport 5TB Portable HDD",
           "slug": "wd-my-passport-5tb",
           "price": 119.99,
@@ -687,7 +687,7 @@
           "category": "keyboards"
         },
         {
-          "asin": "B0B4B1B1B1",
+          "asin": "B09ZLV2531",
           "name": "Razer DeathAdder V3 Pro",
           "slug": "razer-deathadder-v3-pro",
           "price": 149.99,
@@ -746,7 +746,7 @@
           "category": "office-chairs"
         },
         {
-          "asin": "B0B4N1F1K1",
+          "asin": "B016OIF2JU",
           "name": "Steelcase Gesture",
           "slug": "steelcase-gesture",
           "price": 1299.00,
@@ -759,7 +759,7 @@
           "category": "office-chairs"
         },
         {
-          "asin": "B0B8B8B8B9",
+          "asin": "B01DGM7ZII",
           "name": "Herman Miller Embody",
           "slug": "herman-miller-embody",
           "price": 1695.00,
@@ -772,7 +772,7 @@
           "category": "office-chairs"
         },
         {
-          "asin": "B09XYZ1ABC",
+          "asin": "B0C15CFF58",
           "name": "Branch Ergonomic Chair",
           "slug": "branch-ergonomic-chair",
           "price": 349.00,
@@ -785,7 +785,7 @@
           "category": "office-chairs"
         },
         {
-          "asin": "B0CQ1M2N8K",
+          "asin": "B0FL2JGMK5",
           "name": "Autonomous ErgoChair Pro",
           "slug": "autonomous-ergochair-pro",
           "price": 499.00,

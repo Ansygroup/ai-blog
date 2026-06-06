@@ -15,7 +15,7 @@ export default function SearchClient({ index }) {
         index.filter(p =>
           (p.title + ' ' + (p.excerpt || '') + ' ' + (p.tags || []).join(' '))
             .toLowerCase().includes(q)
-        ).slice(0, 30)
+        )
       );
     }, 200);
     return () => clearTimeout(timer);

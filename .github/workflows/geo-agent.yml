@@ -20,29 +20,24 @@ jobs:
         with: { node-version: 20, cache: npm }
       - run: npm ci
 
-      - name: Update llms.txt
-        run: |
-          echo "# AI Pulse Daily — AI search optimized content" > public/llms.txt
-          echo "" >> public/llms.txt
-          echo "## About" >> public/llms.txt
-          echo "Independent AI tools reviews, comparisons, and tutorials." >> public/llms.txt
-          echo "" >> public/llms.txt
-          echo "## Latest Content" >> public/llms.txt
-          for f in $(ls -t content/posts/*.mdx 2>/dev/null | head -20); do
-            TITLE=$(head -30 "$f" | grep "^title:" | sed 's/^title: *["\x27]//;s/["\x27]$//')
-            SLUG=$(basename "$f" .mdx)
-            DATE=$(head -30 "$f" | grep "^date:" | sed 's/^date: *//')
-            echo "- [$TITLE](${{ secrets.NEXT_PUBLIC_SITE_URL }}/posts/$SLUG) ($DATE)" >> public/llms.txt
-          done
-          echo "✅ public/llms.txt updated"
-
-      - name: Optimize for direct answers
+      - name: Check GEO sections in posts
         run: |
           echo "Checking posts for AI-optimized snippets..."
-          COUNT=$(grep -l "Quick Answer" content/posts/*.mdx 2>/dev/null | wc -l)
-          echo "Posts with Quick Answer section: $COUNT"
+          TOTAL=$(ls content/posts/*.mdx 2>/dev/null | wc -l)
+          WITH_QA=$(grep -l "Quick Answer" content/posts/*.mdx 2>/dev/null | wc -l)
+          WITH_TAKEAWAYS=$(grep -l 'class="key-takeaways"' content/posts/*.mdx 2>/dev/null | wc -l)
+          echo "Total posts: $TOTAL"
+          echo "Posts with Quick Answer: $WITH_QA"
+          echo "Posts with Key Takeaways: $WITH_TAKEAWAYS"
+          echo "Coverage: $(( WITH_QA * 100 / TOTAL ))%"
+          echo "Report saved to public/reports/geo-check.txt"
+          mkdir -p public/reports
+          echo "GEO Check $(date +%Y-%m-%d)" > public/reports/geo-check.txt
+          echo "Total posts: $TOTAL" >> public/reports/geo-check.txt
+          echo "Quick Answer: $WITH_QA" >> public/reports/geo-check.txt
+          echo "Key Takeaways: $WITH_TAKEAWAYS" >> public/reports/geo-check.txt
 
-      - name: Create PR
+      - name: Create PR with report
         run: |
           if git diff --quiet; then
             echo "No changes."
@@ -52,10 +47,10 @@ jobs:
           git config user.email "bot@aipulsedaily.com"
           git config user.name "GEO Agent"
           git checkout -b "$BRANCH"
-          git add public/llms.txt
-          git commit -m "auto: GEO optimization $(date +%Y-%m-%d)"
+          git add public/reports/geo-check.txt
+          git commit -m "auto: GEO check $(date +%Y-%m-%d)"
           git push origin "$BRANCH"
-          gh pr create --title "auto: GEO optimization $(date +%Y-%m-%d)" --body "AI engine optimization update." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
+          gh pr create --title "auto: GEO check $(date +%Y-%m-%d)" --body "Weekly GEO coverage report." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
           PR_NUMBER=$(grep -oP '/pull/\K[0-9]+' pr-url.txt)
           gh pr merge --auto --squash "$PR_NUMBER"
         env:
