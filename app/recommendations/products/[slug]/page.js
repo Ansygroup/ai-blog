@@ -29,7 +29,7 @@ function getAllProducts() {
 
 export function generateStaticParams() {
   const products = getAllProducts();
-  return products.map((p) => ({ slug: p.slug }));
+  return products.filter((p) => p.slug).map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({ params }) {
