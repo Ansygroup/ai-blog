@@ -66,5 +66,104 @@
       "Sprout Social",
       "Brand24"
     ]
+  },
+  {
+    "topic": "How to Use AI for Generating Amazon Product Descriptions",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for ecommerce",
+      "Amazon product descriptions",
+      "AI content generation"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Transcription Services for Podcasters: Otter, Trint, and Descript",
+    "category": "Comparisons",
+    "keywords": [
+      "AI transcription",
+      "podcast transcription",
+      "Otter vs Trint vs Descript"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Online Course Creation Tools: Thinkific, Teachable, and Kajabi",
+    "category": "Reviews",
+    "keywords": [
+      "AI for online courses",
+      "course creation tools",
+      "Thinkific vs Teachable vs Kajabi"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Influencer Marketing Campaigns: AspireIQ, Upfluence, and Grin",
+    "category": "Best Of",
+    "keywords": [
+      "AI for influencer marketing",
+      "influencer marketing tools",
+      "AspireIQ vs Upfluence vs Grin"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Creating Personalized Facebook Ads",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for Facebook ads",
+      "personalized advertising",
+      "Facebook ads tutorial"
+    ]
+  },
+  {
+    "topic": "AI-Powered Content Optimization Tools for SEO: Ahrefs, SEMrush, and Moz",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for SEO",
+      "content optimization tools",
+      "Ahrefs vs SEMrush vs Moz"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Customer Service Chatbots for Ecommerce: ManyChat, Chatfuel, and Tars",
+    "category": "Reviews",
+    "keywords": [
+      "AI for customer service",
+      "ecommerce chatbots",
+      "ManyChat vs Chatfuel vs Tars"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automating Twitter Content Calendar",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for Twitter",
+      "Twitter content calendar",
+      "AI automation"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Video Editing Software: Adobe Premiere, Final Cut Pro, and DaVinci Resolve",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for video editing",
+      "video editing software",
+      "Adobe Premiere vs Final Cut Pro vs DaVinci Resolve"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Email Marketing Automation: Mailchimp, Constant Contact, and Klaviyo",
+    "category": "Best Of",
+    "keywords": [
+      "AI for email marketing",
+      "email marketing automation",
+      "Mailchimp vs Constant Contact vs Klaviyo"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Creating Interactive Quizzes and Surveys",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for quizzes",
+      "interactive quizzes",
+      "AI survey tools"
+    ]
   }
 ]
