@@ -1,6 +1,9 @@
 name: Agent Supervisor — Content Generation
 
 on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/agent-supervisor.yml]
   schedule:
     - cron: '30 */4 * * *'
   workflow_dispatch:
@@ -52,6 +55,7 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          NEXT_PUBLIC_SITE_NAME: ${{ secrets.NEXT_PUBLIC_SITE_NAME }}
           NEXT_PUBLIC_SITE_NAME: ${{ secrets.NEXT_PUBLIC_SITE_NAME }}
 
       - name: Open PR with new content
