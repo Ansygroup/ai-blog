@@ -19,7 +19,12 @@ for (const file of files) {
   const fmMatch = content.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]+)$/);
   if (!fmMatch) { console.error(`❌ ${file}: malformed frontmatter`); errors++; continue; }
   const fm = fmMatch[1]; const body = fmMatch[2];
-  const get = (k) => new RegExp(`^${k}:\\s*"?([^"\\n]*)"?`, 'm').exec(fm)?.[1] || '';
+  const get = (k) => {
+    const match = new RegExp(`^${k}:\\s*"((?:[^"\\\\]|\\\\.)*)"\\s*$`, 'm').exec(fm);
+    if (match) return match[1].replace(/\\(["\\])/g, '$1');
+    const fallback = new RegExp(`^${k}:\\s*(\\S+)`, 'm').exec(fm);
+    return fallback ? fallback[1] : '';
+  };
 
   const issues = [];
   const title = get('title');
@@ -41,7 +46,8 @@ for (const file of files) {
   if (tags.length > 8) issues.push(`too many tags (${tags.length})`);
 
   const wordCount = body.trim().split(/\s+/).length;
-  if (wordCount < 700) issues.push(`thin content (${wordCount} words)`);
+  if (wordCount < 500) issues.push(`thin content (${wordCount} words)`);
+  else if (wordCount < 700) issues.push(`short content (${wordCount} words — target ≥700)`);
   if (wordCount > 4000) issues.push(`very long (${wordCount} words) — consider splitting`);
 
   if (!/^##\s/m.test(body)) issues.push('no H2 sections');
