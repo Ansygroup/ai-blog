@@ -441,6 +441,8 @@ CRITICAL: Return ONLY the markdown with frontmatter — no preamble or commentar
       slug = candidate;
     }
   }
+  // Ensure slug in frontmatter is never empty — write it back with quotes
+  cleaned = cleaned.replace(/^slug:\s*.*$/m, `slug: "${slug}"`);
 
   // Quality check
   // Dedup GEO sections: remove Key Takeaways + Quick Answer if they appear after FAQ
