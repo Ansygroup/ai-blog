@@ -30,7 +30,7 @@ export default function PostsPageNum({ params }) {
   const num = Number(params.num);
   if (!Number.isInteger(num) || num < 2) notFound();
 
-  const allPosts = getAllPosts();
+  const allPosts = getAllPosts().filter((p) => p.category !== 'AI News');
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
   if (num > totalPages) notFound();
 

@@ -1,6 +1,6 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
-import { getAllPostSlugs, getPostBySlug, getRelatedPosts, getAdjacentPosts } from '../../../lib/posts';
+import { getAllPosts, getPostBySlug, getRelatedPosts, getAdjacentPosts } from '../../../lib/posts';
 import { renderSafeMarkdown } from '../../../lib/markdown';
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, productReviewJsonLd, howtoJsonLd } from '../../../lib/schema';
 import { siteConfig } from '../../../lib/config';
@@ -14,7 +14,7 @@ import RelatedProducts from '../../../components/RelatedProducts';
 export const dynamic = 'force-static';
 
 export function generateStaticParams() {
-  return getAllPostSlugs().map((slug) => ({ slug }));
+  return getAllPosts().filter((p) => p.category !== 'AI News').map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }) {
@@ -43,6 +43,7 @@ export async function generateMetadata({ params }) {
 export default async function PostPage({ params }) {
   const post = getPostBySlug(params.slug);
   if (!post) notFound();
+  if (post.category === 'AI News') redirect(`/news/${post.slug}`);
 
   // Render markdown -> HTML -> sanitize (XSS-safe). Sanitization happens in lib/markdown.js.
   const contentHtml = await renderSafeMarkdown(post.content);

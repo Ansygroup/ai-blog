@@ -68,77 +68,69 @@ if (!fs.existsSync(POSTS_DIR)) fs.mkdirSync(POSTS_DIR, { recursive: true });
 // ================================================================
 
 async function makeGroqProvider() {
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) throw new Error('GROQ_API_KEY missing. Sign up free at https://console.groq.com/');
-  // Fallback chain: 70B (best) -> Llama 4 (newer, smaller MoE) -> 8B instant (always works)
+  const primaryKey = process.env.GROQ_API_KEY;
+  const fallbackKeys = [2,3,4,5].map(i => process.env[`GROQ_API_KEY_${i}`]).filter(Boolean);
+  const allKeys = [primaryKey, ...fallbackKeys].filter(Boolean);
+  if (!primaryKey) throw new Error('GROQ_API_KEY missing. Sign up free at https://console.groq.com/');
   const primary = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
-  const fallbacks = ['meta-llama/llama-4-scout-17b-16e-instruct', 'llama-3.1-8b-instant', 'qwen/qwen3-32b'];
-  const models = [primary, ...fallbacks.filter((m) => m !== primary)];
+  const modelFallbacks = ['meta-llama/llama-4-scout-17b-16e-instruct', 'llama-3.1-8b-instant', 'qwen/qwen3-32b'];
+  const models = [primary, ...modelFallbacks.filter((m) => m !== primary)];
+
+  const name = `groq/${primary} (${allKeys.length} keys)`;
+
+  async function tryKey(apiKey, model, prompt, systemPrompt) {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: prompt },
+        ],
+        temperature: 0.7,
+        max_tokens: 4500,
+      }),
+    });
+    return res;
+  }
 
   return {
-    name: `groq/${primary}`,
+    name,
     async generateText(prompt, systemPrompt) {
       let lastErr;
       for (const model of models) {
-        let retries = 0;
-        while (retries <= 1) {
-          try {
-            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-              body: JSON.stringify({
-                model,
-                messages: [
-                  { role: 'system', content: systemPrompt },
-                  { role: 'user', content: prompt },
-                ],
-                temperature: 0.7,
-                max_tokens: 4500,
-              }),
-            });
-            if (res.ok) {
-              const data = await res.json();
-              return data.choices?.[0]?.message?.content?.trim() || '';
-            }
-            const errText = await res.text();
-            // 429 = rate limit — retry once, then switch model
-            if (res.status === 429) {
-              retries++;
-              if (retries <= 1) {
-                console.log(`   ⏳ ${model}: 429 — retrying in 8s...`);
-                await new Promise((r) => setTimeout(r, 8000));
+        for (let ki = 0; ki < allKeys.length; ki++) {
+          for (let retry = 0; retry <= 1; retry++) {
+            try {
+              const res = await tryKey(allKeys[ki], model, prompt, systemPrompt);
+              if (res.ok) {
+                const data = await res.json();
+                return data.choices?.[0]?.message?.content?.trim() || '';
+              }
+              const errText = await res.text();
+              if (res.status === 429) {
+                console.log(`   ⏳ key${ki + 1}/${model}: 429 — ${retry === 0 ? 'retrying' : 'switching'}...`);
                 lastErr = new Error(`Groq ${res.status}: ${errText.slice(0, 120)}`);
+                await new Promise((r) => setTimeout(r, retry === 0 ? 8000 : 2000));
                 continue;
               }
-              console.log(`   ⏳ ${model}: 429 again — switching to next model`);
-              lastErr = new Error(`Groq ${res.status}: ${errText.slice(0, 120)}`);
-              await new Promise((r) => setTimeout(r, 3000));
+              if (res.status === 413 || (res.status === 400 && /decommissioned|not supported|not found|invalid model/i.test(errText))) {
+                console.log(`   ⏳ key${ki + 1}/${model}: ${res.status} — switching`);
+                lastErr = new Error(`Groq ${res.status}: ${errText.slice(0, 120)}`);
+                await new Promise((r) => setTimeout(r, 3000));
+                break;
+              }
+              throw new Error(`Groq ${res.status}: ${errText.slice(0, 200)}`);
+            } catch (err) {
+              if (!err.message.startsWith('Groq ')) throw err;
+              lastErr = err;
               break;
             }
-            // 413 = too long — try next model
-            if (res.status === 413) {
-              console.log(`   ⏳ ${model}: ${res.status} — too long, switching to next model`);
-              lastErr = new Error(`Groq ${res.status}: ${errText.slice(0, 120)}`);
-              await new Promise((r) => setTimeout(r, 5000));
-              break;
-            }
-            // 400 with "decommissioned" or other model errors → try next
-            if (res.status === 400 && /decommissioned|not supported|not found|invalid model/i.test(errText)) {
-              console.log(`   ⏳ ${model}: 400 (model gone) — switching to next`);
-              lastErr = new Error(`Groq ${res.status}: ${errText.slice(0, 120)}`);
-              break;
-            }
-            // Hard error — don't retry
-            throw new Error(`Groq ${res.status}: ${errText.slice(0, 200)}`);
-          } catch (err) {
-            if (err.message.startsWith('Groq ')) throw err;
-            lastErr = err;
-            console.log(`   ⏳ ${model}: network error — switching to next`);
-            break;
           }
         }
       }
-      throw lastErr || new Error('All Groq models failed');
+      throw lastErr || new Error('All Groq keys and models failed');
     },
   };
 }

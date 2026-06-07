@@ -20,7 +20,7 @@ export const metadata = {
 };
 
 export default function PostsPage() {
-  const allPosts = getAllPosts();
+  const allPosts = getAllPosts().filter((p) => p.category !== 'AI News');
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
   const posts = allPosts.slice(0, POSTS_PER_PAGE);
 

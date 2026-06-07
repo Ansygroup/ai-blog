@@ -1,17 +1,18 @@
 #!/usr/bin/env tsx
 /**
- * SUPERVISOR AGENT
- * 
+ * SUPERVISOR AGENT v2.0
+ *
  * Usage:
  *   GROQ_API_KEY=gsk-... npx tsx scripts/agents/supervisor-agent.ts
  *   GROQ_API_KEY=gsk-... GROQ_API_KEY_2=gsk-... npx tsx scripts/agents/supervisor-agent.ts --batch 10
- * 
+ *
  * Flags:
- *   --batch N     Generate N articles (default: 5)
- *   --tier N      Only process specific tier (1-5)
- *   --news-only   Only process Tier 1 (news)
- *   --dry-run     Don't publish, just show what would happen
- *   --concurrency N  Parallel workers (default: 5)
+ *   --batch N         Articles to generate (default: 5)
+ *   --tier N          Only process specific tier (1-5)
+ *   --news-only       Only Tier 1 (news)
+ *   --dry-run         Don't publish
+ *   --concurrency N   Parallel workers (default: 3)
+ *   --demo            Use demo keywords (for testing only)
  */
 
 import * as dotenv from 'dotenv';
@@ -19,7 +20,7 @@ import * as path from 'path';
 dotenv.config({ path: path.join(__dirname, '..', '..', '.env.local') });
 
 import { getActiveGroqKeys, isDbReady } from '../../lib/db';
-import { fetchNextBatch, distributeToWorkers } from '../../lib/queue';
+import { fetchNextBatch } from '../../lib/queue';
 import { GroqClient } from './groq-client';
 import { scoreArticle, shouldPublish } from './quality/seo-scorer';
 import { publishArticle, parseArticleFromGroq } from './publishing/publish-agent';
@@ -29,59 +30,64 @@ import { buildAffiliatePrompt } from './writers/templates/affiliate-template';
 import { fetchImage } from '../../lib/images';
 import type { GenResult, Article } from '../../lib/types';
 
+function getArg(args: string[], name: string, def: string): string {
+  const idx = args.indexOf(name);
+  if (idx >= 0 && idx + 1 < args.length) return args[idx + 1];
+  const eq = args.find(a => a.startsWith(`--${name}=`));
+  return eq?.split('=')[1] || def;
+}
+
 async function main() {
   const args = process.argv.slice(2);
-  const batchSize = parseInt(args.find(a => a.startsWith('--batch='))?.split('=')[1] || '5', 10);
-  const tierRaw = parseInt(args.find(a => a.startsWith('--tier='))?.split('=')[1] || '0', 10) || undefined;
-  const tier = (tierRaw && [1,2,3,4,5].includes(tierRaw) ? tierRaw : undefined) as 1 | 2 | 3 | 4 | 5 | undefined;
+  const batchSize = parseInt(getArg(args, 'batch', '5'), 10);
+  const tierRaw = parseInt(getArg(args, 'tier', '0'), 10);
+  const tier = (tierRaw >= 1 && tierRaw <= 5 ? tierRaw : undefined) as 1 | 2 | 3 | 4 | 5 | undefined;
   const newsOnly = args.includes('--news-only');
   const dryRun = args.includes('--dry-run');
-  const concurrencyIdx = args.indexOf('--concurrency');
-  const concurrency = concurrencyIdx >= 0 ? parseInt(args[concurrencyIdx + 1], 10) : parseInt(args.find(a => a.startsWith('--concurrency='))?.split('=')[1] || '5', 10);
+  const demo = args.includes('--demo');
+  const concurrency = parseInt(getArg(args, 'concurrency', '3'), 10);
 
-  console.log(`\n🤖 SUPERVISOR AGENT v1.0\n`);
-  console.log(`Batch: ${batchSize} | Concurrency: ${concurrency}${tier ? ` | Tier: ${tier}` : ''}${newsOnly ? ' | News Only' : ''}${dryRun ? ' | DRY RUN' : ''}`);
+  console.log(`\n🤖 SUPERVISOR AGENT v2.0\n`);
+  console.log(`Batch: ${batchSize} | Concurrency: ${concurrency}${tier ? ` | Tier: ${tier}` : ''}${newsOnly ? ' | News Only' : ''}${dryRun ? ' | DRY RUN' : ''}${demo ? ' | DEMO MODE' : ''}`);
 
-  // 1. Check DB
   const dbReady = isDbReady();
-  console.log(`\n📦 Database: ${dbReady ? '✅ Supabase' : '⚠️ No Supabase (using local fallback)'}`);
+  console.log(`\n📦 Database: ${dbReady ? '✅ Supabase' : '⚠️ No Supabase (local mode)'}`);
 
-  // 2. Get Groq keys
   const groqKeys = await getActiveGroqKeys();
-  if (!groqKeys.length) {
-    console.log('❌ No Groq API keys found. Set GROQ_API_KEY in .env.local');
-    process.exit(1);
-  }
-  console.log(`🔑 Groq keys: ${groqKeys.length} available (${groqKeys.map(k => k.label || k.id).join(', ')})`);
+  if (!groqKeys.length) { console.log('❌ No Groq API keys found.'); process.exit(1); }
+  console.log(`🔑 Groq keys: ${groqKeys.length} available`);
 
-  // 3. Fetch keywords from queue (or use demo keywords)
-  const { items, totalPending } = await fetchNextBatch(tier, batchSize);
-  let activeItems = items;
-  let totalCount = totalPending;
+  // Fetch queue or demo items
+  let activeItems: any[] = [];
+  let totalCount = 0;
 
-  if (!items.length && !dbReady) {
-    console.log('⚠️ No Supabase configured — running LOCAL DEMO MODE.\n');
+  if (demo) {
     const demos = [
-      { keyword: 'Best AI Coding Assistants 2026 Comparative Review', tier: 3 as const, vol: 8500, cpc: 4.20 },
-      { keyword: 'How to Use n8n for AI Automation Workflows in 2026', tier: 4 as const, vol: 3200, cpc: 2.10 },
-      { keyword: 'DeepSeek vs ChatGPT vs Claude 2026 Comparison', tier: 2 as const, vol: 12000, cpc: 3.50 },
+      { keyword: 'Latest AI Research Breakthroughs June 2026 — Deep Learning Advances', tier: 2 as const, vol: 4500, cpc: 1.8 },
+      { keyword: 'How to Build a RAG Pipeline with LangChain and Supabase in 2026', tier: 4 as const, vol: 6200, cpc: 3.2 },
+      { keyword: 'Claude 4 vs GPT-5 vs Gemini 3 — Enterprise AI Model Comparison 2026', tier: 3 as const, vol: 15000, cpc: 4.5 },
+      { keyword: 'Best AI Tools for Video Editing and Generation in 2026', tier: 2 as const, vol: 8800, cpc: 2.9 },
+      { keyword: 'OpenAI o3 Release — Everything You Need to Know', tier: 1 as const, vol: 25000, cpc: 1.5 },
     ];
     activeItems = demos.map((d, i) => ({
-      id: `demo-${i}`, keyword: d.keyword, tier: d.tier,
-      source: 'demo', search_volume: d.vol, cpc: d.cpc,
-      difficulty: 40, opportunity: 85, status: 'pending' as const,
-      created_at: new Date().toISOString(),
+      id: `demo-${i}`, keyword: d.keyword, tier: d.tier, source: 'demo',
+      search_volume: d.vol, cpc: d.cpc, difficulty: 35, opportunity: 90,
+      status: 'pending' as const, created_at: new Date().toISOString(),
     }));
     totalCount = activeItems.length;
-  } else if (!items.length && dbReady) {
-    console.log('⚠️ No pending items in queue. Run ingestor agents first:');
-    console.log('   npx tsx scripts/agents/queue/news-rss.ts');
-    return;
+  } else {
+    const result = await fetchNextBatch(tier, batchSize);
+    activeItems = result.items;
+    totalCount = result.totalPending;
+    if (!activeItems.length) {
+      console.log('⚠️ Queue empty. --demo for testing or run RSS ingestor first.');
+      process.exit(0);
+    }
   }
 
-  console.log(`\n📋 Queue: ${totalCount} pending, processing ${activeItems.length} in this batch`);
+  console.log(`\n📋 Queue: ${totalCount} pending, processing ${activeItems.length}`);
 
-  // 4. Build prompts
+  // Build prompts
   const groq = new GroqClient(groqKeys);
   const tasks = activeItems.map(item => ({
     item,
@@ -90,52 +96,51 @@ async function main() {
             buildSeoPrompt({ keyword: item.keyword }),
   }));
 
-  // 6. Generate in parallel
+  // Generate
   console.log(`\n✍️  Generating ${tasks.length} articles (concurrency: ${concurrency})...\n`);
   const genResults: GenResult[] = [];
   let successCount = 0;
   let failCount = 0;
 
+  // Process with concurrency limit
   for (let i = 0; i < tasks.length; i += concurrency) {
     const batch = tasks.slice(i, i + concurrency);
     const batchPromises = batch.map(async ({ item, prompt }) => {
+      const start = Date.now();
       try {
-        const result = await groq.generate(prompt, { temperature: 0.7, maxTokens: 4096 });
+        const result = await groq.generate(prompt, { temperature: 0.65, maxTokens: 4096 });
         const article = parseArticleFromGroq(result.content, item.keyword);
-        if (!article) return { success: false, error: 'Failed to parse Groq response', attempts: 1 } as GenResult;
+        if (!article) return { success: false, error: 'Parse failed', attempts: 1 } as GenResult;
 
-        // Score article
         const seo = scoreArticle(article.content, article.title, article.metaDescription, article.tags, article.wordCount, article.faqs.length);
         article.seoScore = seo.score;
 
-        console.log(`   ${article.title.slice(0, 60)}... → SEO Score: ${seo.score}`);
-
         if (!shouldPublish(seo.score)) {
-          return { success: false, article, error: `SEO score ${seo.score} < 75`, attempts: 1 } as GenResult;
+          const elapsed = ((Date.now() - start) / 1000).toFixed(1);
+          console.log(`   ⏭️  SEO ${seo.score} ${article.title.slice(0, 50)}... (${elapsed}s)`);
+          return { success: false, article, error: `SEO ${seo.score} < 75` } as GenResult;
         }
 
-        // Fetch image
-        const imageTag = result.content.match(/IMAGE:\s*(.+)/)?.[1]?.trim() || article.tags[0] || 'AI';
+        const imageTag = result.content.match(/^IMAGE:\s*(.+)/m)?.[1]?.trim() || article.tags[0] || 'AI technology';
         const image = await fetchImage(imageTag);
         article.coverImage = image.imageUrl;
-        article.imageAttribution = image.attribution;
 
         if (dryRun) {
-          console.log(`   📄 ${article.slug}.mdx (DRY RUN — not published)`);
+          console.log(`   📄 SEO ${seo.score} ${article.slug}.mdx (${((Date.now() - start) / 1000).toFixed(1)}s)`);
           return { success: true, article } as GenResult;
         }
 
-        // Publish
-        const pubResult = await publishArticle(article, item.id);
-        if (pubResult.success) {
-          console.log(`   ✅ Published: ${article.slug}.mdx`);
+        const pub = await publishArticle(article, item.id);
+        const elapsed = ((Date.now() - start) / 1000).toFixed(1);
+        if (pub.success) {
+          console.log(`   ✅ SEO ${seo.score} ${article.slug}.mdx (${elapsed}s)`);
           return { success: true, article } as GenResult;
         } else {
-          console.log(`   ❌ Publish failed: ${pubResult.error}`);
-          return { success: false, article, error: pubResult.error, attempts: 1 } as GenResult;
+          console.log(`   ❌ ${pub.error} (${elapsed}s)`);
+          return { success: false, article, error: pub.error } as GenResult;
         }
       } catch (err: any) {
-        console.log(`   ❌ ${item.keyword}: ${err.message}`);
+        console.log(`   ❌ ${item.keyword.slice(0, 50)}: ${err.message.slice(0, 100)}`);
         return { success: false, error: err.message, attempts: 1 } as GenResult;
       }
     });
@@ -150,12 +155,27 @@ async function main() {
     }
   }
 
-  // 7. Summary
+  // Trigger ISR revalidation
+  if (successCount > 0 && !dryRun) {
+    const secret = process.env.REVALIDATION_SECRET;
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    if (secret) {
+      try {
+        await fetch(`${baseUrl}/api/revalidate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ secret, paths: ['/news', '/posts', '/'] }),
+        });
+        console.log(`   🔄 ISR revalidation triggered`);
+      } catch { /* non-fatal */ }
+    }
+  }
+
   console.log(`\n📊 BATCH SUMMARY`);
   console.log(`   ✅ Published: ${successCount}`);
   console.log(`   ❌ Failed: ${failCount}`);
-  console.log(`   📝 Total articles in queue still pending: ${totalCount - activeItems.length + (activeItems.length - successCount)}`);
-  console.log(`\nDone. ${dryRun ? '(DRY RUN — no files written)' : ''}`);
+  console.log(`   📝 Queue remaining: ${Math.max(0, totalCount - activeItems.length + (activeItems.length - successCount))}`);
+  console.log(`\nDone.`);
 }
 
 main().catch(console.error);

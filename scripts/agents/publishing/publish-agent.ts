@@ -19,23 +19,23 @@ function slugify(text: string): string {
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-+|-+$/g, '')
-    .slice(0, 80);
+    .slice(0, 80) || 'article-' + Date.now();
 }
 
 function buildFrontmatter(article: Article): string {
-  const tags = article.tags.map(t => `"${t.trim()}"`).join(', ');
+  const tags = article.tags.map(t => `"${t.trim().replace(/"/g, '\\"')}"`).join(', ');
   return `---
 title: "${article.title.replace(/"/g, '\\"')}"
 date: ${new Date().toISOString().split('T')[0]}
 lastUpdated: ${new Date().toISOString().split('T')[0]}
 category: "${article.category}"
-excerpt: "${article.excerpt.replace(/"/g, '\\"')}"
-cover: ${article.coverImage}
+excerpt: "${article.excerpt.replace(/"/g, '\\"').replace(/\n/g, ' ').slice(0, 160)}"
+cover: ${article.coverImage || 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80'}
 tags: [${tags}]
 rating: ${article.rating || 0}
 readingTime: ${Math.max(1, Math.ceil(article.wordCount / 200))}
 seoScore: ${article.seoScore}
-featured: false
+featured: false${article.source ? `\nsource: "${article.source}"` : ''}
 ---
 
 `;
@@ -46,42 +46,49 @@ function buildFAQSection(faqs: { question: string; answer: string }[]): string {
   return `\n\n## Frequently Asked Questions\n\n${faqs.map(f => `### ${f.question}\n\n${f.answer}\n`).join('\n')}`;
 }
 
+function cleanMarkdown(content: string): string {
+  return content
+    .replace(/^##\s+\d+[\.\)]\s*/gm, '## ')  // clean numbered H2s
+    .split('\n').filter(line => {
+      const t = line.trim();
+      return !t.startsWith('```') || t === '```' || t.startsWith('```');
+    }).join('\n');
+}
+
 export async function publishArticle(article: Article, queueItemId?: string): Promise<PublishResult> {
   try {
     const slug = article.slug || slugify(article.title);
 
-    if (await slugExists(slug)) {
-      return { success: false, slug, error: `Slug "${slug}" already exists in DB` };
+    const slugOk = await slugExists(slug);
+    if (slugOk) {
+      return { success: false, slug, error: `Slug "${slug}" exists in DB` };
     }
 
     const filePath = path.join(POSTS_DIR, `${slug}.mdx`);
-
     if (fs.existsSync(filePath)) {
-      return { success: false, slug, error: `File ${slug}.mdx already exists on disk` };
+      return { success: false, slug, error: `File ${slug}.mdx exists` };
     }
 
     const frontmatter = buildFrontmatter(article);
+    const body = cleanMarkdown(article.content);
     const faq = buildFAQSection(article.faqs);
-    const fullContent = frontmatter + article.content + faq + '\n';
+    const fullContent = frontmatter + body + faq + '\n';
 
     fs.writeFileSync(filePath, fullContent, 'utf-8');
 
-    const page: Omit<PublishedPage, 'id' | 'created_at' | 'updated_at'> = {
+    const page = {
       slug,
       keyword: article.title,
       type: article.category === 'AI News' ? 'news' : 'article',
       word_count: article.wordCount,
       seo_score: article.seoScore,
-      cover_image: article.coverImage,
+      cover_image: article.coverImage || '',
       status: 'active',
-      queue_item_id: queueItemId,
+      queue_item_id: queueItemId || null,
     };
 
     await insertPage(page);
-
-    if (queueItemId) {
-      await updateQueueStatus(queueItemId, 'published');
-    }
+    if (queueItemId) await updateQueueStatus(queueItemId, 'published');
 
     return { success: true, filePath, slug };
   } catch (err: any) {
@@ -91,41 +98,98 @@ export async function publishArticle(article: Article, queueItemId?: string): Pr
 
 export function parseArticleFromGroq(raw: string, keyword: string): Article | null {
   try {
-    const title = raw.match(/TITLE:\s*(.+)/)?.[1]?.trim() || keyword;
-    const meta = raw.match(/META:\s*(.+)/)?.[1]?.trim() || '';
-    const contentMatch = raw.match(/CONTENT:\s*([\s\S]*?)(?=TAGS:|IMAGE:|FAQ:)/);
-    const content = contentMatch?.[1]?.trim() || raw;
-    const tagsLine = raw.match(/TAGS:\s*(.+)/)?.[1]?.trim() || '';
-    const tags = tagsLine.split(',').map(t => t.trim()).filter(Boolean);
-    const imageLine = raw.match(/IMAGE:\s*(.+)/)?.[1]?.trim() || 'AI technology';
-    const faqBlocks = raw.split(/Q:\s*/).slice(1);
-    const faqs = faqBlocks.map(block => {
-      const [q, ...aParts] = block.split('\nA:');
-      return { question: q?.trim() || '', answer: aParts.join('\nA:').trim() || '' };
-    }).filter(f => f.question && f.answer);
+    let title: string;
+    let meta: string;
+    let content: string;
+    let tags: string[] = [];
+    let imageQuery = 'AI technology';
+    let faqs: { question: string; answer: string }[] = [];
+
+    const titleMatch = raw.match(/^TITLE:\s*(.+)$/m);
+    title = titleMatch?.[1]?.trim() || keyword;
+
+    const metaMatch = raw.match(/^META:\s*(.+)$/m);
+    meta = metaMatch?.[1]?.trim() || title.slice(0, 155);
+
+    // Extract content — between CONTENT: and TAGS:/IMAGE:/FAQ:
+    const contentStart = raw.indexOf('CONTENT:');
+    if (contentStart >= 0) {
+      const afterContent = raw.slice(contentStart + 8);
+      const endIdx = Math.min(
+        afterContent.search(/^TAGS:\s/m) >= 0 ? afterContent.search(/^TAGS:\s/m) : Infinity,
+        afterContent.search(/^IMAGE:\s/m) >= 0 ? afterContent.search(/^IMAGE:\s/m) : Infinity,
+        afterContent.search(/^FAQ:\s/m) >= 0 ? afterContent.search(/^FAQ:\s/m) : Infinity,
+      );
+      content = afterContent.slice(0, endIdx).trim();
+    } else {
+      content = raw;
+    }
+
+    if (!content || content.length < 100) content = raw;
+
+    // Tags
+    const tagsMatch = raw.match(/^TAGS:\s*(.+)$/m);
+    if (tagsMatch) {
+      tags = tagsMatch[1].split(/[,，、]/).map(t => t.trim()).filter(Boolean);
+    }
+
+    // Image query
+    const imgMatch = raw.match(/^IMAGE:\s*(.+)$/m);
+    if (imgMatch) imageQuery = imgMatch[1].trim();
+
+    // FAQ
+    const faqSections = raw.split(/\nQ:\s*/);
+    if (faqSections.length > 1) {
+      faqs = faqSections.slice(1).map(block => {
+        const lines = block.split('\n');
+        const q = lines[0]?.trim() || '';
+        const aLines: string[] = [];
+        let capture = false;
+        for (const line of lines.slice(1)) {
+          const t = line.trim();
+          if (t.startsWith('A:')) {
+            capture = true;
+            aLines.push(t.replace(/^A:\s*/i, ''));
+          } else if (capture) {
+            if (t.startsWith('---') || t.match(/^Q:/i)) continue;
+            if (t) aLines.push(t);
+          }
+        }
+        const a = aLines.join('\n').trim();
+        return { question: q, answer: a };
+      }).filter(f => f.question && f.answer && f.answer.length > 10);
+    }
 
     const wordCount = content.split(/\s+/).length;
     const slug = slugify(title);
-    const category = content.toLowerCase().includes('review') ? 'Reviews' :
-                     content.toLowerCase().includes('comparison') ? 'Comparisons' :
-                     content.toLowerCase().includes('best') ? 'Best Of' :
-                     content.toLowerCase().includes('tutorial') ? 'Tutorials' : 'AI News';
+
+    const lower = content.toLowerCase();
+    const category = lower.includes('review') ? 'Reviews' :
+      lower.includes('comparison') || lower.includes('vs ') ? 'Comparisons' :
+      lower.includes('best ') || lower.includes('top ') ? 'Best Of' :
+      lower.includes('tutorial') || lower.includes('guide') || lower.includes('how to') ? 'Tutorials' :
+      lower.includes('news') || lower.includes('announce') || lower.includes('launch') || wordCount < 600 ? 'AI News' :
+      'AI News';
+
+    const excerpt = meta.length > 10 ? meta :
+      content.replace(/[#*`]/g, '').replace(/\n+/g, ' ').trim().slice(0, 155);
 
     return {
       title,
-      slug,
+      slug: slug || 'article',
       content,
-      excerpt: meta || content.slice(0, 155).replace(/\n/g, ' '),
-      metaDescription: meta,
+      excerpt: excerpt.slice(0, 160),
+      metaDescription: meta.slice(0, 160),
       coverImage: '',
       imageAttribution: undefined,
-      tags: tags.length ? tags : [keyword],
+      tags: tags.length ? tags : [keyword.split(' ').slice(0, 3).join(' ')],
       category,
-      faqs: faqs.length ? faqs : [],
+      faqs,
       wordCount,
       seoScore: 0,
     };
-  } catch {
+  } catch (err) {
+    console.error('  ⚠️ Parse error:', (err as Error).message);
     return null;
   }
 }

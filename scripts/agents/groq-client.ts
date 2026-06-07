@@ -19,13 +19,20 @@ const DEFAULT_OPTIONS: GroqOptions = {
   maxTokens: 4096,
 };
 
+/** Jitter: random ±25% of base */
+function jitter(base: number): number {
+  return Math.round(base * (0.75 + Math.random() * 0.5));
+}
+
 export class GroqClient {
   private keys: GroqKey[];
-  private currentIndex = 0;
   private model: string;
   private temperature: number;
   private maxTokens: number;
-  private maxRetries = 3;
+  private maxRetries = 5;
+  private keyIndex = 0;
+  private cooldowns: Map<string, number> = new Map();
+  private reqTimestamps: Map<string, number[]> = new Map();
 
   constructor(keys: GroqKey[], options?: GroqOptions) {
     if (!keys.length) throw new Error('No Groq API keys provided');
@@ -39,10 +46,26 @@ export class GroqClient {
     return this.keys.length;
   }
 
-  private getNextKey(): GroqKey {
-    const key = this.keys[this.currentIndex % this.keys.length];
-    this.currentIndex++;
-    return key;
+  private getNextKey(): GroqKey | null {
+    const now = Date.now();
+    for (let attempt = 0; attempt < this.keys.length * 3; attempt++) {
+      const key = this.keys[this.keyIndex % this.keys.length];
+      this.keyIndex++;
+      const cooldown = this.cooldowns.get(key.id);
+      if (cooldown && now <= cooldown) continue;
+      // Rate-limit: allow max 25 req/min per key (safety margin under 30/min)
+      const timestamps = this.reqTimestamps.get(key.id) || [];
+      const recent = timestamps.filter(t => now - t < 60000);
+      if (recent.length >= 25) continue;
+      return key;
+    }
+    return null;
+  }
+
+  private trackRequest(keyId: string) {
+    const now = Date.now();
+    const timestamps = this.reqTimestamps.get(keyId) || [];
+    this.reqTimestamps.set(keyId, [...timestamps.filter(t => now - t < 60000), now]);
   }
 
   private sleep(ms: number) {
@@ -50,17 +73,17 @@ export class GroqClient {
   }
 
   async generate(prompt: string, options?: Partial<GroqOptions>): Promise<GroqResponse> {
-    let lastError: Error | null = null;
+    let lastErr: string | null = null;
 
     for (let attempt = 0; attempt < this.maxRetries; attempt++) {
-      if (attempt > 0) {
-        const delay = Math.min(1000 * Math.pow(2, attempt), 10000);
-        await this.sleep(delay);
+      const key = this.getNextKey();
+      if (!key) {
+        const wait = jitter(Math.min(4000 * Math.pow(2, attempt), 30000));
+        await this.sleep(wait);
+        continue;
       }
 
-      const key = this.getNextKey();
       const start = Date.now();
-
       try {
         const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
@@ -77,7 +100,10 @@ export class GroqClient {
         });
 
         if (res.status === 429) {
-          lastError = new Error(`Groq 429: rate limited on ${key.label}`);
+          lastErr = `429 rate limit on ${key.label || key.id}`;
+          this.cooldowns.set(key.id, Date.now() + 30000);
+          const wait = jitter(Math.min(4000 * Math.pow(2, attempt), 25000));
+          await this.sleep(wait);
           continue;
         }
 
@@ -88,6 +114,7 @@ export class GroqClient {
 
         const data: any = await res.json();
         const choice = data.choices?.[0];
+        this.trackRequest(key.id);
 
         return {
           content: choice?.message?.content || '',
@@ -100,18 +127,20 @@ export class GroqClient {
           latencyMs: Date.now() - start,
         };
       } catch (err: any) {
+        lastErr = err.message;
         if (err.message?.includes('429')) {
-          lastError = err;
+          this.cooldowns.set(key.id, Date.now() + 30000);
+          await this.sleep(jitter(5000 * (attempt + 1)));
           continue;
         }
         throw err;
       }
     }
 
-    throw lastError || new Error('Groq generation failed after retries');
+    throw new Error(`Groq failed after ${this.maxRetries} retries: ${lastErr}`);
   }
 
-  async generateBatch(prompts: string[], concurrency = 5): Promise<GroqResponse[]> {
+  async generateBatch(prompts: string[], concurrency = 2): Promise<GroqResponse[]> {
     const results: GroqResponse[] = [];
     for (let i = 0; i < prompts.length; i += concurrency) {
       const batch = prompts.slice(i, i + concurrency);
@@ -120,6 +149,7 @@ export class GroqClient {
         if (r.status === 'fulfilled') results.push(r.value);
         else results.push({ content: '', usage: { promptTokens: 0, completionTokens: 0, totalTokens: 0 }, keyUsed: '', latencyMs: 0 });
       }
+      if (i + concurrency < prompts.length) await this.sleep(jitter(3000));
     }
     return results;
   }

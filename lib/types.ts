@@ -1,5 +1,5 @@
 export type QueueTier = 1 | 2 | 3 | 4 | 5;
-export type QueueStatus = 'pending' | 'generating' | 'published' | 'rejected';
+export type QueueStatus = 'pending' | 'generating' | 'published' | 'rejected' | 'failed';
 export type PageStatus = 'active' | 'improved' | 'deleted';
 export type PageType = 'news' | 'article' | 'affiliate' | 'review';
 
@@ -73,6 +73,7 @@ export interface Article {
   rating?: number;
   wordCount: number;
   seoScore: number;
+  source?: string;
 }
 
 export interface AgentTask {

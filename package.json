@@ -27,7 +27,13 @@
     "agent:supervisor:quick": "npx tsx scripts/agents/supervisor-agent.ts --batch 1 --dry-run",
     "agent:rss": "npx tsx scripts/agents/queue/news-rss.ts",
     "agent:rss:dry": "npx tsx scripts/agents/queue/news-rss.ts --limit 3 --dry-run",
-    "agent:rss:quick": "npx tsx scripts/agents/queue/news-rss.ts --limit 1 --dry-run"
+    "agent:rss:quick": "npx tsx scripts/agents/queue/news-rss.ts --limit 1 --dry-run",
+    "agent:demo": "npx tsx scripts/agents/supervisor-agent.ts --demo --batch 2 --dry-run",
+    "agent:full": "npx tsx scripts/agents/queue/news-rss.ts --limit 3 && npx tsx scripts/agents/supervisor-agent.ts --batch 3",
+    "agent:full:local": "npx tsx scripts/agents/queue/news-rss.ts --limit 2 --dry-run && npx tsx scripts/agents/supervisor-agent.ts --demo --batch 2",
+    "agent:full:dry": "npx tsx scripts/agents/queue/news-rss.ts --limit 2 --dry-run && npx tsx scripts/agents/supervisor-agent.ts --batch 2 --dry-run",
+    "queue:status": "npx tsx scripts/queue-status.ts",
+    "queue:status:topics": "npx tsx scripts/queue-status.ts --topics"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

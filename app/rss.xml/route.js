@@ -15,10 +15,11 @@ export async function GET() {
     ttl: 60,
   });
   getAllPosts().forEach((p) => {
+    const isNews = p.category === 'AI News';
     feed.item({
       title: p.title,
       description: p.excerpt || p.description || '',
-      url: `${siteConfig.url}/posts/${p.slug}`,
+      url: `${siteConfig.url}/${isNews ? 'news' : 'posts'}/${p.slug}`,
       guid: p.slug,
       author: p.author || siteConfig.author,
       date: p.date,

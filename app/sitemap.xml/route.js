@@ -17,11 +17,15 @@ export async function GET() {
   const categories = getAllCategories();
   const tags = getAllTags();
 
+  const newsPosts = posts.filter((p) => p.category === 'AI News');
   const pageUrls = [
-    `${base}/`, `${base}/reviews`, `${base}/best`, `${base}/comparisons`,
+    `${base}/`, `${base}/news`, `${base}/reviews`, `${base}/best`, `${base}/comparisons`,
     `${base}/tutorials`, `${base}/about`, `${base}/search`,
   ];
-  const postUrls = posts.map((p) => `${base}/posts/${p.slug}`);
+  const postUrls = [
+    ...posts.filter((p) => p.category !== 'AI News').map((p) => `${base}/posts/${p.slug}`),
+    ...newsPosts.map((p) => `${base}/news/${p.slug}`),
+  ];
   const categoryUrls = categories.map((c) => `${base}/category/${c.name.toLowerCase().replace(/\s+/g, '-')}`);
   const tagUrls = tags.map((t) => `${base}/tag/${t.name.toLowerCase().replace(/\s+/g, '-')}`);
 

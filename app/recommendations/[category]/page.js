@@ -38,15 +38,15 @@ export function generateMetadata({ params }) {
 
 function buildBuyingGuide(products, catName) {
   const prices = products.map(p => p.price).filter(Boolean);
-  const minPrice = Math.min(...prices);
-  const maxPrice = Math.max(...prices);
-  const avgRating = (products.reduce((s, p) => s + (p.rating || 0), 0) / products.length).toFixed(1);
-  const topPick = products.reduce((best, p) => (p.rating || 0) > (best.rating || 0) ? p : best, products[0]);
-  const bestValue = products.reduce((best, p) => {
+  const minPrice = prices.length ? Math.min(...prices) : 0;
+  const maxPrice = prices.length ? Math.max(...prices) : 0;
+  const avgRating = products.length ? (products.reduce((s, p) => s + (p.rating || 0), 0) / products.length).toFixed(1) : '0.0';
+  const topPick = products.length ? products.reduce((best, p) => (p.rating || 0) > (best.rating || 0) ? p : best) : null;
+  const bestValue = products.length ? products.reduce((best, p) => {
     const score = (p.rating || 0) / (p.price || 1);
     const bestScore = (best.rating || 0) / (best.price || 1);
     return score > bestScore ? p : best;
-  }, products[0]);
+  }) : null;
 
   const tags = products.flatMap(p => p.highlights || []).slice(0, 6);
 
@@ -123,8 +123,8 @@ export default function CategoryPage({ params }) {
               <ul className="space-y-2 text-sm">
                 <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Price range:</strong> ${guide.minPrice} — ${guide.maxPrice}</span></li>
                 <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Average rating:</strong> {guide.avgRating} / 5.0 across {products.length} products</span></li>
-                <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Top rated:</strong> {guide.topPick.name} ({guide.topPick.rating}★)</span></li>
-                <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Best value:</strong> {guide.bestValue.name} at ${guide.bestValue.price}</span></li>
+                {guide.topPick && <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Top rated:</strong> {guide.topPick.name} ({guide.topPick.rating}★)</span></li>}
+                {guide.bestValue && <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Best value:</strong> {guide.bestValue.name} at ${guide.bestValue.price}</span></li>}
               </ul>
             </div>
             <div>
@@ -140,9 +140,16 @@ export default function CategoryPage({ params }) {
 
         <AmazonDisclosure featured />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((p) => <ProductCard key={p.asin} product={p} />)}
-        </div>
+        {products.length === 0 ? (
+          <div className="bg-yellow-50 dark:bg-dark-card border border-yellow-200 dark:border-dark-border rounded-xl p-6 text-center">
+            <p className="text-lg font-semibold mb-2">🔄 Products loading</p>
+            <p className="text-slate-600 dark:text-dark-muted">We're updating our product database. Check back soon for curated recommendations.</p>
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((p) => <ProductCard key={p.asin} product={p} />)}
+          </div>
+        )}
 
         {/* FAQ */}
         <section className="mt-12 bg-slate-50 dark:bg-dark-card border border-slate-200 dark:border-dark-border rounded-xl p-6">

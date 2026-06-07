@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS keyword_queue (
   cpc             DECIMAL DEFAULT 0,
   difficulty      DECIMAL DEFAULT 50,
   opportunity     DECIMAL DEFAULT 50,
-  status          TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'generating', 'published', 'rejected')),
+  status          TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'generating', 'published', 'rejected', 'failed')),
   error_log       TEXT,
   created_at      TIMESTAMPTZ DEFAULT NOW(),
   published_at    TIMESTAMPTZ

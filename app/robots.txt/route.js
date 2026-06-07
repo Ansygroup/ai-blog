@@ -4,6 +4,7 @@ export const dynamic = 'force-static';
 
 export async function GET() {
   const sitemapUrl = `${siteConfig.url}/sitemap.xml`;
+  const newsSitemapUrl = `${siteConfig.url}/news-sitemap.xml`;
   return new Response(`# robots.txt — controls how search engines + AI crawlers see you
 
 # Standard search engines: allow everything
@@ -14,6 +15,7 @@ Disallow: /admin/
 Disallow: /private/
 
 Sitemap: ${sitemapUrl}
+Sitemap: ${newsSitemapUrl}
 
 # AI SEARCH ENGINES — explicit permissions (GEO)
 User-agent: GPTBot
