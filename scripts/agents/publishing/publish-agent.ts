@@ -47,12 +47,27 @@ function buildFAQSection(faqs: { question: string; answer: string }[]): string {
 }
 
 function cleanMarkdown(content: string): string {
-  return content
+  let cleaned = content
     .replace(/^##\s+\d+[\.\)]\s*/gm, '## ')  // clean numbered H2s
     .split('\n').filter(line => {
       const t = line.trim();
       return !t.startsWith('```') || t === '```' || t.startsWith('```');
     }).join('\n');
+
+  // Fix internal links: [text](/posts/slug) → [text](/posts/slug) if exists, else [text](#)
+  cleaned = cleaned.replace(/\[([^\]]+)\]\(\/posts\/([^)]+)\)/g, (match, text, slug) => {
+    const cleanSlug = slug.replace(/\.mdx?$/, '').replace(/\/$/, '');
+    const filePath = path.join(POSTS_DIR, `${cleanSlug}.mdx`);
+    if (fs.existsSync(filePath)) {
+      const fileContent = fs.readFileSync(filePath, 'utf-8');
+      const isNews = fileContent.includes('category: "AI News"');
+      return `[${text}](/${isNews ? 'news' : 'posts'}/${cleanSlug})`;
+    }
+    // Post doesn't exist — remove link, keep text
+    return text;
+  });
+
+  return cleaned;
 }
 
 export async function publishArticle(article: Article, queueItemId?: string): Promise<PublishResult> {
@@ -172,13 +187,17 @@ export function parseArticleFromGroq(raw: string, keyword: string): Article | nu
       'AI News';
 
     const excerpt = meta.length > 10 ? meta :
-      content.replace(/[#*`]/g, '').replace(/\n+/g, ' ').trim().slice(0, 155);
+      content.replace(/<[^>]+>/g, '').replace(/[#*`]/g, '').replace(/\n+/g, ' ').trim().slice(0, 155);
+    // Ensure excerpt is 120-160 chars
+    const excerptFinal = excerpt.length < 120 ? excerpt + ' Read more about ' + keyword : excerpt.slice(0, 160);
+
+    const finalTitle = title.length > 60 ? title.slice(0, 57).replace(/\s+\S*$/, '') + '...' : title;
 
     return {
-      title,
+      title: finalTitle,
       slug: slug || 'article',
       content,
-      excerpt: excerpt.slice(0, 160),
+      excerpt: excerptFinal,
       metaDescription: meta.slice(0, 160),
       coverImage: '',
       imageAttribution: undefined,
