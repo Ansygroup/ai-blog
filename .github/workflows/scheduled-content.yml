@@ -1,10 +1,9 @@
 name: Scheduled content generation
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/scheduled-content.yml]
   schedule:
     - cron: '0 * * * *'
   workflow_dispatch:
