@@ -1,15 +1,5 @@
 [
   {
-    "topic": "Comparison of AI-Powered Language Learning Platforms: Duolingo, Babbel, and Rosetta Stone",
-    "category": "Comparisons",
-    "keywords": [
-      "AI language learning",
-      "Duolingo",
-      "Babbel",
-      "Rosetta Stone"
-    ]
-  },
-  {
     "topic": "Best AI Tools for Social Media Monitoring: Hootsuite, Sprout Social, and Brand24",
     "category": "Best Of",
     "keywords": [
@@ -116,6 +106,114 @@
       "AI for quizzes",
       "interactive quizzes",
       "AI survey tools"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Optimizing Google Ads Campaigns",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for Google Ads",
+      "Google Ads optimization",
+      "AI advertising"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered SEO Audit Tools: Ahrefs, SEMrush, and Moz",
+    "category": "Comparisons",
+    "keywords": [
+      "AI SEO audit",
+      "Ahrefs vs SEMrush",
+      "Moz review"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Podcast Editing: A Review of Top Software",
+    "category": "Reviews",
+    "keywords": [
+      "AI podcast editing",
+      "podcast editing software",
+      "Descript review"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Creating Personalized Instagram Stories",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for Instagram",
+      "Instagram stories",
+      "personalized marketing"
+    ]
+  },
+  {
+    "topic": "AI-Powered Chatbot Builders for Ecommerce: Comparison and Review",
+    "category": "Comparisons",
+    "keywords": [
+      "AI chatbot builders",
+      "ecommerce chatbots",
+      "ManyChat review"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Video Scriptwriting: A Review of Top Software",
+    "category": "Reviews",
+    "keywords": [
+      "AI video scriptwriting",
+      "video scriptwriting software",
+      "Lumen5 review"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automating Customer Support on Facebook Messenger",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for customer support",
+      "Facebook Messenger automation",
+      "ManyChat tutorial"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Influencer Marketing Platforms: AspireIQ, Upfluence, and Grin",
+    "category": "Comparisons",
+    "keywords": [
+      "AI influencer marketing",
+      "AspireIQ vs Upfluence",
+      "Grin review"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Social Media Analytics: A Review of Top Software",
+    "category": "Reviews",
+    "keywords": [
+      "AI social media analytics",
+      "social media analytics software",
+      "Hootsuite review"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Creating Interactive Email Newsletters",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for email marketing",
+      "interactive email newsletters",
+      "Mailchimp tutorial"
+    ]
+  },
+  {
+    "topic": "AI-Powered Content Generation Tools for Bloggers: Comparison and Review",
+    "category": "Comparisons",
+    "keywords": [
+      "AI content generation",
+      "blogging tools",
+      "WordLift review"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Voiceover Production: A Review of Top Software",
+    "category": "Reviews",
+    "keywords": [
+      "AI voiceover production",
+      "voiceover software",
+      "Voicely review"
     ]
   }
 ]
