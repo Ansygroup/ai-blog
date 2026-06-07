@@ -34,7 +34,7 @@ jobs:
           fi
           echo "has_posts=true" >> $GITHUB_OUTPUT
           echo "files<<EOF" >> $GITHUB_OUTPUT
-          echo "$NEW_FILES" >> $GITHUB_OUTPUT
+          echo "$NEW_FILES" | tail -n 5 >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Generate pin data

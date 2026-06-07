@@ -34,7 +34,7 @@ jobs:
           fi
           echo "has_changes=true" >> $GITHUB_OUTPUT
           echo "files<<EOF" >> $GITHUB_OUTPUT
-          echo "$CHANGED" >> $GITHUB_OUTPUT
+          echo "$CHANGED" | tail -n 5 >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Add affiliate links to changed posts
