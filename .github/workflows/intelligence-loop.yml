@@ -1,9 +1,5 @@
 name: Intelligence Loop — Self-Improving AI System
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 on:
   schedule:
     - cron: '0 6 * * *'

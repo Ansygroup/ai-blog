@@ -1,8 +1,5 @@
 name: Programmatic SEO Agent — Comparison pages
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 on:
   schedule:

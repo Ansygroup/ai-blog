@@ -1,8 +1,5 @@
 name: Refresh Agent — Update stale content
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 on:
   schedule:

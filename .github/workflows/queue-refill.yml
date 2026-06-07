@@ -1,8 +1,5 @@
 name: Queue Refill — Keep keyword queue stocked
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 on:
   schedule:

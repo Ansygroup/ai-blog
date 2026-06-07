@@ -1,8 +1,5 @@
 name: Bing Trust Agent — URL submission
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 on:
   schedule:

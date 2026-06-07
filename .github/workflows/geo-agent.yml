@@ -1,8 +1,5 @@
 name: GEO Agent — AI search optimization
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 on:
   schedule:

@@ -1,8 +1,5 @@
 name: Newsletter Agent — Weekly digest
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 on:
   schedule:
