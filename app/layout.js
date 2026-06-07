@@ -47,7 +47,12 @@ export const metadata = {
   },
   alternates: {
     canonical: siteConfig.url,
-    types: { 'application/rss+xml': `${siteConfig.url}/rss.xml` },
+    types: {
+      'application/rss+xml': [
+        { url: '/rss.xml', title: 'All Posts' },
+        { url: '/news/feed.xml', title: 'AI News Feed' },
+      ],
+    },
   },
   icons: { icon: '/favicon.svg' },
   manifest: '/manifest.webmanifest',

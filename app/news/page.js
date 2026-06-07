@@ -15,12 +15,40 @@ export default function NewsPage() {
   const allPosts = getAllPosts();
   const news = allPosts.filter(p => p.category === 'AI News').slice(0, 50);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'AI News',
+    description: 'Breaking AI news, research breakthroughs, product launches, and industry analysis.',
+    url: `${siteConfig.url}/news`,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: siteConfig.url },
+        { '@type': 'ListItem', position: 2, name: 'AI News', item: `${siteConfig.url}/news` },
+      ],
+    },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: news.slice(0, 10).map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${siteConfig.url}/news/${p.slug}`,
+      })),
+    },
+  };
+
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <header className="mb-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">AI News</h1>
-        <p className="text-lg text-slate-600 dark:text-dark-muted">Latest breakthroughs, product launches, and analysis.</p>
-      </header>
+    <>
+      <script id="ld-news-listing" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <nav className="text-sm text-slate-500 mb-6">
+          <Link href="/" className="hover:text-blue-600">Home</Link> / <span className="text-slate-700 dark:text-dark-text font-medium">AI News</span>
+        </nav>
+        <header className="mb-10">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">AI News</h1>
+          <p className="text-lg text-slate-600 dark:text-dark-muted">Latest breakthroughs, product launches, and analysis.</p>
+        </header>
 
       <div className="space-y-6">
         {news.map((p) => (
@@ -49,5 +77,6 @@ export default function NewsPage() {
         <Link href="/posts" className="text-blue-600 hover:underline">View all articles →</Link>
       </div>
     </div>
+    </>
   );
 }

@@ -7,6 +7,7 @@ import { siteConfig } from '../../../lib/config';
 import TableOfContents from '../../../components/TableOfContents';
 import ShareButtons from '../../../components/ShareButtons';
 import AdSlot from '../../../components/AdSlot';
+import NewsletterCTA from '../../../components/NewsletterCTA';
 
 export const dynamic = 'force-static';
 export const revalidate = 1800;
@@ -145,6 +146,7 @@ export default async function NewsArticlePage({ params }) {
                 </div>
               </section>
             )}
+            <NewsletterCTA />
           </article>
 
           {/* Sidebar */}
