@@ -15,19 +15,20 @@ export async function GET() {
   }
 
   function safeDate(d) {
-  const parsed = new Date(d);
-  return isNaN(parsed.getTime()) ? new Date().toISOString().split('T')[0] : parsed.toISOString().split('T')[0];
-}
+    const parsed = new Date(d);
+    return isNaN(parsed.getTime()) ? new Date().toISOString().split('T')[0] : parsed.toISOString().split('T')[0];
+  }
 
-function escapeXml(s) {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
-}
+  function escapeXml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+  }
 
-const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
 ${newsPosts.map(p => `  <url>
     <loc>${base}/news/${p.slug}</loc>
+    <lastmod>${safeDate(p.lastUpdated || p.date)}</lastmod>
     <news:news>
       <news:publication>
         <news:name>${escapeXml(siteConfig.name)}</news:name>
