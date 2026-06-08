@@ -11,4 +11,12 @@ public/*.txt
 !public/robots.txt
 !public/llms.txt
 !public/llms-full.txt
+!public/ads.txt
+public/reports/
+public/digests/
+public/social/
 tsconfig.tsbuildinfo
+
+data/subscribers.json
+# Agent artifact directories (committed via CI workflows):
+# data/agents/ is tracked
