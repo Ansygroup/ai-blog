@@ -1,10 +1,9 @@
 'use client';
-// AdSlot — wraps Google AdSense responsive ad units.
-// In dev/test with no AdSense client configured, renders nothing so the site stays clean.
 import { useEffect } from 'react';
+import { siteConfig } from '../lib/config';
 
 export default function AdSlot({ slot, format = 'auto', style = {}, className = '' }) {
-  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+  const client = siteConfig.adsenseClient;
   useEffect(() => {
     if (!client || !slot) return;
     try {

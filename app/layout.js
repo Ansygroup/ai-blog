@@ -97,15 +97,13 @@ export default function RootLayout({ children }) {
         <Analytics />
         <Footer />
 
-        {/* Google AdSense — auto ads. Replace ca-pub-xxx with your code. */}
-        {process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}`}
-            crossOrigin="anonymous"
-            strategy="afterInteractive"
-          />
-        )}
+        {/* Google AdSense */}
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.adsenseClient}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
 
         {/* Plausible Analytics — privacy-first, no cookie banner */}
         {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
