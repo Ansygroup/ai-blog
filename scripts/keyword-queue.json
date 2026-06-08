@@ -1,14 +1,5 @@
 [
   {
-    "topic": "Best AI Tools for Email Marketing Automation: Mailchimp, Constant Contact, and Klaviyo",
-    "category": "Best Of",
-    "keywords": [
-      "AI for email marketing",
-      "email marketing automation",
-      "Mailchimp vs Constant Contact vs Klaviyo"
-    ]
-  },
-  {
     "topic": "How to Use AI for Creating Interactive Quizzes and Surveys",
     "category": "Tutorials",
     "keywords": [
@@ -123,6 +114,105 @@
       "AI voiceover production",
       "voiceover software",
       "Voicely review"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Generating Amazon Product Titles",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for ecommerce",
+      "Amazon product titles",
+      "AI content generation"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Transcription Services for Podcasters: Otter, Trint, and Descript",
+    "category": "Comparisons",
+    "keywords": [
+      "AI transcription",
+      "podcast transcription",
+      "Otter vs Trint vs Descript"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Book Summaries: A Review of Top Software",
+    "category": "Reviews",
+    "keywords": [
+      "AI book summaries",
+      "automated book summaries",
+      "book summary software"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Creating Personalized YouTube Video Thumbnails",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for YouTube",
+      "personalized video thumbnails",
+      "YouTube optimization"
+    ]
+  },
+  {
+    "topic": "AI-Powered Project Management Tools for Remote Teams: Comparison and Review",
+    "category": "Comparisons",
+    "keywords": [
+      "AI project management",
+      "remote team management",
+      "project management software"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Social Media Content Calendar Creation: A Review of Top Software",
+    "category": "Reviews",
+    "keywords": [
+      "AI social media",
+      "content calendar creation",
+      "social media management"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Optimizing LinkedIn Ad Campaigns",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for LinkedIn",
+      "LinkedIn ad optimization",
+      "LinkedIn marketing"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Language Learning Platforms for Business: Rosetta Stone, Babbel, and Duolingo",
+    "category": "Comparisons",
+    "keywords": [
+      "AI language learning",
+      "business language learning",
+      "language learning software"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Customer Feedback Analysis: A Review of Top Software",
+    "category": "Reviews",
+    "keywords": [
+      "AI customer feedback",
+      "automated feedback analysis",
+      "customer feedback software"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Creating Interactive Online Courses",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for online courses",
+      "interactive course creation",
+      "online course software"
+    ]
+  },
+  {
+    "topic": "AI-Powered Website Testing Tools for User Experience: Comparison and Review",
+    "category": "Comparisons",
+    "keywords": [
+      "AI website testing",
+      "user experience testing",
+      "website testing software"
     ]
   }
 ]
