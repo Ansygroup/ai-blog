@@ -196,5 +196,365 @@
       "user experience testing",
       "website testing software"
     ]
+  },
+  {
+    "topic": "How to Use ChatGPT API for Building a Custom Chatbot",
+    "category": "Tutorials",
+    "keywords": [
+      "ChatGPT API",
+      "custom chatbot",
+      "OpenAI API tutorial"
+    ]
+  },
+  {
+    "topic": "How to Automate Social Media Posts Using AI Scheduling Tools",
+    "category": "Tutorials",
+    "keywords": [
+      "AI social media automation",
+      "social media scheduling",
+      "Buffer vs Hootsuite"
+    ]
+  },
+  {
+    "topic": "Step-by-Step Guide to Building a RAG System with LangChain",
+    "category": "Tutorials",
+    "keywords": [
+      "RAG system",
+      "LangChain tutorial",
+      "retrieval augmented generation"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Invoice Processing in Small Business",
+    "category": "Tutorials",
+    "keywords": [
+      "AI invoice processing",
+      "automated accounting",
+      "small business AI"
+    ]
+  },
+  {
+    "topic": "How to Train a Custom AI Model with No Code Using Google AutoML",
+    "category": "Tutorials",
+    "keywords": [
+      "no-code AI",
+      "Google AutoML",
+      "custom AI model training"
+    ]
+  },
+  {
+    "topic": "How to Use Claude API for Document Analysis and Summarization",
+    "category": "Tutorials",
+    "keywords": [
+      "Claude API",
+      "document analysis AI",
+      "AI summarization"
+    ]
+  },
+  {
+    "topic": "Building an AI-Powered Search Engine for Your Website Using Meilisearch",
+    "category": "Tutorials",
+    "keywords": [
+      "AI search engine",
+      "Meilisearch tutorial",
+      "site search AI"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Creating Automated Webinar Workflows",
+    "category": "Tutorials",
+    "keywords": [
+      "AI webinar automation",
+      "webinar workflows",
+      "automated marketing"
+    ]
+  },
+  {
+    "topic": "How to Use GPT-4 Vision API for Image Analysis and Description",
+    "category": "Tutorials",
+    "keywords": [
+      "GPT-4 Vision",
+      "image analysis AI",
+      "computer vision tutorial"
+    ]
+  },
+  {
+    "topic": "How to Build an AI Content Moderation System for User-Generated Content",
+    "category": "Tutorials",
+    "keywords": [
+      "AI content moderation",
+      "user-generated content",
+      "content filtering AI"
+    ]
+  },
+  {
+    "topic": "How to Use AI for A/B Testing and Conversion Rate Optimization",
+    "category": "Tutorials",
+    "keywords": [
+      "AI A/B testing",
+      "conversion rate optimization",
+      "CRO tools"
+    ]
+  },
+  {
+    "topic": "How to Implement AI-Powered Chatbots for WhatsApp Business",
+    "category": "Tutorials",
+    "keywords": [
+      "WhatsApp chatbot",
+      "AI chatbot business",
+      "WhatsApp Business API"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Data Cleaning and Preparation",
+    "category": "Tutorials",
+    "keywords": [
+      "AI data cleaning",
+      "data preparation",
+      "automated data pipeline"
+    ]
+  },
+  {
+    "topic": "How to Use Generative AI for Prototyping Mobile App Designs",
+    "category": "Tutorials",
+    "keywords": [
+      "generative AI for design",
+      "mobile app prototyping",
+      "AI design tools"
+    ]
+  },
+  {
+    "topic": "How to Create AI-Generated Voiceovers for YouTube Videos",
+    "category": "Tutorials",
+    "keywords": [
+      "AI voiceovers",
+      "YouTube voiceover",
+      "text-to-speech video"
+    ]
+  },
+  {
+    "topic": "ChatGPT vs Claude vs Gemini: Which Is Best for Coding in 2026?",
+    "category": "Comparisons",
+    "keywords": [
+      "ChatGPT vs Claude for coding",
+      "Gemini coding",
+      "best AI for programming 2026"
+    ]
+  },
+  {
+    "topic": "Midjourney vs DALL-E 3 vs Stable Diffusion vs Adobe Firefly: Ultimate 2026 Showdown",
+    "category": "Comparisons",
+    "keywords": [
+      "Midjourney vs DALL-E 3",
+      "Stable Diffusion vs Firefly",
+      "AI image generator comparison 2026"
+    ]
+  },
+  {
+    "topic": "Copilot vs Cursor vs Windsurf: Which AI Code Editor Is Best?",
+    "category": "Comparisons",
+    "keywords": [
+      "Copilot vs Cursor",
+      "Windsurf AI editor",
+      "AI code editor comparison"
+    ]
+  },
+  {
+    "topic": "Jasper vs Copy.ai vs Writesonic vs Rytr: Best AI Writing Tool for Marketing",
+    "category": "Comparisons",
+    "keywords": [
+      "Jasper vs Copy.ai",
+      "Writesonic vs Rytr",
+      "AI writing tool comparison"
+    ]
+  },
+  {
+    "topic": "Surfer SEO vs Frase vs Clearscope: Best AI SEO Optimization Tool",
+    "category": "Comparisons",
+    "keywords": [
+      "Surfer SEO vs Frase",
+      "Clearscope review",
+      "AI SEO tool comparison"
+    ]
+  },
+  {
+    "topic": "Notion AI vs Mem vs Reflect: Best AI Note-Taking App",
+    "category": "Comparisons",
+    "keywords": [
+      "Notion AI vs Mem",
+      "AI note-taking",
+      "Reflect app review"
+    ]
+  },
+  {
+    "topic": "Descript vs Riverside vs Zencastr: Best AI Podcast Editing Tool",
+    "category": "Comparisons",
+    "keywords": [
+      "Descript vs Riverside",
+      "AI podcast editing",
+      "Zencastr review"
+    ]
+  },
+  {
+    "topic": "Runway vs Pika vs Kling AI vs Hailuo: Best AI Video Generator 2026",
+    "category": "Comparisons",
+    "keywords": [
+      "Runway vs Pika",
+      "Kling AI vs Hailuo",
+      "AI video generator comparison"
+    ]
+  },
+  {
+    "topic": "Suno vs Udio vs MusicFX: Best AI Music Generator 2026",
+    "category": "Comparisons",
+    "keywords": [
+      "Suno vs Udio",
+      "AI music generation",
+      "MusicFX Google"
+    ]
+  },
+  {
+    "topic": "ElevenLabs vs PlayHT vs Murf vs Respeecher: Best AI Voice Cloning",
+    "category": "Comparisons",
+    "keywords": [
+      "ElevenLabs vs PlayHT",
+      "AI voice cloning",
+      "Respeecher review"
+    ]
+  },
+  {
+    "topic": "Perplexity vs Google Gemini vs ChatGPT Search: Best AI Search Engine",
+    "category": "Comparisons",
+    "keywords": [
+      "Perplexity vs Gemini",
+      "ChatGPT search",
+      "AI search engine comparison"
+    ]
+  },
+  {
+    "topic": "Grammarly vs ProWritingAid vs Hemingway vs LanguageTool: Best AI Writing Assistant",
+    "category": "Comparisons",
+    "keywords": [
+      "Grammarly vs ProWritingAid",
+      "Hemingway vs LanguageTool",
+      "AI writing assistant comparison"
+    ]
+  },
+  {
+    "topic": "Zapier vs Make vs n8n: Best AI Workflow Automation Platform",
+    "category": "Comparisons",
+    "keywords": [
+      "Zapier vs Make",
+      "n8n automation",
+      "AI workflow platform comparison"
+    ]
+  },
+  {
+    "topic": "Cursor AI Editor Review 2026: Is It Worth /Month for Developers?",
+    "category": "Reviews",
+    "keywords": [
+      "Cursor AI review",
+      "AI code editor review",
+      "Cursor vs Copilot"
+    ]
+  },
+  {
+    "topic": "Claude Pro vs Claude Team: Which Anthropic Plan Should You Pick?",
+    "category": "Reviews",
+    "keywords": [
+      "Claude Pro review",
+      "Claude Team pricing",
+      "Anthropic subscription"
+    ]
+  },
+  {
+    "topic": "Runway Gen-3 Review 2026: Best AI Video Generator for Professionals?",
+    "category": "Reviews",
+    "keywords": [
+      "Runway Gen-3 review",
+      "AI video generator pro",
+      "Runway vs competitors"
+    ]
+  },
+  {
+    "topic": "ElevenLabs Voice Isolator Review 2026: Clean Audio in One Click",
+    "category": "Reviews",
+    "keywords": [
+      "ElevenLabs Voice Isolator",
+      "AI audio cleaning",
+      "voice isolation tool"
+    ]
+  },
+  {
+    "topic": "Otter AI vs Fireflies: Best AI Meeting Assistant for Teams in 2026",
+    "category": "Reviews",
+    "keywords": [
+      "Otter AI review",
+      "Fireflies review",
+      "AI meeting assistant"
+    ]
+  },
+  {
+    "topic": "Synthesia Review 2026: Best AI Video Avatar Generator for Business",
+    "category": "Reviews",
+    "keywords": [
+      "Synthesia review",
+      "AI video avatars",
+      "AI video for business"
+    ]
+  },
+  {
+    "topic": "ChatGPT Team vs Enterprise: Which OpenAI Plan Is Right for Your Company?",
+    "category": "Reviews",
+    "keywords": [
+      "ChatGPT Team review",
+      "ChatGPT Enterprise pricing",
+      "OpenAI business plans"
+    ]
+  },
+  {
+    "topic": "Gemini Advanced vs Google One AI Premium: Best Google AI Plan 2026",
+    "category": "Reviews",
+    "keywords": [
+      "Gemini Advanced review",
+      "Google One AI Premium",
+      "Google AI subscription"
+    ]
+  },
+  {
+    "topic": "Brain.fm Review 2026: Does AI-Generated Music Really Boost Focus?",
+    "category": "Reviews",
+    "keywords": [
+      "Brain.fm review",
+      "AI focus music",
+      "productivity music app"
+    ]
+  },
+  {
+    "topic": "Replit AI Agent Review 2026: Building Apps with Natural Language",
+    "category": "Reviews",
+    "keywords": [
+      "Replit AI Agent",
+      "AI app builder",
+      "natural language programming"
+    ]
+  },
+  {
+    "topic": "Jasper AI Review 2026: Best AI Content Platform for Marketing Teams?",
+    "category": "Reviews",
+    "keywords": [
+      "Jasper AI 2026",
+      "AI content platform",
+      "Jasper review updated"
+    ]
+  },
+  {
+    "topic": "Copy.ai Review 2026: Best AI Copywriting Tool for Ecommerce?",
+    "category": "Reviews",
+    "keywords": [
+      "Copy.ai 2026",
+      "AI copywriting tool",
+      "Copy.ai vs Jasper"
+    ]
   }
 ]
