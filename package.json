@@ -39,6 +39,7 @@
     "@vercel/analytics": "^2.0.1",
     "dotenv": "^16.4.5",
     "gray-matter": "^4.0.3",
+    "lucide-react": "^1.17.0",
     "next": "^14.2.35",
     "openai": "^4.67.0",
     "react": "18.3.1",

@@ -41,7 +41,7 @@ export default function TutorialsPage() {
         </header>
         <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((p) => <PostCard key={p.slug} post={p} />)}
+          {posts.map((p, i) => <PostCard key={p.slug} post={p} index={i} />)}
         </div>
       </div>
     </>

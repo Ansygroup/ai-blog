@@ -37,7 +37,7 @@ export default function TagPage({ params }) {
         <h1 className="text-4xl font-extrabold mb-2">#{tag}</h1>
         <p className="text-slate-600 dark:text-dark-muted mb-8">{posts.length} article{posts.length !== 1 ? 's' : ''} tagged with &ldquo;{tag}&rdquo;</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((p) => <PostCard key={p.slug} post={p} />)}
+          {posts.map((p, i) => <PostCard key={p.slug} post={p} index={i} />)}
         </div>
       </div>
     </>

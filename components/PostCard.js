@@ -1,36 +1,55 @@
 import Link from 'next/link';
+import Card from './ui/Card';
+import Badge from './ui/Badge';
+import { ArrowRight, Clock, Star } from 'lucide-react';
 
 function postHref(post) {
   return post.category === 'AI News' ? `/news/${post.slug}` : `/posts/${post.slug}`;
 }
 
-export default function PostCard({ post }) {
+export default function PostCard({ post, index = 0 }) {
   const href = postHref(post);
+  const delay = Math.min((index % 6) * 100, 500);
   return (
-    <article className="group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 transition">
-      {post.cover && (
-        <Link href={href} className="block aspect-video bg-slate-100 overflow-hidden">
-          <img src={post.cover} alt={post.title} loading="lazy" width="400" height="225" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
-        </Link>
-      )}
-      <div className="p-5">
-        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-dark-muted mb-2 flex-wrap">
-          {post.category && <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-0.5 rounded-full font-semibold uppercase tracking-wide">{post.category}</span>}
-          <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
-          {post.readingTime && <><span>·</span><span>{post.readingTime} min read</span></>}
-          {post.lastUpdated && new Date(post.lastUpdated) > new Date(post.date) && <><span>·</span><span className="text-emerald-600 dark:text-emerald-400 font-medium">Updated</span></>}
-        </div>
-        <h3 className="text-xl font-bold mb-2 leading-snug">
-          <Link href={href} className="hover:text-blue-600 transition">{post.title}</Link>
-        </h3>
-        <p className="text-slate-600 text-sm line-clamp-3 mb-3">{post.excerpt || post.description}</p>
-        <div className="flex items-center justify-between text-sm">
-          <Link href={href} className="text-blue-600 font-semibold group-hover:underline">
-            Read {post.category === 'AI News' ? 'story' : 'review'} →
+    <article className={`animate-fade-in opacity-0 [animation-fill-mode:forwards]`} style={{ animationDelay: `${delay}ms` }}>
+      <Card className="group h-full flex flex-col" as="article">
+        {post.cover && (
+          <Link href={href} className="block aspect-video bg-slate-100 overflow-hidden">
+            <img src={post.cover} alt={post.title} loading="lazy" width="400" height="225" className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
           </Link>
-          {post.rating && <span className="text-amber-500 font-bold">{'★'.repeat(Math.round(post.rating))}{'☆'.repeat(5 - Math.round(post.rating))} {post.rating}</span>}
+        )}
+        <div className="p-5 flex-1 flex flex-col">
+          <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-dark-muted mb-2 flex-wrap">
+            {post.category && <Badge>{post.category}</Badge>}
+            <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+            {post.readingTime && (
+              <span className="flex items-center gap-1">
+                <Clock className="w-3 h-3" />
+                {post.readingTime} min read
+              </span>
+            )}
+            {post.lastUpdated && new Date(post.lastUpdated) > new Date(post.date) && (
+              <span className="text-emerald-600 dark:text-emerald-400 font-medium">Updated</span>
+            )}
+          </div>
+          <h3 className="text-xl font-heading font-bold mb-2 leading-snug flex-1">
+            <Link href={href} className="hover:text-brand-600 dark:hover:text-brand-400 transition">{post.title}</Link>
+          </h3>
+          <p className="text-slate-600 dark:text-dark-muted text-sm line-clamp-3 mb-3">{post.excerpt || post.description}</p>
+          <div className="flex items-center justify-between text-sm mt-auto pt-3 border-t border-slate-100 dark:border-dark-border">
+            <Link href={href} className="text-brand-600 dark:text-brand-400 font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+              Read {post.category === 'AI News' ? 'story' : 'review'}
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+            {post.rating && (
+              <span className="flex items-center gap-1 text-amber-500 font-bold">
+                <Star className="w-4 h-4 fill-current" />
+                {post.rating}
+              </span>
+            )}
+          </div>
         </div>
-      </div>
+      </Card>
     </article>
   );
 }

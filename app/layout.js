@@ -1,19 +1,30 @@
 import './globals.css';
+import { Space_Grotesk, DM_Sans } from 'next/font/google';
 import { siteConfig } from '../lib/config';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AdSlot from '../components/AdSlot';
 import NewsletterCTA from '../components/NewsletterCTA';
+import SkipLink from '../components/SkipLink';
+import CookieBanner from '../components/CookieBanner';
+import BackToTop from '../components/BackToTop';
 
 import Script from 'next/script';
 import { Analytics } from "@vercel/analytics/next";
 
-// System font stack — zero network requests, instant LCP, no Google Fonts dependency.
-// Browsers use the OS's best modern UI font (San Francisco, Segoe UI, Inter if installed, etc.).
-const systemFontStack = [
-  'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto',
-  'Helvetica Neue', 'Arial', 'sans-serif',
-].join(', ');
+const fontHeading = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-heading',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
+const fontBody = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+  weight: ['300', '400', '500', '700'],
+});
 
 export const metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -67,7 +78,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" style={{ fontFamily: systemFontStack }}>
+    <html lang="en" className={`${fontHeading.variable} ${fontBody.variable}`}>
       <head>
         {/* Preconnect & DNS-prefetch for third-party origins */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
@@ -90,11 +101,14 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
       </head>
-      <body className="bg-slate-50 dark:bg-dark-bg text-slate-900 dark:text-dark-text antialiased" style={{ fontFamily: systemFontStack }}>
+      <body className="bg-slate-50 dark:bg-dark-bg text-slate-900 dark:text-dark-text antialiased font-body">
+        <SkipLink />
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main id="main-content" className="min-h-screen animate-fade-in">{children}</main>
         <NewsletterCTA />
+        <CookieBanner />
         <Analytics />
+        <BackToTop />
         <Footer />
 
         {/* Google AdSense */}

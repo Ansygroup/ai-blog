@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getAllPosts } from '../../lib/posts';
 import PostCard from '../../components/PostCard';
+import { PostGridSkeleton } from '../../components/ui/Skeleton';
 import { siteConfig } from '../../lib/config';
 import { breadcrumbJsonLd } from '../../lib/schema';
 
@@ -45,7 +46,7 @@ export default function PostsPage() {
           </p>
         </header>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((p) => <PostCard key={p.slug} post={p} />)}
+          {posts.map((p, i) => <PostCard key={p.slug} post={p} index={i} />)}
         </div>
         {totalPages > 1 && (
           <div className="flex justify-center items-center gap-4 mt-12">
