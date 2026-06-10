@@ -18,5 +18,6 @@ public/social/
 tsconfig.tsbuildinfo
 
 data/subscribers.json
+/.opencode/
 # Agent artifact directories (committed via CI workflows):
 # data/agents/ is tracked
