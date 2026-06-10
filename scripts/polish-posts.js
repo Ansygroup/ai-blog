@@ -59,8 +59,8 @@ console.log(`Scanning ${totalPosts} posts${dryRun ? ' (dry run)' : ''}...`);
 let brokenCount = 0;
 for (const f of files) {
   const c = fs.readFileSync(path.join(POSTS_DIR, f), 'utf8');
-  if (!c.startsWith('---\n')) { console.error(`❌ ${f}: missing frontmatter`); brokenCount++; continue; }
-  const m = c.match(/^---\n([\s\S]+?)\n---\n/);
+  if (!/^---\r?\n/.test(c)) { console.error(`❌ ${f}: missing frontmatter`); brokenCount++; continue; }
+  const m = c.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n/);
   if (!m) { console.error(`❌ ${f}: unterminated frontmatter`); brokenCount++; continue; }
   // The frontmatter must not contain markdown body artifacts
   const fm = m[1];
@@ -82,7 +82,7 @@ for (let i = 0; i < files.length; i++) {
   const slug = f.replace(/\.mdx?$/, '');
 
   // Parse frontmatter
-  const m = content.match(/^---\n([\s\S]+?)\n---\n([\s\S]+)$/);
+  const m = content.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]+)$/);
   if (!m) continue;
   let fm = m[1];
   let body = m[2];
