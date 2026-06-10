@@ -49,7 +49,7 @@ export default function TopicPage({ params }) {
   let relatedProducts = [];
   try {
     const raw = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
-    const all = Object.values(raw.categories).flatMap(c => c.products);
+    const all = Object.entries(raw.categories).flatMap(([slug, c]) => c.products.map(p => ({ ...p, categorySlug: slug })));
     const catKeywords = topic.slug.replace('ai-', '').replace(/-/g, ' ');
     relatedProducts = all.filter(p => {
       const name = p.name.toLowerCase();

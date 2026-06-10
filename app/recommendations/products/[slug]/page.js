@@ -7,6 +7,7 @@ import { siteConfig } from '../../../../lib/config';
 import { breadcrumbJsonLd } from '../../../../lib/schema';
 import { getAllPosts } from '../../../../lib/posts';
 import { formatPrice, priceValue } from '../../../../lib/formatPrice';
+import { getProductImage } from '../../../../lib/productImages';
 import { BookOpen, ChevronRight, ArrowLeft, ShoppingCart, Star, Dot } from 'lucide-react';
 import ProductCard from '../../../../components/ProductCard';
 import AmazonDisclosure from '../../../../components/AmazonDisclosure';
@@ -49,7 +50,7 @@ export function generateMetadata({ params }) {
       url: `${siteConfig.url}/recommendations/products/${product.slug}`,
       siteName: siteConfig.name,
       type: 'website',
-      images: [{ url: product.image, width: 800, height: 800 }],
+      images: [{ url: getProductImage(product), width: 800, height: 800 }],
     },
   };
 }
@@ -77,7 +78,7 @@ export default function ProductPage({ params }) {
     '@type': 'Product',
     name: product.name,
     description: product.description,
-    image: product.image,
+    image: getProductImage(product),
     mpn: product.asin,
     brand: { '@type': 'Brand', name: product.name.split(' ')[0] },
     aggregateRating: { '@type': 'AggregateRating', ratingValue: product.rating, reviewCount: product.reviewsCount, bestRating: 5 },
@@ -111,11 +112,7 @@ export default function ProductPage({ params }) {
 
         <div className="grid md:grid-cols-2 gap-8 mb-10">
           <div>
-            {product.image ? (
-              <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md"><Image src={product.image} alt={product.name} fill className="object-contain" sizes="(max-width: 768px) 100vw, 50vw" priority /></div>
-            ) : (
-              <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md bg-slate-100 dark:bg-dark-card flex items-center justify-center"><ShoppingCart className="w-8 h-8 text-slate-300" /></div>
-            )}
+            <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md"><Image src={getProductImage(product)} alt={product.name} fill className="object-contain" sizes="(max-width: 768px) 100vw, 50vw" priority /></div>
           </div>
           <div>
             <p className="text-xs text-slate-500 dark:text-dark-muted uppercase tracking-wider mb-1">{product.categorySlug}</p>

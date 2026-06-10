@@ -8,6 +8,7 @@ import AmazonDisclosure from '../../../components/AmazonDisclosure';
 import { BarChart3, Search, Star, ChevronRight, Award, ShoppingCart, ArrowRight } from 'lucide-react';
 import ProductCard from '../../../components/ProductCard';
 import { formatPrice, priceValue } from '../../../lib/formatPrice';
+import { getProductImage } from '../../../lib/productImages';
 
 export const dynamic = 'force-static';
 
@@ -55,7 +56,7 @@ export default function BestPage() {
         name: 'Best Amazon Products 2026',
         description: 'Top-rated tech products across all categories.',
         url: `${siteConfig.url}/recommendations/best`,
-        mainEntity: { '@type': 'ItemList', itemListElement: top10.map((p, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Product', name: p.name, url: `${siteConfig.url}/recommendations/products/${p.slug}`, image: p.image, offers: { '@type': 'Offer', price: priceValue(p.price), priceCurrency: 'USD' } } })) },
+        mainEntity: { '@type': 'ItemList', itemListElement: top10.map((p, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Product', name: p.name, url: `${siteConfig.url}/recommendations/products/${p.slug}`, image: getProductImage(p), offers: { '@type': 'Offer', price: priceValue(p.price), priceCurrency: 'USD' } } })) },
       }) }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
@@ -97,11 +98,7 @@ export default function BestPage() {
                   <td className="py-3 px-2 font-bold text-lg">{i + 1}</td>
                   <td className="py-3 px-2">
                     <div className="flex items-center gap-3">
-                      {p.image ? (
-                        <Image src={p.image} alt={p.name} width={48} height={48} className="object-contain rounded flex-shrink-0" />
-                      ) : (
-                        <div className="w-12 h-12 bg-slate-100 dark:bg-dark-card rounded flex items-center justify-center flex-shrink-0"><ShoppingCart className="w-6 h-6 text-slate-300" /></div>
-                      )}
+                      <Image src={getProductImage(p)} alt={p.name} width={48} height={48} className="object-contain rounded flex-shrink-0" />
                       <Link href={`/recommendations/products/${p.slug}`} className="font-medium hover:text-blue-600 dark:hover:text-blue-400 line-clamp-2">
                         {p.name}
                       </Link>

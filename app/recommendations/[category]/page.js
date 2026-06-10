@@ -70,7 +70,7 @@ export default function CategoryPage({ params }) {
   const cat = db.categories[params.category];
   if (!cat) notFound();
 
-  const products = (cat.products || []).filter(p => p.slug && p.asin);
+  const products = (cat.products || []).filter(p => p.slug && p.asin).map(p => ({ ...p, categorySlug: params.category }));
   const guide = buildBuyingGuide(products, cat.name);
   const faqs = buildFAQ(cat.name);
   const catName = cat.name.replace(/^[^\s]+\s/, '');

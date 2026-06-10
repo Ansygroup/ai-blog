@@ -37,7 +37,7 @@ export default function HomePage() {
   let topProducts = [];
   try {
     const raw = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
-    const all = Object.values(raw.categories || {}).flatMap(cat => cat.products || []);
+    const all = Object.entries(raw.categories || {}).flatMap(([slug, cat]) => (cat.products || []).map(p => ({ ...p, categorySlug: slug })));
     topProducts = all.sort((a, b) => (b.reviews || 0) - (a.reviews || 0)).slice(0, 6);
   } catch (e) { /* no db */ }
 

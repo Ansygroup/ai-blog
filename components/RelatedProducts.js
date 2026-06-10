@@ -5,6 +5,7 @@ import path from 'path';
 import { ShoppingCart } from 'lucide-react';
 import { siteConfig } from '../lib/config';
 import { formatPrice } from '../lib/formatPrice';
+import { getProductImage } from '../lib/productImages';
 
 const TAG = process.env.AMAZON_ASSOCIATES_TAG || 'ansy07-20';
 
@@ -48,7 +49,7 @@ export default function RelatedProducts({ tags, category, limit = 3 }) {
   let products = [];
   for (const match of matches) {
     const cat = db.categories[match.slug];
-    if (cat) products.push(...cat.products.filter(p => p.slug && p.asin).slice(0, 2));
+    if (cat) products.push(...cat.products.filter(p => p.slug && p.asin).slice(0, 2).map(p => ({ ...p, categorySlug: match.slug })));
     if (products.length >= limit) break;
   }
   products = products.slice(0, limit);
@@ -68,13 +69,7 @@ export default function RelatedProducts({ tags, category, limit = 3 }) {
           const url = `https://www.amazon.com/dp/${p.asin}?tag=${TAG}`;
           return (
             <Link key={p.asin} href={`/recommendations/products/${p.slug}`} className="flex items-center gap-3 bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border hover:border-blue-400 rounded-lg p-3 transition group">
-              {p.image ? (
-                <Image src={p.image} alt={p.name} width={64} height={64} className="rounded-lg object-cover flex-shrink-0" />
-              ) : (
-                <div className="w-16 h-16 rounded-lg bg-slate-100 dark:bg-dark-card flex items-center justify-center flex-shrink-0">
-                  <ShoppingCart className="w-6 h-6 text-slate-300 dark:text-slate-600" />
-                </div>
-              )}
+              <Image src={getProductImage(p)} alt={p.name} width={64} height={64} className="rounded-lg object-cover flex-shrink-0" />
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-semibold text-slate-900 dark:text-dark-text truncate group-hover:text-blue-600 transition">{p.name}</p>
                 <p className="text-xs text-slate-500 dark:text-dark-muted">{formatPrice(p.price)} · {p.rating}★</p>

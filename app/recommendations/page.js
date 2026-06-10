@@ -29,7 +29,7 @@ export const metadata = {
 export default function RecommendationsPage() {
   const db = getDb();
   const entries = Object.entries(db.categories).filter(([, cat]) => cat.products?.length > 0);
-  const allProducts = entries.flatMap(([, cat]) => cat.products.filter(p => p.slug && p.asin));
+  const allProducts = entries.flatMap(([slug, cat]) => cat.products.filter(p => p.slug && p.asin).map(p => ({ ...p, categorySlug: slug })));
   const featured = allProducts.sort((a, b) => (b.reviewsCount || 0) - (a.reviewsCount || 0)).slice(0, 4);
 
   return (
