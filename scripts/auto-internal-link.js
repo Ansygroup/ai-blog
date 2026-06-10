@@ -105,9 +105,23 @@ for (const post of posts) {
         idx += kw.length;
         continue;
       }
-      // Check it's not already linked
+      // Check it's not already linked (both before and after)
       const beforeSlice = body.slice(Math.max(0, idx - 50), idx);
-      if (/href=["']/.test(beforeSlice) || /\]\(/.test(beforeSlice)) {
+      const afterSlice = body.slice(idx + kw.length, Math.min(body.length, idx + kw.length + 50));
+      if (/href=["']/.test(beforeSlice) || /\]\(/.test(beforeSlice) || /\]\(/.test(afterSlice)) {
+        idx += kw.length;
+        totalLinksSkipped++;
+        continue;
+      }
+      // Reject if the matched text contains markdown syntax (already inside a link)
+      const rawText = body.slice(idx, idx + kw.length);
+      if (/[[\]()]/.test(rawText)) {
+        idx += kw.length;
+        totalLinksSkipped++;
+        continue;
+      }
+      // Reject if preceded by '[' (nested inside bracket nesting)
+      if (idx > 0 && body[idx - 1] === '[') {
         idx += kw.length;
         totalLinksSkipped++;
         continue;
