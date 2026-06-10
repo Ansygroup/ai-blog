@@ -25,7 +25,7 @@ export default function NotFound() {
             <h3 className="text-sm font-semibold text-slate-500 dark:text-dark-muted uppercase tracking-wide mb-4">Latest Articles</h3>
             <div className="space-y-2 text-left">
               {recent.map(p => (
-                <Link key={p.slug} href={`/posts/${p.slug}`}
+                <Link key={p.slug} href={p.category === 'AI News' ? `/news/${p.slug}` : `/posts/${p.slug}`}
                   className="block text-sm text-blue-600 dark:text-blue-400 hover:underline truncate"
                 >
                   {p.title}

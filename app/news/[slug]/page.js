@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllPosts, getPostBySlug, getRelatedPosts } from '../../../lib/posts';
 import { renderSafeMarkdown } from '../../../lib/markdown';
 import { articleJsonLd, breadcrumbJsonLd } from '../../../lib/schema';
@@ -23,8 +24,10 @@ export function generateMetadata({ params }) {
   return {
     title: `${post.title} | AI News`,
     description: post.excerpt || post.description,
+    keywords: post.tags,
     alternates: { canonical: `${siteConfig.url}/news/${post.slug}` },
-    openGraph: { title: post.title, description: post.excerpt, type: 'article', publishedTime: post.date },
+    openGraph: { title: post.title, description: post.excerpt, type: 'article', publishedTime: post.date, images: [{ url: `${siteConfig.url}/og/${post.slug}`, width: 1200, height: 630 }] },
+    twitter: { card: 'summary_large_image', title: post.title, description: post.excerpt, images: [`${siteConfig.url}/og/${post.slug}`] },
   };
 }
 
@@ -89,7 +92,7 @@ export default async function NewsArticlePage({ params }) {
                 {post.source && <span className="text-xs bg-slate-100 dark:bg-dark-bg px-2 py-0.5 rounded-full">via {post.source.replace(/^rss:/, '')}</span>}
               </div>
               <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">{post.title}</h1>
-              {post.cover && <img src={post.cover} alt={post.title} width={800} height={450} className="w-full aspect-video object-cover rounded-xl mb-6" />}
+              {post.cover && <div className="relative w-full aspect-video mb-6 rounded-xl overflow-hidden"><Image src={post.cover} alt={post.title} fill className="object-cover" sizes="(max-width: 800px) 100vw, 800px" /></div>}
             </header>
 
             {takeawaysHtml && (

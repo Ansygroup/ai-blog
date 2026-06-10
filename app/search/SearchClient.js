@@ -38,7 +38,7 @@ export default function SearchClient({ index }) {
           <p className="text-slate-500 dark:text-dark-muted">No results found.</p>
         ) : query.trim() && (
           results.map(p => (
-            <Link key={p.slug} href={`/posts/${p.slug}`}
+              <Link key={p.slug} href={p.category === 'AI News' ? `/news/${p.slug}` : `/posts/${p.slug}`}
               className="block p-4 bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border rounded-lg hover:border-blue-500 dark:hover:border-blue-400 transition"
             >
               <div className="text-xs text-slate-500 dark:text-dark-muted mb-1">

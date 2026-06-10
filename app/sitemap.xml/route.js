@@ -41,7 +41,7 @@ export async function GET() {
 
   const lastmodFor = (u) => {
     if (postUrls.includes(u)) {
-      const slug = u.replace(base + '/posts/', '');
+      const slug = u.replace(base + '/posts/', '').replace(base + '/news/', '');
       const post = posts.find((p) => p.slug === slug);
       if (post) return new Date(post.lastUpdated || post.date).toISOString();
     }

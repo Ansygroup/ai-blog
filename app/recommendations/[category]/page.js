@@ -6,6 +6,7 @@ import { siteConfig } from '../../../lib/config';
 import { breadcrumbJsonLd } from '../../../lib/schema';
 import AmazonDisclosure from '../../../components/AmazonDisclosure';
 import ProductCard from '../../../components/ProductCard';
+import { formatPrice, priceValue } from '../../../lib/formatPrice';
 
 export const dynamic = 'force-static';
 
@@ -37,14 +38,14 @@ export function generateMetadata({ params }) {
 }
 
 function buildBuyingGuide(products, catName) {
-  const prices = products.map(p => p.price).filter(Boolean);
+  const prices = products.map(p => priceValue(p.price)).filter(Boolean);
   const minPrice = prices.length ? Math.min(...prices) : 0;
   const maxPrice = prices.length ? Math.max(...prices) : 0;
   const avgRating = products.length ? (products.reduce((s, p) => s + (p.rating || 0), 0) / products.length).toFixed(1) : '0.0';
   const topPick = products.length ? products.reduce((best, p) => (p.rating || 0) > (best.rating || 0) ? p : best) : null;
   const bestValue = products.length ? products.reduce((best, p) => {
-    const score = (p.rating || 0) / (p.price || 1);
-    const bestScore = (best.rating || 0) / (best.price || 1);
+    const score = (p.rating || 0) / (priceValue(p.price) || 1);
+    const bestScore = (best.rating || 0) / (priceValue(best.price) || 1);
     return score > bestScore ? p : best;
   }) : null;
 
@@ -124,7 +125,7 @@ export default function CategoryPage({ params }) {
                 <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Price range:</strong> ${guide.minPrice} — ${guide.maxPrice}</span></li>
                 <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Average rating:</strong> {guide.avgRating} / 5.0 across {products.length} products</span></li>
                 {guide.topPick && <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Top rated:</strong> {guide.topPick.name} ({guide.topPick.rating}★)</span></li>}
-                {guide.bestValue && <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Best value:</strong> {guide.bestValue.name} at ${guide.bestValue.price}</span></li>}
+                {guide.bestValue && <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Best value:</strong> {guide.bestValue.name} at {formatPrice(guide.bestValue.price)}</span></li>}
               </ul>
             </div>
             <div>

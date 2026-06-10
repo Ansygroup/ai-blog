@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
@@ -5,6 +6,7 @@ import { siteConfig } from '../../../lib/config';
 import { breadcrumbJsonLd } from '../../../lib/schema';
 import AmazonDisclosure from '../../../components/AmazonDisclosure';
 import ProductCard from '../../../components/ProductCard';
+import { formatPrice, priceValue } from '../../../lib/formatPrice';
 
 export const dynamic = 'force-static';
 
@@ -52,7 +54,7 @@ export default function BestPage() {
         name: 'Best Amazon Products 2026',
         description: 'Top-rated tech products across all categories.',
         url: `${siteConfig.url}/recommendations/best`,
-        mainEntity: { '@type': 'ItemList', itemListElement: top10.map((p, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Product', name: p.name, url: `${siteConfig.url}/recommendations/products/${p.slug}`, image: p.image, offers: { '@type': 'Offer', price: p.price, priceCurrency: 'USD' } } })) },
+        mainEntity: { '@type': 'ItemList', itemListElement: top10.map((p, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Product', name: p.name, url: `${siteConfig.url}/recommendations/products/${p.slug}`, image: p.image, offers: { '@type': 'Offer', price: priceValue(p.price), priceCurrency: 'USD' } } })) },
       }) }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
@@ -94,7 +96,7 @@ export default function BestPage() {
                   <td className="py-3 px-2 font-bold text-lg">{i + 1}</td>
                   <td className="py-3 px-2">
                     <div className="flex items-center gap-3">
-                      <img src={p.image} alt={p.name} width="48" height="48" className="w-12 h-12 object-contain rounded" />
+                      <Image src={p.image} alt={p.name} width={48} height={48} className="object-contain rounded flex-shrink-0" />
                       <Link href={`/recommendations/products/${p.slug}`} className="font-medium hover:text-blue-600 dark:hover:text-blue-400 line-clamp-2">
                         {p.name}
                       </Link>
@@ -110,7 +112,7 @@ export default function BestPage() {
                     <span className="text-xs text-slate-400 ml-1">{p.rating}</span>
                   </td>
                   <td className="py-3 px-2 text-center text-slate-600 dark:text-dark-muted">{(p.reviewsCount || 0).toLocaleString()}</td>
-                  <td className="py-3 px-2 text-center font-bold text-lg">${p.price}</td>
+                  <td className="py-3 px-2 text-center font-bold text-lg">{formatPrice(p.price)}</td>
                   <td className="py-3 px-2 text-center">
                     <a href={`https://www.amazon.com/dp/${p.asin}?tag=${TAG}`} target="_blank" rel="noopener sponsored" className="inline-block bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-3 py-1.5 rounded-lg text-xs transition whitespace-nowrap">
                       Buy →

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import Card from './ui/Card';
 import Badge from './ui/Badge';
 import { ArrowRight, Clock, Star } from 'lucide-react';
@@ -14,8 +15,8 @@ export default function PostCard({ post, index = 0 }) {
     <article className={`animate-fade-in opacity-0 [animation-fill-mode:forwards]`} style={{ animationDelay: `${delay}ms` }}>
       <Card className="group h-full flex flex-col" as="article">
         {post.cover && (
-          <Link href={href} className="block aspect-video bg-slate-100 overflow-hidden">
-            <img src={post.cover} alt={post.title} loading="lazy" width="400" height="225" className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+          <Link href={href} className="block aspect-video bg-slate-100 overflow-hidden relative">
+            <Image src={post.cover} alt={post.title} fill className="object-cover group-hover:scale-105 transition duration-500" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
           </Link>
         )}
         <div className="p-5 flex-1 flex flex-col">

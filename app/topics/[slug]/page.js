@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import fs from 'fs';
@@ -6,6 +7,7 @@ import { topics } from '../../../lib/topics';
 import { getAllPosts } from '../../../lib/posts';
 import { siteConfig } from '../../../lib/config';
 import { breadcrumbJsonLd, faqJsonLd } from '../../../lib/schema';
+import { formatPrice } from '../../../lib/formatPrice';
 
 export const dynamic = 'force-static';
 
@@ -85,7 +87,7 @@ export default function TopicPage({ params }) {
           {relatedPosts.length === 0 && <p className="text-slate-500">No articles yet for this topic.</p>}
           <div className="space-y-4">
             {relatedPosts.map((p, i) => (
-              <Link key={p.slug} href={`/posts/${p.slug}`} className="block group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border p-5 hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 transition">
+              <Link key={p.slug} href={p.category === 'AI News' ? `/news/${p.slug}` : `/posts/${p.slug}`} className="block group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border p-5 hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 transition">
                 <div className="flex items-start gap-4">
                   <span className="text-slate-300 dark:text-dark-muted font-bold text-lg w-6 shrink-0">{i + 1}</span>
                   <div className="flex-1 min-w-0">
@@ -110,9 +112,9 @@ export default function TopicPage({ params }) {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {relatedProducts.map(p => (
                 <Link key={p.asin} href={`/recommendations/products/${p.slug}`} className="group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border p-3 hover:shadow-md transition text-center">
-                  <img src={p.image} alt={p.name} loading="lazy" width="150" height="150" className="w-full aspect-square object-contain mb-2" />
+                  <div className="relative w-full aspect-square mb-2"><Image src={p.image} alt={p.name} fill className="object-contain" sizes="(max-width: 640px) 50vw, 25vw" /></div>
                   <h3 className="text-xs font-semibold line-clamp-2 group-hover:text-blue-600 transition">{p.name}</h3>
-                  <p className="text-blue-600 font-bold text-sm mt-1">${p.price}</p>
+                  <p className="text-blue-600 font-bold text-sm mt-1">{formatPrice(p.price)}</p>
                 </Link>
               ))}
             </div>

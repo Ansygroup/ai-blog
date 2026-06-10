@@ -1,5 +1,6 @@
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllPosts, getPostBySlug, getRelatedPosts, getAdjacentPosts } from '../../../lib/posts';
 import { renderSafeMarkdown } from '../../../lib/markdown';
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, productReviewJsonLd, howtoJsonLd } from '../../../lib/schema';
@@ -104,7 +105,7 @@ export default async function PostPage({ params }) {
             </div>
           </header>
 
-          {post.cover && <img src={post.cover} alt={post.title} loading="lazy" width="1200" height="630" className="w-full rounded-xl shadow-md mb-8" />}
+          {post.cover && <div className="relative w-full mb-8 rounded-xl overflow-hidden shadow-md" style={{ aspectRatio: '1200/630' }}><Image src={post.cover} alt={post.title} fill className="object-cover" sizes="(max-width: 1200px) 100vw, 1200px" /></div>}
 
           <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />
 
@@ -127,13 +128,13 @@ export default async function PostPage({ params }) {
           {/* Prev/Next navigation */}
           <nav className="mt-10 pt-6 border-t border-slate-200 dark:border-dark-border flex flex-col sm:flex-row justify-between gap-4">
             <div className="flex-1">
-              {prev && <Link href={`/posts/${prev.slug}`} className="group block text-left">
+              {prev && <Link href={prev.category === 'AI News' ? `/news/${prev.slug}` : `/posts/${prev.slug}`} className="group block text-left">
                 <span className="text-xs text-slate-500 dark:text-dark-muted uppercase tracking-wider">← Previous</span>
                 <span className="block text-sm font-semibold text-slate-700 dark:text-dark-text group-hover:text-blue-600 transition truncate">{prev.title}</span>
               </Link>}
             </div>
             <div className="flex-1 text-right">
-              {next && <Link href={`/posts/${next.slug}`} className="group block text-right">
+              {next && <Link href={next.category === 'AI News' ? `/news/${next.slug}` : `/posts/${next.slug}`} className="group block text-right">
                 <span className="text-xs text-slate-500 dark:text-dark-muted uppercase tracking-wider">Next →</span>
                 <span className="block text-sm font-semibold text-slate-700 dark:text-dark-text group-hover:text-blue-600 transition truncate">{next.title}</span>
               </Link>}

@@ -5,8 +5,8 @@ export const dynamic = 'force-static';
 
 export async function GET() {
   const items = getAllPosts().map((p) => ({
-    id: `${siteConfig.url}/posts/${p.slug}`,
-    url: `${siteConfig.url}/posts/${p.slug}`,
+    id: `${siteConfig.url}/${p.category === 'AI News' ? 'news' : 'posts'}/${p.slug}`,
+    url: `${siteConfig.url}/${p.category === 'AI News' ? 'news' : 'posts'}/${p.slug}`,
     title: p.title,
     summary: p.excerpt || '',
     content_text: p.excerpt || '',

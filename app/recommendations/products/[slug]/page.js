@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import fs from 'fs';
@@ -5,6 +6,7 @@ import path from 'path';
 import { siteConfig } from '../../../../lib/config';
 import { breadcrumbJsonLd } from '../../../../lib/schema';
 import { getAllPosts } from '../../../../lib/posts';
+import { formatPrice, priceValue } from '../../../../lib/formatPrice';
 import ProductCard from '../../../../components/ProductCard';
 import AmazonDisclosure from '../../../../components/AmazonDisclosure';
 
@@ -41,7 +43,7 @@ export function generateMetadata({ params }) {
     description: product.description?.slice(0, 160),
     alternates: { canonical: `${siteConfig.url}/recommendations/products/${product.slug}` },
     openGraph: {
-      title: `${product.name} — $${product.price}`,
+      title: `${product.name} — ${formatPrice(product.price)}`,
       description: product.description?.slice(0, 160),
       url: `${siteConfig.url}/recommendations/products/${product.slug}`,
       siteName: siteConfig.name,
@@ -78,7 +80,7 @@ export default function ProductPage({ params }) {
     mpn: product.asin,
     brand: { '@type': 'Brand', name: product.name.split(' ')[0] },
     aggregateRating: { '@type': 'AggregateRating', ratingValue: product.rating, reviewCount: product.reviewsCount, bestRating: 5 },
-    offers: { '@type': 'Offer', price: product.price, priceCurrency: 'USD', url: amazonUrl, availability: 'https://schema.org/InStock' },
+    offers: { '@type': 'Offer', price: priceValue(product.price), priceCurrency: 'USD', url: amazonUrl, availability: 'https://schema.org/InStock' },
     sku: product.asin,
   };
 
@@ -108,7 +110,7 @@ export default function ProductPage({ params }) {
 
         <div className="grid md:grid-cols-2 gap-8 mb-10">
           <div>
-            <img src={product.image} alt={product.name} width={600} height={600} className="w-full rounded-xl shadow-md" />
+            <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md"><Image src={product.image} alt={product.name} fill className="object-contain" sizes="(max-width: 768px) 100vw, 50vw" priority /></div>
           </div>
           <div>
             <p className="text-xs text-slate-500 dark:text-dark-muted uppercase tracking-wider mb-1">{product.categorySlug}</p>
@@ -117,7 +119,7 @@ export default function ProductPage({ params }) {
               <span className="text-yellow-500 text-lg">{stars}</span>
               <span className="text-slate-600 dark:text-dark-muted text-sm">{product.rating} ({product.reviewsCount?.toLocaleString()} reviews)</span>
             </div>
-            <p className="text-3xl font-bold text-blue-600 mb-4">${product.price}</p>
+            <p className="text-3xl font-bold text-blue-600 mb-4">{formatPrice(product.price)}</p>
             <p className="text-slate-700 dark:text-dark-text mb-6">{product.description}</p>
 
             {product.highlights && (
@@ -130,7 +132,7 @@ export default function ProductPage({ params }) {
             )}
 
             <a href={amazonUrl} target="_blank" rel="noopener sponsored" className="inline-block bg-amber-400 hover:bg-amber-500 text-black font-bold py-3 px-8 rounded-lg transition text-center w-full sm:w-auto">
-              Buy on Amazon — ${product.price}
+              Buy on Amazon — {formatPrice(product.price)}
             </a>
             <p className="text-xs text-slate-400 mt-2">As an Amazon Associate we earn from qualifying purchases.</p>
           </div>
@@ -168,8 +170,8 @@ export default function ProductPage({ params }) {
             <h2 className="text-xl font-bold mb-4">📖 Related Articles</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {relatedArticles.map((p) => (
-                <Link key={p.slug} href={`/posts/${p.slug}`} className="group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-lg transition">
-                  {p.cover && <img src={p.cover} alt={p.title} loading="lazy" width="400" height="225" className="w-full aspect-video object-cover group-hover:opacity-95 transition" />}
+                <Link key={p.slug} href={p.category === 'AI News' ? `/news/${p.slug}` : `/posts/${p.slug}`} className="group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-lg transition">
+                  {p.cover && <div className="relative w-full aspect-video overflow-hidden"><Image src={p.cover} alt={p.title} fill className="object-cover group-hover:opacity-95 transition" sizes="(max-width: 768px) 100vw, 33vw" /></div>}
                   <div className="p-4">
                     <h3 className="font-semibold text-sm leading-snug line-clamp-2 group-hover:text-blue-600 transition">{p.title}</h3>
                     {p.excerpt && <p className="text-xs text-slate-500 dark:text-dark-muted mt-1 line-clamp-2">{p.excerpt}</p>}

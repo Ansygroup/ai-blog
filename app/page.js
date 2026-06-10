@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import fs from 'fs';
 import path from 'path';
 import { getAllPosts, getAllCategories, slugify } from '../lib/posts';
@@ -87,23 +88,23 @@ export default function HomePage() {
       {/* FEATURED + SECONDARY */}
       {featured && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-          <h2 className="text-2xl font-heading font-bold mb-6">Featured Review</h2>
+          <h2 className="text-2xl font-heading font-bold mb-6">{featured.category === 'AI News' ? 'Latest News' : 'Featured Review'}</h2>
           <div className="grid lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 group bg-white dark:bg-dark-card rounded-2xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-xl transition">
-              {featured.cover && <Link href={`/posts/${featured.slug}`}><img src={featured.cover} alt={featured.title} loading="lazy" width="800" height="450" className="w-full aspect-video object-cover group-hover:scale-[1.02] transition duration-500" /></Link>}
+              {featured.cover && <Link href={`/${featured.category === 'AI News' ? 'news' : 'posts'}/${featured.slug}`} className="block aspect-video relative overflow-hidden"><Image src={featured.cover} alt={featured.title} fill className="object-cover group-hover:scale-[1.02] transition duration-500" sizes="(max-width: 1024px) 100vw, 66vw" priority /></Link>}
               <div className="p-6">
                 <div className="flex items-center gap-2 text-xs text-slate-500 mb-3">
                   {featured.category && <Badge>{featured.category}</Badge>}
                   <time>{new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
                 </div>
-                <h3 className="text-3xl font-heading font-bold mb-3"><Link href={`/posts/${featured.slug}`} className="hover:text-brand-600 dark:hover:text-brand-400 transition">{featured.title}</Link></h3>
+                <h3 className="text-3xl font-heading font-bold mb-3"><Link href={`/${featured.category === 'AI News' ? 'news' : 'posts'}/${featured.slug}`} className="hover:text-brand-600 dark:hover:text-brand-400 transition">{featured.title}</Link></h3>
                 {featured.rating && <div className="flex items-center gap-2 mb-3"><span className="text-amber-500 text-lg">{'★'.repeat(Math.round(featured.rating))}{'☆'.repeat(5 - Math.round(featured.rating))}</span><span className="text-sm text-slate-500">{featured.rating}/5</span></div>}
                 <p className="text-slate-600 dark:text-dark-text mb-4 font-body">{featured.excerpt}</p>
-                <Link href={`/posts/${featured.slug}`} className="text-brand-600 dark:text-brand-400 font-semibold hover:underline">Read the full review →</Link>
+                <Link href={`/${featured.category === 'AI News' ? 'news' : 'posts'}/${featured.slug}`} className="text-brand-600 dark:text-brand-400 font-semibold hover:underline">Read the full {featured.category === 'AI News' ? 'story' : 'review'} →</Link>
               </div>
             </div>
             <div className="space-y-4">
-              {secondary.map((p) => <PostCard key={p.slug} post={p} />)}
+              {secondary.map((p, i) => <PostCard key={p.slug} post={p} index={i} />)}
             </div>
           </div>
         </section>

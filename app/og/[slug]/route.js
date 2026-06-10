@@ -15,6 +15,7 @@ export async function GET(_, { params }) {
     Comparisons: { bg: '#7c3aed', text: '#ddd6fe' },
     Tutorials: { bg: '#047857', text: '#a7f3d0' },
     'Best Of': { bg: '#b45309', text: '#fde68a' },
+    'AI News': { bg: '#059669', text: '#a7f3d0' },
   };
   const cc = categoryColors[post.category] || { bg: '#1e293b', text: '#cbd5e1' };
 

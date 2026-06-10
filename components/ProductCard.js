@@ -1,6 +1,8 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import Card from './ui/Card';
 import { Star, ShoppingCart } from 'lucide-react';
+import { formatPrice } from '../lib/formatPrice';
 
 const TAG = 'ansy07-20';
 
@@ -10,17 +12,8 @@ export default function ProductCard({ product }) {
   const rating = Math.round(product.rating || 0);
   return (
     <Card className="group h-full flex flex-col" as="article">
-      <Link href={`/recommendations/products/${product.slug}`}>
-        <div className="aspect-square bg-slate-50 dark:bg-dark-bg flex items-center justify-center p-4 overflow-hidden">
-          <img
-            src={product.image}
-            alt={product.name}
-            loading="lazy"
-            width="300"
-            height="300"
-            className="w-full h-full object-contain group-hover:scale-105 transition duration-500"
-          />
-        </div>
+      <Link href={`/recommendations/products/${product.slug}`} className="block aspect-square bg-slate-50 dark:bg-dark-bg relative overflow-hidden">
+        <Image src={product.image} alt={product.name} fill className="object-contain p-4 group-hover:scale-105 transition duration-500" sizes="(max-width: 640px) 50vw, 25vw" />
       </Link>
       <div className="p-4 flex-1 flex flex-col">
         {product.rating && (
@@ -34,7 +27,7 @@ export default function ProductCard({ product }) {
         <Link href={`/recommendations/products/${product.slug}`}>
           <h3 className="font-heading font-semibold text-slate-900 dark:text-dark-text text-sm leading-snug mb-1 line-clamp-2 hover:text-brand-600 dark:hover:text-brand-400 transition">{product.name}</h3>
         </Link>
-        <div className="text-lg font-bold text-slate-900 dark:text-dark-text mb-2">${product.price}</div>
+        <div className="text-lg font-bold text-slate-900 dark:text-dark-text mb-2">{formatPrice(product.price)}</div>
         <p className="text-xs text-slate-500 dark:text-dark-muted mb-3 line-clamp-2 flex-1">{product.description}</p>
         <a
           href={amazonUrl}
