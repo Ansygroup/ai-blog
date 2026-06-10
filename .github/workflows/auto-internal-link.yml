@@ -1,0 +1,30 @@
+name: Auto Internal Link — Add Contextual Links Between Posts
+
+on:
+  workflow_dispatch:
+
+jobs:
+  link:
+    name: Add internal links
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Run auto-internal-link script
+        run: node scripts/auto-internal-link.js
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No links added."
+            exit 0
+          fi
+          git config user.email "bot@aipulsedaily.com"
+          git config user.name "Link Agent"
+          git add content/posts/
+          git commit -m "auto: add internal links $(date +%Y-%m-%d)"
+          git push

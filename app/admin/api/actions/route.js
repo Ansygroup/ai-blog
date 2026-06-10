@@ -4,11 +4,11 @@ const GITHUB_TOKEN = process.env.GITHUB_API_TOKEN;
 const REPO = 'Ansygroup/ai-blog';
 
 const workflows = {
-  generate: { workflow_id: 'generate-post.yml', inputs: { batch: 3 } },
+  generate: { workflow_id: 'scheduled-content.yml', inputs: {} },
   polish: { workflow_id: 'polish-posts.yml', inputs: {} },
-  seo: { workflow_id: 'seo-optimize.yml', inputs: {} },
+  seo: { workflow_id: 'seo-audit.yml', inputs: {} },
   links: { workflow_id: 'auto-internal-link.yml', inputs: {} },
-  refresh: { workflow_id: 'content-refresh.yml', inputs: {} },
+  refresh: { workflow_id: 'refresh-agent.yml', inputs: {} },
 };
 
 export async function GET() {

@@ -1,0 +1,30 @@
+name: Polish Posts — Formatting & Content Cleanup
+
+on:
+  workflow_dispatch:
+
+jobs:
+  polish:
+    name: Polish all posts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Run polish script
+        run: node scripts/polish-posts.js
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes to polish."
+            exit 0
+          fi
+          git config user.email "bot@aipulsedaily.com"
+          git config user.name "Polish Agent"
+          git add content/posts/
+          git commit -m "auto: polish posts $(date +%Y-%m-%d)"
+          git push
