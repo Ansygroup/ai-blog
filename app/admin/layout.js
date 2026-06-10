@@ -4,12 +4,12 @@ import { SessionProvider, useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import {
-  LayoutDashboard, FileText, ListTodo, Search, Link2, Rocket, Play,
+  Cpu, FileText, ListTodo, Search, Link2, Rocket, Play,
 } from 'lucide-react';
 import Link from 'next/link';
 
 const navItems = [
-  { href: '/admin', label: 'Overview', icon: LayoutDashboard },
+  { href: '/admin', label: 'Mission Control', icon: Cpu },
   { href: '/admin/posts', label: 'Posts', icon: FileText },
   { href: '/admin/queue', label: 'Queue', icon: ListTodo },
   { href: '/admin/seo', label: 'SEO', icon: Search },
