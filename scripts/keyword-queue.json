@@ -1,14 +1,5 @@
 [
   {
-    "topic": "How to Use AI for Automating Customer Support on Facebook Messenger",
-    "category": "Tutorials",
-    "keywords": [
-      "AI for customer support",
-      "Facebook Messenger automation",
-      "ManyChat tutorial"
-    ]
-  },
-  {
     "topic": "Comparison of AI-Powered Influencer Marketing Platforms: AspireIQ, Upfluence, and Grin",
     "category": "Comparisons",
     "keywords": [
@@ -665,6 +656,114 @@
     "keywords": [
       "ai data",
       "data analyst"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Generating Instagram Reel Scripts",
+    "category": "Tutorials",
+    "keywords": [
+      "AI scriptwriting",
+      "Instagram Reels",
+      "social media automation"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Video Editing Software for Beginners",
+    "category": "Comparisons",
+    "keywords": [
+      "AI video editing",
+      "beginner-friendly",
+      "video editing software"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Customer Service Chatbots for Small Business",
+    "category": "Reviews",
+    "keywords": [
+      "AI chatbots",
+      "small business",
+      "customer service automation"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Content Localization",
+    "category": "Best Of",
+    "keywords": [
+      "AI content localization",
+      "translation tools",
+      "global marketing"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Analytics in E-commerce",
+    "category": "Tutorials",
+    "keywords": [
+      "AI predictive analytics",
+      "e-commerce",
+      "data-driven marketing"
+    ]
+  },
+  {
+    "topic": "AI-Powered SEO Audit Tools for WordPress: A Review",
+    "category": "Reviews",
+    "keywords": [
+      "AI SEO audit",
+      "WordPress",
+      "website optimization"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Driven Social Media Monitoring Tools for Brands",
+    "category": "Comparisons",
+    "keywords": [
+      "AI social media monitoring",
+      "brand management",
+      "social listening"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Generating Personalized Product Recommendations",
+    "category": "Tutorials",
+    "keywords": [
+      "AI product recommendations",
+      "personalization",
+      "e-commerce marketing"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Transcription Services for Podcasters",
+    "category": "Best Of",
+    "keywords": [
+      "AI transcription",
+      "podcasting",
+      "audio transcription"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Email Marketing Automation Tools for Marketers",
+    "category": "Reviews",
+    "keywords": [
+      "AI email marketing",
+      "automation tools",
+      "marketing automation"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Creating Interactive Quizzes for Lead Generation",
+    "category": "Tutorials",
+    "keywords": [
+      "AI quizzes",
+      "lead generation",
+      "interactive marketing"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Project Management Tools for Remote Teams",
+    "category": "Comparisons",
+    "keywords": [
+      "AI project management",
+      "remote teams",
+      "collaboration tools"
     ]
   }
 ]
