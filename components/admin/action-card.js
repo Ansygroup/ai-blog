@@ -3,47 +3,6 @@
 import { useState } from 'react';
 import { Play, Loader2 } from 'lucide-react';
 
-const actions = [
-  {
-    id: 'generate',
-    title: 'Generate Posts',
-    desc: 'Run the AI content engine to generate new blog posts from the keyword queue.',
-    icon: '📝',
-    hasInput: true,
-    inputLabel: 'Batch count',
-    inputType: 'number',
-    inputDefault: '3',
-  },
-  {
-    id: 'polish',
-    title: 'Polish All Posts',
-    desc: 'Run formatting and content polish across all published posts.',
-    icon: '✨',
-    hasInput: false,
-  },
-  {
-    id: 'seo',
-    title: 'SEO Optimize',
-    desc: 'Run AI-powered SEO optimization on posts that need improvement.',
-    icon: '🔍',
-    hasInput: false,
-  },
-  {
-    id: 'links',
-    title: 'Auto Internal Links',
-    desc: 'Automatically add relevant internal links between posts.',
-    icon: '🔗',
-    hasInput: false,
-  },
-  {
-    id: 'refresh',
-    title: 'Refresh Content',
-    desc: 'Update stale posts with fresh dates and improved content.',
-    icon: '🔄',
-    hasInput: false,
-  },
-];
-
 export default function ActionCard({ action, onRun }) {
   const [input, setInput] = useState(action.inputDefault || '');
   const [running, setRunning] = useState(false);
