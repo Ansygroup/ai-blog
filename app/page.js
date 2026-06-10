@@ -9,6 +9,7 @@ import PostCard from '../components/PostCard';
 import ProductCard from '../components/ProductCard';
 import AdSlot from '../components/AdSlot';
 import Badge from '../components/ui/Badge';
+import { Plus, Star, ArrowRight } from 'lucide-react';
 
 export const dynamic = 'force-static';
 
@@ -98,9 +99,9 @@ export default function HomePage() {
                   <time>{new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
                 </div>
                 <h3 className="text-3xl font-heading font-bold mb-3"><Link href={`/${featured.category === 'AI News' ? 'news' : 'posts'}/${featured.slug}`} className="hover:text-brand-600 dark:hover:text-brand-400 transition">{featured.title}</Link></h3>
-                {featured.rating && <div className="flex items-center gap-2 mb-3"><span className="text-amber-500 text-lg">{'★'.repeat(Math.round(featured.rating))}{'☆'.repeat(5 - Math.round(featured.rating))}</span><span className="text-sm text-slate-500">{featured.rating}/5</span></div>}
+                {featured.rating && <div className="flex items-center gap-2 mb-3"><span className="flex text-amber-400">{Array.from({ length: 5 }, (_, i) => <Star key={i} className={`w-5 h-5 ${i < Math.round(featured.rating) ? 'fill-current' : 'opacity-30'}`} />)}</span><span className="text-sm text-slate-500">{featured.rating}/5</span></div>}
                 <p className="text-slate-600 dark:text-dark-text mb-4 font-body">{featured.excerpt}</p>
-                <Link href={`/${featured.category === 'AI News' ? 'news' : 'posts'}/${featured.slug}`} className="text-brand-600 dark:text-brand-400 font-semibold hover:underline">Read the full {featured.category === 'AI News' ? 'story' : 'review'} →</Link>
+                <Link href={`/${featured.category === 'AI News' ? 'news' : 'posts'}/${featured.slug}`} className="text-brand-600 dark:text-brand-400 font-semibold hover:underline">Read the full {featured.category === 'AI News' ? 'story' : 'review'} <ArrowRight className="w-4 h-4 inline" /></Link>
               </div>
             </div>
             <div className="space-y-4">
@@ -160,7 +161,7 @@ export default function HomePage() {
             <details key={i} className="bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border rounded-lg p-5 group open:ring-1 open:ring-brand-200 dark:open:ring-brand-800 transition">
               <summary className="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-900 dark:text-dark-text">
                 {f.question}
-                <span className="text-brand-600 dark:text-brand-400 group-open:rotate-45 transition text-2xl leading-none shrink-0 ml-4">+</span>
+                <Plus className="w-5 h-5 text-brand-600 dark:text-brand-400 group-open:rotate-45 transition shrink-0 ml-4" />
               </summary>
               <p className="mt-3 text-slate-700 dark:text-dark-text leading-relaxed font-body">{f.answer}</p>
             </details>

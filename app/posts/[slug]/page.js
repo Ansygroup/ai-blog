@@ -5,7 +5,7 @@ import { getAllPosts, getPostBySlug, getRelatedPosts, getAdjacentPosts } from '.
 import { renderSafeMarkdown } from '../../../lib/markdown';
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, productReviewJsonLd, howtoJsonLd } from '../../../lib/schema';
 import { siteConfig } from '../../../lib/config';
-import { Mail, ChevronRight, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Mail, ChevronRight, ArrowLeft, ArrowRight, Plus } from 'lucide-react';
 import Badge from '../../../components/ui/Badge';
 import AdSlot from '../../../components/AdSlot';
 import PostCard from '../../../components/PostCard';
@@ -154,7 +154,7 @@ export default async function PostPage({ params }) {
                   <details key={i} className="bg-white border border-slate-200 rounded-lg p-4 group">
                     <summary className="font-semibold cursor-pointer flex justify-between items-center">
                       {f.question}
-                      <span className="text-blue-600 group-open:rotate-45 transition text-2xl leading-none">+</span>
+                      <Plus className="w-5 h-5 text-blue-600 group-open:rotate-45 transition shrink-0" />
                     </summary>
                     <p className="mt-3 text-slate-700">{f.answer}</p>
                   </details>
