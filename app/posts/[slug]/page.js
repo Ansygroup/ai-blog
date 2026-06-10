@@ -5,6 +5,7 @@ import { getAllPosts, getPostBySlug, getRelatedPosts, getAdjacentPosts } from '.
 import { renderSafeMarkdown } from '../../../lib/markdown';
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, productReviewJsonLd, howtoJsonLd } from '../../../lib/schema';
 import { siteConfig } from '../../../lib/config';
+import { Mail } from 'lucide-react';
 import AdSlot from '../../../components/AdSlot';
 import PostCard from '../../../components/PostCard';
 import TableOfContents from '../../../components/TableOfContents';
@@ -166,7 +167,7 @@ export default async function PostPage({ params }) {
         <aside className="space-y-8">
           <TableOfContents />
           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-5">
-            <h3 className="font-bold text-lg mb-2">📧 Free AI Brief</h3>
+            <div className="flex items-center gap-2"><Mail className="w-5 h-5" /><h3 className="font-bold text-lg mb-2">Free AI Brief</h3></div>
             <p className="text-sm text-slate-700 mb-3">The 5 biggest AI tool launches and deals every week.</p>
             <a href="#newsletter" className="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">Subscribe Free</a>
           </div>

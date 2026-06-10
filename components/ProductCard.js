@@ -12,8 +12,12 @@ export default function ProductCard({ product }) {
   const rating = Math.round(product.rating || 0);
   return (
     <Card className="group h-full flex flex-col" as="article">
-      <Link href={`/recommendations/products/${product.slug}`} className="block aspect-square bg-slate-50 dark:bg-dark-bg relative overflow-hidden">
-        <Image src={product.image} alt={product.name} fill className="object-contain p-4 group-hover:scale-105 transition duration-500" sizes="(max-width: 640px) 50vw, 25vw" />
+      <Link href={`/recommendations/products/${product.slug}`} className="block aspect-square bg-gradient-to-br from-slate-50 to-slate-100 dark:from-dark-bg dark:to-dark-card relative overflow-hidden flex items-center justify-center">
+        {product.image ? (
+          <Image src={product.image} alt={product.name} fill className="object-contain p-4 group-hover:scale-105 transition duration-500" sizes="(max-width: 640px) 50vw, 25vw" />
+        ) : (
+          <ShoppingCart className="w-12 h-12 text-slate-300 dark:text-slate-600" />
+        )}
       </Link>
       <div className="p-4 flex-1 flex flex-col">
         {product.rating && (

@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { Search } from 'lucide-react';
 import ProductCard from '../../../components/ProductCard';
 
 export default function SearchClient({ initialProducts = [], initialEntries = [] }) {
@@ -43,7 +44,7 @@ export default function SearchClient({ initialProducts = [], initialEntries = []
         </ol>
       </nav>
 
-      <h1 className="text-3xl font-extrabold mb-6">🔍 Product Search</h1>
+      <div className="flex items-center gap-2"><Search className="w-5 h-5" /><h1 className="text-3xl font-extrabold mb-6">Product Search</h1></div>
 
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <input

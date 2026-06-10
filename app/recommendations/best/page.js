@@ -5,6 +5,7 @@ import path from 'path';
 import { siteConfig } from '../../../lib/config';
 import { breadcrumbJsonLd } from '../../../lib/schema';
 import AmazonDisclosure from '../../../components/AmazonDisclosure';
+import { BarChart3, Search } from 'lucide-react';
 import ProductCard from '../../../components/ProductCard';
 import { formatPrice, priceValue } from '../../../lib/formatPrice';
 
@@ -77,7 +78,7 @@ export default function BestPage() {
 
         {/* Comparison Table */}
         <section className="mb-12 overflow-x-auto">
-          <h2 className="text-2xl font-bold mb-6">📊 Full Comparison</h2>
+          <div className="flex items-center gap-2"><BarChart3 className="w-5 h-5" /><h2 className="text-2xl font-bold mb-6">Full Comparison</h2></div>
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr className="border-b-2 border-slate-300 dark:border-dark-border">
@@ -126,7 +127,7 @@ export default function BestPage() {
 
         {/* Product Cards */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">🔍 Detailed Look</h2>
+          <div className="flex items-center gap-2"><Search className="w-5 h-5" /><h2 className="text-2xl font-bold mb-6">Detailed Look</h2></div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             {top10.map((p) => <ProductCard key={p.asin} product={p} />)}
           </div>

@@ -8,6 +8,7 @@ import { getAllPosts } from '../../../lib/posts';
 import { siteConfig } from '../../../lib/config';
 import { breadcrumbJsonLd, faqJsonLd } from '../../../lib/schema';
 import { formatPrice } from '../../../lib/formatPrice';
+import { BookOpen, ShoppingCart } from 'lucide-react';
 
 export const dynamic = 'force-static';
 
@@ -83,7 +84,7 @@ export default function TopicPage({ params }) {
 
         {/* Articles */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">📚 Articles ({relatedPosts.length})</h2>
+          <div className="flex items-center gap-2"><BookOpen className="w-5 h-5" /><h2 className="text-2xl font-bold mb-6">Articles ({relatedPosts.length})</h2></div>
           {relatedPosts.length === 0 && <p className="text-slate-500">No articles yet for this topic.</p>}
           <div className="space-y-4">
             {relatedPosts.map((p, i) => (
@@ -108,11 +109,11 @@ export default function TopicPage({ params }) {
         {/* Amazon products */}
         {relatedProducts.length > 0 && (
           <section className="mb-12 pt-6 border-t border-slate-200 dark:border-dark-border">
-            <h2 className="text-2xl font-bold mb-6">🛒 Recommended Gear</h2>
+            <div className="flex items-center gap-2"><ShoppingCart className="w-5 h-5" /><h2 className="text-2xl font-bold mb-6">Recommended Gear</h2></div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {relatedProducts.map(p => (
                 <Link key={p.asin} href={`/recommendations/products/${p.slug}`} className="group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border p-3 hover:shadow-md transition text-center">
-                  <div className="relative w-full aspect-square mb-2"><Image src={p.image} alt={p.name} fill className="object-contain" sizes="(max-width: 640px) 50vw, 25vw" /></div>
+                  {p.image ? <div className="relative w-full aspect-square mb-2"><Image src={p.image} alt={p.name} fill className="object-contain" sizes="(max-width: 640px) 50vw, 25vw" /></div> : <div className="relative w-full aspect-square mb-2 flex items-center justify-center bg-slate-100 dark:bg-dark-card rounded"><ShoppingCart className="w-5 h-5 text-slate-400" /></div>}
                   <h3 className="text-xs font-semibold line-clamp-2 group-hover:text-blue-600 transition">{p.name}</h3>
                   <p className="text-blue-600 font-bold text-sm mt-1">{formatPrice(p.price)}</p>
                 </Link>

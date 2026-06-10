@@ -4,6 +4,7 @@ import path from 'path';
 import { siteConfig } from '../../lib/config';
 import { breadcrumbJsonLd } from '../../lib/schema';
 import AmazonDisclosure from '../../components/AmazonDisclosure';
+import { Search, Flame } from 'lucide-react';
 import ProductCard from '../../components/ProductCard';
 
 export const dynamic = 'force-static';
@@ -57,7 +58,7 @@ export default function RecommendationsPage() {
         {/* Category buttons */}
         <div className="flex flex-wrap gap-3 mb-10">
           <Link href="/recommendations/search" className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 hover:border-blue-500 px-4 py-2.5 rounded-xl transition group">
-            <span className="text-lg">🔍</span>
+            <Search className="w-5 h-5 inline" />
             <span className="font-medium text-slate-900 dark:text-dark-text ml-1">Search Products</span>
           </Link>
           {entries.map(([slug, cat]) => (
@@ -71,7 +72,7 @@ export default function RecommendationsPage() {
 
         {/* Featured */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">🔥 Most Popular</h2>
+          <div className="flex items-center gap-2"><Flame className="w-5 h-5" /><h2 className="text-2xl font-bold mb-6">Most Popular</h2></div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {featured.map((p) => <ProductCard key={p.asin} product={p} />)}
           </div>

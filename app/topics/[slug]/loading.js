@@ -1,4 +1,5 @@
 import { PostCardSkeleton } from '../../../components/ui/Skeleton';
+import { ShoppingCart } from 'lucide-react';
 
 export default function Loading() {
   return (
@@ -21,7 +22,7 @@ export default function Loading() {
         <PostCardSkeleton count={3} />
       </div>
       <section className="mb-12 pt-6 border-t border-slate-200 dark:border-dark-border">
-        <h2 className="text-2xl font-bold mb-6">🛒 Recommended Gear</h2>
+        <div className="flex items-center gap-2"><ShoppingCart className="w-5 h-5" /><h2 className="text-2xl font-bold mb-6">Recommended Gear</h2></div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border rounded-xl p-3 animate-pulse">

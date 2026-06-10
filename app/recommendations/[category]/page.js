@@ -5,6 +5,7 @@ import path from 'path';
 import { siteConfig } from '../../../lib/config';
 import { breadcrumbJsonLd } from '../../../lib/schema';
 import AmazonDisclosure from '../../../components/AmazonDisclosure';
+import { BarChart3, Tag, RefreshCw } from 'lucide-react';
 import ProductCard from '../../../components/ProductCard';
 import { formatPrice, priceValue } from '../../../lib/formatPrice';
 
@@ -120,7 +121,7 @@ export default function CategoryPage({ params }) {
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-dark-card dark:to-dark-bg border border-blue-200 dark:border-dark-border rounded-xl p-6 mb-8">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h2 className="font-bold text-lg mb-3">📊 Buying Guide</h2>
+              <div className="flex items-center gap-2"><BarChart3 className="w-5 h-5" /><h2 className="font-bold text-lg mb-3">Buying Guide</h2></div>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Price range:</strong> ${guide.minPrice} — ${guide.maxPrice}</span></li>
                 <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Average rating:</strong> {guide.avgRating} / 5.0 across {products.length} products</span></li>
@@ -129,7 +130,7 @@ export default function CategoryPage({ params }) {
               </ul>
             </div>
             <div>
-              <h2 className="font-bold text-lg mb-3">🏷️ Key Features to Consider</h2>
+              <div className="flex items-center gap-2"><Tag className="w-5 h-5" /><h2 className="font-bold text-lg mb-3">Key Features to Consider</h2></div>
               <ul className="space-y-2 text-sm">
                 {guide.tags.slice(0, 5).map((t, i) => (
                   <li key={i} className="flex items-start gap-2"><span className="text-green-500 font-bold">✓</span> <span>{t}</span></li>
@@ -143,7 +144,7 @@ export default function CategoryPage({ params }) {
 
         {products.length === 0 ? (
           <div className="bg-yellow-50 dark:bg-dark-card border border-yellow-200 dark:border-dark-border rounded-xl p-6 text-center">
-            <p className="text-lg font-semibold mb-2">🔄 Products loading</p>
+            <p className="text-lg font-semibold mb-2 flex items-center justify-center gap-2"><RefreshCw className="w-5 h-5 animate-spin" /> Products loading</p>
             <p className="text-slate-600 dark:text-dark-muted">We're updating our product database. Check back soon for curated recommendations.</p>
           </div>
         ) : (

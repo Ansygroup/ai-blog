@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
+import { ShoppingCart } from 'lucide-react';
 import { siteConfig } from '../lib/config';
 import { formatPrice } from '../lib/formatPrice';
 
@@ -56,7 +57,10 @@ export default function RelatedProducts({ tags, category, limit = 3 }) {
   return (
     <div className="mt-10 pt-6 border-t border-slate-200 dark:border-dark-border">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold">🛒 Shop Related Gear</h3>
+        <div className="flex items-center gap-2">
+          <ShoppingCart className="w-5 h-5 text-brand-600" />
+          <h3 className="text-lg font-bold">Shop Related Gear</h3>
+        </div>
         <Link href="/recommendations" className="text-xs text-blue-600 hover:underline">View all →</Link>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -64,7 +68,13 @@ export default function RelatedProducts({ tags, category, limit = 3 }) {
           const url = `https://www.amazon.com/dp/${p.asin}?tag=${TAG}`;
           return (
             <Link key={p.asin} href={`/recommendations/products/${p.slug}`} className="flex items-center gap-3 bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border hover:border-blue-400 rounded-lg p-3 transition group">
-              <Image src={p.image} alt={p.name} width={64} height={64} className="rounded-lg object-cover flex-shrink-0" />
+              {p.image ? (
+                <Image src={p.image} alt={p.name} width={64} height={64} className="rounded-lg object-cover flex-shrink-0" />
+              ) : (
+                <div className="w-16 h-16 rounded-lg bg-slate-100 dark:bg-dark-card flex items-center justify-center flex-shrink-0">
+                  <ShoppingCart className="w-6 h-6 text-slate-300 dark:text-slate-600" />
+                </div>
+              )}
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-semibold text-slate-900 dark:text-dark-text truncate group-hover:text-blue-600 transition">{p.name}</p>
                 <p className="text-xs text-slate-500 dark:text-dark-muted">{formatPrice(p.price)} · {p.rating}★</p>

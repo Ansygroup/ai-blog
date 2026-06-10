@@ -7,6 +7,7 @@ import { siteConfig } from '../../../../lib/config';
 import { breadcrumbJsonLd } from '../../../../lib/schema';
 import { getAllPosts } from '../../../../lib/posts';
 import { formatPrice, priceValue } from '../../../../lib/formatPrice';
+import { BookOpen } from 'lucide-react';
 import ProductCard from '../../../../components/ProductCard';
 import AmazonDisclosure from '../../../../components/AmazonDisclosure';
 
@@ -167,7 +168,7 @@ export default function ProductPage({ params }) {
 
         {relatedArticles.length > 0 && (
           <section className="mb-10 pt-6 border-t border-slate-200 dark:border-dark-border">
-            <h2 className="text-xl font-bold mb-4">📖 Related Articles</h2>
+            <div className="flex items-center gap-2"><BookOpen className="w-5 h-5" /><h2 className="text-xl font-bold mb-4">Related Articles</h2></div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {relatedArticles.map((p) => (
                 <Link key={p.slug} href={p.category === 'AI News' ? `/news/${p.slug}` : `/posts/${p.slug}`} className="group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-lg transition">
