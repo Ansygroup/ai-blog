@@ -26,7 +26,7 @@ function getAllPosts() {
     const title = (c.match(/^title:\s*"([^"]+)"/m) || [])[1] || slug;
     const tags = (c.match(/^tags:\s*\[([^\]]+)\]/m) || [])[1]?.split(',').map((t) => t.trim().replace(/['"]/g, '').toLowerCase()) || [];
     const category = (c.match(/^category:\s*"?([^"\n]+)"?/m) || [])[1] || '';
-    const body = c.match(/^---\n[\s\S]+?\n---\n([\s\S]+)$/)?.[1] || '';
+    const body = c.match(/^---\r?\n[\s\S]+?\r?\n---\r?\n([\s\S]+)$/)?.[1] || '';
     const words = new Set();
     // Extract compound phrases (2-3 word n-grams) from title first
     const titleParts = title.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter((w) => w.length > 2);
@@ -85,7 +85,7 @@ console.log(`🔗 Auto internal linker — ${posts.length} posts, ${Object.keys(
 for (const post of posts) {
   const filePath = path.join(POSTS_DIR, `${post.slug}.mdx`);
   let content = fs.readFileSync(filePath, 'utf8');
-  let body = content.match(/^---\n[\s\S]+?\n---\n([\s\S]+)$/)?.[1];
+  let body = content.match(/^---\r?\n[\s\S]+?\r?\n---\r?\n([\s\S]+)$/)?.[1];
   if (!body) continue;
   let modified = false;
 
@@ -159,7 +159,7 @@ for (const post of posts) {
   }
 
   if (modified) {
-    content = content.replace(/^---\n[\s\S]+?\n---\n([\s\S]+)$/, (_, _body) => {
+    content = content.replace(/^---\r?\n[\s\S]+?\r?\n---\r?\n([\s\S]+)$/, (_, _body) => {
       return content.slice(0, content.indexOf(_body)) + body;
     });
     if (dryRun) {

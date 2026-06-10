@@ -11,7 +11,7 @@ function getPosts() {
   return fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.mdx')).map(f => {
     const c = fs.readFileSync(path.join(POSTS_DIR, f), 'utf8');
     const get = (k) => (c.match(new RegExp(`^${k}:\\s*"?([^"\\n]*)"?`, 'm')) || [])[1] || '';
-    const body = c.match(/^---\n[\s\S]+?\n---\n([\s\S]+)$/)?.[1] || '';
+    const body = c.match(/^---\r?\n[\s\S]+?\r?\n---\r?\n([\s\S]+)$/)?.[1] || '';
     const tags = (c.match(/^tags:\s*\[([^\]]+)\]/m) || [])[1]?.split(',').map(t => t.trim().replace(/['"]/g, '')) || [];
     return {
       slug: f.replace(/\.mdx$/, ''),

@@ -28,7 +28,7 @@ function getAllPostData() {
     const category = get('category');
     const date = get('date');
     const tags = (c.match(/^tags:\s*\[([^\]]+)\]/m) || [])[1]?.split(',').map((t) => t.trim().replace(/['"]/g, '')) || [];
-    const body = c.match(/^---\n[\s\S]+?\n---\n([\s\S]+)$/)?.[1] || '';
+    const body = c.match(/^---\r?\n[\s\S]+?\r?\n---\r?\n([\s\S]+)$/)?.[1] || '';
     const wordCount = body.trim().split(/\s+/).length;
     const h2s = (body.match(/^## /gm) || []).length;
     return { slug, title, excerpt, category, date, tags, wordCount, h2s, hasFaq: body.includes('## FAQ') };

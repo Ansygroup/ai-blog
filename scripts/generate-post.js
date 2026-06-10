@@ -459,7 +459,7 @@ CRITICAL: Return ONLY the markdown with frontmatter — no preamble or commentar
     }
   }
 
-  const body = cleaned.match(/^---\n[\s\S]+?\n---\n([\s\S]+)$/)?.[1] || cleaned;
+  const body = cleaned.match(/^---\r?\n[\s\S]+?\r?\n---\r?\n([\s\S]+)$/)?.[1] || cleaned;
   const wordCount = body.trim().split(/\s+/).filter(Boolean).length;
   const h2Count = (body.match(/^## /gm) || []).length;
   const hasFaq = body.includes('## FAQ');

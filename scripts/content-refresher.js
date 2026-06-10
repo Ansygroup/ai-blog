@@ -23,7 +23,7 @@ const SIX_MONTHS_MS = 180 * 24 * 60 * 60 * 1000;
 function getPostData(file) {
   const content = fs.readFileSync(path.join(POSTS_DIR, file), 'utf8');
   const slug = file.replace(/\.mdx?$/, '');
-  const m = content.match(/^---\n([\s\S]+?)\n---\n([\s\S]+)$/);
+  const m = content.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]+)$/);
   if (!m) return null;
   const fm = m[1];
   const body = m[2];

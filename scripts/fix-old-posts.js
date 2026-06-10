@@ -10,7 +10,7 @@ function getPostInfo() {
   return fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.mdx')).map(f => {
     const c = fs.readFileSync(path.join(POSTS_DIR, f), 'utf8');
     const get = (k) => (c.match(new RegExp(`^${k}:\\s*"?([^"\\n]*)"?`, 'm')) || [])[1] || '';
-    const body = c.match(/^---\n[\s\S]+?\n---\n([\s\S]+)$/)?.[1] || '';
+    const body = c.match(/^---\r?\n[\s\S]+?\r?\n---\r?\n([\s\S]+)$/)?.[1] || '';
     return {
       file: path.join(POSTS_DIR, f),
       title: get('title'),

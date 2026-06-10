@@ -41,7 +41,7 @@ for (const f of files) {
   const slug = f.replace(/\.mdx$/, '');
 
   // Check if file is healthy
-  const fmMatch = orig.match(/^---\n([\s\S]+?)\n---/);
+  const fmMatch = orig.match(/^---\r?\n([\s\S]+?)\r?\n---/);
   let isHealthy = false;
   if (fmMatch) {
     try {
