@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Search } from 'lucide-react';
+import { Search, ChevronRight } from 'lucide-react';
 import ProductCard from '../../../components/ProductCard';
 
 export default function SearchClient({ initialProducts = [], initialEntries = [] }) {
@@ -37,9 +37,9 @@ export default function SearchClient({ initialProducts = [], initialEntries = []
       <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
         <ol className="flex items-center gap-2">
           <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-          <li>/</li>
+          <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
           <li><Link href="/recommendations" className="hover:text-blue-600">Tech Store</Link></li>
-          <li>/</li>
+          <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
           <li className="text-slate-700 dark:text-dark-text">Search</li>
         </ol>
       </nav>

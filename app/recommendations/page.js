@@ -4,7 +4,7 @@ import path from 'path';
 import { siteConfig } from '../../lib/config';
 import { breadcrumbJsonLd } from '../../lib/schema';
 import AmazonDisclosure from '../../components/AmazonDisclosure';
-import { Search, Flame } from 'lucide-react';
+import { Search, Flame, ChevronRight, ArrowRight } from 'lucide-react';
 import ProductCard from '../../components/ProductCard';
 
 export const dynamic = 'force-static';
@@ -42,7 +42,7 @@ export default function RecommendationsPage() {
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
             <li className="text-slate-700 dark:text-dark-text">Tech Store</li>
           </ol>
         </nav>
@@ -63,8 +63,7 @@ export default function RecommendationsPage() {
           </Link>
           {entries.map(([slug, cat]) => (
             <Link key={slug} href={`/recommendations/${slug}`} className="bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border hover:border-blue-500 px-4 py-2.5 rounded-xl transition group">
-              <span className="text-lg">{cat.name.split(' ')[0]}</span>
-              <span className="font-medium text-slate-900 dark:text-dark-text ml-1">{cat.name.replace(/^[^\s]+\s/, '')}</span>
+              <span className="font-medium text-slate-900 dark:text-dark-text">{cat.name.replace(/^[^\s]+\s/, '')}</span>
               <span className="text-xs text-slate-400 ml-1">({cat.products.length})</span>
             </Link>
           ))}
@@ -83,7 +82,7 @@ export default function RecommendationsPage() {
           <section key={slug} className="mb-12">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold">{cat.name}</h2>
-              <Link href={`/recommendations/${slug}`} className="text-sm text-blue-600 hover:underline">View all →</Link>
+              <Link href={`/recommendations/${slug}`} className="text-sm text-blue-600 hover:underline">View all <ArrowRight className="w-4 h-4 inline" /></Link>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {cat.products.filter(p => p.slug && p.asin).slice(0, 4).map((p) => <ProductCard key={p.asin} product={p} />)}

@@ -5,7 +5,8 @@ import { getAllPosts, getPostBySlug, getRelatedPosts, getAdjacentPosts } from '.
 import { renderSafeMarkdown } from '../../../lib/markdown';
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, productReviewJsonLd, howtoJsonLd } from '../../../lib/schema';
 import { siteConfig } from '../../../lib/config';
-import { Mail } from 'lucide-react';
+import { Mail, ChevronRight, ArrowLeft, ArrowRight } from 'lucide-react';
+import Badge from '../../../components/ui/Badge';
 import AdSlot from '../../../components/AdSlot';
 import PostCard from '../../../components/PostCard';
 import TableOfContents from '../../../components/TableOfContents';
@@ -79,9 +80,9 @@ export default async function PostPage({ params }) {
       <nav className="text-sm text-slate-500 mb-6" aria-label="Breadcrumb">
         <ol className="flex items-center gap-2">
           <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-          <li>/</li>
+          <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
           {post.category && <li><Link href={`/category/${post.category.toLowerCase().replace(/\s+/g, '-')}`} className="hover:text-blue-600 capitalize">{post.category}</Link></li>}
-          {post.category && <li>/</li>}
+          {post.category && <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>}
           <li className="text-slate-700 truncate max-w-xs">{post.title}</li>
         </ol>
       </nav>
@@ -90,7 +91,7 @@ export default async function PostPage({ params }) {
         <div className="lg:col-span-2">
           <header className="mb-8">
             <div className="flex items-center gap-2 text-sm text-slate-500 mb-3">
-              {post.category && <Link href={`/category/${post.category.toLowerCase().replace(/\s+/g, '-')}`} className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold uppercase tracking-wide hover:bg-blue-200">{post.category}</Link>}
+              {post.category && <Link href={`/category/${post.category.toLowerCase().replace(/\s+/g, '-')}`}><Badge category={post.category}>{post.category}</Badge></Link>}
               <span>·</span>
               <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
               {post.readingTime && <><span>·</span><span>{post.readingTime} min read</span></>}
@@ -130,13 +131,13 @@ export default async function PostPage({ params }) {
           <nav className="mt-10 pt-6 border-t border-slate-200 dark:border-dark-border flex flex-col sm:flex-row justify-between gap-4">
             <div className="flex-1">
               {prev && <Link href={prev.category === 'AI News' ? `/news/${prev.slug}` : `/posts/${prev.slug}`} className="group block text-left">
-                <span className="text-xs text-slate-500 dark:text-dark-muted uppercase tracking-wider">← Previous</span>
+                <span className="text-xs text-slate-500 dark:text-dark-muted uppercase tracking-wider"><ArrowLeft className="w-4 h-4 inline" /> Previous</span>
                 <span className="block text-sm font-semibold text-slate-700 dark:text-dark-text group-hover:text-blue-600 transition truncate">{prev.title}</span>
               </Link>}
             </div>
             <div className="flex-1 text-right">
               {next && <Link href={next.category === 'AI News' ? `/news/${next.slug}` : `/posts/${next.slug}`} className="group block text-right">
-                <span className="text-xs text-slate-500 dark:text-dark-muted uppercase tracking-wider">Next →</span>
+                <span className="text-xs text-slate-500 dark:text-dark-muted uppercase tracking-wider">Next <ArrowRight className="w-4 h-4 inline" /></span>
                 <span className="block text-sm font-semibold text-slate-700 dark:text-dark-text group-hover:text-blue-600 transition truncate">{next.title}</span>
               </Link>}
             </div>
@@ -167,7 +168,7 @@ export default async function PostPage({ params }) {
         <aside className="space-y-8">
           <TableOfContents />
           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-5">
-            <div className="flex items-center gap-2"><Mail className="w-5 h-5" /><h3 className="font-bold text-lg mb-2">Free AI Brief</h3></div>
+            <div className="flex items-center gap-2"><Mail className="w-5 h-5" /><h3 className="font-bold text-lg">Free AI Brief</h3></div>
             <p className="text-sm text-slate-700 mb-3">The 5 biggest AI tool launches and deals every week.</p>
             <a href="#newsletter" className="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">Subscribe Free</a>
           </div>

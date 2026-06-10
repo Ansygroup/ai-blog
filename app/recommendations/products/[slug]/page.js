@@ -7,7 +7,7 @@ import { siteConfig } from '../../../../lib/config';
 import { breadcrumbJsonLd } from '../../../../lib/schema';
 import { getAllPosts } from '../../../../lib/posts';
 import { formatPrice, priceValue } from '../../../../lib/formatPrice';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, ChevronRight, ArrowLeft, ShoppingCart, Star, Dot } from 'lucide-react';
 import ProductCard from '../../../../components/ProductCard';
 import AmazonDisclosure from '../../../../components/AmazonDisclosure';
 
@@ -85,7 +85,7 @@ export default function ProductPage({ params }) {
     sku: product.asin,
   };
 
-  const stars = '★'.repeat(Math.round(product.rating)) + '☆'.repeat(5 - Math.round(product.rating));
+
 
   return (
     <>
@@ -100,24 +100,28 @@ export default function ProductPage({ params }) {
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2 flex-wrap">
             <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
             <li><Link href="/recommendations" className="hover:text-blue-600">Tech Store</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
             <li><Link href={`/recommendations/${product.categorySlug}`} className="hover:text-blue-600">{category.name}</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
             <li className="text-slate-700 dark:text-dark-text truncate max-w-[200px]">{product.name}</li>
           </ol>
         </nav>
 
         <div className="grid md:grid-cols-2 gap-8 mb-10">
           <div>
-            <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md"><Image src={product.image} alt={product.name} fill className="object-contain" sizes="(max-width: 768px) 100vw, 50vw" priority /></div>
+            {product.image ? (
+              <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md"><Image src={product.image} alt={product.name} fill className="object-contain" sizes="(max-width: 768px) 100vw, 50vw" priority /></div>
+            ) : (
+              <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md bg-slate-100 dark:bg-dark-card flex items-center justify-center"><ShoppingCart className="w-8 h-8 text-slate-300" /></div>
+            )}
           </div>
           <div>
             <p className="text-xs text-slate-500 dark:text-dark-muted uppercase tracking-wider mb-1">{product.categorySlug}</p>
             <h1 className="text-3xl font-extrabold tracking-tight mb-3">{product.name}</h1>
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-yellow-500 text-lg">{stars}</span>
+              <span className="text-yellow-500 text-lg inline-flex gap-0.5">{Array.from({ length: 5 }, (_, i) => <Star key={i} className={`w-5 h-5 ${i < Math.round(product.rating) ? 'fill-amber-400 text-amber-400' : 'text-slate-300'}`} />)}</span>
               <span className="text-slate-600 dark:text-dark-muted text-sm">{product.rating} ({product.reviewsCount?.toLocaleString()} reviews)</span>
             </div>
             <p className="text-3xl font-bold text-blue-600 mb-4">{formatPrice(product.price)}</p>
@@ -127,7 +131,7 @@ export default function ProductPage({ params }) {
               <div className="mb-6">
                 <h3 className="font-semibold mb-2">Key Highlights</h3>
                 <ul className="space-y-1">
-                  {product.highlights.map((h, i) => <li key={i} className="flex items-start gap-2 text-sm"><span className="text-blue-500 mt-0.5">•</span>{h}</li>)}
+                  {product.highlights.map((h, i) => <li key={i} className="flex items-start gap-2 text-sm"><Dot className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />{h}</li>)}
                 </ul>
               </div>
             )}
@@ -184,7 +188,7 @@ export default function ProductPage({ params }) {
         )}
 
         <div className="text-center">
-          <Link href={`/recommendations/${product.categorySlug}`} className="text-blue-600 hover:underline">← Back to all {category.name}</Link>
+          <Link href={`/recommendations/${product.categorySlug}`} className="text-blue-600 hover:underline"><ArrowLeft className="w-4 h-4 inline" /> Back to all {category.name}</Link>
         </div>
 
         <AmazonDisclosure />

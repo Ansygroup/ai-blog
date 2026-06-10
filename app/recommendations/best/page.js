@@ -5,7 +5,7 @@ import path from 'path';
 import { siteConfig } from '../../../lib/config';
 import { breadcrumbJsonLd } from '../../../lib/schema';
 import AmazonDisclosure from '../../../components/AmazonDisclosure';
-import { BarChart3, Search } from 'lucide-react';
+import { BarChart3, Search, Star, ChevronRight, Award, ShoppingCart, ArrowRight } from 'lucide-react';
 import ProductCard from '../../../components/ProductCard';
 import { formatPrice, priceValue } from '../../../lib/formatPrice';
 
@@ -61,15 +61,15 @@ export default function BestPage() {
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
             <li><Link href="/recommendations" className="hover:text-blue-600">Tech Store</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
             <li className="text-slate-700 dark:text-dark-text">Best Products 2026</li>
           </ol>
         </nav>
 
         <header className="mb-10">
-          <span className="text-sm text-amber-500 font-semibold uppercase tracking-wider mb-2 block">🏆 Top Picks</span>
+          <span className="text-sm text-amber-500 font-semibold uppercase tracking-wider mb-2 block"><Award className="w-5 h-5 inline" /> Top Picks</span>
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">Best Amazon Products 2026</h1>
           <p className="text-lg text-slate-600 dark:text-dark-muted max-w-3xl">We ranked every product in our store by rating and popularity to bring you the absolute best. These are the top-performing picks across laptops, headphones, monitors, AI books, and more.</p>
         </header>
@@ -97,7 +97,11 @@ export default function BestPage() {
                   <td className="py-3 px-2 font-bold text-lg">{i + 1}</td>
                   <td className="py-3 px-2">
                     <div className="flex items-center gap-3">
-                      <Image src={p.image} alt={p.name} width={48} height={48} className="object-contain rounded flex-shrink-0" />
+                      {p.image ? (
+                        <Image src={p.image} alt={p.name} width={48} height={48} className="object-contain rounded flex-shrink-0" />
+                      ) : (
+                        <div className="w-12 h-12 bg-slate-100 dark:bg-dark-card rounded flex items-center justify-center flex-shrink-0"><ShoppingCart className="w-6 h-6 text-slate-300" /></div>
+                      )}
                       <Link href={`/recommendations/products/${p.slug}`} className="font-medium hover:text-blue-600 dark:hover:text-blue-400 line-clamp-2">
                         {p.name}
                       </Link>
@@ -109,14 +113,14 @@ export default function BestPage() {
                     </Link>
                   </td>
                   <td className="py-3 px-2 text-center">
-                    <span className="text-amber-500">{'★'.repeat(Math.round(p.rating || 0))}</span>
+                    <span className="text-amber-500 inline-flex gap-0.5">{Array.from({ length: Math.round(p.rating || 0) }, (_, i) => <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />)}</span>
                     <span className="text-xs text-slate-400 ml-1">{p.rating}</span>
                   </td>
                   <td className="py-3 px-2 text-center text-slate-600 dark:text-dark-muted">{(p.reviewsCount || 0).toLocaleString()}</td>
                   <td className="py-3 px-2 text-center font-bold text-lg">{formatPrice(p.price)}</td>
                   <td className="py-3 px-2 text-center">
                     <a href={`https://www.amazon.com/dp/${p.asin}?tag=${TAG}`} target="_blank" rel="noopener sponsored" className="inline-block bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-3 py-1.5 rounded-lg text-xs transition whitespace-nowrap">
-                      Buy →
+                      Buy <ArrowRight className="w-4 h-4 inline" />
                     </a>
                   </td>
                 </tr>

@@ -5,7 +5,7 @@ import path from 'path';
 import { siteConfig } from '../../../lib/config';
 import { breadcrumbJsonLd } from '../../../lib/schema';
 import AmazonDisclosure from '../../../components/AmazonDisclosure';
-import { BarChart3, Tag, RefreshCw } from 'lucide-react';
+import { BarChart3, Tag, RefreshCw, ChevronRight, Plus, ArrowLeft, Star, Dot, Check } from 'lucide-react';
 import ProductCard from '../../../components/ProductCard';
 import { formatPrice, priceValue } from '../../../lib/formatPrice';
 
@@ -104,15 +104,15 @@ export default function CategoryPage({ params }) {
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
             <li><Link href="/recommendations" className="hover:text-blue-600">Tech Store</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
             <li className="text-slate-700 dark:text-dark-text truncate max-w-[250px]">{cat.name}</li>
           </ol>
         </nav>
 
         <header className="mb-8">
-          <p className="text-sm text-slate-500 dark:text-dark-muted uppercase tracking-wider mb-2">{cat.name.split(' ')[0]}</p>
+          <p className="text-sm text-slate-500 dark:text-dark-muted uppercase tracking-wider mb-2">{catName}</p>
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">{cat.name}</h1>
           <p className="text-lg text-slate-600 dark:text-dark-muted max-w-2xl">{cat.description}</p>
         </header>
@@ -123,17 +123,17 @@ export default function CategoryPage({ params }) {
             <div>
               <div className="flex items-center gap-2"><BarChart3 className="w-5 h-5" /><h2 className="font-bold text-lg mb-3">Buying Guide</h2></div>
               <ul className="space-y-2 text-sm">
-                <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Price range:</strong> ${guide.minPrice} — ${guide.maxPrice}</span></li>
-                <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Average rating:</strong> {guide.avgRating} / 5.0 across {products.length} products</span></li>
-                {guide.topPick && <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Top rated:</strong> {guide.topPick.name} ({guide.topPick.rating}★)</span></li>}
-                {guide.bestValue && <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">•</span> <span><strong>Best value:</strong> {guide.bestValue.name} at {formatPrice(guide.bestValue.price)}</span></li>}
+                <li className="flex items-start gap-2"><Dot className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" /> <span><strong>Price range:</strong> ${guide.minPrice} — ${guide.maxPrice}</span></li>
+                <li className="flex items-start gap-2"><Dot className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" /> <span><strong>Average rating:</strong> {guide.avgRating} / 5.0 across {products.length} products</span></li>
+                {guide.topPick && <li className="flex items-start gap-2"><Dot className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" /> <span><strong>Top rated:</strong> {guide.topPick.name} (<Star className="w-4 h-4 fill-amber-400 text-amber-400 inline" />{guide.topPick.rating})</span></li>}
+                {guide.bestValue && <li className="flex items-start gap-2"><Dot className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" /> <span><strong>Best value:</strong> {guide.bestValue.name} at {formatPrice(guide.bestValue.price)}</span></li>}
               </ul>
             </div>
             <div>
               <div className="flex items-center gap-2"><Tag className="w-5 h-5" /><h2 className="font-bold text-lg mb-3">Key Features to Consider</h2></div>
               <ul className="space-y-2 text-sm">
                 {guide.tags.slice(0, 5).map((t, i) => (
-                  <li key={i} className="flex items-start gap-2"><span className="text-green-500 font-bold">✓</span> <span>{t}</span></li>
+                  <li key={i} className="flex items-start gap-2"><Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" /> <span>{t}</span></li>
                 ))}
               </ul>
             </div>
@@ -161,7 +161,7 @@ export default function CategoryPage({ params }) {
               <details key={i} className="bg-white dark:bg-dark-bg border border-slate-200 dark:border-dark-border rounded-lg p-4 group">
                 <summary className="font-semibold cursor-pointer flex justify-between items-center text-slate-900 dark:text-dark-text">
                   {f.q}
-                  <span className="text-blue-600 group-open:rotate-45 transition text-2xl leading-none">+</span>
+                  <Plus className="w-5 h-5 text-blue-600 group-open:rotate-45 transition shrink-0" />
                 </summary>
                 <p className="mt-3 text-slate-700 dark:text-dark-muted">{f.a}</p>
               </details>
@@ -170,7 +170,7 @@ export default function CategoryPage({ params }) {
         </section>
 
         <div className="mt-12 text-center">
-          <Link href="/recommendations" className="text-blue-600 hover:underline">← Back to all recommendations</Link>
+          <Link href="/recommendations" className="text-blue-600 hover:underline"><ArrowLeft className="w-4 h-4 inline" /> Back to all recommendations</Link>
         </div>
 
         <AmazonDisclosure />
