@@ -9,6 +9,7 @@ const actions = [
   { id: 'seo', title: 'SEO Optimize', desc: 'Run AI-powered SEO optimization on posts needing improvement.', icon: '🔍', hasInput: false },
   { id: 'links', title: 'Auto Internal Links', desc: 'Automatically add relevant internal links between posts.', icon: '🔗', hasInput: false },
   { id: 'refresh', title: 'Refresh Content', desc: 'Update stale posts with fresh dates and improved content.', icon: '🔄', hasInput: false },
+  { id: 'humanize', title: 'Humanize Posts', desc: 'Rewrite posts to remove AI writing patterns using Groq + humanizer skill.', icon: '✍️', hasInput: false },
 ];
 
 export default function AdminActionsPage() {

@@ -9,6 +9,7 @@ const workflows = {
   seo: { workflow_id: 'seo-audit.yml', inputs: {} },
   links: { workflow_id: 'auto-internal-link.yml', inputs: {} },
   refresh: { workflow_id: 'refresh-agent.yml', inputs: {} },
+  humanize: { workflow_id: 'humanize-posts.yml', inputs: {} },
 };
 
 export async function GET() {
