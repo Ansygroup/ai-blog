@@ -11,6 +11,7 @@ import BackToTop from '../components/BackToTop';
 
 import Script from 'next/script';
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const fontHeading = Space_Grotesk({
   subsets: ['latin'],
@@ -108,6 +109,7 @@ export default function RootLayout({ children }) {
         <NewsletterCTA />
         <CookieBanner />
         <Analytics />
+        <SpeedInsights />
         <BackToTop />
         <Footer />
 
