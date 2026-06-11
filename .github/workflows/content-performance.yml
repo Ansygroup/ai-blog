@@ -7,7 +7,7 @@ on:
 
 jobs:
   analyze:
-    name: Analyze and recommend
+    name: Analyze and auto-fix content
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -16,12 +16,12 @@ jobs:
         with: { node-version: 20, cache: npm }
       - run: npm ci
 
-      - name: Generate performance report
-        run: node scripts/content-performance-agent.js
+      - name: Run content performance agent with auto-fix
+        run: node scripts/content-performance-agent.js --fix
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
-      - name: Commit report
+      - name: Commit report and fixes
         run: |
           if git diff --quiet; then
             echo "No changes."
@@ -31,10 +31,10 @@ jobs:
           git config user.email "bot@aipulsedaily.com"
           git config user.name "Content Performance Agent"
           git checkout -b "$BRANCH"
-          git add public/reports/
-          git commit -m "auto: content performance report $(date +%Y-%m-%d)"
+          git add -A
+          git commit -m "auto: content performance report + fixes $(date +%Y-%m-%d)"
           git push origin "$BRANCH"
-          gh pr create --title "auto: content performance report $(date +%Y-%m-%d)" --body "Weekly content performance analysis with recommendations." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
+          gh pr create --title "auto: content performance $(date +%Y-%m-%d)" --body "Weekly content performance analysis with auto-fixes applied." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
           gh pr merge --auto --squash "$(grep -oP '/pull/\K[0-9]+' pr-url.txt)"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

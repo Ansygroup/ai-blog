@@ -9,6 +9,7 @@ if (!fs.existsSync(REPORTS_DIR)) fs.mkdirSync(REPORTS_DIR, { recursive: true });
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GROQ_MODEL = 'llama-3.3-70b-versatile';
+const FIX_MODE = process.argv.includes('--fix');
 
 function getPostData() {
   return fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.mdx')).map(f => {
@@ -30,7 +31,7 @@ function getPostData() {
       hasQuickAnswer: body.includes('Quick Answer'),
       hasKeyTakeaways: body.includes('Key Takeaways'),
       hasYear: /\b2026\b/.test(get('title') || ''),
-      titleLength: (get('title') || '').length,
+      titleLength: (get('title') || '').length, body,
     };
   }).filter(Boolean).filter(p => !p.draft);
 }
@@ -45,7 +46,7 @@ function classifyPost(p) {
 
   if (p.wordCount >= 1500) { score += 20; }
   else if (p.wordCount >= 1000) { score += 10; }
-  else { score -= 15; reasons.push('thin content'); }
+  else if (p.wordCount < 800) { score -= 15; reasons.push('thin content'); }
 
   if (p.hasFaq) { score += 15; }
   else { reasons.push('missing FAQ'); }
@@ -120,15 +121,153 @@ Respond with ONLY a JSON array of 2-3 objects, each with "action" (what to do) a
   return results;
 }
 
-function generateReport(posts, classifications, groqRecs) {
-  const formatDate = (d) => d ? new Date(d).toISOString().split('T')[0] : '—';
+async function applyFixes(posts, classifications) {
+  const fixable = classifications.filter(c => c.classification === 'weak');
+  let fixed = 0;
 
+  console.log(`\n🔧 Auto-fix mode: ${fixable.length} weak posts to process`);
+
+  for (const c of fixable.slice(0, 5)) {
+    const p = posts.find(pp => pp.slug === c.slug);
+    if (!p) continue;
+
+    const filepath = path.join(POSTS_DIR, p.slug + '.mdx');
+    let content = fs.readFileSync(filepath, 'utf8');
+    const original = content;
+
+    // Mechanical fixes first
+    const fmMatch = content.match(/^---\r?\n([\s\S]+?)\r?\n---/);
+    if (!fmMatch) continue;
+    let fm = fmMatch[1];
+    const body = content.slice(fmMatch[0].length).trim();
+
+    // Fix title: add year if missing, trim if too long (target: 55-65 chars)
+    const titleLine = fm.match(/^title:\s*.+/m);
+    if (titleLine) {
+      let title = titleLine[0].replace(/^title:\s*['"\u201c\u201d]?/, '').replace(/['"\u201c\u201d]?\s*$/, '');
+      let newTitle = title;
+      const hasYear = /\b2026\b/.test(title);
+
+      if (!hasYear) {
+        newTitle = `${title} (2026)`;
+        if (newTitle.length > 65) {
+          const guideIdx = newTitle.lastIndexOf(' Guide)');
+          if (guideIdx !== -1) newTitle = newTitle.substring(0, guideIdx) + ')';
+        }
+      } else if (title.length > 68) {
+        // Title has year but is very long — shorten by removing guide suffix
+        newTitle = title.replace(/ \((2026 Guide)\)$/, ' (2026)');
+        if (newTitle.length > 68) newTitle = title.replace(/ \((2026 Guide|2026)\)$/, '');
+      }
+
+      if (newTitle.length > 65) newTitle = newTitle.substring(0, 62).trim();
+      if (newTitle !== title) {
+        const q = titleLine[0].includes("'") ? "'" : '"';
+        content = content.replace(titleLine[0], `title: ${q}${newTitle}${q}`);
+      }
+    }
+
+    // Add Key Takeaways before FAQ if missing
+    if (!p.hasKeyTakeaways) {
+      const firstPara = body.split(/\n\n+/).find(b => b.length > 80 && !b.startsWith('#') && !b.startsWith('<') && !b.startsWith('!')) || '';
+      if (firstPara) {
+        const sentences = firstPara.replace(/\n/g, ' ').match(/[^.!?]+[.!?]+/g) || [];
+        const points = sentences.filter(s => s.trim().length > 30).slice(0, 3);
+        if (points.length >= 2) {
+          const kt = '\n\n## Key Takeaways\n' + points.map((s, i) => {
+            const clean = s.replace(/^["'\s]+|["'\s]+$/g, '').trim();
+            const shortened = clean.length > 120 ? clean.substring(0, 117) + '...' : clean;
+            return `${i + 1}. ${shortened}`;
+          }).join('\n');
+
+          const faqIdx = content.indexOf('\n\n## FAQ');
+          if (faqIdx !== -1) {
+            content = content.substring(0, faqIdx) + kt + '\n\n' + content.substring(faqIdx);
+          } else {
+            content += kt;
+          }
+        }
+      }
+    }
+
+    // AI-powered fixes if Groq available
+    if (GROQ_API_KEY && (!p.hasQuickAnswer || p.wordCount < 800)) {
+      const needs = [];
+      if (!p.hasQuickAnswer) needs.push('Add a concise Quick Answer section (2-3 sentences answering "what is this about") with heading ## Quick Answer');
+      if (p.wordCount < 800) needs.push(`Expand the content to at least 800 words. Current: ${p.wordCount} words. Add 1-2 new paragraphs with practical, specific advice.`);
+
+      if (needs.length > 0) {
+        const prompt = `You are improving a blog post. Read the current content and apply these specific changes:
+
+Title: ${p.title}
+Category: ${p.category}
+${needs.join('\n')}
+
+Current content:
+${body.substring(0, 2000)}
+
+Respond with ONLY a JSON object containing:
+1. "quickAnswer" (string) — the Quick Answer section text if needed, or null
+2. "expandedContent" (string) — additional paragraphs to insert before FAQ if needed, or null
+
+Example: {"quickAnswer": "This guide covers the best AI tools for X, comparing Y and Z across pricing, features, and ease of use.", "expandedContent": null}`;
+
+        try {
+          const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${GROQ_API_KEY}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              model: GROQ_MODEL, messages: [{ role: 'user', content: prompt }],
+              temperature: 0.3, max_tokens: 1000,
+            }),
+          });
+          if (res.ok) {
+            const data = await res.json();
+            const result = JSON.parse(data.choices?.[0]?.message?.content || '{}');
+
+            if (result.quickAnswer && !content.includes('## Quick Answer')) {
+              const qa = `\n\n## Quick Answer\n${result.quickAnswer}`;
+              const ktIdx = content.indexOf('## Key Takeaways');
+              if (ktIdx !== -1) {
+                content = content.substring(0, ktIdx) + qa + '\n\n' + content.substring(ktIdx);
+              } else {
+                const faqIdx = content.indexOf('## FAQ');
+                if (faqIdx !== -1) content = content.substring(0, faqIdx) + qa + '\n\n' + content.substring(faqIdx);
+                else content += qa;
+              }
+            }
+
+            if (result.expandedContent) {
+              const faqIdx = content.lastIndexOf('## FAQ');
+              if (faqIdx !== -1 && p.wordCount < 800) {
+                content = content.substring(0, faqIdx) + '\n\n' + result.expandedContent + '\n\n' + content.substring(faqIdx);
+              }
+            }
+          }
+        } catch { /* non-fatal */ }
+
+        await new Promise(r => setTimeout(r, 500));
+      }
+    }
+
+    if (content !== original) {
+      fs.writeFileSync(filepath, content, 'utf8');
+      console.log(`  ✅ Fixed: ${p.slug}`);
+      fixed++;
+    }
+  }
+
+  return fixed;
+}
+
+function generateReport(posts, classifications, groqRecs, fixesApplied) {
   const lines = [];
   lines.push('# Content Performance Report');
   lines.push('');
   lines.push(`Generated: ${new Date().toISOString()}`);
   lines.push(`Total published posts analyzed: ${posts.length}`);
   lines.push(`Groq API: ${GROQ_API_KEY ? '✅ Available' : '⚠️ Not configured (recommendations limited to rule-based)'}`);
+  if (fixesApplied !== undefined) lines.push(`Auto-fixes applied: ${fixesApplied}`);
   lines.push('');
   lines.push('---');
   lines.push('');
@@ -168,7 +307,6 @@ function generateReport(posts, classifications, groqRecs) {
   lines.push('---');
   lines.push('');
 
-  // Traffic opportunity assessment
   lines.push('## Traffic Opportunity Score');
   lines.push('');
   const oppScore = Math.round(
@@ -190,7 +328,6 @@ function generateReport(posts, classifications, groqRecs) {
   lines.push('---');
   lines.push('');
 
-  // Category breakdown
   lines.push('## Category Performance');
   lines.push('');
   const cats = {};
@@ -213,7 +350,6 @@ function generateReport(posts, classifications, groqRecs) {
   lines.push('---');
   lines.push('');
 
-  // Quick wins — posts with highest potential
   lines.push('## Quick Wins (High Impact, Low Effort)');
   lines.push('');
   const quickWins = classifications
@@ -235,7 +371,6 @@ function generateReport(posts, classifications, groqRecs) {
   lines.push('---');
   lines.push('');
 
-  // Weak posts that need the most help
   lines.push('## Weakest Posts (Priority Fixes)');
   lines.push('');
   const weakest = classifications.filter(c => c.classification === 'weak').sort((a, b) => a.score - b.score).slice(0, 15);
@@ -251,7 +386,6 @@ function generateReport(posts, classifications, groqRecs) {
   }
   lines.push('');
 
-  // Groq recommendations
   if (groqRecs.length > 0) {
     lines.push('---');
     lines.push('');
@@ -283,7 +417,7 @@ function generateReport(posts, classifications, groqRecs) {
   lines.push('---');
   lines.push('*Auto-generated by Content Performance Agent*');
 
-  return lines.join('\n');
+  return { report: lines.join('\n'), oppScore };
 }
 
 (async () => {
@@ -299,36 +433,34 @@ function generateReport(posts, classifications, groqRecs) {
   const needsWork = classifications.filter(c => c.classification === 'needs-improvement').length;
   const weak = classifications.filter(c => c.classification === 'weak').length;
   console.log(`Classification: 🟢 ${strong} strong, 🟡 ${needsWork} needs work, 🔴 ${weak} weak`);
-  console.log('');
 
-  let groqRecs = [];
-  if (GROQ_API_KEY) {
-    console.log('🤖 Generating AI recommendations via Groq...');
-    groqRecs = await getGroqRecommendations(posts.map((p, i) => ({ ...p, ...classifications[i] })));
-    console.log(`Got recommendations for ${groqRecs.length} posts`);
-    console.log('');
+  let fixesApplied;
+  if (FIX_MODE) {
+    fixesApplied = await applyFixes(posts, classifications);
+    // Re-read data after fixes
+    const updatedPosts = getPostData();
+    const updatedClassifications = updatedPosts.map(p => ({ slug: p.slug, ...classifyPost(p) }));
+    const { report, oppScore } = generateReport(updatedPosts, updatedClassifications, [], fixesApplied);
+    const reportPath = path.join(REPORTS_DIR, `performance-${new Date().toISOString().split('T')[0]}.md`);
+    fs.writeFileSync(reportPath, report, 'utf8');
+    console.log(`\n✅ ${fixesApplied} posts fixed. Report saved: ${reportPath}`);
+    console.log(`📈 Traffic Opportunity: ${oppScore}/100`);
   } else {
-    console.log('⚠️ No GROQ_API_KEY — skipping AI recommendations');
-    console.log('');
+    let groqRecs = [];
+    if (GROQ_API_KEY) {
+      console.log('\n🤖 Generating AI recommendations via Groq...');
+      groqRecs = await getGroqRecommendations(posts.map((p, i) => ({ ...p, ...classifications[i] })));
+      console.log(`Got recommendations for ${groqRecs.length} posts`);
+    } else {
+      console.log('\n⚠️ No GROQ_API_KEY — skipping AI recommendations');
+    }
+
+    const { report, oppScore } = generateReport(posts, classifications, groqRecs);
+    const reportPath = path.join(REPORTS_DIR, `performance-${new Date().toISOString().split('T')[0]}.md`);
+    fs.writeFileSync(reportPath, report, 'utf8');
+    console.log(`\n✅ Report saved: ${reportPath}`);
+    console.log(`📈 Traffic Opportunity: ${oppScore}/100`);
   }
 
-  const report = generateReport(posts, classifications, groqRecs);
-  const reportPath = path.join(REPORTS_DIR, `performance-${new Date().toISOString().split('T')[0]}.md`);
-  fs.writeFileSync(reportPath, report, 'utf8');
-
-  console.log(`✅ Report saved: ${reportPath}`);
-
-  const oppScore = Math.round(
-    (strong / posts.length) * 30 +
-    (posts.filter(p => p.hasFaq).length / posts.length) * 20 +
-    (posts.filter(p => p.hasQuickAnswer).length / posts.length) * 15 +
-    (posts.filter(p => p.hasYear).length / posts.length) * 10 +
-    (1 - posts.filter(p => p.wordCount < 800).length / posts.length) * 15 +
-    (1 - posts.filter(p => {
-      const days = Math.floor((Date.now() - new Date(p.date || '2026-01-01').getTime()) / 86400000);
-      return !p.lastUpdated && days > 120;
-    }).length / posts.length) * 10
-  );
-  console.log(`📈 Traffic Opportunity: ${oppScore}/100`);
   console.log('Done.');
 })();
