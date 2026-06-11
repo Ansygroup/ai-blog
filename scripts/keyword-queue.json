@@ -1,14 +1,5 @@
 [
   {
-    "topic": "Step-by-Step Guide to Building a RAG System with LangChain",
-    "category": "Tutorials",
-    "keywords": [
-      "RAG system",
-      "LangChain tutorial",
-      "retrieval augmented generation"
-    ]
-  },
-  {
     "topic": "How to Use AI for Automated Invoice Processing in Small Business",
     "category": "Tutorials",
     "keywords": [
@@ -908,6 +899,114 @@
     "keywords": [
       "ai regulation",
       "eu ai act"
+    ]
+  },
+  {
+    "topic": "Mastering AI-Driven Google Ads Extensions for Ecommerce",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for Google Ads",
+      "Google Ads extensions",
+      "Ecommerce advertising"
+    ]
+  },
+  {
+    "topic": "AI-Powered Affiliate Marketing Tracking Software Review",
+    "category": "Reviews",
+    "keywords": [
+      "AI for affiliate marketing",
+      "Affiliate marketing tracking",
+      "Marketing software review"
+    ]
+  },
+  {
+    "topic": "Comparing AI-Driven Website Testing Tools: VWO, Sentient, and Convert",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for website testing",
+      "Website testing tools",
+      "Conversion rate optimization"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Personalized Podcast Advertising",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for podcast advertising",
+      "Personalized advertising",
+      "Podcast monetization"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Customer Journey Mapping",
+    "category": "Best Of",
+    "keywords": [
+      "AI for customer journey mapping",
+      "Customer journey mapping tools",
+      "Marketing automation"
+    ]
+  },
+  {
+    "topic": "AI-Driven Sales Forecasting for B2B Businesses: A Step-by-Step Guide",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for sales forecasting",
+      "Sales forecasting tools",
+      "B2B sales strategy"
+    ]
+  },
+  {
+    "topic": "Comparing AI-Powered Content Generation Platforms for Enterprise",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for content generation",
+      "Content generation platforms",
+      "Enterprise content strategy"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Social Media Crisis Management",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for social media crisis management",
+      "Social media crisis management tools",
+      "Reputation management"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Market Research and Analysis",
+    "category": "Best Of",
+    "keywords": [
+      "AI for market research",
+      "Market research tools",
+      "Market analysis software"
+    ]
+  },
+  {
+    "topic": "Mastering AI-Driven Email List Segmentation for Improved Conversions",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for email list segmentation",
+      "Email list segmentation tools",
+      "Conversion rate optimization"
+    ]
+  },
+  {
+    "topic": "AI-Powered Customer Feedback Analysis for Ecommerce Businesses",
+    "category": "Reviews",
+    "keywords": [
+      "AI for customer feedback analysis",
+      "Customer feedback analysis tools",
+      "Ecommerce customer experience"
+    ]
+  },
+  {
+    "topic": "Comparing AI-Driven Chatbot Platforms for Customer Support",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for chatbot development",
+      "Chatbot platforms",
+      "Customer support software"
     ]
   }
 ]
