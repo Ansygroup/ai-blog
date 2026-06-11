@@ -159,7 +159,7 @@ export default async function NewsArticlePage({ params }) {
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-800 rounded-xl p-5">
               <h3 className="font-bold text-lg mb-2">Free AI Brief</h3>
               <p className="text-sm text-slate-700 dark:text-dark-muted mb-3">The 5 biggest AI tool launches and deals every week.</p>
-              <a href="#newsletter" className="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">Subscribe Free</a>
+              <a href="/#newsletter" className="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">Subscribe Free</a>
             </div>
             <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_SIDE} />
             {related.length > 0 && (

@@ -62,7 +62,7 @@ export default function MobileNav({ navLinks }) {
             <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between border-t border-slate-200 dark:border-dark-border pt-4 px-2">
               <ThemeToggle />
               <Link
-                href="#newsletter"
+                href="/#newsletter"
                 className="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition"
               >
                 Subscribe

@@ -56,7 +56,7 @@ export default function NewsletterPopover() {
               The 5 biggest AI tool launches and deals every week. Zero spam.
             </p>
             <a
-              href="#newsletter"
+              href="/#newsletter"
               onClick={handleDismiss}
               className="mt-3 inline-flex items-center gap-1 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition"
             >

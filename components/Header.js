@@ -55,7 +55,7 @@ export default function Header() {
               <Search className="w-5 h-5" />
             </Link>
             <a
-              href="#newsletter"
+              href="/#newsletter"
               className="hidden sm:inline-flex bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition"
             >
               Subscribe
