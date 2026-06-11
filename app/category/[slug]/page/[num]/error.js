@@ -13,7 +13,7 @@ export default function Error({ error, reset }) {
       <div className="text-center max-w-lg">
         <h1 className="text-4xl font-extrabold text-slate-900 dark:text-dark-text mb-4">Something went wrong</h1>
         <p className="text-slate-600 dark:text-dark-muted mb-8">
-          We couldn't load this category. It might not exist or the URL is incorrect.
+          We couldn't load this page. It might not exist or the URL is incorrect.
         </p>
         <div className="flex flex-wrap gap-3 justify-center">
           <Link href="/" className="bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 dark:hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-lg transition">Home</Link>

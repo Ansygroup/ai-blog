@@ -6,7 +6,13 @@ export const metadata = {
   title: 'Search AI Tools, Reviews & Tutorials',
   description: `Search ${getAllPosts().length}+ AI tool reviews, comparisons, and tutorials on ${siteConfig.name}.`,
   alternates: { canonical: `${siteConfig.url}/search` },
-  openGraph: { url: `${siteConfig.url}/search` },
+  openGraph: {
+    title: "Search — AI Pulse Daily",
+    description: "Search AI Pulse Daily for reviews, comparisons, and tutorials.",
+    url: siteConfig.url + '/search',
+    siteName: siteConfig.name,
+    type: 'website',
+  },
 };
 
 export default function SearchPage() {

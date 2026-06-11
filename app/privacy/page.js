@@ -4,7 +4,13 @@ export const metadata = {
   title: 'Privacy Policy',
   description: `How ${siteConfig.name} collects, uses, and protects your personal data. Privacy-first analytics, cookie policy, and your GDPR/CCPA rights.`,
   alternates: { canonical: `${siteConfig.url}/privacy` },
-  openGraph: { url: `${siteConfig.url}/privacy` },
+  openGraph: {
+    title: 'Privacy Policy — AI Pulse Daily',
+    description: 'Privacy policy for AI Pulse Daily. How we collect, use, and protect your data.',
+    url: siteConfig.url + '/privacy',
+    siteName: siteConfig.name,
+    type: 'website',
+  },
 };
 
 export default function PrivacyPage() {

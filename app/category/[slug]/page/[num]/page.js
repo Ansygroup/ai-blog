@@ -31,6 +31,13 @@ export function generateMetadata({ params }) {
     title: `${name} — Page ${num} | AI Tools, Reviews & Guides`,
     description: `The best ${name.toLowerCase()} content — page ${num}.`,
     alternates: { canonical: `${siteConfig.url}/category/${params.slug}/page/${num}` },
+    openGraph: {
+      title: `${name} (Page ${num}) — AI Pulse Daily`,
+      description: `Best AI tools, reviews and tutorials in ${name} (Page ${num}). Expert-curated content updated daily.`,
+      url: siteConfig.url + '/category/' + params.slug + '/page/' + num,
+      siteName: siteConfig.name,
+      type: 'website',
+    },
   };
 }
 

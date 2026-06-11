@@ -17,8 +17,20 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }) {
-  const name = getCategoryBySlug(params.slug);
-  return { title: `${name} — AI Tools, Reviews & Guides`, description: `The best ${name.toLowerCase()} content: reviews, comparisons, and tutorials.` };
+  const slug = params.slug;
+  const name = getCategoryBySlug(slug);
+  return {
+    title: `${name} — AI Tools, Reviews & Guides`,
+    description: `The best ${name.toLowerCase()} content: reviews, comparisons, and tutorials.`,
+    alternates: { canonical: siteConfig.url + '/category/' + slug },
+    openGraph: {
+      title: `${name} — AI Pulse Daily`,
+      description: `Best AI tools, reviews and tutorials in ${name}. Expert-curated content updated daily.`,
+      url: siteConfig.url + '/category/' + slug,
+      siteName: siteConfig.name,
+      type: 'website',
+    },
+  };
 }
 
 export default function CategoryPage({ params }) {

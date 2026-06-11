@@ -18,7 +18,7 @@ export const metadata = {
   description: siteConfig.description,
   alternates: { canonical: siteConfig.url },
   openGraph: {
-    title: siteConfig.title,
+    title: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,

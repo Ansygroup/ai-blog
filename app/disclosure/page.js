@@ -4,7 +4,13 @@ export const metadata = {
   title: 'Affiliate Disclosure',
   description: `${siteConfig.name} transparently discloses how we earn revenue: affiliate links, display ads, and sponsored content. We never accept payment for positive reviews.`,
   alternates: { canonical: `${siteConfig.url}/disclosure` },
-  openGraph: { url: `${siteConfig.url}/disclosure` },
+  openGraph: {
+    title: 'Disclosure — AI Pulse Daily',
+    description: 'Affiliate disclosure and editorial policies for AI Pulse Daily.',
+    url: siteConfig.url + '/disclosure',
+    siteName: siteConfig.name,
+    type: 'website',
+  },
 };
 
 export default function DisclosurePage() {
@@ -29,7 +35,7 @@ export default function DisclosurePage() {
       <h2>Our affiliate partners</h2>
       <p>Current partners include (but are not limited to): Jasper AI, Surfer SEO, NordVPN, Copy.ai, and Amazon. Affiliate programs are subject to change.</p>
       <h2>Questions?</h2>
-      <p>Email hello@ai-blog-ten-steel.vercel.app with any questions about our affiliate relationships.</p>
+       <p>Email {siteConfig.email} with any questions about our affiliate relationships.</p>
     </div>
   );
 }

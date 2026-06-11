@@ -9,6 +9,13 @@ export const metadata = {
   title: 'AI News — Latest Artificial Intelligence Updates 2026',
   description: 'Breaking AI news, research breakthroughs, product launches, and industry analysis. Updated continuously.',
   alternates: { canonical: `${siteConfig.url}/news` },
+  openGraph: {
+    title: "AI Pulse Daily — AI News",
+    description: "Latest AI news, breakthroughs, and industry updates. Stay informed with daily AI coverage.",
+    url: siteConfig.url + '/news',
+    siteName: siteConfig.name,
+    type: 'website',
+  },
 };
 
 export default function NewsPage() {

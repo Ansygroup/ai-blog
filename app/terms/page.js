@@ -1,4 +1,17 @@
-export const metadata = { title: 'Terms of Service', description: 'Terms of service for AI Pulse Daily — content usage, affiliate links, liability limitations, and site policies.' };
+import { siteConfig } from '../../lib/config';
+
+export const metadata = {
+  title: 'Terms of Service — AI Pulse Daily',
+  description: 'Terms of service for AI Pulse Daily. Read our terms, conditions, and policies.',
+  alternates: { canonical: siteConfig.url + '/terms' },
+  openGraph: {
+    title: 'Terms of Service — AI Pulse Daily',
+    description: 'Terms of service for AI Pulse Daily.',
+    url: siteConfig.url + '/terms',
+    siteName: siteConfig.name,
+    type: 'website',
+  },
+};
 export default function TermsPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 prose-blog">

@@ -9,6 +9,13 @@ export const metadata = {
   title: 'AI Topics — Guides, Comparisons & Tutorials 2026',
   description: 'Explore curated topic clusters: AI content creation, image generation, coding, marketing, voice, video, and more.',
   alternates: { canonical: `${siteConfig.url}/topics` },
+  openGraph: {
+    title: "AI Topics — AI Pulse Daily",
+    description: "Explore AI topics, categories, and trends. In-depth guides and resources.",
+    url: siteConfig.url + '/topics',
+    siteName: siteConfig.name,
+    type: 'website',
+  },
 };
 
 export default function TopicsIndex() {

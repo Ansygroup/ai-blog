@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { siteConfig } from '../../../lib/config';
 import SearchClient from './SearchClient';
 
 export const dynamic = 'force-static';
@@ -7,6 +8,13 @@ export const dynamic = 'force-static';
 export const metadata = {
   title: 'Search Products — AI Pulse Daily Store',
   description: 'Search through our curated Amazon product catalog: laptops, headphones, monitors, AI books, and more.',
+  openGraph: {
+    title: "Search Recommendations — AI Pulse Daily",
+    description: "Find the best AI tool recommendations tailored to your needs.",
+    url: siteConfig.url + '/recommendations/search',
+    siteName: siteConfig.name,
+    type: 'website',
+  },
 };
 
 export default function SearchPage() {

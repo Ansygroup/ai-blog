@@ -123,7 +123,7 @@ export default async function PostPage({ params }) {
             <div className="mt-10 pt-6 border-t border-slate-200">
               <h3 className="text-sm font-semibold text-slate-500 uppercase mb-3">Tags</h3>
               <div className="flex flex-wrap gap-2">
-                {post.tags.map((t) => <Link key={t} href={`/tag/${t.toLowerCase().replace(/\s+/g, '-')}`} className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1 rounded-full text-sm transition">#{t}</Link>)}
+                {post.tags.map((t) => <Link key={t} href={`/tag/${t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`} className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1 rounded-full text-sm transition">#{t}</Link>)}
               </div>
             </div>
           )}
