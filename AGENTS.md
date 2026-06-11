@@ -24,7 +24,7 @@ shell commands, and other important information, read the current plan
 - 194 posts, 13+ categories, 55 controlled tags
 - Build: 358 static pages, 0 errors
 - Content Performance: 3 strong, 144 needs-improvement, 47 weak (Score 62/100)
-- 47 remaining SEO issues (17 thin content, 20 empty excerpts, 10 miscellaneous)
+- 21 remaining SEO issues (all thin content <700 words — fixed via Groq on GitHub Actions)
 - Tag pages: `force-dynamic` + `noindex` (not pre-rendered)
 
 ## Components
