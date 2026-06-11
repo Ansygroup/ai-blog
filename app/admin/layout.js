@@ -4,7 +4,7 @@ import { SessionProvider, useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import {
-  Cpu, FileText, ListTodo, Search, BarChart3, Crosshair, TrendingUp, Link2, Rocket, Play,
+  Cpu, FileText, ListTodo, Search, BarChart3, Crosshair, TrendingUp, Lightbulb, Link2, Rocket, Play,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -16,6 +16,7 @@ const navItems = [
   { href: '/admin/seo', label: 'SEO', icon: Search },
   { href: '/admin/reports', label: 'Reports', icon: BarChart3 },
   { href: '/admin/content-gaps', label: 'Content Gaps', icon: Crosshair },
+  { href: '/admin/content-brief', label: 'Content Brief', icon: Lightbulb },
   { href: '/admin/links', label: 'Links', icon: Link2 },
   { href: '/admin/deploy', label: 'Deploy', icon: Rocket },
   { href: '/admin/actions', label: 'Actions', icon: Play },
