@@ -7,6 +7,7 @@ export default function ActionCard({ action, onRun }) {
   const [input, setInput] = useState(action.inputDefault || '');
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState(null);
+  const Icon = action.icon;
 
   async function handleRun() {
     setRunning(true);
@@ -24,7 +25,7 @@ export default function ActionCard({ action, onRun }) {
   return (
     <div className="rounded-xl border border-slate-200 bg-white dark:bg-dark-card dark:border-dark-border p-5 hover:shadow-sm transition-shadow">
       <div className="flex items-start gap-4">
-        <div className="text-2xl shrink-0">{action.icon}</div>
+        <div className="shrink-0"><Icon className="w-5 h-5 text-brand-600 dark:text-brand-400" /></div>
         <div className="flex-1 min-w-0">
           <h3 className="text-sm font-semibold text-slate-900 dark:text-dark-text">{action.title}</h3>
           <p className="text-xs text-slate-500 dark:text-dark-muted mt-1">{action.desc}</p>
@@ -42,7 +43,7 @@ export default function ActionCard({ action, onRun }) {
           <button
             onClick={handleRun}
             disabled={running}
-            className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-dark-border text-sm font-medium text-slate-700 dark:text-dark-text hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-50 transition-colors"
+            className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-dark-border text-sm font-medium text-slate-700 dark:text-dark-text hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-50 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500"
           >
             {running ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />

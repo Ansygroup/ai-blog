@@ -1,15 +1,15 @@
 'use client';
 
 import ActionCard from '@/components/admin/action-card';
-import { Play } from 'lucide-react';
+import { FileText, Sparkles, Search, Link, RefreshCw, PenTool, Play } from 'lucide-react';
 
 const actions = [
-  { id: 'generate', title: 'Generate Posts', desc: 'Run the AI content engine to generate new posts from the keyword queue.', icon: '📝', hasInput: true, inputLabel: 'Batch count', inputType: 'number', inputDefault: '3' },
-  { id: 'polish', title: 'Polish All Posts', desc: 'Run formatting and content polish across all posts.', icon: '✨', hasInput: false },
-  { id: 'seo', title: 'SEO Optimize', desc: 'Run AI-powered SEO optimization on posts needing improvement.', icon: '🔍', hasInput: false },
-  { id: 'links', title: 'Auto Internal Links', desc: 'Automatically add relevant internal links between posts.', icon: '🔗', hasInput: false },
-  { id: 'refresh', title: 'Refresh Content', desc: 'Update stale posts with fresh dates and improved content.', icon: '🔄', hasInput: false },
-  { id: 'humanize', title: 'Humanize Posts', desc: 'Rewrite posts to remove AI writing patterns using Groq + humanizer skill.', icon: '✍️', hasInput: false },
+  { id: 'generate', title: 'Generate Posts', desc: 'Run the AI content engine to generate new posts from the keyword queue.', icon: FileText, hasInput: true, inputLabel: 'Batch count', inputType: 'number', inputDefault: '3' },
+  { id: 'polish', title: 'Polish All Posts', desc: 'Run formatting and content polish across all posts.', icon: Sparkles, hasInput: false },
+  { id: 'seo', title: 'SEO Optimize', desc: 'Run AI-powered SEO optimization on posts needing improvement.', icon: Search, hasInput: false },
+  { id: 'links', title: 'Auto Internal Links', desc: 'Automatically add relevant internal links between posts.', icon: Link, hasInput: false },
+  { id: 'refresh', title: 'Refresh Content', desc: 'Update stale posts with fresh dates and improved content.', icon: RefreshCw, hasInput: false },
+  { id: 'humanize', title: 'Humanize Posts', desc: 'Rewrite posts to remove AI writing patterns using Groq + humanizer skill.', icon: PenTool, hasInput: false },
 ];
 
 export default function AdminActionsPage() {

@@ -1,9 +1,13 @@
 import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 import { getAllPosts } from '../../lib/posts';
 import PostCard from '../../components/PostCard';
 import { siteConfig } from '../../lib/config';
 import { breadcrumbJsonLd } from '../../lib/schema';
 import AdSlot from '../../components/AdSlot';
+import PaginationNav from '../../components/PaginationNav';
+
+const POSTS_PER_PAGE = 24;
 
 export const metadata = {
   title: 'Best AI Tools 2026 — Curated Rankings & Reviews',
@@ -19,7 +23,9 @@ export const metadata = {
 };
 
 export default function BestPage() {
-  const posts = getAllPosts().filter((p) => p.category === 'Best Of');
+  const allPosts = getAllPosts().filter((p) => p.category === 'Best Of');
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  const posts = allPosts.slice(0, POSTS_PER_PAGE);
   return (
     <>
       <script id="ld-best-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
@@ -37,7 +43,7 @@ export default function BestPage() {
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-3.5 h-3.5 text-slate-300" /></li>
             <li className="text-slate-700 dark:text-dark-text">Best AI Tools 2026</li>
           </ol>
         </nav>
@@ -50,6 +56,7 @@ export default function BestPage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.map((p, i) => <PostCard key={p.slug} post={p} index={i} />)}
         </div>
+        <PaginationNav currentPage={1} totalPages={totalPages} basePath="/best" />
       </div>
     </>
   );

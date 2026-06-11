@@ -56,18 +56,19 @@ export default function HomePage() {
 
       {/* HERO */}
       <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-brand-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-500/10 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-500/10 via-transparent to-transparent animate-pulse" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center relative">
-          <span className="inline-block bg-amber-400 text-slate-900 text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">Updated for 2026</span>
-          <h1 className="text-4xl md:text-6xl font-heading font-extrabold mb-4 tracking-tight leading-tight">{siteConfig.tagline}</h1>
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8 font-body">
+          <span className="inline-block bg-amber-400 text-slate-900 text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-wider animate-fade-in">Updated for 2026</span>
+          <h1 className="text-4xl md:text-6xl font-heading font-extrabold mb-4 tracking-tight leading-tight animate-slide-up">{siteConfig.tagline}</h1>
+          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8 font-body animate-slide-up animate-delay-100">
             We test every AI tool so you don't waste money. Independent reviews, side-by-side comparisons, and step-by-step tutorials.
           </p>
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-wrap gap-3 justify-center animate-slide-up animate-delay-200">
             <Link href="/best" className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-6 py-3 rounded-lg transition active:scale-[0.97]">Best AI Tools 2026</Link>
             <Link href="/reviews" className="bg-white/10 hover:bg-white/20 backdrop-blur text-white font-semibold px-6 py-3 rounded-lg transition">All Reviews</Link>
           </div>
-          <div className="flex justify-center gap-8 mt-12 text-sm text-slate-400">
+          <div className="flex justify-center gap-8 mt-12 text-sm text-slate-400 animate-fade-in animate-delay-300">
             <div><span className="text-white font-bold text-lg">{posts.length}+</span><br />Articles</div>
             <div><span className="text-white font-bold text-lg">{categories.length}</span><br />Categories</div>
             <div><span className="text-white font-bold text-lg">Since 2024</span><br />Published</div>

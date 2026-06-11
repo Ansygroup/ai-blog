@@ -4,6 +4,7 @@ import { siteConfig } from '../lib/config';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import NewsletterCTA from '../components/NewsletterCTA';
+import NewsletterPopover from '../components/NewsletterPopover';
 import SkipLink from '../components/SkipLink';
 import CookieBanner from '../components/CookieBanner';
 import BackToTop from '../components/BackToTop';
@@ -110,6 +111,7 @@ export default function RootLayout({ children }) {
         <Analytics />
         <SpeedInsights />
         <BackToTop />
+        <NewsletterPopover />
         <Footer />
 
         {/* Google AdSense */}

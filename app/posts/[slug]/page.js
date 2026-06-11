@@ -9,6 +9,7 @@ import { Mail, ChevronRight, ArrowLeft, ArrowRight, Plus } from 'lucide-react';
 import Badge from '../../../components/ui/Badge';
 import AdSlot from '../../../components/AdSlot';
 import PostCard from '../../../components/PostCard';
+import AuthorBio from '../../../components/AuthorBio';
 import TableOfContents from '../../../components/TableOfContents';
 import ShareButtons from '../../../components/ShareButtons';
 import ProgressBar from '../../../components/ProgressBar';
@@ -114,6 +115,8 @@ export default async function PostPage({ params }) {
           <div className="prose-blog" dangerouslySetInnerHTML={{ __html: contentHtml }} />
 
           <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_MID} />
+
+          <AuthorBio author={post.author} />
 
           {/* Tags */}
           {post.tags && post.tags.length > 0 && (

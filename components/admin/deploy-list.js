@@ -39,7 +39,7 @@ export default function DeployList({ deployments, loading, onDeploy, error }) {
     return (
       <div className="rounded-xl border-2 border-dashed border-slate-300 dark:border-dark-border p-8 text-center">
         <p className="text-sm text-slate-500 dark:text-dark-muted mb-3">{error}</p>
-        <small className="text-xs text-slate-400">Set VERCEL_API_TOKEN in env</small>
+        <small className="text-xs text-slate-500">Set VERCEL_API_TOKEN in env</small>
       </div>
     );
   }
@@ -53,7 +53,7 @@ export default function DeployList({ deployments, loading, onDeploy, error }) {
         <button
           onClick={handleDeploy}
           disabled={triggering}
-          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500"
         >
           <RotateCcw className={`w-4 h-4 ${triggering ? 'animate-spin' : ''}`} />
           {triggering ? 'Deploying...' : 'Trigger Deploy'}
@@ -74,7 +74,7 @@ export default function DeployList({ deployments, loading, onDeploy, error }) {
               {d.target === 'production' && (
                 <span className="text-xs font-medium text-brand-600 dark:text-brand-400">production</span>
               )}
-              <a href={d.inspectorUrl} target="_blank" className="text-slate-400 hover:text-slate-600 dark:hover:text-dark-text">
+              <a href={d.inspectorUrl} target="_blank" aria-label="View deployment details" className="text-slate-400 hover:text-slate-600 dark:hover:text-dark-text focus:outline-none focus:ring-2 focus:ring-brand-500 rounded">
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>

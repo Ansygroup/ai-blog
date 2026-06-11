@@ -114,7 +114,7 @@ export default function PostsTable({ posts, loading }) {
             <tbody>
               {pageItems.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="px-4 py-8 text-center text-slate-400 dark:text-dark-muted text-sm">
+                  <td colSpan="6" className="px-4 py-8 text-center text-slate-500 dark:text-dark-muted text-sm">
                     No posts found
                   </td>
                 </tr>
@@ -124,7 +124,7 @@ export default function PostsTable({ posts, loading }) {
                     <a
                       href={`/posts/${post.slug}`}
                       target="_blank"
-                      className="inline-flex items-center gap-1.5 text-slate-900 dark:text-dark-text font-medium hover:text-brand-600 dark:hover:text-brand-400"
+                      className="inline-flex items-center gap-1.5 text-slate-900 dark:text-dark-text font-medium hover:text-brand-600 dark:hover:text-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500 rounded"
                     >
                       {post.title || post.slug}
                       <ExternalLink className="w-3 h-3 shrink-0 opacity-40" />
@@ -151,7 +151,7 @@ export default function PostsTable({ posts, loading }) {
                         <Badge key={t}>{t}</Badge>
                       ))}
                       {(post.tags || []).length > 3 && (
-                        <span className="text-xs text-slate-400">+{post.tags.length - 3}</span>
+                        <span className="text-xs text-slate-500">+{post.tags.length - 3}</span>
                       )}
                     </div>
                   </td>
@@ -180,7 +180,7 @@ export default function PostsTable({ posts, loading }) {
             <button
               disabled={page === 0}
               onClick={() => setPage((p) => p - 1)}
-              className="px-3 py-1 rounded border border-slate-200 dark:border-dark-border disabled:opacity-30 hover:bg-slate-100 dark:hover:bg-dark-border"
+              className="px-3 py-1 rounded border border-slate-200 dark:border-dark-border disabled:opacity-30 hover:bg-slate-100 dark:hover:bg-dark-border cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
               Prev
             </button>
@@ -188,7 +188,7 @@ export default function PostsTable({ posts, loading }) {
             <button
               disabled={page >= totalPages - 1}
               onClick={() => setPage((p) => p + 1)}
-              className="px-3 py-1 rounded border border-slate-200 dark:border-dark-border disabled:opacity-30 hover:bg-slate-100 dark:hover:bg-dark-border"
+              className="px-3 py-1 rounded border border-slate-200 dark:border-dark-border disabled:opacity-30 hover:bg-slate-100 dark:hover:bg-dark-border cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
               Next
             </button>

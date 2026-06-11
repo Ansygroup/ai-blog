@@ -61,7 +61,7 @@ export default function QueueList({ topics, loading, onAdd, onDelete }) {
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500"
         >
           {showForm ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
           {showForm ? 'Cancel' : 'Add Topic'}
@@ -104,7 +104,7 @@ export default function QueueList({ topics, loading, onAdd, onDelete }) {
           <button
             type="submit"
             disabled={adding}
-            className="px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500"
           >
             {adding ? 'Adding...' : 'Add to Queue'}
           </button>
@@ -121,15 +121,15 @@ export default function QueueList({ topics, loading, onAdd, onDelete }) {
                   {item.category || 'Uncategorized'}
                 </span>
                 {(item.keywords || []).slice(0, 3).map((k) => (
-                  <span key={k} className="text-xs text-slate-400 dark:text-dark-muted">#{k}</span>
+                  <span key={k} className="text-xs text-slate-500 dark:text-dark-muted">#{k}</span>
                 ))}
               </div>
             </div>
             {onDelete && (
               <button
                 onClick={() => onDelete(item.topic)}
-                className="shrink-0 p-1.5 rounded text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 opacity-0 group-hover:opacity-100 transition-all"
-                title="Remove topic"
+                className="shrink-0 p-1.5 rounded text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 opacity-0 group-hover:opacity-100 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500"
+                aria-label={`Remove ${item.topic}`}
               >
                 <Trash2 className="w-3.5 h-3.5" />
               </button>

@@ -32,7 +32,7 @@ export default function SeoChart({ data, loading, error }) {
     return (
       <div className="rounded-xl border-2 border-dashed border-slate-300 dark:border-dark-border p-8 text-center">
         <p className="text-sm text-slate-500 dark:text-dark-muted">Failed to load SEO data</p>
-        <p className="text-xs text-slate-400 mt-1">{error}</p>
+        <p className="text-xs text-slate-500 mt-1">{error}</p>
       </div>
     );
   }
@@ -79,7 +79,7 @@ export default function SeoChart({ data, loading, error }) {
                   <a
                     href={`/posts/${post.slug}`}
                     target="_blank"
-                    className="inline-flex items-center gap-1 text-sm text-slate-900 dark:text-dark-text hover:text-brand-600 dark:hover:text-brand-400"
+                    className="inline-flex items-center gap-1 text-sm text-slate-900 dark:text-dark-text hover:text-brand-600 dark:hover:text-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500 rounded"
                   >
                     {post.title || post.slug}
                     <ExternalLink className="w-3 h-3 shrink-0 opacity-40" />
