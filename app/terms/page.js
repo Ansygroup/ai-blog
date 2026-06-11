@@ -1,4 +1,4 @@
-export const metadata = { title: 'Terms of Service' };
+export const metadata = { title: 'Terms of Service', description: 'Terms of service for AI Pulse Daily — content usage, affiliate links, liability limitations, and site policies.' };
 export default function TermsPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 prose-blog">
