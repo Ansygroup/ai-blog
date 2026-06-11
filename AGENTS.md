@@ -26,6 +26,9 @@ shell commands, and other important information, read the current plan
 - Content Performance: 3 strong, 144 needs-improvement, 47 weak (Score 62/100)
 - 21 remaining SEO issues (all thin content <700 words — fixed via Groq on GitHub Actions)
 - Tag pages: `force-dynamic` + `noindex` (not pre-rendered)
+- openGraph metadata: all public pages covered
+- Error boundaries: all dynamic routes covered (including paginated)
+- Newsletter CTAs link to `/#newsletter` (works site-wide, not just homepage)
 
 ## Components
 - `AuthorBio.js` — Avatar + social links on post pages
