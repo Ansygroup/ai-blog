@@ -1,0 +1,10 @@
+const fs = require('fs'), path = require('path'), matter = require('gray-matter');
+const fp = path.join('content/posts/ai-influencer-marketing-platforms.mdx');
+const raw = fs.readFileSync(fp, 'utf8');
+const parsed = matter(raw);
+const { data, content } = parsed;
+console.log('excerpt value:', JSON.stringify(data.excerpt));
+console.log('excerpt type:', typeof data.excerpt);
+const clean = content.replace(/<[^>]+>/g, '').replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1').replace(/\[([^\]]*)\]\([^)]+\)/g, '$1').replace(/[#*`>_~|]/g, '').replace(/\n+/g, ' ').trim();
+console.log('clean text length:', clean.length);
+console.log('first 200 chars:', clean.slice(0, 200));
