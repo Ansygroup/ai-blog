@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import NewsletterCTA from '../components/NewsletterCTA';
 import NewsletterPopover from '../components/NewsletterPopover';
+import ReadingProgress from '../components/ReadingProgress';
 import SkipLink from '../components/SkipLink';
 import CookieBanner from '../components/CookieBanner';
 import BackToTop from '../components/BackToTop';
@@ -103,6 +104,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="bg-slate-50 dark:bg-dark-bg text-slate-900 dark:text-dark-text antialiased font-body">
+        <ReadingProgress />
         <SkipLink />
         <Header />
         <main id="main-content" className="min-h-screen animate-fade-in">{children}</main>
