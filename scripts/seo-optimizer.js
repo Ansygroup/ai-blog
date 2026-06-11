@@ -18,6 +18,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env.local') });
 
 const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
@@ -25,27 +26,23 @@ const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
 function getPostData(file) {
   const content = fs.readFileSync(path.join(POSTS_DIR, file), 'utf8');
   const slug = file.replace(/\.mdx?$/, '');
-  const m = content.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]+)$/);
-  if (!m) return null;
-  const fm = m[1];
-  const body = m[2];
-  const get = (k) => (fm.match(new RegExp(`^${k}:\\s*"?([^"\\n]*)"?`, 'm')) || [])[1] || '';
-  const getRaw = (k) => (fm.match(new RegExp(`^${k}:\\s*(.*)$`, 'm')) || [])[1] || '';
+  const parsed = matter(content);
+  const { data, content: body } = parsed;
 
   return {
     file, slug, content,
-    fm, body,
-    title: get('title'),
-    excerpt: get('excerpt'),
-    description: get('description'),
-    date: get('date'),
-    lastUpdated: get('lastUpdated'),
-    author: get('author'),
-    category: get('category'),
-    tags: getRaw('tags'),
-    cover: get('cover'),
-    rating: get('rating'),
-    draft: get('draft'),
+    fm: null, body,
+    title: data.title || '',
+    excerpt: data.excerpt || '',
+    description: data.description || '',
+    date: data.date || '',
+    lastUpdated: data.lastUpdated || '',
+    author: data.author || '',
+    category: data.category || '',
+    tags: Array.isArray(data.tags) ? data.tags.join(', ') : (data.tags || ''),
+    cover: data.cover || '',
+    rating: data.rating || '',
+    draft: data.draft || '',
     wordCount: body.trim().split(/\s+/).length,
     h2s: (body.match(/^## /gm) || []).length,
     hasFaq: /^##\s*FAQ/m.test(body),
@@ -152,14 +149,14 @@ Return ONLY valid JSON array: [{"question": "...", "answer": "..."}]`;
     totalFixes += fixes.length;
 
     if (doFix || doAiFix) {
+      const parsed = matter(post.content);
+      const { data, content: body } = parsed;
       let changed = false;
-      let newContent = post.content;
 
       // Fix excerpt
       const excerptFix = fixes.find((f) => f.field === 'excerpt' && f.issue.startsWith('Too short'));
       if (excerptFix && post.excerpt) {
-        const newExcerpt = post.excerpt.replace(/([.!?])\s*.*$/, '$1 The definitive hands-on guide to help you decide.').slice(0, 160);
-        newContent = newContent.replace(/^excerpt:\s*"([^"]+)"/m, `excerpt: "${newExcerpt}"`);
+        data.excerpt = post.excerpt.replace(/([.!?])\s*.*$/, '$1 The definitive hands-on guide to help you decide.').slice(0, 160);
         changed = true;
       }
 
@@ -167,7 +164,7 @@ Return ONLY valid JSON array: [{"question": "...", "answer": "..."}]`;
       if (fixes.some((f) => f.issue.startsWith('Missing year')) && post.title) {
         const newTitle = post.title.replace(/\)\s*$/, ' (2026 Guide)').replace(/\([^)]*\)/, '(2026 Guide)');
         if (!newTitle.includes('2026')) {
-          newContent = newContent.replace(/^title:\s*"([^"]+)"/m, `title: "${post.title} (2026 Guide)"`);
+          data.title = post.title + ' (2026 Guide)';
           changed = true;
         }
       }
@@ -181,10 +178,10 @@ Return ONLY valid JSON array: [{"question": "...", "answer": "..."}]`;
             `### ${f.question}\n${f.answer}`
           ).join('\n\n');
           // Insert before "Final Verdict" or at end
-          if (post.body.includes('## Final Verdict')) {
-            newContent = newContent.replace('## Final Verdict', faqSection + '\n\n## Final Verdict');
+          if (body.includes('## Final Verdict')) {
+            parsed.content = body.replace('## Final Verdict', faqSection + '\n\n## Final Verdict');
           } else {
-            newContent = newContent.replace(post.body, post.body.trimEnd() + faqSection);
+            parsed.content = body.trimEnd() + faqSection;
           }
           changed = true;
           console.log(`  ✅ Added ${faqs.length} FAQ items`);
@@ -194,7 +191,8 @@ Return ONLY valid JSON array: [{"question": "...", "answer": "..."}]`;
       }
 
       if (changed) {
-        fs.writeFileSync(path.join(POSTS_DIR, file), newContent, 'utf8');
+        const updated = matter.stringify(parsed.content, data);
+        fs.writeFileSync(path.join(POSTS_DIR, file), updated, 'utf8');
         totalApplied++;
         console.log(`  ✅ Applied fixes to ${file}`);
       }
