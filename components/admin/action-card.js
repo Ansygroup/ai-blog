@@ -16,7 +16,7 @@ export default function ActionCard({ action, onRun }) {
       await onRun(action.id, inputs);
       setResult('success');
     } catch (err) {
-      setResult('error');
+      setResult(err.message || 'error');
     }
     setRunning(false);
   }
@@ -54,8 +54,8 @@ export default function ActionCard({ action, onRun }) {
           {result === 'success' && (
             <span className="ml-2 text-xs text-green-600 dark:text-green-400">✓ Dispatched</span>
           )}
-          {result === 'error' && (
-            <span className="ml-2 text-xs text-red-600 dark:text-red-400">✗ Failed — check GITHUB_API_TOKEN</span>
+          {result && result !== 'success' && (
+            <span className="ml-2 text-xs text-red-600 dark:text-red-400">✗ {result}</span>
           )}
         </div>
       </div>

@@ -8,7 +8,7 @@ import { breadcrumbJsonLd } from '../../../../lib/schema';
 import { getAllPosts } from '../../../../lib/posts';
 import { formatPrice, priceValue } from '../../../../lib/formatPrice';
 import { getProductImage } from '../../../../lib/productImages';
-import { BookOpen, ChevronRight, ArrowLeft, ShoppingCart, Star, Dot } from 'lucide-react';
+import { BookOpen, ChevronRight, ArrowLeft, Star, Dot } from 'lucide-react';
 import ProductCard from '../../../../components/ProductCard';
 import AmazonDisclosure from '../../../../components/AmazonDisclosure';
 

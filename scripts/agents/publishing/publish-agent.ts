@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import type { Article, PublishedPage } from '../../../lib/types';
+import type { Article } from '../../../lib/types';
 import { insertPage, slugExists, updateQueueStatus } from '../../../lib/db';
 
 const POSTS_DIR = path.join(process.cwd(), 'content', 'posts');

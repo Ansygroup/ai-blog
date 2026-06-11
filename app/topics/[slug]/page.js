@@ -39,10 +39,15 @@ export default function TopicPage({ params }) {
 
   const allPosts = getAllPosts();
   const lowerTags = topic.tags.map(t => t.toLowerCase());
+  const stopWords = new Set(['ai', 'the', 'a', 'an', 'for', 'and', 'or', 'with', 'in', 'on', 'to', 'of', 'vs', 'is', 'it', 'at', 'by', '2026']);
   const relatedPosts = allPosts.filter(p => {
-    const postTags = (p.tags || []).map(t => t.toLowerCase());
     const postCat = (p.category || '').toLowerCase();
-    return postTags.some(t => lowerTags.includes(t)) || lowerTags.some(lt => postCat.includes(lt));
+    if (lowerTags.some(lt => postCat.includes(lt))) return true;
+    const postWords = new Set((p.tags || []).join(' ').toLowerCase().split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w)));
+    return lowerTags.some(tag => {
+      const tagWords = tag.split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w));
+      return tagWords.length > 0 && tagWords.every(w => postWords.has(w));
+    });
   });
 
   const dbPath = path.join(process.cwd(), 'scripts', 'amazon-db.json');

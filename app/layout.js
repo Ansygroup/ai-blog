@@ -3,7 +3,6 @@ import { Space_Grotesk, DM_Sans } from 'next/font/google';
 import { siteConfig } from '../lib/config';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import AdSlot from '../components/AdSlot';
 import NewsletterCTA from '../components/NewsletterCTA';
 import SkipLink from '../components/SkipLink';
 import CookieBanner from '../components/CookieBanner';

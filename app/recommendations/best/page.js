@@ -5,7 +5,7 @@ import path from 'path';
 import { siteConfig } from '../../../lib/config';
 import { breadcrumbJsonLd } from '../../../lib/schema';
 import AmazonDisclosure from '../../../components/AmazonDisclosure';
-import { BarChart3, Search, Star, ChevronRight, Award, ShoppingCart, ArrowRight } from 'lucide-react';
+import { BarChart3, Search, Star, ChevronRight, Award, ArrowRight } from 'lucide-react';
 import ProductCard from '../../../components/ProductCard';
 import { formatPrice, priceValue } from '../../../lib/formatPrice';
 import { getProductImage } from '../../../lib/productImages';

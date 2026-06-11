@@ -28,6 +28,7 @@ import { buildNewsPrompt } from './writers/templates/news-template';
 import { buildSeoPrompt } from './writers/templates/seo-template';
 import { buildAffiliatePrompt } from './writers/templates/affiliate-template';
 import { fetchImage } from '../../lib/images';
+import { execSync } from 'child_process';
 import type { GenResult, Article } from '../../lib/types';
 
 function getArg(args: string[], name: string, def: string): string {
@@ -131,6 +132,13 @@ async function main() {
         }
 
         const pub = await publishArticle(article, item.id);
+        if (pub.success && pub.slug) {
+          try {
+            execSync(`node "${path.join(__dirname, '..', 'humanize-post.js')}" "${pub.slug}"`, {
+              stdio: 'pipe', timeout: 60000, env: { ...process.env, GROQ_API_KEY: groqKeys[0].key_value },
+            });
+          } catch { /* humanization is non-fatal */ }
+        }
         const elapsed = ((Date.now() - start) / 1000).toFixed(1);
         if (pub.success) {
           console.log(`   ✅ SEO ${seo.score} ${article.slug}.mdx (${elapsed}s)`);

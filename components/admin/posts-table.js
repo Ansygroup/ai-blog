@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { Search, ArrowUpDown, ExternalLink } from 'lucide-react';
-import { Badge } from '@/components/ui/Badge';
+import Badge from '@/components/ui/Badge';
 
 const categoryColors = {
   'Best Of': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
@@ -112,7 +112,13 @@ export default function PostsTable({ posts, loading }) {
               </tr>
             </thead>
             <tbody>
-              {pageItems.map((post) => (
+              {pageItems.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="px-4 py-8 text-center text-slate-400 dark:text-dark-muted text-sm">
+                    No posts found
+                  </td>
+                </tr>
+              ) : pageItems.map((post) => (
                 <tr key={post.slug} className="border-b border-slate-100 dark:border-dark-border hover:bg-slate-50 dark:hover:bg-dark-border/50">
                   <td className="px-4 py-3">
                     <a

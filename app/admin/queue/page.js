@@ -25,6 +25,16 @@ export default function AdminQueuePage() {
     setTopics((prev) => [item, ...prev]);
   }
 
+  async function handleDelete(topic) {
+    const res = await fetch('/admin/api/queue', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ topic }),
+    });
+    if (!res.ok) throw new Error('Failed to delete');
+    setTopics((prev) => prev.filter((t) => t.topic !== topic));
+  }
+
   return (
     <div>
       <div className="mb-6">
@@ -38,7 +48,7 @@ export default function AdminQueuePage() {
           Pending blog post topics waiting for generation
         </p>
       </div>
-      <QueueList topics={topics} loading={loading} onAdd={handleAdd} />
+      <QueueList topics={topics} loading={loading} onAdd={handleAdd} onDelete={handleDelete} />
     </div>
   );
 }

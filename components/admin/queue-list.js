@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, X } from 'lucide-react';
-import { Badge } from '@/components/ui/Badge';
+import { Plus, X, Trash2 } from 'lucide-react';
+import Badge from '@/components/ui/Badge';
 
-export default function QueueList({ topics, loading, onAdd }) {
+export default function QueueList({ topics, loading, onAdd, onDelete }) {
   const [showForm, setShowForm] = useState(false);
   const [topic, setTopic] = useState('');
   const [category, setCategory] = useState('AI News');
@@ -113,16 +113,27 @@ export default function QueueList({ topics, loading, onAdd }) {
 
       <div className="rounded-xl border border-slate-200 bg-white dark:bg-dark-card dark:border-dark-border divide-y divide-slate-100 dark:divide-dark-border max-h-[60vh] overflow-y-auto">
         {(topics || []).map((item, i) => (
-          <div key={i} className="px-4 py-3 hover:bg-slate-50 dark:hover:bg-dark-border/50">
-            <div className="text-sm text-slate-900 dark:text-dark-text font-medium truncate">{item.topic}</div>
-            <div className="flex items-center gap-2 mt-1">
-              <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 dark:bg-dark-border dark:text-dark-muted`}>
-                {item.category || 'Uncategorized'}
-              </span>
-              {(item.keywords || []).slice(0, 3).map((k) => (
-                <span key={k} className="text-xs text-slate-400 dark:text-dark-muted">#{k}</span>
-              ))}
+          <div key={item.topic || i} className="px-4 py-3 flex items-start justify-between hover:bg-slate-50 dark:hover:bg-dark-border/50 group">
+            <div className="min-w-0 flex-1">
+              <div className="text-sm text-slate-900 dark:text-dark-text font-medium truncate">{item.topic}</div>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 dark:bg-dark-border dark:text-dark-muted">
+                  {item.category || 'Uncategorized'}
+                </span>
+                {(item.keywords || []).slice(0, 3).map((k) => (
+                  <span key={k} className="text-xs text-slate-400 dark:text-dark-muted">#{k}</span>
+                ))}
+              </div>
             </div>
+            {onDelete && (
+              <button
+                onClick={() => onDelete(item.topic)}
+                className="shrink-0 p-1.5 rounded text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 opacity-0 group-hover:opacity-100 transition-all"
+                title="Remove topic"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
         ))}
         {(!topics || topics.length === 0) && (

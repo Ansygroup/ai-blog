@@ -11,7 +11,7 @@ function seoColor(score) {
   return 'text-green-600 dark:text-green-400';
 }
 
-export default function SeoChart({ data, loading }) {
+export default function SeoChart({ data, loading, error }) {
   const chartData = useMemo(() => {
     if (!data?.distribution) return [];
     return Object.entries(data.distribution).map(([range, count]) => ({
@@ -24,6 +24,15 @@ export default function SeoChart({ data, loading }) {
     return (
       <div className="rounded-xl border border-slate-200 bg-white dark:bg-dark-card dark:border-dark-border p-8 text-center text-slate-500 dark:text-dark-muted">
         Loading SEO data...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="rounded-xl border-2 border-dashed border-slate-300 dark:border-dark-border p-8 text-center">
+        <p className="text-sm text-slate-500 dark:text-dark-muted">Failed to load SEO data</p>
+        <p className="text-xs text-slate-400 mt-1">{error}</p>
       </div>
     );
   }

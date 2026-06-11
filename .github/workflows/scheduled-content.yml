@@ -26,6 +26,10 @@ jobs:
           fi
           node scripts/generate-post.js --from-keywords --batch 1
           node scripts/polish-posts.js
+          NEW_SLUG=$(ls -1t content/posts/*.mdx | head -1 | xargs basename -s .mdx)
+          if [ -n "$NEW_SLUG" ]; then
+            node scripts/humanize-post.js "$NEW_SLUG"
+          fi
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}

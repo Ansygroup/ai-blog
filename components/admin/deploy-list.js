@@ -61,8 +61,8 @@ export default function DeployList({ deployments, loading, onDeploy, error }) {
       </div>
 
       <div className="rounded-xl border border-slate-200 bg-white dark:bg-dark-card dark:border-dark-border divide-y divide-slate-100 dark:divide-dark-border">
-        {(deployments || []).map((d) => (
-          <div key={d.uid} className="px-4 py-3 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-dark-border/50">
+        {(deployments || []).map((d, i) => (
+          <div key={d.uid || d.url || i} className="px-4 py-3 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-dark-border/50">
             <div className="flex items-center gap-3 min-w-0">
               <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${stateColors[d.readyState] || 'bg-slate-100 text-slate-700'}`}>
                 {d.readyState || 'UNKNOWN'}

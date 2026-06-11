@@ -16,7 +16,7 @@ export async function GET() {
 
   function safeDate(d) {
     const parsed = new Date(d);
-    return isNaN(parsed.getTime()) ? new Date().toISOString().split('T')[0] : parsed.toISOString().split('T')[0];
+    return isNaN(parsed.getTime()) ? '2026-01-01' : parsed.toISOString().split('T')[0];
   }
 
   function escapeXml(s) {

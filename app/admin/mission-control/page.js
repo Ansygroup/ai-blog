@@ -53,7 +53,11 @@ export default function MissionControlPage() {
     setLoading(false);
   }
 
-  useEffect(() => { fetchStatus(); }, []);
+  useEffect(() => {
+    fetchStatus();
+    const interval = setInterval(fetchStatus, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   async function runAgent(agent) {
     setRunning(agent.id);

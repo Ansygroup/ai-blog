@@ -57,3 +57,23 @@ export async function POST(req) {
     return Response.json({ error: err.message }, { status: 500 });
   }
 }
+
+export async function DELETE(req) {
+  try {
+    const { topic } = await req.json();
+    if (!topic) {
+      return Response.json({ error: 'Topic is required' }, { status: 400 });
+    }
+
+    const queue = getQueue();
+    const filtered = queue.filter((item) => item.topic !== topic);
+    if (filtered.length === queue.length) {
+      return Response.json({ error: 'Topic not found' }, { status: 404 });
+    }
+
+    saveQueue(filtered);
+    return Response.json({ success: true, total: filtered.length });
+  } catch (err) {
+    return Response.json({ error: err.message }, { status: 500 });
+  }
+}

@@ -5,15 +5,11 @@ import PostCard from '../../../components/PostCard';
 import { siteConfig } from '../../../lib/config';
 import { breadcrumbJsonLd } from '../../../lib/schema';
 
-export const dynamic = 'force-static';
-
-export function generateStaticParams() {
-  return getAllTags().map((t) => ({ slug: slugify(t.name) }));
-}
+export const dynamic = 'force-dynamic';
 
 export function generateMetadata({ params }) {
   const name = params.slug.replace(/-/g, ' ');
-  return { title: `#${name} — AI Articles Tagged ${name}` };
+  return { title: `#${name} — AI Articles Tagged ${name}`, robots: { index: false } };
 }
 
 export default function TagPage({ params }) {

@@ -7,12 +7,13 @@ import { Search } from 'lucide-react';
 export default function AdminSeoPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch('/admin/api/seo')
       .then((r) => r.json())
       .then((d) => { setData(d); setLoading(false); })
-      .catch(() => setLoading(false));
+      .catch((e) => { setError(e.message); setLoading(false); });
   }, []);
 
   return (
@@ -28,7 +29,7 @@ export default function AdminSeoPage() {
           Search engine optimization scores across all posts
         </p>
       </div>
-      <SeoChart data={data} loading={loading} />
+      <SeoChart data={data} loading={loading} error={error} />
     </div>
   );
 }

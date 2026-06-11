@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import type { KeywordQueueItem, PublishedPage, GSCData, ImageCache, GroqKey, QueueTier, QueueStatus } from './types';
+import type { KeywordQueueItem, PublishedPage, ImageCache, GroqKey, QueueTier, QueueStatus } from './types';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';

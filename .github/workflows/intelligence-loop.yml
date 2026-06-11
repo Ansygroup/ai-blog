@@ -79,6 +79,10 @@ jobs:
           fi
           node scripts/generate-post.js --from-keywords --batch "$POST_COUNT" 2>&1 || echo "generation_failed=true" >> $GITHUB_OUTPUT
           node scripts/polish-posts.js 2>&1 || true
+          for f in content/posts/*.mdx; do
+            slug=$(basename "$f" .mdx)
+            node scripts/humanize-post.js "$slug" 2>&1 || true
+          done
           echo "generated=true" >> $GITHUB_OUTPUT
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}

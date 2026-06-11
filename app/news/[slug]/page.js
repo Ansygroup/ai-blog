@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getAllPosts, getPostBySlug, getRelatedPosts } from '../../../lib/posts';
 import { renderSafeMarkdown } from '../../../lib/markdown';
-import { articleJsonLd, breadcrumbJsonLd } from '../../../lib/schema';
+import { newsArticleJsonLd, breadcrumbJsonLd } from '../../../lib/schema';
 import { siteConfig } from '../../../lib/config';
 import TableOfContents from '../../../components/TableOfContents';
 import ShareButtons from '../../../components/ShareButtons';
@@ -69,7 +69,7 @@ export default async function NewsArticlePage({ params }) {
   return (
     <>
       <script id="ld-news" type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify(articleJsonLd(post, siteConfig)),
+        __html: JSON.stringify(newsArticleJsonLd(post, url)),
       }} />
       <script id="ld-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify(breadcrumbJsonLd([
