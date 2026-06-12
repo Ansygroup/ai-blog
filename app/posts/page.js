@@ -3,7 +3,7 @@ import { getAllPosts } from '../../lib/posts';
 import PostCard from '../../components/PostCard';
 import { PostGridSkeleton } from '../../components/ui/Skeleton';
 import { siteConfig } from '../../lib/config';
-import { breadcrumbJsonLd } from '../../lib/schema';
+import { breadcrumbJsonLd, listJsonLd } from '../../lib/schema';
 
 const POSTS_PER_PAGE = 24;
 
@@ -31,6 +31,9 @@ export default function PostsPage() {
         { name: 'Home', url: siteConfig.url },
         { name: 'All Articles', url: `${siteConfig.url}/posts` },
       ])) }} />
+      <script id="ld-posts-list" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listJsonLd(
+        posts.map(p => ({ url: `${siteConfig.url}/${p.category === 'AI News' ? 'news' : 'posts'}/${p.slug}`, name: p.title }))
+      )) }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
