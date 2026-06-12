@@ -19,6 +19,7 @@ shell commands, and other important information, read the current plan
 - `scripts/fix-broken-links.js` — Removes duplicated/stacked internal links
 - `scripts/auto-internal-link.js` — Added 791 internal links across 194 posts
 - `scripts/normalize-tags.js` — Normalized 624→55 controlled tags (YAML-line-safe)
+- `scripts/fix-aria-hidden.js` (temp, deleted) — Added aria-hidden to 17 files' decorative icons
 
 ## Schemas
 - `lib/schema.js` exports: `articleJsonLd`, `newsArticleJsonLd`, `breadcrumbJsonLd`, `faqJsonLd`, `howtoJsonLd`, `productReviewJsonLd`, `organizationJsonLd`, `listJsonLd`
