@@ -104,9 +104,9 @@ export default function CategoryPage({ params }) {
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" aria-hidden="true" /></li>
             <li><Link href="/recommendations" className="hover:text-blue-600">Tech Store</Link></li>
-            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" aria-hidden="true" /></li>
             <li className="text-slate-700 dark:text-dark-text truncate max-w-[250px]">{cat.name}</li>
           </ol>
         </nav>
@@ -161,7 +161,7 @@ export default function CategoryPage({ params }) {
               <details key={i} className="bg-white dark:bg-dark-bg border border-slate-200 dark:border-dark-border rounded-lg p-4 group">
                 <summary className="font-semibold cursor-pointer flex justify-between items-center text-slate-900 dark:text-dark-text">
                   {f.q}
-                  <Plus className="w-5 h-5 text-blue-600 group-open:rotate-45 transition shrink-0" />
+                  <Plus className="w-5 h-5 text-blue-600 group-open:rotate-45 transition shrink-0" aria-hidden="true" />
                 </summary>
                 <p className="mt-3 text-slate-700 dark:text-dark-muted">{f.a}</p>
               </details>

@@ -162,7 +162,7 @@ export default function HomePage() {
             <details key={i} className="bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border rounded-lg p-5 group open:ring-1 open:ring-brand-200 dark:open:ring-brand-800 transition">
               <summary className="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-900 dark:text-dark-text">
                 {f.question}
-                <Plus className="w-5 h-5 text-brand-600 dark:text-brand-400 group-open:rotate-45 transition shrink-0 ml-4" />
+                <Plus className="w-5 h-5 text-brand-600 dark:text-brand-400 group-open:rotate-45 transition shrink-0 ml-4" aria-hidden="true" />
               </summary>
               <p className="mt-3 text-slate-700 dark:text-dark-text leading-relaxed font-body">{f.answer}</p>
             </details>

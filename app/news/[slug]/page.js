@@ -117,7 +117,7 @@ export default async function NewsArticlePage({ params }) {
                     <details key={i} className="bg-white dark:bg-dark-bg border border-slate-200 dark:border-dark-border rounded-lg p-4 group">
                       <summary className="font-semibold cursor-pointer flex justify-between items-center">
                         {f.question}
-                        <Plus className="w-5 h-5 text-blue-600 group-open:rotate-45 transition shrink-0" />
+                        <Plus className="w-5 h-5 text-blue-600 group-open:rotate-45 transition shrink-0" aria-hidden="true" />
                       </summary>
                       <p className="mt-3 text-slate-700 dark:text-dark-muted">{f.answer}</p>
                     </details>

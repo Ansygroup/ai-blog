@@ -43,7 +43,7 @@ export default function BestPage() {
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-            <li><ChevronRight className="w-3.5 h-3.5 text-slate-300" /></li>
+            <li><ChevronRight className="w-3.5 h-3.5 text-slate-300" aria-hidden="true" /></li>
             <li className="text-slate-700 dark:text-dark-text">Best AI Tools 2026</li>
           </ol>
         </nav>

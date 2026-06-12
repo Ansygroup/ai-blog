@@ -101,11 +101,11 @@ export default function ProductPage({ params }) {
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2 flex-wrap">
             <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" aria-hidden="true" /></li>
             <li><Link href="/recommendations" className="hover:text-blue-600">Tech Store</Link></li>
-            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" aria-hidden="true" /></li>
             <li><Link href={`/recommendations/${product.categorySlug}`} className="hover:text-blue-600">{category.name}</Link></li>
-            <li><ChevronRight className="w-4 h-4 text-slate-300" /></li>
+            <li><ChevronRight className="w-4 h-4 text-slate-300" aria-hidden="true" /></li>
             <li className="text-slate-700 dark:text-dark-text truncate max-w-[200px]">{product.name}</li>
           </ol>
         </nav>
