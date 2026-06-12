@@ -1,14 +1,5 @@
 [
   {
-    "topic": "How to Use AI for Automated Invoice Processing in Small Business",
-    "category": "Tutorials",
-    "keywords": [
-      "AI invoice processing",
-      "automated accounting",
-      "small business AI"
-    ]
-  },
-  {
     "topic": "How to Train a Custom AI Model with No Code Using Google AutoML",
     "category": "Tutorials",
     "keywords": [
@@ -1007,6 +998,114 @@
       "AI for chatbot development",
       "Chatbot platforms",
       "Customer support software"
+    ]
+  },
+  {
+    "topic": "Optimizing AI-Driven Google Ads Bidding Strategies for Ecommerce",
+    "category": "Tutorials",
+    "keywords": [
+      "AI Google Ads",
+      "Ecommerce advertising",
+      "Bidding strategies"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Social Media Analytics Tools for Influencer Marketing",
+    "category": "Comparisons",
+    "keywords": [
+      "AI social media analytics",
+      "Influencer marketing tools",
+      "Social media metrics"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Customer Service Chatbots for Healthcare Industry",
+    "category": "Reviews",
+    "keywords": [
+      "AI chatbots",
+      "Healthcare customer service",
+      "Chatbot reviews"
+    ]
+  },
+  {
+    "topic": "Mastering AI-Driven YouTube Video Title Optimization for Higher Click-Through Rates",
+    "category": "Tutorials",
+    "keywords": [
+      "AI YouTube optimization",
+      "Video title optimization",
+      "Click-through rate"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Language Translation in E-Learning Platforms",
+    "category": "Best Of",
+    "keywords": [
+      "AI language translation",
+      "E-Learning platforms",
+      "Automated translation tools"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Maintenance in Industrial Automation",
+    "category": "Tutorials",
+    "keywords": [
+      "AI predictive maintenance",
+      "Industrial automation",
+      "Machine learning"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Driven Content Generation Platforms for Enterprise Blogging",
+    "category": "Comparisons",
+    "keywords": [
+      "AI content generation",
+      "Enterprise blogging",
+      "Content platforms"
+    ]
+  },
+  {
+    "topic": "Review of AI-Powered SEO Audit Tools for WordPress Ecommerce Sites",
+    "category": "Reviews",
+    "keywords": [
+      "AI SEO audit tools",
+      "WordPress ecommerce",
+      "SEO reviews"
+    ]
+  },
+  {
+    "topic": "Optimizing AI-Driven Facebook Ads Targeting for Improved Conversions",
+    "category": "Tutorials",
+    "keywords": [
+      "AI Facebook ads",
+      "Targeting optimization",
+      "Conversion rate"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Data Visualization in Business Intelligence",
+    "category": "Best Of",
+    "keywords": [
+      "AI data visualization",
+      "Business intelligence",
+      "Data visualization tools"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Sentiment Analysis in Customer Feedback for Ecommerce",
+    "category": "Tutorials",
+    "keywords": [
+      "AI sentiment analysis",
+      "Customer feedback",
+      "Ecommerce sentiment"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Driven Website Testing Tools for User Experience Optimization",
+    "category": "Comparisons",
+    "keywords": [
+      "AI website testing",
+      "User experience optimization",
+      "Website testing tools"
     ]
   }
 ]
