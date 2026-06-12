@@ -20,20 +20,29 @@ shell commands, and other important information, read the current plan
 - `scripts/auto-internal-link.js` — Added 791 internal links across 194 posts
 - `scripts/normalize-tags.js` — Normalized 624→55 controlled tags (YAML-line-safe)
 
+## Schemas
+- `lib/schema.js` exports: `articleJsonLd`, `newsArticleJsonLd`, `breadcrumbJsonLd`, `faqJsonLd`, `howtoJsonLd`, `productReviewJsonLd`, `organizationJsonLd`, `listJsonLd`
+- List/ItemList schema added to reviews, comparisons, tutorials, posts pages
+- WebSite + SearchAction schema in root layout
+
+## Components
+- `ReadingProgress.js` — Fixed top-of-page blue progress bar
+- `BackToTop.js` — Floating scroll-to-top button
+- `CookieBanner.js` — GDPR consent banner
+- `AuthorBio.js` — Avatar + social links on post pages
+- `PaginationNav.js` — Prev/next + page X of Y (24/page)
+- `NewsletterPopover.js` — Scroll-triggered popover at 40%, localStorage dismiss
+- `admin/loading.js` — Loading spinner for admin page transitions
+
 ## Site Stats
-- 194 posts, 13+ categories, 55 controlled tags
-- Build: 358 static pages, 0 errors
+- 195 posts, 13+ categories, 55 controlled tags
+- Build: 359 static pages, 0 errors
 - Content Performance: 3 strong, 144 needs-improvement, 47 weak (Score 62/100)
 - 21 remaining SEO issues (all thin content <700 words — fixed via Groq on GitHub Actions)
 - Tag pages: `force-dynamic` + `noindex` (not pre-rendered)
 - openGraph metadata: all public pages covered
 - Error boundaries: all dynamic routes covered (including paginated)
 - Newsletter CTAs link to `/#newsletter` (works site-wide, not just homepage)
-
-## Components
-- `AuthorBio.js` — Avatar + social links on post pages
-- `PaginationNav.js` — Prev/next + page X of Y (24/page)
-- `NewsletterPopover.js` — Scroll-triggered popover at 40%, localStorage dismiss
 
 ## Installed Skills
 - `humanizer` at `~/.claude/skills/humanizer/` — Removes signs of AI-generated writing (33 patterns)
