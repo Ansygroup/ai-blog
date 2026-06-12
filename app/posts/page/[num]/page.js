@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 import { getAllPosts } from '../../../../lib/posts';
 import PostCard from '../../../../components/PostCard';
 import { siteConfig } from '../../../../lib/config';
@@ -51,9 +52,9 @@ export default function PostsPageNum({ params }) {
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-3.5 h-3.5 text-slate-300" aria-hidden="true" /></li>
             <li><Link href="/posts" className="hover:text-blue-600">All Articles</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-3.5 h-3.5 text-slate-300" aria-hidden="true" /></li>
             <li className="text-slate-700 dark:text-dark-text">Page {num}</li>
           </ol>
         </nav>

@@ -1,7 +1,7 @@
 import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 import { getAllPosts } from '../../lib/posts';
 import PostCard from '../../components/PostCard';
-import { PostGridSkeleton } from '../../components/ui/Skeleton';
 import { siteConfig } from '../../lib/config';
 import { breadcrumbJsonLd, listJsonLd } from '../../lib/schema';
 
@@ -38,7 +38,7 @@ export default function PostsPage() {
         <nav className="text-sm text-slate-500 dark:text-dark-muted mb-6" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-            <li>/</li>
+            <li><ChevronRight className="w-3.5 h-3.5 text-slate-300" aria-hidden="true" /></li>
             <li className="text-slate-700 dark:text-dark-text">All Articles</li>
           </ol>
         </nav>
