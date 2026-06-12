@@ -12,7 +12,6 @@ import PostCard from '../../../components/PostCard';
 import AuthorBio from '../../../components/AuthorBio';
 import TableOfContents from '../../../components/TableOfContents';
 import ShareButtons from '../../../components/ShareButtons';
-import ProgressBar from '../../../components/ProgressBar';
 import RelatedProducts from '../../../components/RelatedProducts';
 
 export const dynamic = 'force-static';
@@ -59,7 +58,6 @@ export default async function PostPage({ params }) {
 
   return (
     <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <ProgressBar />
       {/* JSON-LD inline so it's in the initial SSR HTML (crawlers read raw HTML) */}
       <script id="ld-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(post, url)) }} />
       <script id="ld-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
