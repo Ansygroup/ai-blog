@@ -1,14 +1,5 @@
 [
   {
-    "topic": "How to Train a Custom AI Model with No Code Using Google AutoML",
-    "category": "Tutorials",
-    "keywords": [
-      "no-code AI",
-      "Google AutoML",
-      "custom AI model training"
-    ]
-  },
-  {
     "topic": "How to Use Claude API for Document Analysis and Summarization",
     "category": "Tutorials",
     "keywords": [
@@ -1106,6 +1097,114 @@
       "AI website testing",
       "User experience optimization",
       "Website testing tools"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Twitch Stream Transcription",
+    "category": "Tutorials",
+    "keywords": [
+      "AI transcription",
+      "Twitch stream",
+      "automated transcription"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Online Course Platforms for Education",
+    "category": "Comparisons",
+    "keywords": [
+      "AI-powered learning",
+      "online course platforms",
+      "education technology"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Cybersecurity Tools for Small Businesses",
+    "category": "Reviews",
+    "keywords": [
+      "AI cybersecurity",
+      "small business security",
+      "threat detection"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Subtitle Generation for YouTube Videos",
+    "category": "Best Of",
+    "keywords": [
+      "AI subtitle generation",
+      "YouTube video optimization",
+      "accessibility tools"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Modeling in Sports Analytics",
+    "category": "Tutorials",
+    "keywords": [
+      "AI predictive modeling",
+      "sports analytics",
+      "data-driven decision making"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Driven Project Management Tools for Agile Development",
+    "category": "Comparisons",
+    "keywords": [
+      "AI project management",
+      "agile development",
+      "Scrum methodology"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Customer Segmentation in Ecommerce",
+    "category": "Tutorials",
+    "keywords": [
+      "AI customer segmentation",
+      "ecommerce marketing",
+      "personalization techniques"
+    ]
+  },
+  {
+    "topic": "Review of AI-Powered Content Generation Tools for Bloggers with Disabilities",
+    "category": "Reviews",
+    "keywords": [
+      "AI content generation",
+      "accessibility tools",
+      "inclusive blogging"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Data Preparation for Business Intelligence",
+    "category": "Best Of",
+    "keywords": [
+      "AI data preparation",
+      "business intelligence",
+      "data analysis"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Natural Language Processing in Chatbot Development",
+    "category": "Tutorials",
+    "keywords": [
+      "AI NLP",
+      "chatbot development",
+      "conversational AI"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Driven Website Optimization Tools for Conversion Rate Improvement",
+    "category": "Comparisons",
+    "keywords": [
+      "AI website optimization",
+      "conversion rate improvement",
+      "user experience"
+    ]
+  },
+  {
+    "topic": "Review of AI-Powered Accounting Tools for Small Businesses",
+    "category": "Reviews",
+    "keywords": [
+      "AI accounting",
+      "small business finance",
+      "bookkeeping software"
     ]
   }
 ]
