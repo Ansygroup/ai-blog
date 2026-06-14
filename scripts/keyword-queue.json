@@ -1,14 +1,5 @@
 [
   {
-    "topic": "Building an AI-Powered Search Engine for Your Website Using Meilisearch",
-    "category": "Tutorials",
-    "keywords": [
-      "AI search engine",
-      "Meilisearch tutorial",
-      "site search AI"
-    ]
-  },
-  {
     "topic": "How to Use AI for Creating Automated Webinar Workflows",
     "category": "Tutorials",
     "keywords": [
@@ -1196,6 +1187,114 @@
       "AI accounting",
       "small business finance",
       "bookkeeping software"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Bookkeeping and Accounting in Small Businesses",
+    "category": "Tutorials",
+    "keywords": [
+      "AI accounting",
+      "automated bookkeeping",
+      "small business finance"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Customer Service Chatbots for E-commerce Platforms",
+    "category": "Comparisons",
+    "keywords": [
+      "AI chatbots",
+      "e-commerce customer service",
+      "chatbot platforms"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Sales Enablement Tools for B2B Businesses",
+    "category": "Reviews",
+    "keywords": [
+      "AI sales enablement",
+      "B2B sales tools",
+      "sales automation"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Lead Scoring and Qualification in Marketing",
+    "category": "Tutorials",
+    "keywords": [
+      "AI lead scoring",
+      "predictive marketing",
+      "lead qualification"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Content Creation for Podcasters and YouTubers",
+    "category": "Best Of",
+    "keywords": [
+      "AI content creation",
+      "podcasting tools",
+      "YouTube content automation"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Personalized Email Marketing Automation for E-commerce Businesses",
+    "category": "Tutorials",
+    "keywords": [
+      "AI email marketing",
+      "personalized automation",
+      "e-commerce marketing"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Project Management Tools for Remote Software Development Teams",
+    "category": "Comparisons",
+    "keywords": [
+      "AI project management",
+      "remote team management",
+      "software development tools"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Website Security and Vulnerability Scanning Tools for Small Businesses",
+    "category": "Reviews",
+    "keywords": [
+      "AI website security",
+      "vulnerability scanning",
+      "small business cybersecurity"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Social Media Content Calendar Creation for Marketers",
+    "category": "Tutorials",
+    "keywords": [
+      "AI social media marketing",
+      "content calendar automation",
+      "marketing tools"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Data Analysis and Visualization for Business Intelligence",
+    "category": "Best Of",
+    "keywords": [
+      "AI data analysis",
+      "business intelligence tools",
+      "data visualization"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Maintenance and Quality Control in Manufacturing Industries",
+    "category": "Tutorials",
+    "keywords": [
+      "AI predictive maintenance",
+      "quality control",
+      "manufacturing industry"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Customer Feedback and Survey Tools for E-commerce Businesses",
+    "category": "Comparisons",
+    "keywords": [
+      "AI customer feedback",
+      "e-commerce surveys",
+      "customer experience tools"
     ]
   }
 ]
