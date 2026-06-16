@@ -1,14 +1,5 @@
 [
   {
-    "topic": "How to Use GPT-4 Vision API for Image Analysis and Description",
-    "category": "Tutorials",
-    "keywords": [
-      "GPT-4 Vision",
-      "image analysis AI",
-      "computer vision tutorial"
-    ]
-  },
-  {
     "topic": "How to Build an AI Content Moderation System for User-Generated Content",
     "category": "Tutorials",
     "keywords": [
@@ -1394,6 +1385,105 @@
       "AI project management",
       "agile development tools",
       "software industry project management"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated TikTok Caption Generation",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for TikTok",
+      "TikTok caption generator",
+      "automated caption generation"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Influencer Marketing Platforms for Micro-Influencers",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for influencer marketing",
+      "micro-influencer marketing",
+      "influencer marketing platforms"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Podcast Editing Tools for Independent Podcasters",
+    "category": "Reviews",
+    "keywords": [
+      "AI for podcast editing",
+      "podcast editing tools",
+      "independent podcasters"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Personalized YouTube Video Tagging and Description",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for YouTube",
+      "YouTube video tagging",
+      "video description generation"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Customer Journey Mapping for E-commerce Businesses",
+    "category": "Best Of",
+    "keywords": [
+      "AI for customer journey mapping",
+      "e-commerce customer journey",
+      "customer journey mapping tools"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Sentiment Analysis in Customer Feedback for Finance Industry",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for sentiment analysis",
+      "customer feedback analysis",
+      "finance industry"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Content Generation Platforms for Enterprise Blogging in Healthcare",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for content generation",
+      "enterprise blogging",
+      "healthcare content generation"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Social Media Monitoring Tools for Small Businesses",
+    "category": "Reviews",
+    "keywords": [
+      "AI for social media monitoring",
+      "small business social media",
+      "social media monitoring tools"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Data Visualization in Business Intelligence for Retail Industry",
+    "category": "Best Of",
+    "keywords": [
+      "AI for data visualization",
+      "business intelligence",
+      "retail industry"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Amazon Product Review Analysis and Response",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for Amazon product review",
+      "product review analysis",
+      "review response generation"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Chatbot Platforms for Customer Support in Education Industry",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for chatbot",
+      "education industry",
+      "customer support chatbot"
     ]
   }
 ]
