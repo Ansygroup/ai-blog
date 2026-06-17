@@ -1,14 +1,5 @@
 [
   {
-    "topic": "How to Build an AI Content Moderation System for User-Generated Content",
-    "category": "Tutorials",
-    "keywords": [
-      "AI content moderation",
-      "user-generated content",
-      "content filtering AI"
-    ]
-  },
-  {
     "topic": "How to Use AI for A/B Testing and Conversion Rate Optimization",
     "category": "Tutorials",
     "keywords": [
@@ -1484,6 +1475,114 @@
       "AI for chatbot",
       "education industry",
       "customer support chatbot"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Shopify Product Description Writing",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for ecommerce",
+      "Shopify product descriptions",
+      "automated content generation"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Customer Service Chatbots for Healthcare Industry",
+    "category": "Comparisons",
+    "keywords": [
+      "AI chatbots for healthcare",
+      "customer service automation",
+      "healthcare technology"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Website Accessibility Auditing Tools",
+    "category": "Reviews",
+    "keywords": [
+      "AI for accessibility",
+      "website auditing tools",
+      "WCAG compliance"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Transcription Services for Podcasters with Accents",
+    "category": "Best Of",
+    "keywords": [
+      "AI transcription services",
+      "podcasting with accents",
+      "automated transcription"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Personalized LinkedIn Lead Generation Messaging",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for lead generation",
+      "LinkedIn messaging",
+      "personalized marketing"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Social Media Monitoring Tools for Non-Profit Organizations",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for non-profits",
+      "social media monitoring",
+      "reputation management"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Google My Business Post Scheduling",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for local SEO",
+      "Google My Business",
+      "automated posting"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Content Generation Tools for Bloggers with Writer's Block",
+    "category": "Reviews",
+    "keywords": [
+      "AI for content generation",
+      "writer's block",
+      "blogging tools"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Data Analysis and Visualization for Small Business Owners",
+    "category": "Best Of",
+    "keywords": [
+      "AI for data analysis",
+      "small business owners",
+      "data visualization"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Maintenance in Industrial Equipment Manufacturing",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for predictive maintenance",
+      "industrial equipment manufacturing",
+      "equipment maintenance"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Chatbot Platforms for E-commerce Customer Support in Multiple Languages",
+    "category": "Comparisons",
+    "keywords": [
+      "AI chatbots for ecommerce",
+      "multilingual support",
+      "customer service automation"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven SEO Audit Tools for E-commerce Websites with High Traffic",
+    "category": "Reviews",
+    "keywords": [
+      "AI for SEO audit",
+      "ecommerce websites",
+      "high traffic"
     ]
   }
 ]
