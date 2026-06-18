@@ -1,14 +1,5 @@
 [
   {
-    "topic": "How to Use AI for A/B Testing and Conversion Rate Optimization",
-    "category": "Tutorials",
-    "keywords": [
-      "AI A/B testing",
-      "conversion rate optimization",
-      "CRO tools"
-    ]
-  },
-  {
     "topic": "How to Implement AI-Powered Chatbots for WhatsApp Business",
     "category": "Tutorials",
     "keywords": [
@@ -1583,6 +1574,69 @@
       "AI for SEO audit",
       "ecommerce websites",
       "high traffic"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated E-commerce Product Bundling and Pricing",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for e-commerce",
+      "product bundling",
+      "dynamic pricing"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Customer Journey Mapping Tools for Financial Services",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for financial services",
+      "customer journey mapping",
+      "banking"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Website Accessibility Auditing Tools for Small Businesses",
+    "category": "Reviews",
+    "keywords": [
+      "AI for accessibility",
+      "website auditing",
+      "small business"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Modeling in Cybersecurity Threat Detection",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for cybersecurity",
+      "predictive modeling",
+      "threat detection"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Data Visualization in Business Intelligence for Healthcare",
+    "category": "Best Of",
+    "keywords": [
+      "AI for healthcare",
+      "data visualization",
+      "business intelligence"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Social Media Content Calendar Creation for Non-Profit Organizations",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for non-profits",
+      "social media content",
+      "calendar creation"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Influencer Marketing Platforms for Micro-Influencers in the Beauty Industry",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for influencer marketing",
+      "micro-influencers",
+      "beauty industry"
     ]
   }
 ]
