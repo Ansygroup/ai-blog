@@ -1,14 +1,5 @@
 [
   {
-    "topic": "How to Implement AI-Powered Chatbots for WhatsApp Business",
-    "category": "Tutorials",
-    "keywords": [
-      "WhatsApp chatbot",
-      "AI chatbot business",
-      "WhatsApp Business API"
-    ]
-  },
-  {
     "topic": "How to Use AI for Automated Data Cleaning and Preparation",
     "category": "Tutorials",
     "keywords": [
@@ -1637,6 +1628,114 @@
       "AI for influencer marketing",
       "micro-influencers",
       "beauty industry"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated TikTok Duet Scripting",
+    "category": "Tutorials",
+    "keywords": [
+      "TikTok duet",
+      "AI scriptwriting",
+      "TikTok automation"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Customer Service Chatbots for E-commerce in APAC Region",
+    "category": "Comparisons",
+    "keywords": [
+      "APAC e-commerce",
+      "AI chatbots",
+      "customer service"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Influencer Marketing Platforms for Nano-Influencers",
+    "category": "Reviews",
+    "keywords": [
+      "influencer marketing",
+      "nano-influencers",
+      "AI platforms"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Subtitle Generation for Facebook Videos",
+    "category": "Best Of",
+    "keywords": [
+      "Facebook video subtitles",
+      "AI subtitle generation",
+      "video accessibility"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Modeling in E-commerce Return Forecasting",
+    "category": "Tutorials",
+    "keywords": [
+      "e-commerce returns",
+      "predictive modeling",
+      "AI forecasting"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Social Media Monitoring Tools for Financial Services",
+    "category": "Comparisons",
+    "keywords": [
+      "financial services",
+      "social media monitoring",
+      "AI tools"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated YouTube Video Description Writing for SEO",
+    "category": "Tutorials",
+    "keywords": [
+      "YouTube video description",
+      "AI writing",
+      "SEO optimization"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Content Generation Tools for Bloggers with Disabilities",
+    "category": "Reviews",
+    "keywords": [
+      "accessible content creation",
+      "AI tools",
+      "disability support"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Data Visualization in Business Intelligence for Real Estate",
+    "category": "Best Of",
+    "keywords": [
+      "real estate business intelligence",
+      "AI data visualization",
+      "data analysis"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Maintenance in Industrial Automation for Manufacturing",
+    "category": "Tutorials",
+    "keywords": [
+      "industrial automation",
+      "predictive maintenance",
+      "AI manufacturing"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Customer Journey Mapping Tools for Healthcare",
+    "category": "Comparisons",
+    "keywords": [
+      "healthcare customer journey",
+      "AI mapping tools",
+      "patient experience"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Podcast Editing Tools for Independent Podcasters with Limited Budget",
+    "category": "Reviews",
+    "keywords": [
+      "podcast editing",
+      "AI tools",
+      "indie podcasters"
     ]
   }
 ]
