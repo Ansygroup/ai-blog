@@ -1,14 +1,5 @@
 [
   {
-    "topic": "How to Use AI for Automated Data Cleaning and Preparation",
-    "category": "Tutorials",
-    "keywords": [
-      "AI data cleaning",
-      "data preparation",
-      "automated data pipeline"
-    ]
-  },
-  {
     "topic": "How to Use Generative AI for Prototyping Mobile App Designs",
     "category": "Tutorials",
     "keywords": [
@@ -1736,6 +1727,116 @@
       "podcast editing",
       "AI tools",
       "indie podcasters"
+    ]
+  },
+  {
+    "topic": "Using AI for Automated Twitch Stream Highlight Reel Creation",
+    "category": "Tutorials",
+    "keywords": [
+      "AI",
+      "Twitch",
+      "stream highlights",
+      "automated video editing"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Instagram Reel Editing Tools",
+    "category": "Comparisons",
+    "keywords": [
+      "AI",
+      "Instagram Reels",
+      "video editing",
+      "tool comparison"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven YouTube Video Tagging and Description Tools",
+    "category": "Reviews",
+    "keywords": [
+      "AI",
+      "YouTube",
+      "video tagging",
+      "description writing"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Modeling in E-commerce Product Pricing",
+    "category": "Tutorials",
+    "keywords": [
+      "AI",
+      "e-commerce",
+      "product pricing",
+      "predictive modeling"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Customer Segmentation in Shopify",
+    "category": "Best Of",
+    "keywords": [
+      "AI",
+      "Shopify",
+      "customer segmentation",
+      "automated tools"
+    ]
+  },
+  {
+    "topic": "Using AI for Automated Social Media Content Calendar Creation for E-commerce",
+    "category": "Tutorials",
+    "keywords": [
+      "AI",
+      "social media",
+      "content calendar",
+      "e-commerce"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Chatbot Platforms for Customer Support in E-commerce",
+    "category": "Comparisons",
+    "keywords": [
+      "AI",
+      "chatbots",
+      "customer support",
+      "e-commerce"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Sentiment Analysis in Customer Feedback for Financial Services",
+    "category": "Tutorials",
+    "keywords": [
+      "AI",
+      "sentiment analysis",
+      "customer feedback",
+      "financial services"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Influencer Marketing Platforms for Micro-Influencers",
+    "category": "Reviews",
+    "keywords": [
+      "AI",
+      "influencer marketing",
+      "micro-influencers",
+      "platform review"
+    ]
+  },
+  {
+    "topic": "Using AI for Predictive Modeling in Cybersecurity Threat Detection for Small Businesses",
+    "category": "Tutorials",
+    "keywords": [
+      "AI",
+      "cybersecurity",
+      "threat detection",
+      "small businesses"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Website Accessibility Auditing Tools for Small Businesses",
+    "category": "Comparisons",
+    "keywords": [
+      "AI",
+      "website accessibility",
+      "auditing tools",
+      "small businesses"
     ]
   }
 ]
