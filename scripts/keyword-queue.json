@@ -1,14 +1,5 @@
 [
   {
-    "topic": "How to Use Generative AI for Prototyping Mobile App Designs",
-    "category": "Tutorials",
-    "keywords": [
-      "generative AI for design",
-      "mobile app prototyping",
-      "AI design tools"
-    ]
-  },
-  {
     "topic": "How to Create AI-Generated Voiceovers for YouTube Videos",
     "category": "Tutorials",
     "keywords": [
@@ -1837,6 +1828,105 @@
       "website accessibility",
       "auditing tools",
       "small businesses"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Amazon Product Listing Optimization",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for ecommerce",
+      "Amazon product listing optimization",
+      "AI for product listing"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Customer Service Chatbots for Financial Institutions",
+    "category": "Comparisons",
+    "keywords": [
+      "AI chatbots for finance",
+      "customer service chatbots",
+      "financial institution chatbots"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Website Accessibility Auditing Tools for E-commerce Sites",
+    "category": "Reviews",
+    "keywords": [
+      "AI for website accessibility",
+      "website accessibility auditing tools",
+      "ecommerce website accessibility"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Modeling in E-commerce Supply Chain Management",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for supply chain management",
+      "predictive modeling for ecommerce",
+      "supply chain optimization"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Content Generation for Podcast Show Notes",
+    "category": "Best Of",
+    "keywords": [
+      "AI for podcast show notes",
+      "automated content generation",
+      "podcast content creation"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Social Media Monitoring Tools for Healthcare Industry",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for social media monitoring",
+      "healthcare social media monitoring",
+      "social media monitoring tools"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated YouTube Video Closed Captioning and Subtitling",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for YouTube closed captioning",
+      "automated subtitling",
+      "YouTube video accessibility"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Influencer Marketing Platforms for Gaming Influencers",
+    "category": "Reviews",
+    "keywords": [
+      "AI for influencer marketing",
+      "gaming influencer marketing",
+      "influencer marketing platforms"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Predictive Modeling in E-commerce Customer Lifetime Value (CLV) Estimation",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for CLV estimation",
+      "predictive modeling for ecommerce",
+      "customer lifetime value"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Data Visualization for E-commerce Business Intelligence",
+    "category": "Best Of",
+    "keywords": [
+      "AI for data visualization",
+      "ecommerce business intelligence",
+      "data visualization tools"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated Social Media Content Calendar Creation for Real Estate Agents",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for social media content calendar",
+      "real estate social media marketing",
+      "social media content creation"
     ]
   }
 ]
