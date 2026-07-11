@@ -24,9 +24,9 @@ jobs:
             echo "Keyword queue is empty — nothing to generate."
             exit 0
           fi
-          node scripts/generate-post.js --from-keywords --batch 3
+          node scripts/generate-post.js --from-keywords --batch 5
           node scripts/polish-posts.js
-          for f in $(ls -1t content/posts/*.mdx | head -3); do
+          for f in $(ls -1t content/posts/*.mdx | head -5); do
             node scripts/humanize-post.js "$(basename "$f" .mdx)"
           done
         env:
