@@ -15,6 +15,7 @@ public/*.txt
 public/reports/
 public/digests/
 public/social/
+!public/social/
 tsconfig.tsbuildinfo
 
 data/subscribers.json
