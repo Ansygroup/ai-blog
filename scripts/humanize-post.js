@@ -54,10 +54,14 @@ async function humanizePost(slug) {
   const systemPrompt = HUMANIZER_PROMPT;
   const userPrompt = `Humanize the following blog post. Make it sound natural and human-written while preserving all facts, links, and the MDX frontmatter exactly as-is.\n\n\`\`\`mdx\n${content}\n\`\`\``;
 
-  const apiKey = process.env.GROQ_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY
+    || process.env.GROQ_API_KEY_2
+    || process.env.GROQ_API_KEY_3
+    || process.env.GROQ_API_KEY_4
+    || process.env.GROQ_API_KEY_5;
   if (!apiKey) {
-    console.error('GROQ_API_KEY missing');
-    process.exit(1);
+    console.warn('⚠️  GROQ_API_KEY missing — skipping humanize (post left as-is).');
+    return;
   }
 
   const model = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
@@ -78,13 +82,17 @@ async function humanizePost(slug) {
 
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`Groq ${res.status}: ${err.slice(0, 200)}`);
+    // Rate-limit (429) and other API errors are non-fatal: leave the post as-is
+    // so the CI job can still commit the freshly generated article.
+    console.warn(`⚠️  Groq ${res.status}: ${err.slice(0, 200)} — skipping humanize (post left as-is).`);
+    return;
   }
 
   const data = await res.json();
   const rewritten = data.choices?.[0]?.message?.content?.trim();
   if (!rewritten) {
-    throw new Error('Empty response from Groq');
+    console.warn('⚠️  Empty response from Groq — skipping humanize (post left as-is).');
+    return;
   }
 
   const rewrittenMatch = rewritten.match(/^---\r?\n[\s\S]+?\r?\n---\r?\n[\s\S]+$/);
@@ -103,7 +111,11 @@ async function main() {
     console.log(`Humanizing all ${files.length} posts...`);
     for (const file of files) {
       const slug = file.replace(/\.mdx$/, '');
-      await humanizePost(slug);
+      try {
+        await humanizePost(slug);
+      } catch (err) {
+        console.warn(`⚠️  humanize failed for ${slug}: ${err.message} (skipped)`);
+      }
     }
   } else {
     const slug = args[slugIndex].replace(/\.mdx$/, '');
@@ -111,4 +123,4 @@ async function main() {
   }
 }
 
-main().catch(err => { console.error(err); process.exit(1); });
+main().catch(err => { console.error('humanize error:', err && err.message ? err.message : err); /* non-fatal: never fail the CI run */ });
