@@ -3,6 +3,12 @@ import { siteConfig } from '../../lib/config';
 
 export const dynamic = 'force-static';
 
+// Safely convert a post date to ISO; fall back to a fixed date if invalid.
+function safeISO(value) {
+  const d = new Date(value);
+  return isNaN(d.getTime()) ? '2026-01-01T00:00:00.000Z' : d.toISOString();
+}
+
 export async function GET() {
   const items = getAllPosts().map((p) => ({
     id: `${siteConfig.url}/${p.category === 'AI News' ? 'news' : 'posts'}/${p.slug}`,
@@ -10,8 +16,8 @@ export async function GET() {
     title: p.title,
     summary: p.excerpt || '',
     content_text: p.excerpt || '',
-    date_published: new Date(p.date).toISOString(),
-    date_modified: new Date(p.lastUpdated || p.date).toISOString(),
+    date_published: safeISO(p.date),
+    date_modified: safeISO(p.lastUpdated || p.date),
     authors: [{ name: p.author || siteConfig.author }],
     tags: p.tags || [],
     _category: p.category,

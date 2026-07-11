@@ -5,13 +5,19 @@ import { siteConfig } from '../../lib/config';
 
 export const dynamic = 'force-static';
 
+// Safely convert a post date to ISO; fall back to a fixed date if invalid.
+function safeISO(value) {
+  const d = new Date(value);
+  return isNaN(d.getTime()) ? '2026-01-01T00:00:00.000Z' : d.toISOString();
+}
+
 export async function GET() {
   const base = siteConfig.url;
   const posts = getAllPosts();
   const categories = getAllCategories();
   const newestPost = posts.reduce((latest, p) => {
     const d = new Date(p.lastUpdated || p.date);
-    return d > latest ? d : latest;
+    return !isNaN(d.getTime()) && d > latest ? d : latest;
   }, new Date(0));
 
   const pageUrls = [
@@ -43,7 +49,7 @@ export async function GET() {
     if (postUrls.includes(u)) {
       const slug = u.replace(base + '/posts/', '').replace(base + '/news/', '');
       const post = posts.find((p) => p.slug === slug);
-      if (post) return new Date(post.lastUpdated || post.date).toISOString();
+      if (post) return safeISO(post.lastUpdated || post.date);
     }
     if (u === base + '/' || u === base + '/topics' || categoryUrls.includes(u) || topicUrls.includes(u)) {
       return newestPost.toISOString();
