@@ -21,3 +21,5 @@ data/subscribers.json
 /.opencode/
 # Agent artifact directories (committed via CI workflows):
 # data/agents/ is tracked
+# local CI output
+strategy-report.txt
