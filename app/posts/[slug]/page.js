@@ -2,17 +2,22 @@ import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getAllPosts, getPostBySlug, getRelatedPosts, getAdjacentPosts } from '../../../lib/posts';
+import { getSeriesNavigation } from '../../../lib/series';
 import { renderSafeMarkdown } from '../../../lib/markdown';
-import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, productReviewJsonLd, howtoJsonLd } from '../../../lib/schema';
+import { articleJsonLd, faqJsonLd, productReviewJsonLd, howtoJsonLd } from '../../../lib/schema';
 import { siteConfig } from '../../../lib/config';
 import { Mail, ChevronRight, ArrowLeft, ArrowRight, Plus } from 'lucide-react';
 import Badge from '../../../components/ui/Badge';
 import AdSlot from '../../../components/AdSlot';
-import PostCard from '../../../components/PostCard';
 import AuthorBio from '../../../components/AuthorBio';
 import TableOfContents from '../../../components/TableOfContents';
 import ShareButtons from '../../../components/ShareButtons';
+import PostCard from '../../../components/PostCard';
 import RelatedProducts from '../../../components/RelatedProducts';
+import Breadcrumb from '../../../components/Breadcrumb';
+import RelatedPostsInline from '../../../components/RelatedPostsInline';
+import SeriesNav from '../../../components/SeriesNav';
+import KeyTakeaways from '../../../components/KeyTakeaways';
 
 export const dynamic = 'force-static';
 
@@ -52,17 +57,16 @@ export default async function PostPage({ params }) {
   const contentHtml = await renderSafeMarkdown(post.content);
 
   const url = `${siteConfig.url}/posts/${post.slug}`;
-  const related = getRelatedPosts(post.slug, post.category, post.tags || [], 3);
+  const related = getRelatedPosts(post.slug, post.category, post.tags || [], 6);
+  const sidebarRelated = related.slice(3);
   const { prev, next } = getAdjacentPosts(post.slug);
+  const seriesNav = getSeriesNavigation(post.slug);
   const faqs = parseFAQs(post.content);
 
   return (
     <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* JSON-LD inline so it's in the initial SSR HTML (crawlers read raw HTML) */}
       <script id="ld-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(post, url)) }} />
-      <script id="ld-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: 'Home', url: siteConfig.url }, { name: post.category || 'Article', url: `${siteConfig.url}/category/${(post.category || '').toLowerCase().replace(/\s+/g, '-')}` }, { name: post.title, url }
-      ])) }} />
       {faqs && <script id="ld-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs)) }} />}
       {post.rating && <script id="ld-review" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productReviewJsonLd({
         name: post.title,
@@ -76,15 +80,10 @@ export default async function PostPage({ params }) {
         steps: [{ name: 'Overview', text: post.excerpt }],
       })) }} />}
 
-      <nav className="text-sm text-slate-500 mb-6" aria-label="Breadcrumb">
-        <ol className="flex items-center gap-2">
-          <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-          <li><ChevronRight className="w-4 h-4 text-slate-300" aria-hidden="true" /></li>
-          {post.category && <li><Link href={`/category/${post.category.toLowerCase().replace(/\s+/g, '-')}`} className="hover:text-blue-600 capitalize">{post.category}</Link></li>}
-          {post.category && <li><ChevronRight className="w-4 h-4 text-slate-300" aria-hidden="true" /></li>}
-          <li className="text-slate-700 truncate max-w-xs">{post.title}</li>
-        </ol>
-      </nav>
+      <Breadcrumb items={[
+        { name: post.category || 'Article', href: `/category/${(post.category || '').toLowerCase().replace(/\s+/g, '-')}` },
+        { name: post.title, href: url },
+      ]} />
 
       <div className="grid lg:grid-cols-3 gap-10">
         <div className="lg:col-span-2">
@@ -111,6 +110,8 @@ export default async function PostPage({ params }) {
           <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />
 
           <div className="prose-blog" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+
+          <KeyTakeaways slug={params.slug} />
 
           <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_MID} />
 
@@ -167,23 +168,34 @@ export default async function PostPage({ params }) {
 
         {/* Sidebar */}
         <aside className="space-y-8">
-          <TableOfContents />
+          <div className="hidden lg:block"><TableOfContents /></div>
           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-5">
             <div className="flex items-center gap-2"><Mail className="w-5 h-5" /><h3 className="font-bold text-lg">Free AI Brief</h3></div>
             <p className="text-sm text-slate-700 mb-3">The 5 biggest AI tool launches and deals every week.</p>
             <a href="/#newsletter" className="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">Subscribe Free</a>
           </div>
           <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_SIDE} />
-          {related.length > 0 && (
+          {sidebarRelated.length > 0 && (
             <div>
               <h3 className="font-bold text-lg mb-3">Related</h3>
               <div className="space-y-3">
-                {related.map((p) => <PostCard key={p.slug} post={p} />)}
+                {sidebarRelated.map((p) => <PostCard key={p.slug} post={p} />)}
               </div>
             </div>
           )}
         </aside>
       </div>
+
+      {/* Mobile TOC */}
+      <div className="lg:hidden mt-8">
+        <TableOfContents />
+      </div>
+
+      {/* Series navigation */}
+      <SeriesNav navigation={seriesNav} />
+
+      {/* Inline "You May Also Like" */}
+      <RelatedPostsInline posts={related.slice(0, 3)} />
     </article>
   );
 }

@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "ai-tools-by-category",
+    "title": "Best AI Tools by Category",
+    "description": "Comprehensive guides to the best AI tools across every category — from writing and coding to design and video.",
+    "category": "Best Of",
+    "cover": "",
+    "posts": [
+      "best-ai-writing-tools",
+      "best-ai-image-generators-2026",
+      "best-ai-coding-assistants-2026-comparative-review",
+      "best-ai-video-editing-2026",
+      "best-ai-voice-generators-2026",
+      "best-ai-music-generators-2026",
+      "best-ai-presentation-tools-2026",
+      "best-ai-research-tools-2026"
+    ]
+  },
+  {
+    "slug": "ai-comparisons",
+    "title": "AI Tool Comparisons",
+    "description": "Head-to-head comparisons of the most popular AI tools to help you choose the right one.",
+    "category": "Comparisons",
+    "cover": "",
+    "posts": [
+      "chatgpt-vs-claude",
+      "chatgpt-vs-claude-vs-gemini",
+      "claude-4-vs-gpt-4o-vs-gemini-1-5-2026",
+      "deepseek-vs-chatgpt-vs-claude-2026-comparison-ultimate-2026-edition",
+      "perplexity-vs-gemini",
+      "perplexity-vs-google-search-2026",
+      "midjourney-vs-dall-e-3",
+      "midjourney-vs-dall-e-3-vs-stable-diffusion-2026",
+      "midjourney-vs-firefly-vs-dalle-2026",
+      "jasper-vs-writesonic-vs-copy-ai-2026",
+      "jasper-ai-vs-copy-ai",
+      "notion-ai-vs-clickup-ai-2026",
+      "notion-ai-vs-mem",
+      "cursor-vs-github-copilot-vs-codeium-2026",
+      "copilot-vs-codeium-vs-cursor-2026",
+      "elevenlabs-vs-play-ht-vs-murf-2026",
+      "suno-vs-udio-2026",
+      "runway-vs-pika",
+      "gamma-vs-tome-vs-beautiful-ai-2026",
+      "descript-vs-riverside",
+      "frase-vs-surfer-seo-vs-clearscope-2026"
+    ]
+  },
+  {
+    "slug": "developer-setup-2026",
+    "title": "Ultimate Developer Setup 2026",
+    "description": "The best hardware and tools for developers and AI engineers — laptops, monitors, keyboards, and more.",
+    "category": "Best Of",
+    "cover": "",
+    "posts": [
+      "best-laptops-ai-development-2026",
+      "best-monitors-programming-design-2026",
+      "best-keyboards-developers-2026",
+      "best-ergonomic-office-chairs-2026",
+      "best-noise-cancelling-headphones-2026",
+      "best-ssds-storage-ai-2026",
+      "best-webcams-streaming-gear-2026",
+      "best-smart-home-devices-2026"
+    ]
+  },
+  {
+    "slug": "ai-how-to-guides",
+    "title": "AI How-To Guides",
+    "description": "Step-by-step tutorials on using AI tools for real-world tasks — from coding to content creation.",
+    "category": "Tutorials",
+    "cover": "",
+    "posts": [
+      "how-to-write-better-chatgpt-prompts-2026",
+      "how-to-use-chatgpt-for-seo",
+      "how-to-use-midjourney-2026",
+      "how-to-use-claude-for-coding-2026",
+      "how-to-use-ai-for-email-marketing-2026",
+      "how-to-use-ai-for-keyword-research-2026",
+      "how-to-use-ai-for-resume-writing-2026",
+      "how-to-use-ai-for-cover-letters-2026",
+      "how-to-use-ai-to-summarize-long-documents-2026",
+      "how-to-use-ai-to-learn-faster-2026"
+    ]
+  },
+  {
+    "slug": "ai-business-productivity",
+    "title": "AI for Business & Productivity",
+    "description": "Practical guides to using AI to automate workflows, improve productivity, and grow your business.",
+    "category": "AI for Business",
+    "cover": "",
+    "posts": [
+      "how-to-make-money-with-ai",
+      "build-ai-saas-weekend-2026",
+      "how-to-build-a-gpt-wrapper-2026",
+      "how-to-fine-tune-an-llm-2026",
+      "how-to-use-ai-for-customer-support-2026",
+      "how-to-use-ai-for-cold-email-outreach-2026",
+      "how-to-use-ai-for-market-research-2026",
+      "how-to-use-ai-for-meeting-notes-2026",
+      "how-to-use-ai-for-product-photography-2026"
+    ]
+  }
+]

@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  productionBrowserSourceMaps: false,
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
@@ -38,4 +39,8 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+const withBundleAnalyzer = process.env.ANALYZE === 'true'
+  ? require('@next/bundle-analyzer')()
+  : (x) => x;
+
+module.exports = withBundleAnalyzer(nextConfig);

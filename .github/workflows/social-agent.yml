@@ -12,7 +12,7 @@ on:
 
 jobs:
   social:
-    name: Generate social posts
+    name: Post to social media
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -37,7 +37,7 @@ jobs:
           echo "$NEW_FILES" | tail -n 5 >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Generate social content
+      - name: Post to social media
         if: steps.posts.outputs.has_posts == 'true'
         run: |
           for f in ${{ steps.posts.outputs.files }}; do
@@ -45,8 +45,16 @@ jobs:
           done
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
+          TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
 
-      - name: Commit social content
+      - name: Commit social content (fallback)
         if: steps.posts.outputs.has_posts == 'true'
         run: |
           BRANCH="auto/social-$(date +%s)"

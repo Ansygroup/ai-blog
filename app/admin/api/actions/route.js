@@ -10,6 +10,8 @@ const workflows = {
   links: { workflow_id: 'auto-internal-link.yml', inputs: {} },
   refresh: { workflow_id: 'refresh-agent.yml', inputs: {} },
   humanize: { workflow_id: 'humanize-posts.yml', inputs: {} },
+  social: { workflow_id: 'social-agent.yml', inputs: {} },
+  pinterest: { workflow_id: 'pinterest-agent.yml', inputs: {} },
 };
 
 export async function GET() {

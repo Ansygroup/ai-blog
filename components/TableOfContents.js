@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { List } from 'lucide-react';
 
 export default function TableOfContents() {
   const [headings, setHeadings] = useState([]);
   const [activeId, setActiveId] = useState('');
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const elements = document.querySelectorAll('.prose-blog h2, .prose-blog h3');
@@ -33,14 +35,15 @@ export default function TableOfContents() {
 
   if (headings.length < 3) return null;
 
-  return (
-    <nav className="sticky top-24" aria-label="Table of contents">
+  const nav = (
+    <nav aria-label="Table of contents">
       <h4 className="text-sm font-semibold text-slate-500 dark:text-dark-muted uppercase tracking-wide mb-3">On this page</h4>
       <ul className="space-y-1.5 text-sm border-l-2 border-slate-200 dark:border-dark-border pl-3">
         {headings.map((h) => (
           <li key={h.id}>
             <a
               href={`#${h.id}`}
+              onClick={() => setOpen(false)}
               className={`block transition ${
                 h.level === 3 ? 'pl-4' : ''
               } ${
@@ -55,5 +58,24 @@ export default function TableOfContents() {
         ))}
       </ul>
     </nav>
+  );
+
+  return (
+    <>
+      {/* Desktop: sticky sidebar */}
+      <div className="hidden lg:block sticky top-24">{nav}</div>
+      {/* Mobile: collapsible button */}
+      <div className="lg:hidden">
+        <button
+          onClick={() => setOpen(!open)}
+          className="flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-dark-muted bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border rounded-lg px-3 py-2 w-full mb-4"
+        >
+          <List className="w-4 h-4" />
+          Table of Contents
+          <span className="ml-auto">{open ? '▲' : '▼'}</span>
+        </button>
+        {open && <div className="mb-6">{nav}</div>}
+      </div>
+    </>
   );
 }

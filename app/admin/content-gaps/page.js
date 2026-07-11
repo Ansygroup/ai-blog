@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Crosshair, AlertTriangle, TrendingUp, Tags, Layers } from 'lucide-react';
+import { Crosshair, AlertTriangle, TrendingUp, Tags, Layers, Sparkles, Target, Lightbulb, Zap } from 'lucide-react';
+import { Skeleton, SkeletonCard } from '@/components/admin/Skeleton';
 
 export default function ContentGapsPage() {
   const [data, setData] = useState(null);
@@ -14,8 +15,18 @@ export default function ContentGapsPage() {
       .catch(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-8 text-center text-slate-500">Analyzing content gaps...</div>;
-
+  if (loading) return (
+    <div>
+      <div className="flex items-center gap-3 mb-6"><Crosshair className="w-5 h-5 text-slate-300" /><div><div className="h-6 w-36 bg-slate-200 dark:bg-dark-border rounded animate-pulse" /><div className="h-4 w-48 bg-slate-100 dark:bg-dark-border rounded animate-pulse mt-1" /></div></div>
+      <div className="rounded-xl border border-brand-200 dark:border-brand-800 bg-gradient-to-r from-brand-50 to-indigo-50 dark:from-dark-card dark:to-dark-border p-5 mb-6">
+        <Skeleton className="h-4 w-48 mb-3" />
+        {[1,2,3].map(i => <div key={i} className="bg-white dark:bg-dark-card rounded-lg p-4 border border-brand-100 dark:border-brand-900/30 mb-3"><Skeleton className="h-4 w-3/4 mb-2" /><Skeleton className="h-3 w-full mb-1" /><Skeleton className="h-3 w-1/2" /></div>)}
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {[1,2].map(i => <div key={i} className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-5"><Skeleton className="h-4 w-32 mb-3" />{[1,2,3,4].map(j => <Skeleton key={j} className="h-8 w-full mb-2" />)}</div>)}
+      </div>
+    </div>
+  );
   if (!data) return <div className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-8 text-center text-slate-500">Failed to load data.</div>;
 
   return (
@@ -28,8 +39,51 @@ export default function ContentGapsPage() {
         <p className="text-sm text-slate-500 dark:text-dark-muted mt-1">{data.totalPosts} posts analyzed across {data.categories.length} categories and {data.tagNormalization.totalUnique} tags</p>
       </div>
 
+      {/* AI-Powered Gaps */}
+      {data.aiGaps?.length > 0 && (
+        <div className="rounded-xl border border-brand-200 dark:border-brand-800 bg-gradient-to-r from-brand-50 to-indigo-50 dark:from-dark-card dark:to-dark-border p-5 mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <Sparkles className="w-4 h-4 text-amber-500" />
+            <h2 className="text-sm font-bold text-slate-900 dark:text-dark-text uppercase tracking-wider">AI-Identified Content Opportunities</h2>
+            <span className="text-[10px] bg-brand-600 text-white px-1.5 py-0.5 rounded font-medium">GROQ</span>
+          </div>
+          <div className="space-y-3">
+            {data.aiGaps.map((g, i) => (
+              <div key={i} className="bg-white dark:bg-dark-card rounded-lg p-4 border border-brand-100 dark:border-brand-900/30">
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center shrink-0 mt-0.5">
+                    <Target className="w-3 h-3 text-brand-600 dark:text-brand-400" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-sm font-semibold text-slate-900 dark:text-dark-text">{g.topic}</h3>
+                      <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
+                        g.traffic_potential === 'high' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                        g.traffic_potential === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
+                        'bg-slate-100 text-slate-500 dark:bg-dark-border dark:text-dark-muted'
+                      }`}>
+                        {g.traffic_potential?.toUpperCase()} TRAFFIC
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-600 dark:text-dark-muted mt-0.5">{g.why_gap}</p>
+                    <div className="flex items-center gap-3 mt-2">
+                      <code className="text-[10px] px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/20 text-brand-700 dark:text-brand-400 font-mono">
+                        {g.suggested_title}
+                      </code>
+                      {g.competitor_count && (
+                        <span className="text-[10px] text-slate-400">~{g.competitor_count} competitors</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Category Distribution */}
-      <div className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-6 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-5 mb-6">
         <div className="flex items-center gap-2 mb-4">
           <Layers className="w-4 h-4 text-slate-500" />
           <h2 className="text-sm font-medium text-slate-700 dark:text-dark-muted">Category Distribution</h2>
@@ -55,7 +109,7 @@ export default function ContentGapsPage() {
 
       {/* Critical Gaps */}
       {data.gaps.length > 0 && (
-        <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-6 mb-6">
+        <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-5 mb-6">
           <div className="flex items-center gap-2 mb-4">
             <AlertTriangle className="w-4 h-4 text-amber-600" />
             <h2 className="text-sm font-medium text-amber-800 dark:text-amber-300">Underserved Categories</h2>
@@ -78,7 +132,7 @@ export default function ContentGapsPage() {
       )}
 
       {/* Topic Gaps */}
-      <div className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-6 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-5 mb-6">
         <div className="flex items-center gap-2 mb-4">
           <TrendingUp className="w-4 h-4 text-slate-500" />
           <h2 className="text-sm font-medium text-slate-700 dark:text-dark-muted">Topic Growth Opportunities</h2>
@@ -102,8 +156,8 @@ export default function ContentGapsPage() {
         </div>
       </div>
 
-      {/* Tag Normalization */}
-      <div className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-6">
+      {/* Tag Health */}
+      <div className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-5">
         <div className="flex items-center gap-2 mb-4">
           <Tags className="w-4 h-4 text-slate-500" />
           <h2 className="text-sm font-medium text-slate-700 dark:text-dark-muted">Tag Health</h2>

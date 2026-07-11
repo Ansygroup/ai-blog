@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FileText, Search, Tag, BookOpen, HelpCircle, ListChecks, ArrowRight, Lightbulb } from 'lucide-react';
+import { FileText, Search, Tag, BookOpen, HelpCircle, ListChecks, ArrowRight, Lightbulb, Sparkles } from 'lucide-react';
 
 export default function ContentBriefPage() {
   const [topic, setTopic] = useState('');
@@ -58,14 +58,31 @@ export default function ContentBriefPage() {
 
       {brief && (
         <div className="space-y-4">
-          {/* Coverage status */}
-          <div className={`rounded-xl border p-4 flex items-center gap-3 ${brief.existingCoverage === 'gap' ? 'border-green-200 bg-green-50 dark:bg-green-900/20' : 'border-amber-200 bg-amber-50 dark:bg-amber-900/20'}`}>
-            <span className="text-lg">{brief.existingCoverage === 'gap' ? '🟢' : '🟡'}</span>
-            <div>
-              <div className="text-sm font-medium text-slate-900 dark:text-dark-text">
-                {brief.existingCoverage === 'gap' ? 'Content Gap — No existing posts cover this topic' : `${brief.existingPosts} existing post${brief.existingPosts > 1 ? 's' : ''} cover this topic`}
+          {/* Coverage status + source badge */}
+          <div className={`rounded-xl border p-4 flex items-start gap-3 ${brief.existingCoverage === 'gap' ? 'border-green-200 bg-green-50 dark:bg-green-900/20' : 'border-amber-200 bg-amber-50 dark:bg-amber-900/20'}`}>
+            <span className="text-lg mt-0.5">{brief.existingCoverage === 'gap' ? '🟢' : '🟡'}</span>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-sm font-medium text-slate-900 dark:text-dark-text">
+                  {brief.existingCoverage === 'gap' ? 'Content Gap — No existing posts cover this topic' : `${brief.existingPosts} existing post${brief.existingPosts > 1 ? 's' : ''} cover this topic`}
+                </span>
+                {brief.source === 'ai' && (
+                  <span className="text-[10px] bg-brand-600 text-white px-1.5 py-0.5 rounded font-medium flex items-center gap-1 shrink-0">
+                    <Sparkles className="w-3 h-3" /> AI-GENERATED
+                  </span>
+                )}
+                {brief.trafficPotential && (
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium shrink-0 ${
+                    brief.trafficPotential === 'high' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                    brief.trafficPotential === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
+                    'bg-slate-100 text-slate-500 dark:bg-dark-border dark:text-dark-muted'
+                  }`}>
+                    {brief.trafficPotential.toUpperCase()} TRAFFIC
+                  </span>
+                )}
               </div>
               <div className="text-xs text-slate-500">Suggested title: <span className="font-mono">{brief.suggestedTitle}</span></div>
+              {brief.reasoning && <div className="text-xs text-slate-600 mt-1 italic">{brief.reasoning}</div>}
             </div>
           </div>
 
@@ -96,6 +113,19 @@ export default function ContentBriefPage() {
               </div>
             </div>
           </div>
+
+          {/* Suggested description */}
+          {brief.suggestedDescription && (
+            <div className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <FileText className="w-4 h-4 text-slate-500" />
+                <h2 className="text-xs font-medium text-slate-500 uppercase tracking-wider">Meta Description</h2>
+              </div>
+              <p className="text-sm text-slate-700 dark:text-dark-text bg-slate-50 dark:bg-dark-border p-3 rounded-lg font-mono text-xs leading-relaxed">
+                {brief.suggestedDescription}
+              </p>
+            </div>
+          )}
 
           {/* Suggested questions */}
           {brief.suggestedQuestions.length > 0 && (

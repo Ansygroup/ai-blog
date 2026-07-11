@@ -1,4 +1,5 @@
 import { getAllPosts } from '@/lib/posts';
+import { groqJson } from '@/lib/groq';
 import fs from 'fs';
 import path from 'path';
 
@@ -15,8 +16,52 @@ function saveQueue(queue) {
   fs.writeFileSync(queuePath, JSON.stringify(queue, null, 2), 'utf8');
 }
 
-export async function GET() {
+export async function GET(req) {
   try {
+    const { searchParams } = new URL(req.url);
+
+    if (searchParams.get('prioritize') === 'true') {
+      const queue = getQueue();
+      const posts = getAllPosts({ includeDrafts: true });
+
+      const existingTopics = posts.map(p => p.title?.toLowerCase() || '').join(' | ');
+
+      const aiResult = await groqJson(`You are a content queue analyst. Prioritize these topics for an AI tools blog.
+
+Existing site topics: ${existingTopics.slice(0, 500)}
+
+Queue:
+${queue.slice(0, 30).map((item, i) => `${i + 1}. "${item.topic}" (${item.category || 'Uncategorized'})`).join('\n')}
+
+Rank each by traffic potential (high/medium/low) and give a 1-sentence reason. Return a JSON array of objects with: "topic" (exact match), "priority" (high/medium/low), "reason".
+
+Focus on: search volume potential, competition level on this site, timeliness (2026 trends), affiliate/review potential.`);
+
+      if (aiResult && Array.isArray(aiResult)) {
+        const prioritized = queue.map(item => {
+          const ai = aiResult.find(a => a.topic === item.topic);
+          return { ...item, aiPriority: ai?.priority || 'medium', aiReason: ai?.reason || '' };
+        });
+
+        const order = { high: 0, medium: 1, low: 2 };
+        prioritized.sort((a, b) => (order[a.aiPriority] || 1) - (order[b.aiPriority] || 1));
+
+        return Response.json({
+          topics: prioritized,
+          total: queue.length,
+          aiPrioritized: true,
+        });
+      }
+
+      // Fallback: return normal
+      const categories = {};
+      queue.forEach((item) => {
+        const cat = item.category || 'Uncategorized';
+        categories[cat] = (categories[cat] || 0) + 1;
+      });
+      return Response.json({ topics: queue, total: queue.length, categories, postsGenerated: posts.length, aiPrioritized: false });
+    }
+
     const queue = getQueue();
     const posts = getAllPosts({ includeDrafts: true });
     const categories = {};

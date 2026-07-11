@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Plus, X, Trash2 } from 'lucide-react';
 import Badge from '@/components/ui/Badge';
 
-export default function QueueList({ topics, loading, onAdd, onDelete }) {
+export default function QueueList({ topics, loading, onAdd, onDelete, showPriority }) {
   const [showForm, setShowForm] = useState(false);
   const [topic, setTopic] = useState('');
   const [category, setCategory] = useState('AI News');
@@ -115,7 +115,18 @@ export default function QueueList({ topics, loading, onAdd, onDelete }) {
         {(topics || []).map((item, i) => (
           <div key={item.topic || i} className="px-4 py-3 flex items-start justify-between hover:bg-slate-50 dark:hover:bg-dark-border/50 group">
             <div className="min-w-0 flex-1">
-              <div className="text-sm text-slate-900 dark:text-dark-text font-medium truncate">{item.topic}</div>
+              <div className="flex items-center gap-2">
+                <div className="text-sm text-slate-900 dark:text-dark-text font-medium truncate">{item.topic}</div>
+                {showPriority && item.aiPriority && (
+                  <span className={`shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
+                    item.aiPriority === 'high' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
+                    item.aiPriority === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
+                    'bg-slate-100 text-slate-500 dark:bg-dark-border dark:text-dark-muted'
+                  }`}>
+                    {item.aiPriority}
+                  </span>
+                )}
+              </div>
               <div className="flex items-center gap-2 mt-1">
                 <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 dark:bg-dark-border dark:text-dark-muted">
                   {item.category || 'Uncategorized'}
@@ -124,6 +135,9 @@ export default function QueueList({ topics, loading, onAdd, onDelete }) {
                   <span key={k} className="text-xs text-slate-500 dark:text-dark-muted">#{k}</span>
                 ))}
               </div>
+              {showPriority && item.aiReason && (
+                <p className="text-xs text-slate-400 dark:text-dark-muted mt-1 italic">{item.aiReason}</p>
+              )}
             </div>
             {onDelete && (
               <button

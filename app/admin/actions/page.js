@@ -1,7 +1,7 @@
 'use client';
 
 import ActionCard from '@/components/admin/action-card';
-import { FileText, Sparkles, Search, Link, RefreshCw, PenTool, Play } from 'lucide-react';
+import { FileText, Sparkles, Search, Link, RefreshCw, PenTool, Play, Share2, Bookmark } from 'lucide-react';
 
 const actions = [
   { id: 'generate', title: 'Generate Posts', desc: 'Run the AI content engine to generate new posts from the keyword queue.', icon: FileText, hasInput: true, inputLabel: 'Batch count', inputType: 'number', inputDefault: '3' },
@@ -10,6 +10,8 @@ const actions = [
   { id: 'links', title: 'Auto Internal Links', desc: 'Automatically add relevant internal links between posts.', icon: Link, hasInput: false },
   { id: 'refresh', title: 'Refresh Content', desc: 'Update stale posts with fresh dates and improved content.', icon: RefreshCw, hasInput: false },
   { id: 'humanize', title: 'Humanize Posts', desc: 'Rewrite posts to remove AI writing patterns using Groq + humanizer skill.', icon: PenTool, hasInput: false },
+  { id: 'social', title: 'Social Posts', desc: 'Post new content to Twitter/X, LinkedIn, and Facebook.', icon: Share2, hasInput: false },
+  { id: 'pinterest', title: 'Create Pins', desc: 'Generate and publish Pinterest pins from latest posts.', icon: Bookmark, hasInput: false },
 ];
 
 export default function AdminActionsPage() {
@@ -49,7 +51,7 @@ export default function AdminActionsPage() {
           Make sure the following env vars are set:
         </p>
         <div className="mt-2 flex flex-wrap justify-center gap-2">
-          {['GITHUB_API_TOKEN', 'GITHUB_CLIENT_ID', 'GITHUB_CLIENT_SECRET', 'NEXTAUTH_SECRET', 'VERCEL_API_TOKEN'].map((v) => (
+          {['GITHUB_API_TOKEN', 'GITHUB_CLIENT_ID', 'GITHUB_CLIENT_SECRET', 'NEXTAUTH_SECRET', 'VERCEL_API_TOKEN', 'TWITTER_CONSUMER_KEY', 'LINKEDIN_ACCESS_TOKEN', 'FACEBOOK_PAGE_ACCESS_TOKEN', 'PINTEREST_ACCESS_TOKEN'].map((v) => (
             <code key={v} className="px-2 py-1 rounded bg-slate-100 dark:bg-dark-border text-xs text-slate-600 dark:text-dark-muted font-mono">{v}</code>
           ))}
         </div>

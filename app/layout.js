@@ -9,6 +9,7 @@ import ReadingProgress from '../components/ReadingProgress';
 import SkipLink from '../components/SkipLink';
 import CookieBanner from '../components/CookieBanner';
 import BackToTop from '../components/BackToTop';
+import TrackVisit from '../components/TrackVisit';
 
 import Script from 'next/script';
 import { Analytics } from "@vercel/analytics/next";
@@ -114,6 +115,7 @@ export default function RootLayout({ children }) {
         <SpeedInsights />
         <BackToTop />
         <NewsletterPopover />
+        <TrackVisit />
         <Footer />
 
         {/* Google AdSense */}

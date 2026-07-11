@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { Cpu, Activity, CheckCircle, XCircle, Clock, Play, Loader2, ExternalLink, RefreshCw, AlertTriangle } from 'lucide-react';
+import { Cpu, Activity, CheckCircle, XCircle, Clock, Play, Loader2, ExternalLink, RefreshCw, AlertTriangle, Sparkles, Lightbulb, History, Bot, FileText, Hash, ListTodo, Calendar, Search, Globe, Mail, RefreshCw as RefreshIcon, Eye } from 'lucide-react';
+import VisitorStatsWidget from '@/components/admin/VisitorStatsWidget';
 
 const CATEGORIES = [
   { id: 'generation', label: 'Content Generation', color: 'blue' },
@@ -41,14 +42,21 @@ export default function MissionControlPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [running, setRunning] = useState(null);
+  const [aiDecision, setAiDecision] = useState(null);
+  const [aiDecisionLoading, setAiDecisionLoading] = useState(true);
 
   async function fetchStatus() {
     setLoading(true);
     try {
-      const res = await fetch('/admin/api/mission-control');
-      const d = await res.json();
+      const [statusRes, aiRes] = await Promise.all([
+        fetch('/admin/api/mission-control'),
+        fetch('/admin/api/mission-control?ai-decision=true').then(r => r.json()).catch(() => ({ decision: null, generated: false })),
+      ]);
+      const d = await statusRes.json();
       if (d.error) { setError(d.error); }
       else { setData(d); setError(null); }
+      setAiDecision(aiRes.decision);
+      setAiDecisionLoading(false);
     } catch (err) { setError(err.message); }
     setLoading(false);
   }
@@ -142,6 +150,107 @@ export default function MissionControlPage() {
           </div>
         ))}
       </div>
+
+      {/* Site Summary Widgets */}
+      <div className="grid grid-cols-3 lg:grid-cols-9 gap-3 mb-8">
+        {[
+          { label: 'Total Posts', value: data?.widgets?.totalPosts ?? '-', icon: FileText, color: 'text-slate-500', href: '/admin/posts' },
+          { label: 'Queue', value: data?.widgets?.queueSize ?? '-', icon: ListTodo, color: 'text-amber-500', href: '/admin/queue' },
+          { label: 'Weak SEO', value: data?.widgets?.weakSeo ?? '-', icon: Search, color: data?.widgets?.weakSeo > 0 ? 'text-red-500' : 'text-green-500', href: '/admin/seo' },
+          { label: 'Excerpt Issues', value: data?.widgets?.excerptIssues ?? '-', icon: Hash, color: data?.widgets?.excerptIssues > 0 ? 'text-amber-500' : 'text-green-500', href: '/admin/seo-meta' },
+          { label: 'Stale Posts', value: data?.widgets?.stalePosts ?? '-', icon: RefreshIcon, color: data?.widgets?.stalePosts > 10 ? 'text-red-500' : 'text-amber-500', href: '/admin/content-refresh' },
+          { label: 'No Int. Links', value: data?.widgets?.missingInternalLinks ?? '-', icon: Globe, color: data?.widgets?.missingInternalLinks > 0 ? 'text-amber-500' : 'text-green-500', href: '/admin/links' },
+          { label: 'Pending Social', value: data?.widgets?.pendingSocial ?? '-', icon: Calendar, color: 'text-purple-500', href: '/admin/social-scheduler' },
+          { label: 'Newsletter', value: '-', icon: Mail, color: 'text-blue-500', href: '/admin/newsletter' },
+        ].map(({ label, value, icon: Icon, color, href }) => (
+          <a
+            key={label}
+            href={href}
+            className="rounded-lg border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-3 hover:shadow-sm hover:border-slate-300 dark:hover:border-slate-600 transition text-center"
+          >
+            <Icon className={`w-4 h-4 mx-auto mb-1 ${color}`} />
+            <div className="text-lg font-bold text-slate-900 dark:text-dark-text leading-tight">{value}</div>
+            <div className="text-[10px] text-slate-400 dark:text-dark-muted leading-tight mt-0.5">{label}</div>
+          </a>
+        ))}
+        <VisitorStatsWidget />
+      </div>
+
+      {/* AI Auto-Pilot Recommendation */}
+      {aiDecisionLoading && (
+        <div className="rounded-xl border border-brand-200 dark:border-brand-800 bg-gradient-to-r from-brand-50 to-indigo-50 dark:from-dark-card dark:to-dark-border p-5 mb-6 flex items-center gap-3">
+          <Loader2 className="w-5 h-5 text-brand-500 animate-spin" />
+          <p className="text-sm text-brand-700 dark:text-brand-300">AI is analyzing site status...</p>
+        </div>
+      )}
+      {aiDecision && !aiDecisionLoading && (
+        <div className="rounded-xl border border-brand-200 dark:border-brand-800 bg-gradient-to-r from-brand-50 to-indigo-50 dark:from-dark-card dark:to-dark-border p-5 mb-6">
+          <div className="flex items-center gap-2 mb-2">
+            <Sparkles className="w-5 h-5 text-amber-500" />
+            <h2 className="text-sm font-bold text-slate-900 dark:text-dark-text uppercase tracking-wider">AI Auto-Pilot Recommendation</h2>
+            <span className="text-[10px] bg-brand-600 text-white px-1.5 py-0.5 rounded font-medium">LIVE</span>
+          </div>
+          <div className="flex items-start gap-3">
+            <Lightbulb className="w-5 h-5 text-brand-500 mt-0.5 shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm text-slate-700 dark:text-dark-muted">{aiDecision.reason}</p>
+              <div className="flex items-center gap-3 mt-2">
+                <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                  aiDecision.priority === 'high' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
+                  aiDecision.priority === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
+                  'bg-slate-100 text-slate-500 dark:bg-dark-border dark:text-dark-muted'
+                }`}>
+                  {aiDecision.priority?.toUpperCase()} PRIORITY
+                </span>
+                <button
+                  onClick={() => {
+                    const target = agents.find(a => a.workflow === aiDecision.nextAction);
+                    if (target) runAgent(target);
+                  }}
+                  disabled={running === aiDecision.nextAction}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white text-xs font-medium transition"
+                >
+                  {running === aiDecision.nextAction ? <Loader2 className="w-3 h-3 animate-spin" /> : <Play className="w-3 h-3" />}
+                  Run {aiDecision.nextAction?.replace('.yml', '')}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Auto-Pilot Execution History */}
+      {data?.autoPilotHistory?.length > 0 && (
+        <div className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-5 mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <History className="w-4 h-4 text-slate-500 dark:text-dark-muted" />
+            <h2 className="text-sm font-bold text-slate-900 dark:text-dark-text uppercase tracking-wider">Auto-Pilot History</h2>
+            <span className="text-[10px] text-slate-400">Last {data.autoPilotHistory.length} runs</span>
+          </div>
+          <div className="space-y-2">
+            {data.autoPilotHistory.map((entry, i) => (
+              <div key={i} className="flex items-center gap-3 text-xs p-2 rounded-lg bg-slate-50 dark:bg-dark-border">
+                <Bot className={`w-3.5 h-3.5 shrink-0 ${entry.allSuccess ? 'text-green-500' : 'text-red-500'}`} />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className={`font-medium ${entry.allSuccess ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}`}>
+                      {entry.mode === 'full' ? 'Full Cycle' : 'Smart Run'}
+                    </span>
+                    <span className="text-slate-400">|</span>
+                    <span className="text-slate-500 dark:text-dark-muted">{entry.successCount}/{entry.failCount + entry.successCount} steps</span>
+                    <span className="text-slate-400">|</span>
+                    <span className="text-slate-500 dark:text-dark-muted">{(entry.duration / 1000).toFixed(0)}s</span>
+                  </div>
+                  <div className="text-slate-400 mt-0.5">
+                    {entry.results?.map(r => r.action).join(', ') || 'No steps recorded'}
+                  </div>
+                </div>
+                <span className="text-slate-400 shrink-0">{new Date(entry.timestamp).toLocaleDateString()}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Agent Cards by Category */}
       <div className="space-y-8">

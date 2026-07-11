@@ -1,0 +1,49 @@
+name: Auto-Pilot Agent — Intelligent Site Optimization
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Execution mode'
+        required: true
+        default: 'smart'
+        type: choice
+        options:
+          - smart
+          - full
+      script:
+        description: 'Run a single script only (optional)'
+        required: false
+        type: string
+
+jobs:
+  auto-pilot:
+    name: Auto-Pilot Execution
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Run Auto-Pilot Agent
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: |
+          EXTRA=""
+          if [ "${{ inputs.mode }}" = "full" ]; then EXTRA="$EXTRA --full"; fi
+          if [ -n "${{ inputs.script }}" ]; then EXTRA="$EXTRA ${{ inputs.script }}"; fi
+          node scripts/agents/auto-pilot.js $EXTRA
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git config user.email "bot@aipulsedaily.com"
+          git config user.name "Auto-Pilot Agent"
+          git add content/posts/ public/auto-pilot/
+          git commit -m "auto: auto-pilot optimization $(date +%Y-%m-%d)"
+          git push
