@@ -81,6 +81,7 @@ function analyze() {
 
   const priority = ranked
     .filter(x => x.action === 'WIN' || x.action === 'PUSH' || x.action === 'CLIMB')
+    .filter(x => x.slug && x.slug !== 'news')
     .slice(0, 15);
 
   const report = {

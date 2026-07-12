@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T09:49:02.623Z",
+  "generatedAt": "2026-07-12T09:56:45.223Z",
   "totals": {
     "queryImpressions": 105,
     "queryClicks": 0,
@@ -75,38 +75,17 @@
       "ctr": 0,
       "clicks": 0,
       "action": "CLIMB"
-    },
-    {
-      "slug": "news",
-      "url": "https://ai-blog-ten-steel.vercel.app/news",
-      "pos": 31.12,
-      "impr": 17,
-      "ctr": 0,
-      "clicks": 0,
-      "action": "CLIMB"
-    },
-    {
-      "slug": "",
-      "url": "https://ai-blog-ten-steel.vercel.app/",
-      "pos": 8.11,
-      "impr": 9,
-      "ctr": 0,
-      "clicks": 0,
-      "action": "WIN"
     }
   ],
   "actions": {
-    "WIN": [
-      ""
-    ],
+    "WIN": [],
     "PUSH": [
       "perplexity-comet-browser-2026-review"
     ],
     "CLIMB": [
       "how-to-use-gpt-4-vision-api-for-image-analysis-and-descripti",
       "best-ssds-storage-ai-2026",
-      "ai-content-moderation-system-user-generated-content",
-      "news"
+      "ai-content-moderation-system-user-generated-content"
     ]
   }
 }
