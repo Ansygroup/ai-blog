@@ -1,0 +1,13 @@
+{
+  "competitors": [
+    { "name": "TechRadar", "sitemap": "https://www.techradar.com/sitemap.xml", "topicFilter": "ai", "category": "Reviews" },
+    { "name": "Tom's Guide", "sitemap": "https://www.tomsguide.com/sitemap.xml", "topicFilter": "ai", "category": "Reviews" },
+    { "name": "PCMag", "sitemap": "https://www.pcmag.com/sitemap.xml", "topicFilter": "ai", "category": "Reviews" },
+    { "name": "The Verge", "sitemap": "https://www.theverge.com/sitemap.xml", "topicFilter": "ai", "category": "News" },
+    { "name": "Zapier Blog", "sitemap": "https://zapier.com/blog/sitemap.xml", "topicFilter": "ai", "category": "Tutorials" },
+    { "name": "Neil Patel", "sitemap": "https://neilpatel.com/sitemap.xml", "topicFilter": "ai", "category": "SEO" }
+  ],
+  "relevanceKeywords": ["ai", "artificial intelligence", "gpt", "chatgpt", "llm", "machine learning", "chatbot", "automation", "prompt", "gemini", "claude", "copilot", "midjourney", "stable diffusion", "image generation", "voice", "transcription", "agent", "workflow", "productivity", "writing", "seo tool", "video"],
+  "maxNewPerCompetitor": 8,
+  "skipIfQueueAbove": 360
+}
