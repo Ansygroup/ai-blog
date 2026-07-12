@@ -40,6 +40,7 @@ run('node scripts/competitor-scout.js');
 run('node scripts/media-gen.js');
 run('node scripts/affiliate-audit.js');
 run('node scripts/affiliate-fill.js');
+run('node scripts/parallel-publish.js --count 20 --concurrency 3');
 run('node scripts/seo-optimizer.js --fix');
 
 // commit + push so Vercel redeploys
