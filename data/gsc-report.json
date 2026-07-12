@@ -1,0 +1,112 @@
+{
+  "generatedAt": "2026-07-12T09:49:02.623Z",
+  "totals": {
+    "queryImpressions": 105,
+    "queryClicks": 0,
+    "pageImpressions": 612,
+    "pageClicks": 4,
+    "avgCtr": "0.00"
+  },
+  "topCountries": [
+    {
+      "c": "France",
+      "im": 23,
+      "cl": 1
+    },
+    {
+      "c": "Vietnam",
+      "im": 8,
+      "cl": 1
+    },
+    {
+      "c": "Brazil",
+      "im": 7,
+      "cl": 1
+    },
+    {
+      "c": "Spain",
+      "im": 5,
+      "cl": 1
+    },
+    {
+      "c": "United States",
+      "im": 333,
+      "cl": 0
+    },
+    {
+      "c": "Netherlands",
+      "im": 59,
+      "cl": 0
+    }
+  ],
+  "priorityPages": [
+    {
+      "slug": "how-to-use-gpt-4-vision-api-for-image-analysis-and-descripti",
+      "url": "https://ai-blog-ten-steel.vercel.app/posts/how-to-use-gpt-4-vision-api-for-image-analysis-and-descripti",
+      "pos": 29.06,
+      "impr": 326,
+      "ctr": 0,
+      "clicks": 0,
+      "action": "CLIMB"
+    },
+    {
+      "slug": "perplexity-comet-browser-2026-review",
+      "url": "https://ai-blog-ten-steel.vercel.app/news/perplexity-comet-browser-2026-review",
+      "pos": 11,
+      "impr": 122,
+      "ctr": 0.82,
+      "clicks": 1,
+      "action": "PUSH"
+    },
+    {
+      "slug": "best-ssds-storage-ai-2026",
+      "url": "https://ai-blog-ten-steel.vercel.app/posts/best-ssds-storage-ai-2026",
+      "pos": 20.21,
+      "impr": 105,
+      "ctr": 0.95,
+      "clicks": 1,
+      "action": "CLIMB"
+    },
+    {
+      "slug": "ai-content-moderation-system-user-generated-content",
+      "url": "https://ai-blog-ten-steel.vercel.app/posts/ai-content-moderation-system-user-generated-content",
+      "pos": 23.76,
+      "impr": 17,
+      "ctr": 0,
+      "clicks": 0,
+      "action": "CLIMB"
+    },
+    {
+      "slug": "news",
+      "url": "https://ai-blog-ten-steel.vercel.app/news",
+      "pos": 31.12,
+      "impr": 17,
+      "ctr": 0,
+      "clicks": 0,
+      "action": "CLIMB"
+    },
+    {
+      "slug": "",
+      "url": "https://ai-blog-ten-steel.vercel.app/",
+      "pos": 8.11,
+      "impr": 9,
+      "ctr": 0,
+      "clicks": 0,
+      "action": "WIN"
+    }
+  ],
+  "actions": {
+    "WIN": [
+      ""
+    ],
+    "PUSH": [
+      "perplexity-comet-browser-2026-review"
+    ],
+    "CLIMB": [
+      "how-to-use-gpt-4-vision-api-for-image-analysis-and-descripti",
+      "best-ssds-storage-ai-2026",
+      "ai-content-moderation-system-user-generated-content",
+      "news"
+    ]
+  }
+}
