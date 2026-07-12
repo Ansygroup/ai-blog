@@ -97,9 +97,15 @@ function insertLinks(body, products) {
 
 function fillOne(file, flat) {
   const fp = path.join(POSTS_DIR, file);
-  const raw = fs.readFileSync(fp, 'utf8');
+  let raw;
+  try { raw = fs.readFileSync(fp, 'utf8'); }
+  catch (e) { return { updated: false, reason: 'read error' }; }
   if (/amazon\.com\/dp\//.test(raw)) return { updated: false, reason: 'has links' };
-  const { data, content } = matter(raw);
+  let parsed;
+  try { parsed = matter(raw); }
+  catch (e) { return { updated: false, reason: 'bad frontmatter' }; }
+  const { data, content } = parsed;
+  if (!data || !data.title) return { updated: false, reason: 'no title' };
   const text = `${data.title || ''} ${(data.tags || []).join(' ')} ${content}`;
   const products = pickProducts(flat, text, 2);
   if (!products.length) return { updated: false, reason: 'no match' };
