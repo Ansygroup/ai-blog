@@ -310,7 +310,7 @@ CRITICAL RULES:
 1. QUALITY: Minimum 1500 words not counting frontmatter. Minimum 5 H2 headings. Include a FAQ section with 4-6 questions.
 2. GEO SECTIONS (REQUIRED): Every post MUST have <div class="key-takeaways"> and <div class="quick-answer"> IMMEDIATELY after the H1, never at the end or after the divider.
 3. AMAZON LINKS: When relevant to the topic, naturally mention products available on Amazon and link them with Amazon URLs using the format https://www.amazon.com/dp/XXXX?tag=ansy07-20. For example, if writing about AI tools, mention laptops or monitors that readers might need.
-4. COVER IMAGE: Use a real Unsplash photo URL: https://images.unsplash.com/photo-XXXXX?w=1200. Pick a relevant photo ID.
+4. COVER IMAGE: Set the cover to a LOCAL path, never an external URL. Use: cover: "/images/<slug>.jpg" where <slug> is the post slug in lowercase-hyphen format (e.g. "/images/best-ai-writing-tools-2026.jpg"). The build pipeline auto-generates this image; do NOT use images.unsplash.com or any placeholder URL.
 5. NEVER repeat "Key Takeaways" or "Quick Answer" headings anywhere in the article except in the GEO sections after the H1. Include them exactly once.
 
 Your output must be valid Markdown with YAML frontmatter. Use this exact structure:
@@ -325,7 +325,7 @@ lastUpdated: "<YYYY-MM-DD>"
 author: "Editorial Team"
 category: "<Reviews|Comparisons|Tutorials|Best Of|AI News>"
 tags: ["tag1", "tag2", "tag3", "tag4", "tag5"]
-cover: "https://images.unsplash.com/photo-XXXXX?w=1200"
+cover: "/images/<slug>.jpg"
 draft: false
 ---
 
@@ -474,6 +474,16 @@ CRITICAL: Return ONLY the markdown with frontmatter — no preamble or commentar
   const filePath = path.join(POSTS_DIR, `${slug}.mdx`);
   fs.writeFileSync(filePath, cleaned, 'utf8');
   console.log(`✅ Wrote ${filePath} (${(cleaned.length / 1024).toFixed(1)} KB, ${wordCount} words, ${h2Count} H2)`);
+
+  // Auto-generate a local cover image (free source, no API key)
+  try {
+    const { execSync } = require('child_process');
+    const tagsLine = (cleaned.match(/^tags:\s*\[(.*?)\]/m) || [])[1] || '';
+    const kw = (tagsLine.split(',').map(t => t.trim().replace(/['"]/g, '')).filter(Boolean)[0] || topic).split(' ').slice(0, 3).join(',');
+    execSync(`node scripts/media-gen.js --slug "${slug}" --keywords "${kw}" --title "${encodeURIComponent(topic)}"`, { cwd: ROOT, stdio: 'ignore' });
+  } catch (imgErr) {
+    console.log(`   ⚠  cover image skipped: ${imgErr.message.split('\n')[0]}`);
+  }
 
   // Remove from queue if it was there
   if (fromQueue) {

@@ -120,6 +120,27 @@ async function genForQueue(n) {
   if (process.argv.includes('--new-topics')) {
     const n = parseInt(process.argv[process.argv.indexOf('--new-topics') + 1]) || 10;
     await genForQueue(n);
+  } else if (process.argv.includes('--slug')) {
+    // single-post mode used by generate-post.js
+    const i = process.argv.indexOf('--slug');
+    const slug = process.argv[i + 1];
+    const kwIdx = process.argv.indexOf('--keywords');
+    const kw = kwIdx >= 0 ? process.argv[kwIdx + 1] : slug;
+    const tIdx = process.argv.indexOf('--title');
+    const title = tIdx >= 0 ? decodeURIComponent(process.argv[tIdx + 1]) : slug;
+    console.log(`  cover: ${slug}`);
+    if (!DRY) {
+      const cover = await genCover(slug, kw, title);
+      if (cover) {
+        const fp = path.join(POSTS_DIR, `${slug}.mdx`);
+        if (fs.existsSync(fp)) {
+          const raw = fs.readFileSync(fp, 'utf8');
+          const updated = raw.replace(/^cover:.*$/m, `cover: "${cover}"`);
+          fs.writeFileSync(fp, updated);
+          console.log(`    ✓ ${cover}`);
+        }
+      }
+    }
   } else {
     await fillPending();
   }
