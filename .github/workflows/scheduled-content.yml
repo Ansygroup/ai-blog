@@ -60,7 +60,20 @@ jobs:
             --head "$BRANCH" \
             --label "auto-generated" | tee pr-url.txt
           PR_NUMBER=$(grep -oP '/pull/\K[0-9]+' pr-url.txt)
-          gh pr merge --auto --squash "$PR_NUMBER"
+          # GitHub needs time to compute mergeability right after PR creation.
+          # Poll instead of failing the run on "Pull request is in unstable status".
+          for i in $(seq 1 30); do
+            STATE=$(gh pr view "$PR_NUMBER" --json mergeable --jq '.mergeable' 2>/dev/null || echo unknown)
+            if [ "$STATE" = "MERGEABLE" ]; then
+              if gh pr merge --auto --squash "$PR_NUMBER" 2>/dev/null; then
+                echo "Auto-merge enabled for PR #$PR_NUMBER"
+                break
+              fi
+            fi
+            echo "Mergeability=$STATE (attempt $i/30), retrying in 10s..."
+            sleep 10
+          done
+          echo "Auto-merge step complete (non-fatal)."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: IndexNow submit
