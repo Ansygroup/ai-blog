@@ -11,7 +11,9 @@ export default function AdSlot({ slot, format = 'auto', style = {}, className = 
     } catch (e) { /* noop */ }
   }, [client, slot]);
 
-  if (!client || !slot) return null;
+  // Ignore obviously-placeholder slots (AdSense rejects these and may flag the account)
+  const isPlaceholder = !slot || /^1{2,}|123456789/.test(String(slot));
+  if (!client || !slot || isPlaceholder) return null;
   return (
     <div className={`my-6 text-center ${className}`} style={style}>
       <ins

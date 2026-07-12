@@ -38,6 +38,8 @@ console.log('══════════════════════�
 
 run('node scripts/competitor-scout.js');
 run('node scripts/media-gen.js');
+run('node scripts/affiliate-audit.js');
+run('node scripts/affiliate-fill.js');
 run('node scripts/seo-optimizer.js --fix');
 
 // commit + push so Vercel redeploys
@@ -61,6 +63,6 @@ if (!DRY) {
   }
 }
 
-const report = `# Daily Growth Engine\n\n- Date: ${new Date().toISOString() }\n- Mode: ${DRY ? 'dry-run' : 'live'}\n- Pipeline: competitor-scout -> media-gen -> seo-optimizer -> commit/push\n`;
+const report = `# Daily Growth Engine\n\n- Date: ${new Date().toISOString() }\n- Mode: ${DRY ? 'dry-run' : 'live'}\n- Pipeline: competitor-scout -> media-gen -> affiliate-fill -> seo-optimizer -> commit/push\n`;
 fs.writeFileSync(path.join(ROOT, 'data', 'daily-growth-report.md'), report);
 console.log(`\n✓ Daily growth engine complete.`);
