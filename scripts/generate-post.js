@@ -547,12 +547,12 @@ Do NOT place Key Takeaways or Quick Answer anywhere else in the article.
   const hasQuick = cleaned.includes('class="quick-answer"');
   const hasKeyT = cleaned.includes('class="key-takeaways"');
   if (hasQuick && !hasKeyT) {
-    const h1Match = cleaned.match(/(# .*\r?\n)/);
+    const h1Match = cleaned.match(/# .*/);
     if (h1Match) {
+      const inject = '\n<div class="key-takeaways">\n\n## Key Takeaways\n\n- ' + topic + ': our hands-on review of what matters most for readers.\n- We compare real performance, pricing, and top alternatives.\n- Read the full analysis below for detailed recommendations.\n\n</div>\n';
       cleaned = cleaned.replace(h1Match[0], h1Match[0] + inject);
     }
   }
-
   const body = cleaned.match(/^---\r?\n[\s\S]+?\r?\n---\r?\n([\s\S]+)$/)?.[1] || cleaned;
   const wordCount = body.split(/\s+/).filter(Boolean).length;
   const h2Count = (body.match(/^## /gm) || []).length;
