@@ -1,13 +1,5 @@
 [
   {
-    "topic": "gemini 2.0 features 2026",
-    "category": "AI News",
-    "keywords": [
-      "gemini 2.0",
-      "google ai"
-    ]
-  },
-  {
     "topic": "openai operator agent 2026",
     "category": "AI News",
     "keywords": [
@@ -3023,6 +3015,51 @@
       "seo agency ai",
       "enterprise ai seo",
       "surfer seo"
+    ]
+  },
+  {
+    "topic": "How to Use AI for Automated E-commerce Product Bundle Pricing",
+    "category": "Tutorials",
+    "keywords": [
+      "AI for e-commerce",
+      "product bundle pricing",
+      "automated pricing"
+    ]
+  },
+  {
+    "topic": "Comparing AI-Powered Website Accessibility Auditing Tools for Small Businesses",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for accessibility",
+      "website auditing tools",
+      "small business"
+    ]
+  },
+  {
+    "topic": "Review of AI-Driven Customer Service Chatbots for Finance Industry",
+    "category": "Reviews",
+    "keywords": [
+      "AI for customer service",
+      "finance industry",
+      "chatbots"
+    ]
+  },
+  {
+    "topic": "Comparing AI-Powered Social Media Monitoring Tools for Non-Profit Organizations",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for social media monitoring",
+      "non-profit organizations",
+      "social media tools"
+    ]
+  },
+  {
+    "topic": "Comparing AI-Powered Customer Journey Mapping Tools for Financial Services",
+    "category": "Comparisons",
+    "keywords": [
+      "AI for customer journey mapping",
+      "financial services",
+      "customer journey mapping tools"
     ]
   }
 ]
