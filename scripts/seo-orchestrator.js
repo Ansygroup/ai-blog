@@ -7,7 +7,8 @@
  *   2. Promotes priority pages (title/meta/FAQ)
  *   3. Boosts internal links to those pages
  *   4. Pings IndexNow so Bing/AI engines recrawl fast
- *   5. Writes a human report to data/seo-orchestrator-report.md
+ *   5. Audits + fixes Amazon affiliate tags (keeps links commissioned)
+ *   6. Writes a human report to data/seo-orchestrator-report.md
  *
  * Safe to run weekly. Idempotent. No external auth needed.
  *
@@ -38,6 +39,7 @@ run('node scripts/seo-boost-links.js' + (DRY ? ' --dry-run' : ''));
 run('node scripts/auto-internal-link.js --ai');
 run('node scripts/seo-optimizer.js --fix');
 run('node scripts/indexnow-submit.js');
+run('node scripts/affiliate-check.js --fix'); // keep Amazon links commissioned
 
 const stamp = new Date().toISOString();
 const report = `# SEO Orchestrator Run\n\n- Date: ${stamp}\n- Mode: ${DRY ? 'dry-run' : 'live'}\n- Pipeline: gsc-analyze -> seo-promote -> auto-internal-link -> seo-optimizer -> indexnow\n\nSee data/gsc-report.json for prioritized pages.\n`;
