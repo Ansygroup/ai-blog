@@ -2,7 +2,11 @@ name: Build + Deploy + IndexNow
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Do NOT cancel an in-flight deploy: the auto-bot agents push to main in
+  # rapid succession, and cancelling the running deploy left production stale
+  # (deploys kept getting killed before completing). Queue instead so every
+  # deploy finishes and the site stays current.
+  cancel-in-progress: false
 
 on:
   push:
