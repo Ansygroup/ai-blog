@@ -38,16 +38,15 @@ jobs:
             exit 0
           fi
           echo "has_posts=true" >> $GITHUB_OUTPUT
-          echo "files<<EOF" >> $GITHUB_OUTPUT
-          echo "$NEW_FILES" | tail -n 5 >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          echo "$NEW_FILES" | tail -n 5 > "$RUNNER_TEMP/newfiles.txt"
 
       - name: Create pins
         if: steps.posts.outputs.has_posts == 'true'
         run: |
-          for f in ${{ steps.posts.outputs.files }}; do
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
             if [ -f "$f" ]; then node scripts/pinterest-poster.js "$f" ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}; fi
-          done
+          done < "$RUNNER_TEMP/newfiles.txt"
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
           PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
