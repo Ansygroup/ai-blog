@@ -33,14 +33,14 @@ jobs:
             exit 0
           fi
           echo "has_changes=true" >> $GITHUB_OUTPUT
-          echo "files<<EOF" >> $GITHUB_OUTPUT
-          echo "$CHANGED" | tail -n 5 >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED" | tail -n 5 > "$RUNNER_TEMP/changedfiles.txt"
 
       - name: Add affiliate links to changed posts
         if: steps.changes.outputs.has_changes == 'true'
         run: |
-          node scripts/affiliate-linker.js ${{ steps.changes.outputs.files }}
+          FILES=$(tr '\n' ' ' < "$RUNNER_TEMP/changedfiles.txt")
+          # shellcheck disable=SC2086
+          node scripts/affiliate-linker.js $FILES
         env:
           AMAZON_ASSOCIATES_TAG: ${{ secrets.AMAZON_ASSOCIATES_TAG }}
           AMAZON_STORE_ID: ${{ secrets.AMAZON_STORE_ID }}
