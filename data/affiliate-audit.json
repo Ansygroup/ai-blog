@@ -1,7 +1,7 @@
 {
   "expectedTag": "ansy07-20",
-  "totalPosts": 256,
-  "totalAffiliateLinks": 579,
+  "totalPosts": 278,
+  "totalAffiliateLinks": 612,
   "issues": {
     "missingTag": [],
     "noLinks": [
@@ -12,5 +12,5 @@
     ],
     "wrongTag": []
   },
-  "generatedAt": "2026-07-12T10:39:06.663Z"
+  "generatedAt": "2026-07-13T03:03:04.196Z"
 }

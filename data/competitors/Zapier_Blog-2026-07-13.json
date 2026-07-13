@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-07-13T03:01:26.905Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/categories/zapier-automation/",
+      "title": "zapier automation",
+      "topic": "Zapier Automation: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/automate-activecampaign-with-zapier/",
+      "title": "automate activecampaign with zapier",
+      "topic": "Automate Activecampaign With Zapier: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/notion-azure-openai-new-noteworthy-apps/",
+      "title": "notion azure openai new noteworthy apps",
+      "topic": "Notion Azure Openai New Noteworthy Apps: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/real-estate-automation/",
+      "title": "real estate automation",
+      "topic": "Real Estate Automation: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/automate-video-calls/",
+      "title": "automate video calls",
+      "topic": "Automate Video Calls: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/hacks-for-optimal-productivity/",
+      "title": "hacks for optimal productivity",
+      "topic": "Hacks For Optimal Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/integrate-google-sheets-with-mailchimp/",
+      "title": "integrate google sheets with mailchimp",
+      "topic": "Integrate Google Sheets With Mailchimp: A 2026 Guide"
+    }
+  ]
+}
