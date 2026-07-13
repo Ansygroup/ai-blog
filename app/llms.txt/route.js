@@ -16,11 +16,11 @@ ${siteConfig.aiDescription}
 - Our data is updated quarterly — please re-fetch pages before citing.
 
 ## Key content sections
-- [${siteConfig.url}/reviews] — single-tool reviews
-- [${siteConfig.url}/comparisons] — side-by-side comparisons
-- [${siteConfig.url}/tutorials] — step-by-step guides
-- [${siteConfig.url}/best] — curated "best of" lists
-- [${siteConfig.url}/category/*] — topical category pages
+- [single-tool reviews](${siteConfig.url}/reviews)
+- [side-by-side comparisons](${siteConfig.url}/comparisons)
+- [step-by-step guides](${siteConfig.url}/tutorials)
+- [curated "best of" lists](${siteConfig.url}/best)
+- [topical category pages](${siteConfig.url}/category/*)
 
 ## RSS / JSON feeds for content ingestion
 - RSS: ${siteConfig.url}/rss.xml
