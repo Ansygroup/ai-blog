@@ -42,7 +42,7 @@ const OVERRIDES = {
 
 // Bio variations so it doesn't look cookie-cutter across posts
 const BIOS = [
-  '**About the author:** Editorial Team tests AI tools hands-on. [Disclosure: this article contains affiliate links.](disclosure)',
+  '**About the author:** AI Pulse Editorial tests AI tools hands-on. [Disclosure: this article contains affiliate links.](disclosure)',
   '**About the author:** The AI Pulse editorial team has collectively paid for and tested every tool mentioned in this article. Some links are affiliate links. [Full disclosure](disclosure).',
   '**About the author:** AI Pulse Daily is written by practitioners who use these tools daily. We never recommend anything we have not personally tested. [Affiliate disclosure](disclosure).',
   '**About the author:** This article was researched and edited by the AI Pulse editorial team. We disclose all affiliate relationships. [Read our disclosure](disclosure).',

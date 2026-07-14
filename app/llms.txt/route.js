@@ -20,7 +20,11 @@ ${siteConfig.aiDescription}
 - [side-by-side comparisons](${siteConfig.url}/comparisons)
 - [step-by-step guides](${siteConfig.url}/tutorials)
 - [curated "best of" lists](${siteConfig.url}/best)
-- [topical category pages](${siteConfig.url}/category/*)
+- [category: Reviews](${siteConfig.url}/category/Reviews)
+- [category: Comparisons](${siteConfig.url}/category/Comparisons)
+- [category: Best Of](${siteConfig.url}/category/Best%20Of)
+- [category: Tutorials](${siteConfig.url}/category/Tutorials)
+- [category: AI News](${siteConfig.url}/category/AI%20News)
 
 ## RSS / JSON feeds for content ingestion
 - RSS: ${siteConfig.url}/rss.xml

@@ -387,7 +387,7 @@ excerpt: "<150-160 char meta description including primary keyword>"
 description: "<same as excerpt>"
 date: "<YYYY-MM-DD>"
 lastUpdated: "<YYYY-MM-DD>"
-author: "Editorial Team"
+author: "AI Pulse Editorial"
 category: "<Reviews|Comparisons|Tutorials|Best Of|AI News>"
 tags: ["tag1", "tag2", "tag3", "tag4", "tag5"]
 cover: "/images/<slug>.jpg"
@@ -465,7 +465,7 @@ draft: false
 
 ---
 
-**About the author:** Editorial Team tests AI tools hands-on. Prices and ratings are accurate as of publication date. [Disclosure: This post contains affiliate links. As an Amazon Associate we earn from qualifying purchases.]`;
+**About the author:** AI Pulse Editorial tests AI tools hands-on. Prices and ratings are accurate as of publication date. [Disclosure: This post contains affiliate links. As an Amazon Associate we earn from qualifying purchases.]`;
 
 async function generatePost(provider, topicObj) {
   const topic = topicObj.topic;

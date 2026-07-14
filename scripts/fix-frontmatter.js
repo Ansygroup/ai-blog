@@ -63,7 +63,7 @@ for (const f of files) {
   const description = get(/^description:\s*"([^"]+)"/m) || excerpt;
   const date = get(/^date:\s*"?([^"\n]+)"?/m) || '2026-01-01';
   const lastUpdated = get(/^lastUpdated:\s*"?([^"\n]+)"?/m) || date;
-  const author = get(/^author:\s*"?([^"\n]+)"?/m) || 'Editorial Team';
+  const author = get(/^author:\s*"?([^"\n]+)"?/m) || 'AI Pulse Editorial';
   const category = get(/^category:\s*"?([^"\n]+)"?/m) || 'AI Tools';
   // tags may be a list like: tags: ["a", "b"]
   const tagsRaw = get(/^tags:\s*\[([^\]]+)\]/m);

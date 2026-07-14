@@ -146,7 +146,7 @@ excerpt: "${meta.description.slice(0, 155)}"
 description: "${meta.description}"
 date: "${today}"
 lastUpdated: "${today}"
-author: "Editorial Team"
+author: "AI Pulse Editorial"
 category: "Best Of"
 tags: ["${categorySlug}", "amazon", "tech", "deals", "2026", "best-of"]
 cover: "${topPick.image || ''}"
@@ -199,7 +199,7 @@ After testing and comparing the top models, **we recommend the [${topPick.name}]
 
 ---
 
-**About the author:** Editorial Team tests products hands-on. [Disclosure: this article contains Amazon affiliate links. As an Amazon Associate we earn from qualifying purchases.]`;
+**About the author:** AI Pulse Editorial tests products hands-on. [Disclosure: this article contains Amazon affiliate links. As an Amazon Associate we earn from qualifying purchases.]`;
 
   const filePath = path.join(POSTS_DIR, `${meta.slug}.mdx`);
   fs.writeFileSync(filePath, content, 'utf8');
