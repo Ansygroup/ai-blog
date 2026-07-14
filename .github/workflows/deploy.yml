@@ -39,7 +39,10 @@ jobs:
     name: Deploy + auto-publish + IndexNow
     needs: audit
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # The `vercel deploy --prod` step rebuilds in the cloud (plus `npm install -g vercel`),
+    # which can exceed 15 min for this large static site and get killed mid-deploy,
+    # leaving production stale. Give it enough headroom to actually finish.
+    timeout-minutes: 30
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v4
@@ -64,7 +67,10 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           npm install -g vercel
-          vercel deploy --prod --yes --token "${{ secrets.VERCEL_TOKEN }}"
+          # --prebuilt reuses the .next output produced by the build step above,
+          # so Vercel does NOT rebuild in the cloud (avoids the slow cloud rebuild
+          # that periodically blew past the job timeout and left prod stale).
+          vercel deploy --prebuilt --prod --yes --token "${{ secrets.VERCEL_TOKEN }}"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
