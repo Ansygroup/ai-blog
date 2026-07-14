@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-07-14T03:09:31.281Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/categories/zapier-automation/",
+      "title": "zapier automation",
+      "topic": "Zapier Automation: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/pizza-to-the-polls-automation/",
+      "title": "pizza to the polls automation",
+      "topic": "Pizza To The Polls Automation: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/how-people-automate-airtable-with-zapier/",
+      "title": "how people automate airtable with zapier",
+      "topic": "How People Automate Airtable With Zapier: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/the-perk-online-ordering-automation/",
+      "title": "the perk online ordering automation",
+      "topic": "The Perk Online Ordering Automation: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/automation-for-startups/",
+      "title": "automation for startups",
+      "topic": "Automation For Startups: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/grow-your-email-list-email-referral-system-5-minutes/",
+      "title": "grow your email list email referral system 5 minutes",
+      "topic": "Grow Your Email List Email Referral System Minutes: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/chatbots-user-activity/",
+      "title": "chatbots user activity",
+      "topic": "Chatbots User Activity: A 2026 Guide"
+    }
+  ]
+}

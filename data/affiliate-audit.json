@@ -1,16 +1,45 @@
 {
   "expectedTag": "ansy07-20",
-  "totalPosts": 278,
-  "totalAffiliateLinks": 612,
+  "totalPosts": 337,
+  "totalAffiliateLinks": 664,
   "issues": {
     "missingTag": [],
     "noLinks": [
       "best-ai-books-2026.mdx",
+      "best-ai-tools-for-automated-content-generation-for-podcast-show-notes.mdx",
+      "best-ai-tools-for-automated-data-analysis-and-visualization-for-small-business-owners.mdx",
+      "best-ai-tools-for-automated-data-visualization-for-ecommerce-business-intelligence.mdx",
+      "best-ai-tools-for-automated-subtitle-generation-for-facebook-videos.mdx",
       "best-monitors-programming-design-2026.mdx",
       "best-tablets-ereaders-2026.mdx",
-      "best-webcams-streaming-gear-2026.mdx"
+      "best-webcams-streaming-gear-2026.mdx",
+      "comparison-ai-powered-influencer-marketing-platforms-beauty-industry.mdx",
+      "comparison-of-ai-powered-chatbot-platforms-for-customer-support-in-e-commerce.mdx",
+      "comparison-of-ai-powered-chatbot-platforms-for-ecommerce-customer-support-in-multiple-languages.mdx",
+      "comparison-of-ai-powered-customer-journey-mapping-tools-for-financial-services.mdx",
+      "comparison-of-ai-powered-customer-journey-mapping-tools-for-healthcare.mdx",
+      "comparison-of-ai-powered-customer-service-chatbots-for-e-commerce-in-apac-region.mdx",
+      "comparison-of-ai-powered-customer-service-chatbots-for-financial-institutions.mdx",
+      "comparison-of-ai-powered-social-media-monitoring-tools-for-healthcare-industry.mdx",
+      "comparison-of-ai-powered-website-accessibility-auditing-tools-for-small-businesses.mdx",
+      "how-to-use-ai-for-automated-e-commerce-product-bundling-and-pricing.mdx",
+      "how-to-use-ai-for-automated-youtube-video-closed-captioning-and-subtitling.mdx",
+      "how-to-use-ai-for-automated-youtube-video-description-writing-for-seo.mdx",
+      "how-to-use-ai-for-predictive-maintenance-in-industrial-equipment-manufacturing.mdx",
+      "how-to-use-ai-for-predictive-modeling-in-cybersecurity-threat-detection.mdx",
+      "how-to-use-ai-for-predictive-modeling-in-e-commerce-product-pricing.mdx",
+      "how-to-use-ai-for-predictive-modeling-in-ecommerce-supply-chain-management.mdx",
+      "how-to-use-ai-for-sentiment-analysis-in-customer-feedback-for-financial-services.mdx",
+      "review-of-ai-driven-content-generation-tools-for-bloggers-with-writers-block.mdx",
+      "review-of-ai-driven-influencer-marketing-platforms-for-micro-influencers.mdx",
+      "review-of-ai-driven-influencer-marketing-platforms-for-nano-influencers.mdx",
+      "review-of-ai-driven-podcast-editing-tools-for-independent-podcasters-with-limited-budget.mdx",
+      "review-of-ai-driven-seo-audit-tools-for-ecommerce-websites-with-high-traffic.mdx",
+      "review-of-ai-driven-website-accessibility-auditing-tools-for-small-businesses.mdx",
+      "using-ai-for-automated-social-media-content-calendar-creation-for-e-commerce.mdx",
+      "using-ai-for-predictive-modeling-in-cybersecurity-threat-detection-for-small-businesses.mdx"
     ],
     "wrongTag": []
   },
-  "generatedAt": "2026-07-13T03:03:04.196Z"
+  "generatedAt": "2026-07-14T03:09:59.602Z"
 }
