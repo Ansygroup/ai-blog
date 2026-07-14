@@ -67,10 +67,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           npm install -g vercel
-          # --prebuilt reuses the .next output produced by the build step above,
-          # so Vercel does NOT rebuild in the cloud (avoids the slow cloud rebuild
-          # that periodically blew past the job timeout and left prod stale).
-          vercel deploy --prebuilt --prod --yes --token "${{ secrets.VERCEL_TOKEN }}"
+          vercel deploy --prod --yes --token "${{ secrets.VERCEL_TOKEN }}"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
