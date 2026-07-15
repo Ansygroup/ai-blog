@@ -45,11 +45,13 @@ jobs:
       - name: Post to social media
         if: steps.posts.outputs.has_posts == 'true'
         run: |
+          FILES=()
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             if [ -f "$f" ]; then node scripts/social-content.js "$f" || echo "skip-fail: $f"; fi
+            FILES+=("$f")
           done < "$RUNNER_TEMP/newfiles.txt"
-          node scripts/mark-processed.js social $FILES
+          node scripts/mark-processed.js social "${FILES[@]}"
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
           TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
