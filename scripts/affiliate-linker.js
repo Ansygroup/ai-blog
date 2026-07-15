@@ -56,8 +56,8 @@ const files = process.argv.slice(2).filter(a => a && !a.startsWith('--'));
     const contentLower = content.toLowerCase();
     let fileModified = false;
 
-    if (contentLower.includes('affiliate') && contentLower.includes('amazon')) {
-      console.log(`  Skipped (already has affiliate): ${path.basename(file)}`);
+    if (contentLower.includes('amazon.com/dp') || contentLower.includes('amazon.com/gp/')) {
+      console.log(`  Skipped (already has affiliate link): ${path.basename(file)}`);
       continue;
     }
 

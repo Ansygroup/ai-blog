@@ -49,3 +49,11 @@ req.write(body); req.end();
 // Also generate the key verification file in /public
 fs.writeFileSync(path.join(__dirname, '..', 'public', `${KEY}.txt`), KEY);
 console.log(`✅ Wrote /public/${KEY}.txt for verification`);
+
+// Public Google sitemap ping (no auth needed) — asks Google to re-crawl.
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'https://ai-blog-ten-steel.vercel.app';
+const pingUrl = `https://www.google.com/ping?sitemap=${encodeURIComponent(SITE + '/sitemap.xml')}`;
+https.get(pingUrl, (pr) => {
+  console.log(`📡 Google sitemap ping: ${pr.statusCode}`);
+  pr.resume();
+}).on('error', (e) => console.error('⚠️ Google ping failed (non-fatal):', e.message));

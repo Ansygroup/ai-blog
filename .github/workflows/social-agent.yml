@@ -18,30 +18,38 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with: { node-version: 20, cache: npm }
       - run: npm ci
 
-      - name: Get new posts
+      - name: Restore posted manifest
+        uses: actions/cache@v4
+        with:
+          path: public/data/social-posted.json
+          key: social-posted-${{ github.run_id }}
+          restore-keys: |
+            social-posted-
+
+      - name: Find posts not yet shared
         id: posts
         run: |
-          NEW_FILES=$(git diff --name-only HEAD~1 -- content/posts/ || echo "")
-          if [ -z "$NEW_FILES" ]; then
-            echo "No new posts."
-            echo "has_posts=false" >> $GITHUB_OUTPUT
-            exit 0
+          node scripts/pick-pending.js social content/posts "scripts/social-content.js" "$RUNNER_TEMP/newfiles.txt"
+          if [ -s "$RUNNER_TEMP/newfiles.txt" ]; then
+            echo "has_posts=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_posts=false" >> "$GITHUB_OUTPUT"
+            echo "No new posts to share."
           fi
-          echo "has_posts=true" >> $GITHUB_OUTPUT
-          echo "$NEW_FILES" | tail -n 5 > "$RUNNER_TEMP/newfiles.txt"
 
       - name: Post to social media
         if: steps.posts.outputs.has_posts == 'true'
         run: |
           while IFS= read -r f; do
             [ -z "$f" ] && continue
-            if [ -f "$f" ]; then node scripts/social-content.js "$f"; fi
+            if [ -f "$f" ]; then node scripts/social-content.js "$f" || echo "skip-fail: $f"; fi
           done < "$RUNNER_TEMP/newfiles.txt"
+          node scripts/mark-processed.js social $FILES
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
           TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
@@ -60,7 +68,7 @@ jobs:
           git config user.email "bot@aipulsedaily.com"
           git config user.name "Social Agent"
           git checkout -b "$BRANCH"
-          git add public/social/
+          git add public/social/ public/data/social-posted.json
           git commit -m "auto: social content for new posts" || exit 0
           git push origin "$BRANCH"
           gh pr create --title "auto: social content $(date +%Y-%m-%d)" --body "Generated social media posts." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
