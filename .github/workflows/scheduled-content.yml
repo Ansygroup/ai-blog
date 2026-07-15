@@ -65,7 +65,7 @@ jobs:
           for i in $(seq 1 30); do
             STATE=$(gh pr view "$PR_NUMBER" --json mergeable --jq '.mergeable' 2>/dev/null || echo unknown)
             if [ "$STATE" = "MERGEABLE" ]; then
-              if gh pr merge --auto --squash "$PR_NUMBER" 2>/dev/null; then
+              if gh pr merge --squash "$PR_NUMBER" 2>/dev/null; then
                 echo "Auto-merge enabled for PR #$PR_NUMBER"
                 break
               fi

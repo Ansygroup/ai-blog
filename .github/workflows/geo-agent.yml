@@ -49,6 +49,6 @@ jobs:
           git push origin "$BRANCH"
           gh pr create --title "auto: GEO check $(date +%Y-%m-%d)" --body "Weekly GEO coverage report." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
           PR_NUMBER=$(grep -oP '/pull/\K[0-9]+' pr-url.txt)
-          gh pr merge --auto --squash "$PR_NUMBER"
+          gh pr merge --squash "$PR_NUMBER" || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

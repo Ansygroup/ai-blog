@@ -34,6 +34,6 @@ jobs:
           git commit -m "auto: weekly analytics $(date +%Y-%m-%d)"
           git push origin "$BRANCH"
           gh pr create --title "auto: analytics report $(date +%Y-%m-%d)" --body "Weekly content analytics report." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
-          gh pr merge --auto --squash "$(grep -oP '/pull/\K[0-9]+' pr-url.txt)"
+          gh pr merge --squash "$(grep -oP '/pull/\K[0-9]+' pr-url.txt)" || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
