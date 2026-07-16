@@ -74,7 +74,7 @@ w_client.schema.create_class("MyIndex", properties=[
 ])
 
 # Index some data
-w_client.data_object.create({"text": "This is some sample text"}, "MyIndex")
+w_client.[data](/posts/ai-data-cleaning-tutorial)_object.create({"text": "This is some sample text"}, "MyIndex")
 
 # Query the index
 near_text = {"path": ["text"], "operator": "near_text", "[value](/posts/how-to-use-ai-for-predictive-modeling-in-ecommerce-customer-lifetime-value-clv-estimation)": "sample text"}
@@ -94,7 +94,7 @@ model = langchain.LLMChain(
 )
 
 # Define a prompt
-prompt = "Generate a response based on the following text: "
+[prompt](/posts/gemini-prompt-guide) = "Generate a response based on the following text: "
 
 # Generate a response
 response = model([prompt](/posts/how-to-write-better-chatgpt-prompts-2026))
