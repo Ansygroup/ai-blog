@@ -38,6 +38,9 @@ def gate_ok():
 
 def publish():
     os.chdir(BLOG)
+    # 0. pull remote changes first (avoid reject)
+    subprocess.run(["git", "pull", "--rebase", "origin", "main"], timeout=120,
+                   capture_output=True, text=True)
     # 1. commit any staged changes
     subprocess.run(["git", "add", "-A"], timeout=30)
     msg = f"autopublish {datetime.datetime.now(datetime.timezone.utc):%Y-%m-%d}"
