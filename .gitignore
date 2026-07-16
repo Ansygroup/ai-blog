@@ -24,3 +24,4 @@ data/subscribers.json
 # data/agents/ is tracked
 # local CI output
 strategy-report.txt
+ai-blog/

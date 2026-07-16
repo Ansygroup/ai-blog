@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-07-16T07:17:08.820Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/categories/zapier-automation/",
+      "title": "zapier automation",
+      "topic": "Zapier Automation: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-spending/",
+      "title": "ai spending",
+      "topic": "Ai Spending: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-pilot-survey/",
+      "title": "ai pilot survey",
+      "topic": "Ai Pilot Survey: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-agent/",
+      "title": "ai agent",
+      "topic": "Ai Agent: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/openai-models/",
+      "title": "openai models",
+      "topic": "Openai Models: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/pizza-to-the-polls-automation/",
+      "title": "pizza to the polls automation",
+      "topic": "Pizza To The Polls Automation: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/how-people-automate-airtable-with-zapier/",
+      "title": "how people automate airtable with zapier",
+      "topic": "How People Automate Airtable With Zapier: A 2026 Guide"
+    }
+  ]
+}
