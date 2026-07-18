@@ -1,14 +1,5 @@
 [
   {
-    "topic": "Review of AI-Driven Sales Forecasting Software for Small Businesses",
-    "category": "Reviews",
-    "keywords": [
-      "AI for small business",
-      "sales forecasting",
-      "software review"
-    ]
-  },
-  {
     "topic": "Comparison of AI-Powered Website Security Tools for E-commerce Websites",
     "category": "Comparisons",
     "keywords": [
@@ -18,30 +9,12 @@
     ]
   },
   {
-    "topic": "How to Use AI for Creating Interactive Virtual Event Experiences",
-    "category": "Tutorials",
-    "keywords": [
-      "AI for events",
-      "virtual experiences",
-      "interactive content"
-    ]
-  },
-  {
     "topic": "Best AI Tools for Automated Content Localization for Global Businesses",
     "category": "Best Of",
     "keywords": [
       "AI for global business",
       "content localization",
       "translation tools"
-    ]
-  },
-  {
-    "topic": "Comparison of AI-Powered Marketing Automation Platforms for B2B Businesses",
-    "category": "Comparisons",
-    "keywords": [
-      "AI for B2B marketing",
-      "marketing automation",
-      "platform comparison"
     ]
   }
 ]
