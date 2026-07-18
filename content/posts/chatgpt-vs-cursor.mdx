@@ -75,22 +75,14 @@ In software engineering, code is rarely written in a vacuum. A change in a datab
 
 ChatGPT has a massive context window (especially with models like GPT-4o and o1), but getting your codebase into that window is a manual chore. You can upload individual files or use third-party CLI tools to bundle your directory into a single text file to feed into ChatGPT. However, this approach is static; as soon as you write new code, your uploaded context is outdated.
 
-<<<<<<< HEAD
 Cursor solves this problem via continuous local indexing. When you open a [project](/posts/ai-tools-for-project-management-2026) folder in Cursor, it builds a local vector index of your entire codebase. This allows you to use powerful context-targeting [features](/posts/claude-api-guide) directly in your prompts:
-=======
-Cursor solves this problem via continuous local indexing. When you open a [project](/posts/ai-tools-for-project-management-2026) folder in Cursor, it builds a local vector index of your entire codebase. This allows you to use powerful context-targeting [features](/posts/best-jasper-desktop-app-review-2026) directly in your prompts:
->>>>>>> b5542b97f7da0b3a7362b869486012279394feed
 
 *   **`@Files`**: Reference any specific file in your project instantly.
 *   **`@Folders`**: Pass an entire directory as context [for your](/posts/gemini-review-2026) [prompt](/posts/claude-prompt-guide-2026).
 *   **`@Codebase`**: Ask Cursor to scan your entire project to find where a specific function is defined or how a certain API is utilized.
 *   **`@Web`**: Instruct the AI to [search](/posts/perplexity-vs-google-search-2026) the internet for the latest documentation of a library, bypassing [model](/posts/claude-4-opus-vs-sonnet-comparison-2026) training cutoff dates.
 
-<<<<<<< HEAD
 Furthermore, Cursor supports a special configuration file called `.cursorrules`. By placing this file in your [project](/posts/ai-tools-for-project-management-2026) root, you can define custom instructions, styling guidelines, and architectural preferences that the AI must follow for every single [prompt](/posts/gemini-prompt-guide). ChatGPT's custom instructions offer similar behavior, but they apply globally to all your chats rather than being tailored dynamically to specific code repositories.
-=======
-Furthermore, Cursor supports a special [configuration](/posts/jasper-best-settings-2026) file called `.cursorrules`. By placing this file in your [project](/posts/ai-tools-for-project-management-2026) root, you can define custom instructions, styling guidelines, and architectural preferences that the AI must follow for every single [prompt](/posts/claude-prompt-guide-2026). ChatGPT's custom instructions offer similar behavior, but they apply globally to all your chats rather than being tailored dynamically to specific code repositories.
->>>>>>> b5542b97f7da0b3a7362b869486012279394feed
 
 ---
 
