@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-07-19T03:09:43.073Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/categories/zapier-automation/",
+      "title": "zapier automation",
+      "topic": "Zapier Automation: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-fluency/",
+      "title": "ai fluency",
+      "topic": "Ai Fluency: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-free-invoice-software/",
+      "title": "best free invoice software",
+      "topic": "Best Free Invoice Software: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/enterprise-workflow-management-software/",
+      "title": "enterprise workflow management software",
+      "topic": "Enterprise Workflow Management Software: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-personal-assistant/",
+      "title": "ai personal assistant",
+      "topic": "Ai Personal Assistant: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-prompt-templates/",
+      "title": "ai prompt templates",
+      "topic": "Ai Prompt Templates: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/agentic-ai-vs-rpa/",
+      "title": "agentic ai vs rpa",
+      "topic": "Agentic Ai Vs Rpa: A 2026 Guide"
+    }
+  ]
+}
