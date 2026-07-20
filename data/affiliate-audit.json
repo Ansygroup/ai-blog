@@ -1,7 +1,7 @@
 {
   "expectedTag": "ansy07-20",
-  "totalPosts": 565,
-  "totalAffiliateLinks": 1078,
+  "totalPosts": 594,
+  "totalAffiliateLinks": 1116,
   "issues": {
     "missingTag": [],
     "noLinks": [
@@ -9,9 +9,12 @@
       "best-monitors-programming-design-2026.mdx",
       "best-tablets-ereaders-2026.mdx",
       "best-webcams-streaming-gear-2026.mdx",
-      "comparing-ai-powered-website-accessibility-auditing-tools-for-small-businesses.mdx"
+      "comparing-ai-powered-accessibility-auditing-tools-for-small-businesses.mdx",
+      "comparing-ai-powered-customer-journey-mapping-tools-for-financial-services.mdx",
+      "how-to-use-ai-for-automated-e-commerce-product-recommendation-engine-optimization.mdx",
+      "review-of-ai-driven-sales-forecasting-software-for-small-businesses.mdx"
     ],
     "wrongTag": []
   },
-  "generatedAt": "2026-07-19T03:05:21.260Z"
+  "generatedAt": "2026-07-20T04:17:28.358Z"
 }
