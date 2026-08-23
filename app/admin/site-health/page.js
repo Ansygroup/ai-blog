@@ -90,9 +90,9 @@ export default function SiteHealthPage() {
           {/* Filters */}
           <div className="flex items-center gap-2 mb-4">
             <button onClick={() => setFilter('all')} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${filter === 'all' ? 'bg-slate-200 text-slate-800 dark:bg-dark-border dark:text-dark-text' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}>All ({data.issues.length})</button>
-            <button onClick={() => setFilter('error')} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${filter === 'error' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}>Errors ({data.summary.errors})</button>
-            <button onClick={() => setFilter('warning')} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${filter === 'warning' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}>Warnings ({data.summary.warnings})</button>
-            <button onClick={() => setFilter('info')} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${filter === 'info' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}>Info ({data.summary.infos})</button>
+            <button onClick={() => setFilter('error')} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${filter === 'error' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' : 'bg-slate-100 text-red-800 hover:bg-slate-200'}`}>Errors ({data.summary.errors})</button>
+            <button onClick={() => setFilter('warning')} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${filter === 'warning' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' : 'bg-slate-100 text-amber-800 hover:bg-slate-200'}`}>Warnings ({data.summary.warnings})</button>
+            <button onClick={() => setFilter('info')} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${filter === 'info' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'bg-slate-100 text-blue-800 hover:bg-slate-200'}`}>Info ({data.summary.infos})</button>
             <button onClick={runCheck} className="ml-auto px-3 py-1.5 rounded-lg border border-slate-200 dark:border-dark-border text-xs text-slate-500 hover:bg-slate-50 transition flex items-center gap-1.5"><RefreshCw className="w-3 h-3" /> Recheck</button>
           </div>
 

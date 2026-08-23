@@ -306,7 +306,7 @@ export default function SocialSchedulerPage() {
                 </div>
                 <button
                   onClick={() => handleDelete(item.id)}
-                  className="ml-3 p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition"
+                  className="ml-3 p-2 text-red-800 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition"
                   title="Delete"
                 >
                   <Trash2 className="w-4 h-4" />

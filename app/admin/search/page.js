@@ -111,7 +111,7 @@ export default function SearchPage() {
                     <span>SEO {p.seoScore}</span>
                     {p.draft && <span className="text-amber-500 font-medium">Draft</span>}
                     {p.matchedIn?.length > 0 && p.matchedIn.map(m => (
-                      <span key={m} className={`px-1 py-0.5 rounded text-[10px] ${m === 'title' ? 'bg-green-50 text-green-600' : m === 'excerpt' ? 'bg-blue-50 text-blue-600' : 'bg-slate-50 text-slate-500'}`}>{m}</span>
+                      <span key={m} className={`px-1 py-0.5 rounded text-[10px] ${m === 'title' ? 'bg-green-50 text-green-600' : m === 'excerpt' ? 'bg-blue-50 text-blue-600' : 'bg-slate-50 text-green-800'}`}>{m}</span>
                     ))}
                   </div>
                   {p.matchContext && (

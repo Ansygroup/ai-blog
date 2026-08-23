@@ -116,7 +116,7 @@ export default function BestPage() {
                   <td className="py-3 px-2 text-center text-slate-600 dark:text-dark-muted">{(p.reviewsCount || 0).toLocaleString()}</td>
                   <td className="py-3 px-2 text-center font-bold text-lg">{formatPrice(p.price)}</td>
                   <td className="py-3 px-2 text-center">
-                    <a href={`https://www.amazon.com/dp/${p.asin}?tag=${TAG}`} target="_blank" rel="noopener sponsored" className="inline-block bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-3 py-1.5 rounded-lg text-xs transition whitespace-nowrap">
+                    <a href={`https://www.amazon.com/dp/${p.asin}?tag=${TAG}`} target="_blank" rel="noopener sponsored" className="inline-block bg-amber-400 hover:bg-amber-500 text-amber-700 font-bold px-3 py-1.5 rounded-lg text-xs transition whitespace-nowrap">
                       Buy <ArrowRight className="w-4 h-4 inline" />
                     </a>
                   </td>

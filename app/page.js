@@ -59,13 +59,13 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-500/10 via-transparent to-transparent animate-pulse" />
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center relative">
-          <span className="inline-block bg-amber-400 text-slate-900 text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-wider animate-fade-in">Updated for 2026</span>
+          <span className="inline-block bg-amber-400 text-amber-950 text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-wider animate-fade-in">Updated for 2026</span>
           <h1 className="text-4xl md:text-6xl font-heading font-extrabold mb-4 tracking-tight leading-tight animate-slide-up">{siteConfig.tagline}</h1>
           <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8 font-body animate-slide-up animate-delay-100">
             We test every AI tool so you don't waste money. Independent reviews, side-by-side comparisons, and step-by-step tutorials.
           </p>
           <div className="flex flex-wrap gap-3 justify-center animate-slide-up animate-delay-200">
-            <Link href="/best" className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-6 py-3 rounded-lg transition active:scale-[0.97]">Best AI Tools 2026</Link>
+            <Link href="/best" className="bg-amber-400 hover:bg-amber-500 text-amber-700 font-bold px-6 py-3 rounded-lg transition active:scale-[0.97]">Best AI Tools 2026</Link>
             <Link href="/reviews" className="bg-white/10 hover:bg-white/20 backdrop-blur text-white font-semibold px-6 py-3 rounded-lg transition">All Reviews</Link>
           </div>
           <div className="flex justify-center gap-8 mt-12 text-sm text-slate-400 animate-fade-in animate-delay-300">
@@ -149,7 +149,7 @@ export default function HomePage() {
           <p className="text-blue-100 text-lg mb-6 max-w-lg mx-auto font-body">The 5 biggest AI tool launches and deals every week. Zero spam, unsubscribe anytime.</p>
           <form action="https://app.convertkit.com/forms/6699069/subscriptions" method="post" target="_blank" className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <input name="email_address" type="email" placeholder="your@email.com" required className="flex-1 px-4 py-3 rounded-lg text-slate-900 placeholder-slate-400 border-0 focus:ring-2 focus:ring-amber-400 focus:outline-none" />
-            <button type="submit" className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-6 py-3 rounded-lg transition whitespace-nowrap active:scale-[0.97]">Subscribe Free</button>
+            <button type="submit" className="bg-amber-400 hover:bg-amber-500 text-amber-700 font-bold px-6 py-3 rounded-lg transition whitespace-nowrap active:scale-[0.97]">Subscribe Free</button>
           </form>
         </div>
       </section>

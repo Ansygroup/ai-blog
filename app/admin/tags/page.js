@@ -124,7 +124,7 @@ export default function TagsPage() {
                       <button
                         onClick={(e) => { e.stopPropagation(); handleDelete(t.tag); }}
                         disabled={processing === t.tag}
-                        className="p-1 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition"
+                        className="p-1 text-red-800 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition"
                         title="Remove tag from all posts"
                       >
                         {processing === t.tag ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}

@@ -141,7 +141,7 @@ export default function CalendarPage() {
         <div className="ml-auto flex items-center gap-2">
           <button
             onClick={() => setShowSocial(!showSocial)}
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition ${showSocial ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400' : 'bg-slate-100 text-slate-500 dark:bg-dark-card dark:text-dark-muted'}`}
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition ${showSocial ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400' : 'bg-slate-100 text-purple-800 dark:bg-dark-card dark:text-dark-muted'}`}
           >
             <Globe className="w-3 h-3" />
             Social ({data?.socialPending || 0})
@@ -266,7 +266,7 @@ export default function CalendarPage() {
                 </div>
                 <div className="space-y-1">
                   {getSocialForDay(selectedDay).map(s => (
-                    <div key={s.id} className="flex items-center gap-2 text-xs text-slate-500 py-1 px-2 rounded-lg bg-purple-50 dark:bg-purple-900/10">
+                    <div key={s.id} className="flex items-center gap-2 text-xs text-purple-800 py-1 px-2 rounded-lg bg-purple-50 dark:bg-purple-900/10">
                       <Clock className="w-3 h-3 shrink-0" />
                       <span className="font-mono">{s.scheduledDate.slice(11, 16)}</span>
                       <span className="text-slate-400">{s.platforms?.join(', ')}</span>
