@@ -1,20 +1,33 @@
 {
   "expectedTag": "ansy07-20",
-  "totalPosts": 594,
-  "totalAffiliateLinks": 1116,
+  "totalPosts": 619,
+  "totalAffiliateLinks": 1188,
   "issues": {
     "missingTag": [],
     "noLinks": [
-      "best-ai-books-2026.mdx",
-      "best-monitors-programming-design-2026.mdx",
-      "best-tablets-ereaders-2026.mdx",
-      "best-webcams-streaming-gear-2026.mdx",
+      "ai-for-landing-pages-2026.mdx",
+      "ai-tools-for-freelancers-2026.mdx",
+      "best-ai-tools-for-freelanders-2026.mdx",
+      "best-ai-writing-tools-for-fiction-2026.mdx",
       "comparing-ai-powered-accessibility-auditing-tools-for-small-businesses.mdx",
       "comparing-ai-powered-customer-journey-mapping-tools-for-financial-services.mdx",
       "how-to-use-ai-for-automated-e-commerce-product-recommendation-engine-optimization.mdx",
-      "review-of-ai-driven-sales-forecasting-software-for-small-businesses.mdx"
+      "midjourney-vs-firefly-vs-dall-e-2026.mdx",
+      "midjourney-vs-firefly-vs-dalle-2026-2026.mdx",
+      "midjourney-vs-firefly-vs-dalle-2026-comparison.mdx",
+      "midjourney-vs-firefly-vs-dalle-2026.mdx",
+      "review-of-ai-driven-customer-service-chatbots.mdx",
+      "review-of-ai-driven-online-course-creation-tools-thinkific-teachable-kajabi.mdx",
+      "review-of-ai-driven-sales-forecasting-software-for-small-businesses.mdx",
+      "review-of-ai-driven-seo-audit-tools-ahrefs-semrush-and-moz.mdx",
+      "the-best-ai-tools-for-content-repurposing.mdx",
+      "use-ai-for-landing-pages-2026.mdx",
+      "using-ai-for-landing-pages-2026.mdx",
+      "vertical-ai-2026-healthcare-legal-3-5-billion-market.mdx",
+      "windsurf-ai-ide-2026-review.mdx",
+      "writesonic-free-alternative.mdx"
     ],
     "wrongTag": []
   },
-  "generatedAt": "2026-07-20T04:17:28.358Z"
+  "generatedAt": "2026-08-25T03:02:37.671Z"
 }
