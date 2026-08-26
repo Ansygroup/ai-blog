@@ -47,7 +47,7 @@ Microsoft Copilot (originally launched as Bing Chat) is Microsoft’s highly int
 
 To deliver a truly E-E-A-T-compliant, hands-on review, our editorial team [spent](/posts/jasper-ai-review-2026) over 120 hours testing both [platforms](/posts/comparison-of-ai-powered-online-course-platforms-for-education) side-by-side. We subjected ChatGPT Plus and Microsoft Copilot Pro to a battery of identical prompts across five core categories: complex software [development](/posts/midjourney-for-coding), document summarization, multi-source web [research](/posts/how-to-use-ai-for-market-research-2026), creative [writing](/posts/chatgpt-vs-copy-ai), and data visualization. 
 
-Our test environments included both macOS and Windows 11 systems. To replicate real-world professional setups, we ran our tests on high-performance hardware, including an [Apple MacBook Pro M3](https://www.amazon.com/dp/B0CM5N4Z8K?tag=ansy07-20) and a dual-monitor desktop powered by a [Dell UltraSharp 34 Curved Monitor](https://www.amazon.com/dp/B0BZF9N2S9?tag=ansy07-20), allowing us to monitor [code](/posts/best-ai-code-assistants-2026) execution, document formatting, and live web citations simultaneously.
+Our test environments included both macOS and Windows 11 systems. To replicate real-world professional setups, we ran our tests on high-performance hardware, including an Apple MacBook Pro M3 and a dual-monitor desktop powered by a Dell UltraSharp 34 Curved Monitor, allowing us to monitor [code](/posts/best-ai-code-assistants-2026) execution, document formatting, and live web citations simultaneously.
 
 ## Core [Model](/posts/claude-4-opus-vs-sonnet-comparison-2026) Architectures and Intelligence
 
@@ -58,11 +58,11 @@ ChatGPT Plus grants users access to [OpenAI](/posts/openai-sora-shutdown-2026)�
 ```
 ChatGPT Reasoning Path:
 [Prompt Received] 
-   └── [Internal Chain-of-Thought (o1/o3-mini)]
-         ├── Step 1: Analyze logic constraints
-         ├── Step 2: Draft internal code solution
-         ├── Step 3: Run virtual execution & check for errors
-         └── Step 4: Refine and output optimized [response](/posts/how-to-use-ai-for-cold-email-outreach-2026)
+ └── [Internal Chain-of-Thought (o1/o3-mini)]
+ ├── Step 1: Analyze logic constraints
+ ├── Step 2: Draft internal code solution
+ ├── Step 3: Run virtual execution & check for errors
+ └── Step 4: Refine and output optimized [response](/posts/how-to-use-ai-for-cold-email-outreach-2026)
 ```
 
 In contrast, Microsoft Copilot Pro focuses heavily on **retrieval-augmented generation (RAG)**. Instead of spending computing power on deep internal reasoning chains, Copilot is designed to instantly query the web via Bing, pull down multiple sources, synthesize the information, and present a highly accurate, cited summary. 
@@ -82,7 +82,7 @@ Copilot is not just a [chatbot](/posts/claude-vs-chatgpt-2026); it is deeply emb
 ```
 Microsoft Copilot Workflow:
 [Word Document] ──> [Copilot Sidebar] ──> [Directly Modifies Document Text]
-[Excel Sheet]   ──> [Copilot Formula] ──> [Generates Live Pivot Table]
+[Excel Sheet] ──> [Copilot Formula] ──> [Generates Live Pivot Table]
 ```
 
 ChatGPT operates as an external tool. To use it for office tasks, you must manually copy and paste your text back and forth between your browser and your local applications. While OpenAI has introduced "Canvas"—a dedicated workspace for writing and coding that allows inline editing—it still lacks direct integration [with native](/posts/google-flow-veo-3-1-2026-ai-video-production-native-audio) desktop software. If you are looking to maximize your screen real estate and manage multiple document windows alongside your AI workspace, pairing a high-end productivity setup with Copilot's inline tools offers an incredibly fluid [user](/posts/chatgpt-reddit-reviews-2026) [experience](/posts/gemini-best-settings-2026).
@@ -101,16 +101,16 @@ import pandas as pd
 import numpy as np
 
 def optimize_dataframe(df):
-    # ChatGPT automatically identified memory bottlenecks and optimized [data](/posts/ai-data-cleaning-tutorial) types
-    for col in df.columns:
-        col_type = df[col].dtype
-        if col_type != object:
-            c_min = df[col].min()
-            c_max = df[col].max()
-            if str(col_type)[:3] == 'int':
-                if c_min > np.iinfo(np.int8).min and c_max < np.iinfo(np.int8).max:
-                    df[col] = df[col].astype(np.int8)
-    return df
+ # ChatGPT automatically identified memory bottlenecks and optimized [data](/posts/ai-data-cleaning-tutorial) types
+ for col in df.columns:
+ col_type = df[col].dtype
+ if col_type != object:
+ c_min = df[col].min()
+ c_max = df[col].max()
+ if str(col_type)[:3] == 'int':
+ if c_min > np.iinfo(np.int8).min and c_max < np.iinfo(np.int8).max:
+ df[col] = df[col].astype(np.int8)
+ return df
 ```
 
 Microsoft Copilot can also write and debug code, but it lacks a robust, sandboxed execution environment in its standard web interface. Copilot is excellent for generating quick boilerplates, explaining syntax, or [writing](/posts/chatgpt-vs-copy-ai) SQL queries, but it often struggles with multi-file codebases or complex data science tasks that require iterative execution and visualization.
@@ -138,4 +138,4 @@ Microsoft Copilot uses **Microsoft Designer** (formerly Bing Image Creator) to h
 
 ---
 
-**About the author:** AI Pulse Daily editorial team. Every tool in this post has been hands-on tested. Some links earn us a commission at no cost to you. [Disclosure](disclosure).
+**About the author:** AI Pulse Daily editorial team. Every tool in this post has been hands-on tested. .

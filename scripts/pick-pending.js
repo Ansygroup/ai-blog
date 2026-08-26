@@ -41,14 +41,13 @@ function needsAffiliate(file) {
   } catch { return false; }
 }
 
-// For affiliate, the source of truth is the CONTENT (does it have an Amazon link?),
-// not the manifest — because the linker may skip a post that matched no product,
-// and we must retry it later. For social/pinterest, the manifest is the gate.
+// NOTE: affiliate kind is disabled — Amazon links were removed from the site,
+// so pick-pending returns nothing for it (the linker is a no-op anyway).
+// For social/pinterest, the manifest is the gate.
 let candidates = all;
 let todo;
 if (kind === 'affiliate') {
-  candidates = all.filter(needsAffiliate);
-  todo = candidates;
+  todo = [];
 } else {
   todo = pending(kind, candidates);
 }

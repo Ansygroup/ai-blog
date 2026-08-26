@@ -7,7 +7,8 @@ on:
 
 jobs:
   amazon-intel:
-    name: Amazon product intelligence
+    name: Amazon product intelligence [DISABLED — Amazon links removed from site]
+    if: false  # DISABLED: Amazon affiliate/content pipeline removed from the site on 2026-08-26.
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

@@ -34,6 +34,10 @@ function buildKeywordMap() {
 const files = process.argv.slice(2).filter(a => a && !a.startsWith('--'));
 
 (async () => {
+  // Amazon affiliate linking has been permanently disabled for this blog.
+  console.log('ℹ️ affiliate-linker.js is disabled: Amazon affiliate links were removed from the site. No links will be inserted.');
+  process.exit(0);
+
   if (files.length === 0) {
     console.log('Usage: node scripts/affiliate-linker.js <file1> <file2> ... [--ai]');
     console.log('Reads product data from amazon-db.json and inserts contextual affiliate links.');

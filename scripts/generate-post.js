@@ -374,7 +374,7 @@ CRITICAL RULES:
 (2-3 sentence direct recommendation-first answer naming the top pick)
 
 </div>
-3. AMAZON LINKS: When relevant to the topic, naturally mention products available on Amazon and link them with Amazon URLs using the format https://www.amazon.com/dp/XXXX?tag=ansy07-20. For example, if writing about AI tools, mention laptops or monitors that readers might need.
+3. PRODUCT MENTIONS: When relevant to the topic, you may naturally mention AI tools or services by name, but do NOT insert any affiliate or external purchase links. Keep the article self-contained with internal cross-links only.
 4. COVER IMAGE: Set the cover to a LOCAL path, never an external URL. Use: cover: "/images/<slug>.jpg" where <slug> is the post slug in lowercase-hyphen format (e.g. "/images/best-ai-writing-tools-2026.jpg"). The build pipeline auto-generates this image; do NOT use images.unsplash.com or any placeholder URL.
 5. NEVER repeat "Key Takeaways" or "Quick Answer" headings anywhere in the article except in the GEO sections after the H1. Include them exactly once.
 
@@ -422,7 +422,7 @@ draft: false
 
 <1 paragraph methodology — E-E-A-T trust signal. Include time spent, number of tools tested, criteria.>
 
-<5-8 main H2 sections, 250-400 words each. NEVER repeat same H2 heading twice. Each section must have specific tool names, prices, and data. Include 1-2 Amazon affiliate links naturally within the content where relevant (e.g., "paired with a [Dell UltraSharp 4K monitor](https://www.amazon.com/dp/B09N3ZN2YY?tag=ansy07-20)").>
+<5-8 main H2 sections, 250-400 words each. NEVER repeat same H2 heading twice. Each section must have specific tool names, prices, and data. Do NOT insert any Amazon or external affiliate links; use internal cross-links to other posts instead.>
 
 ## Pros and Cons
 
@@ -465,7 +465,7 @@ draft: false
 
 ---
 
-**About the author:** AI Pulse Editorial tests AI tools hands-on. Prices and ratings are accurate as of publication date. [Disclosure: This post contains affiliate links. As an Amazon Associate we earn from qualifying purchases.]`;
+**About the author:** AI Pulse Editorial tests AI tools hands-on. Prices and ratings are accurate as of publication date.`;
 
 async function generatePost(provider, topicObj) {
   const topic = topicObj.topic;

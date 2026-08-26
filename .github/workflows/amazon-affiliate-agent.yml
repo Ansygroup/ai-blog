@@ -12,7 +12,8 @@ on:
 
 jobs:
   affiliate:
-    name: Insert Amazon affiliate links
+    name: Insert Amazon affiliate links [DISABLED — Amazon links removed from site]
+    if: false  # DISABLED: Amazon affiliate links were removed from the site on 2026-08-26.
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
