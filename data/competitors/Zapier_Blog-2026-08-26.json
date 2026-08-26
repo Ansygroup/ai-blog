@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-08-26T03:14:51.436Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/gemini-apps/",
+      "title": "gemini apps",
+      "topic": "Gemini Apps: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-ai-website-builder/",
+      "title": "best ai website builder",
+      "topic": "Best Ai Website Builder: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-skills/",
+      "title": "claude skills",
+      "topic": "Claude Skills: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-cowork/",
+      "title": "claude cowork",
+      "topic": "Claude Cowork: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-ai/",
+      "title": "claude ai",
+      "topic": "Claude Ai: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-for-small-business/",
+      "title": "claude for small business",
+      "topic": "Claude For Small Business: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/gemini-gems/",
+      "title": "gemini gems",
+      "topic": "Gemini Gems: A 2026 Guide"
+    }
+  ]
+}

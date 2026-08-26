@@ -40,7 +40,21 @@ run('node scripts/competitor-scout.js');
 run('node scripts/media-gen.js');
 run('node scripts/affiliate-audit.js');
 run('node scripts/affiliate-fill.js');
-run('node scripts/parallel-publish.js --count 20 --concurrency 3');
+// Guard: parallel-publish pulls topics from the queue BEFORE generating.
+// If no AI provider key is configured locally, every pull is silently lost
+// (generation fails, CI can't see them). Skip and let GitHub Actions publish.
+const hasLocalKey = (() => {
+  try {
+    require('dotenv').config({ path: path.join(ROOT, '.env.local') });
+  } catch { /* dotenv optional */ }
+  return ['GROQ_API_KEY', 'GEMINI_API_KEY', 'GOOGLE_API_KEY', 'OPENROUTER_API_KEY', 'NVIDIA_API_KEY', 'OPENAI_API_KEY']
+    .some(k => process.env[k]);
+})();
+if (hasLocalKey) {
+  run('node scripts/parallel-publish.js --count 20 --concurrency 3');
+} else {
+  console.log('\n⏭ No local AI provider key — skipping local publish (queue left for CI).');
+}
 run('node scripts/seo-optimizer.js --fix');
 
 // commit + push so Vercel redeploys
