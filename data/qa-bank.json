@@ -1,0 +1,44 @@
+[
+  {
+    "question": "New to AI: Which platforms are currently the best?",
+    "source": "reddit.com/r/OpenAI",
+    "answer": "For most people the practical trio is ChatGPT (general + writing), Claude (long documents, coding, reasoning), and Perplexity (research + cited answers). Pick by task: writing → ChatGPT/Claude, deep research → Perplexity, coding → Claude/ChatGPT. Our breakdown of what professionals actually use covers this in detail.",
+    "link_slug": "what-ai-tools-do-professionals-use-2026",
+    "link_text": "What AI tools do professionals use in 2026?"
+  },
+  {
+    "question": "Which AI tool is best for content creation in 2026?",
+    "source": "quora.com",
+    "answer": "It depends on the job: ChatGPT and Claude lead for drafting and editing; Jasper and Copy.ai for marketing copy; Surfer SEO and Frase for SEO-optimized articles. No single tool wins everything — match the tool to the task. See our comparison of the best AI writing tools for 2026.",
+    "link_slug": "best-ai-writing-tools",
+    "link_text": "Best AI writing tools (2026 comparison)"
+  },
+  {
+    "question": "What AI tools do you actually use day to day?",
+    "source": "reddit.com/r/ChatGPTPro",
+    "answer": "The ones that stick are task-specific: ChatGPT/Claude for writing, GitHub Copilot/Cursor for code, Perplexity for research, Midjourney for images, and Otter/Fireflies for meetings. Our guide to the best AI tools by use case maps each tool to the job it does best.",
+    "link_slug": "best-ai-tools-for-productivity-2026",
+    "link_text": "Best AI tools for productivity (2026)"
+  },
+  {
+    "question": "Which AI model is best for research?",
+    "source": "reddit.com/r/ChatGPTPro",
+    "answer": "For cited, source-backed research Perplexity and ChatGPT's deep research lead; for analyzing papers Claude is strong. The best all-around research model balances accuracy and citations. Our Honest AI reviews section benchmarks these head-to-head.",
+    "link_slug": "perplexity-vs-gemini",
+    "link_text": "Perplexity vs Gemini — research model comparison"
+  },
+  {
+    "question": "Which AI tool for which tasks?",
+    "source": "reddit.com/r/productivity",
+    "answer": "Rule of thumb: one tool per job. Writing → ChatGPT/Claude, images → Midjourney, video → Runway, code → Cursor/Copilot, meetings → Otter, SEO → Surfer. Our 'best AI tool for each task' map breaks it down by profession.",
+    "link_slug": "best-ai-tools-for-freelancers-2026",
+    "link_text": "Best AI tools by task and profession (2026)"
+  },
+  {
+    "question": "Best free AI tool for students in 2026?",
+    "source": "quora.com",
+    "answer": "Students get the most from ChatGPT (free tier) for explanations, Claude for essay drafting, and Perplexity for cited research. For studying, NotebookLM is excellent. Our free AI tools for students guide ranks the top picks.",
+    "link_slug": "best-ai-tools-for-students-2026",
+    "link_text": "Best free AI tools for students (2026)"
+  }
+]
