@@ -11,12 +11,17 @@ export default function NewsletterPage() {
   const [generating, setGenerating] = useState(false);
   const [result, setResult] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [subCount, setSubCount] = useState(null);
 
   useEffect(() => {
     fetch('/admin/api/newsletter')
       .then(r => r.json())
       .then(d => { setData(d); setLoading(false); })
       .catch(() => setLoading(false));
+    fetch('/admin/api/subscribers')
+      .then(r => r.json())
+      .then(d => setSubCount(d.count))
+      .catch(() => setSubCount(0));
   }, []);
 
   useEffect(() => {
@@ -74,6 +79,24 @@ export default function NewsletterPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Subscribers card */}
+        <div className="lg:col-span-2">
+          <div className="bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border rounded-xl p-5 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Download className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+              <div>
+                <h2 className="text-sm font-bold text-slate-900 dark:text-dark-text">Subscribers</h2>
+                <p className="text-sm text-slate-500 dark:text-dark-muted mt-1">
+                  {subCount === null ? 'Loading…' : `${subCount} captured`} · stored locally in public/data/subscribers.json
+                </p>
+              </div>
+            </div>
+            <a href="/admin/api/subscribers?format=csv" className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
+              <Download className="w-4 h-4" /> Export CSV
+            </a>
+          </div>
+        </div>
+
         {/* Post selection */}
         <div>
           <div className="bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border rounded-xl p-5">
