@@ -59,7 +59,7 @@
     "question": "Is Claude better than ChatGPT for coding in 2026?",
     "source": "quora.com",
     "answer": "Claude (especially Claude Code / Opus) is widely cited as best for large codebases, precise structured output, and long-context reasoning. ChatGPT is more balanced for quick scripts and explanations. Most developers use both. See our Claude vs ChatGPT coding breakdown.",
-    "link_slug": "claude-vs-chatgpt",
+    "link_slug": "chatgpt-vs-claude",
     "link_text": "Claude vs ChatGPT — full comparison"
   },
   {
@@ -101,21 +101,21 @@
     "question": "What is the best AI video generator in 2026?",
     "source": "reddit.com/r/generativeAI",
     "answer": "For cinematic quality Sora 2 and Kling AI lead; for marketing/short-form Runway and Pika are fastest; for image-to-video Luma Dream Machine is strong. Our 2026 video-generator shootout ranks them by quality, length limits, and price.",
-    "link_slug": "best-ai-video-generators-compared",
+    "link_slug": "ai-video-generators-compared",
     "link_text": "Best AI video generators 2026 (compared)"
   },
   {
     "question": "What is the best AI video generator for content marketing?",
     "source": "reddit.com/r/content_marketing",
     "answer": "Agencies stick with Runway (Gen-3/Gen-4) for control and Pika for speed; Sora 2 for hero shots. Our agency-focused comparison covers which tool fits short-form, ads, and long-form.",
-    "link_slug": "best-ai-video-generators-compared",
+    "link_slug": "ai-video-generators-compared",
     "link_text": "Best AI video generators for marketing"
   },
   {
     "question": "Which AI video tool generates videos longer than 10 seconds?",
     "source": "reddit.com/r/generativeAI",
     "answer": "Kling AI (up to 2 min), Runway (extendable), and Sora 2 handle longer clips; most free tiers cap at 5-10s. Our length-limits guide breaks down each tool.",
-    "link_slug": "best-ai-video-generators-compared",
+    "link_slug": "ai-video-generators-compared",
     "link_text": "AI video generators — length limits 2026"
   },
   {
@@ -220,7 +220,7 @@
     "question": "Which AI tool creates content that actually ranks on Google?",
     "source": "quora.com",
     "answer": "Surfer SEO is the top AI tool for creating rank-ready content; Frase and Clearscope are close seconds. Our SEO content tool comparison shows output samples and ranking potential.",
-    "link_slug": "best-ai-tools-for-seo-agencies-2026",
+    "link_slug": "ai-tools-for-seo-agencies-2026",
     "link_text": "Best AI tools for SEO agencies 2026"
   },
   {
