@@ -96,5 +96,47 @@
     "answer": "Students get the most from ChatGPT free tier (explanations), Claude (essay drafting), Perplexity (cited research), and NotebookLM (study notes). Our free-tools-for-students guide ranks the top picks with limits.",
     "link_slug": "best-ai-tools-for-students-2026",
     "link_text": "Best free AI tools for students"
+  },
+  {
+    "question": "What is the best AI video generator in 2026?",
+    "source": "reddit.com/r/generativeAI",
+    "answer": "For cinematic quality Sora 2 and Kling AI lead; for marketing/short-form Runway and Pika are fastest; for image-to-video Luma Dream Machine is strong. Our 2026 video-generator shootout ranks them by quality, length limits, and price.",
+    "link_slug": "best-ai-video-generators-compared",
+    "link_text": "Best AI video generators 2026 (compared)"
+  },
+  {
+    "question": "What is the best AI video generator for content marketing?",
+    "source": "reddit.com/r/content_marketing",
+    "answer": "Agencies stick with Runway (Gen-3/Gen-4) for control and Pika for speed; Sora 2 for hero shots. Our agency-focused comparison covers which tool fits short-form, ads, and long-form.",
+    "link_slug": "best-ai-video-generators-compared",
+    "link_text": "Best AI video generators for marketing"
+  },
+  {
+    "question": "Which AI video tool generates videos longer than 10 seconds?",
+    "source": "reddit.com/r/generativeAI",
+    "answer": "Kling AI (up to 2 min), Runway (extendable), and Sora 2 handle longer clips; most free tiers cap at 5-10s. Our length-limits guide breaks down each tool.",
+    "link_slug": "best-ai-video-generators-compared",
+    "link_text": "AI video generators — length limits 2026"
+  },
+  {
+    "question": "Which AI voice tool sounds the most realistic in 2026?",
+    "source": "quora.com",
+    "answer": "ElevenLabs leads for emotional realism; Cartesia and PlayHT are close seconds; Murf is best for structured narration. Our voice-generator comparison tests them side by side.",
+    "link_slug": "best-ai-voice-generators-2026",
+    "link_text": "Best AI voice generators 2026"
+  },
+  {
+    "question": "What are the best free AI text-to-speech tools?",
+    "source": "quora.com",
+    "answer": "Free tiers worth using: ElevenLabs (limited chars), Google TTS, and MiniMax Audio (5k chars/gen). For YouTube narration ElevenLabs free tier is the realistic pick. Our free-TTS roundup ranks them.",
+    "link_slug": "best-ai-voice-generators-2026",
+    "link_text": "Best free AI text-to-speech tools"
+  },
+  {
+    "question": "What is the best AI voice generator for YouTube?",
+    "source": "quora.com",
+    "answer": "For YouTube narration ElevenLabs and Speechify give the most natural cadence; Murf adds built-in video workflows. Our YouTube-voice guide compares output samples.",
+    "link_slug": "best-ai-voice-generators-2026",
+    "link_text": "Best AI voice generator for YouTube"
   }
 ]
