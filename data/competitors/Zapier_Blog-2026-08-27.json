@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-08-27T03:08:35.914Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-ai-notes-apps/",
+      "title": "best ai notes apps",
+      "topic": "Best Ai Notes Apps: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/automate-claude/",
+      "title": "automate claude",
+      "topic": "Automate Claude: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/just-eat-spain-ruben-del-fresno-restaurant-partner-onboarding/",
+      "title": "just eat spain ruben del fresno restaurant partner onboarding",
+      "topic": "Just Eat Spain Ruben Del Fresno Restaurant Partner Onboarding: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/gemini-apps/",
+      "title": "gemini apps",
+      "topic": "Gemini Apps: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-ai-website-builder/",
+      "title": "best ai website builder",
+      "topic": "Best Ai Website Builder: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-skills/",
+      "title": "claude skills",
+      "topic": "Claude Skills: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-cowork/",
+      "title": "claude cowork",
+      "topic": "Claude Cowork: A 2026 Guide"
+    }
+  ]
+}
