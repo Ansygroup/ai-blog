@@ -4,18 +4,23 @@ import { useState } from 'react';
 export default function NewsletterCTA() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle');
-  const action = process.env.NEXT_PUBLIC_NEWSLETTER_FORM_ACTION;
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!action) { setStatus('demo'); return; }
     setStatus('loading');
     try {
-      const data = new FormData();
-      data.append('email_address', email);
-      const res = await fetch(action, { method: 'POST', body: data, mode: 'no-cors' });
-      setStatus('success');
-      setEmail('');
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        setStatus('success');
+        setEmail('');
+      } else {
+        setStatus('error');
+      }
     } catch (err) { setStatus('error'); }
   };
 
@@ -37,8 +42,7 @@ export default function NewsletterCTA() {
           </button>
         </form>
         <p className="text-xs text-blue-200 mt-3">Join 8,400+ readers. Unsubscribe anytime. We never sell your data.</p>
-        {status === 'success' && <p className="text-sm text-amber-200 mt-3">✓ Check your inbox to confirm.</p>}
-        {status === 'demo' && <p className="text-sm text-amber-200 mt-3">Demo mode — wire up NEXT_PUBLIC_NEWSLETTER_FORM_ACTION to enable.</p>}
+        {status === 'success' && <p className="text-sm text-amber-200 mt-3">✓ You're subscribed! We'll be in touch weekly.</p>}
         {status === 'error' && <p className="text-sm text-red-200 mt-3">Something went wrong. Try again?</p>}
       </div>
     </section>
