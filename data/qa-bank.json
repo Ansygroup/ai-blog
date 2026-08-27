@@ -40,5 +40,61 @@
     "answer": "Students get the most from ChatGPT (free tier) for explanations, Claude for essay drafting, and Perplexity for cited research. For studying, NotebookLM is excellent. Our free AI tools for students guide ranks the top picks.",
     "link_slug": "best-ai-tools-for-students-2026",
     "link_text": "Best free AI tools for students (2026)"
+  },
+  {
+    "question": "What is the best AI image generator available today?",
+    "source": "reddit.com/r/generativeAI",
+    "answer": "For photoreal results Midjourney leads; for speed and prompt-to-image Google ImageFX and ChatGPT are strong; for free tiers Bing Image Creator (DALL·E 3) is the easiest start. Our 2026 image-generator comparison ranks them by quality, speed, and price.",
+    "link_slug": "best-ai-image-generators-2026",
+    "link_text": "Best AI image generators 2026 (compared)"
+  },
+  {
+    "question": "Which AI model is the best in image generation?",
+    "source": "reddit.com/r/generativeAI",
+    "answer": "Midjourney v6 delivers the most artistic, cohesive images; DALL·E 3 (ChatGPT) understands complex prompts best; Stable Diffusion gives full control via ComfyUI. Pick by goal: art → Midjourney, prompt fidelity → DALL·E 3, control → SD. Full breakdown in our image-gen guide.",
+    "link_slug": "best-ai-image-generators-2026",
+    "link_text": "Best AI image generators 2026"
+  },
+  {
+    "question": "Is Claude better than ChatGPT for coding in 2026?",
+    "source": "quora.com",
+    "answer": "Claude (especially Claude Code / Opus) is widely cited as best for large codebases, precise structured output, and long-context reasoning. ChatGPT is more balanced for quick scripts and explanations. Most developers use both. See our Claude vs ChatGPT coding breakdown.",
+    "link_slug": "claude-vs-chatgpt",
+    "link_text": "Claude vs ChatGPT — full comparison"
+  },
+  {
+    "question": "Which is better, ChatGPT, Gemini, or Claude?",
+    "source": "quora.com",
+    "answer": "No single winner: ChatGPT is the balanced all-rounder; Claude excels at long documents, reasoning, and code; Gemini wins for live web data and Google ecosystem. Our 3-way comparison maps each to the right use case.",
+    "link_slug": "chatgpt-vs-gemini",
+    "link_text": "ChatGPT vs Gemini vs Claude 2026"
+  },
+  {
+    "question": "What AI is best for research and science?",
+    "source": "quora.com",
+    "answer": "Perplexity and ChatGPT deep research lead for cited, source-backed answers; Claude is strong for analyzing papers and long documents. For regulated/scientific depth, ChatGPT + Claude win on maturity. Our research-model comparison benchmarks them head-to-head.",
+    "link_slug": "perplexity-vs-gemini",
+    "link_text": "Perplexity vs Gemini — research models"
+  },
+  {
+    "question": "What is the most realistic AI image generator?",
+    "source": "reddit.com/r/aipromptprogramming",
+    "answer": "Midjourney v6 and the new ChatGPT generator produce the most photoreal faces and objects; for video-from-image, Runway and Kling lead. Our realism shootout covers the top picks with sample outputs.",
+    "link_slug": "best-ai-image-generators-2026",
+    "link_text": "Best AI image generators (realism tested)"
+  },
+  {
+    "question": "ChatGPT vs Gemini — which is better for bloggers?",
+    "source": "quora.com",
+    "answer": "ChatGPT is better for drafting and creative angles; Gemini shines for pulling live facts and Google-integrated workflows; Claude is best for long-form, natural tone. Our blogger-focused comparison helps you pick.",
+    "link_slug": "chatgpt-vs-gemini",
+    "link_text": "ChatGPT vs Gemini for bloggers 2026"
+  },
+  {
+    "question": "What is the best free AI tool for students in 2026?",
+    "source": "quora.com",
+    "answer": "Students get the most from ChatGPT free tier (explanations), Claude (essay drafting), Perplexity (cited research), and NotebookLM (study notes). Our free-tools-for-students guide ranks the top picks with limits.",
+    "link_slug": "best-ai-tools-for-students-2026",
+    "link_text": "Best free AI tools for students"
   }
 ]
