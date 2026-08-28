@@ -14,11 +14,11 @@ function getDb() {
 }
 
 export const metadata = {
-  title: 'Amazon Tech & AI Store — Best Deals 2026',
+  title: `Amazon Tech & AI Store — Best Deals ${new Date().getFullYear()}`,
   description: 'Curated picks: best laptops, headphones, monitors, AI books, and creator gear. Every product hand-selected for AI professionals and creators.',
   alternates: { canonical: `${siteConfig.url}/recommendations` },
   openGraph: {
-    title: 'Amazon Tech & AI Store — Best Deals 2026',
+    title: `Amazon Tech & AI Store — Best Deals ${new Date().getFullYear()}`,
     description: 'Curated picks for AI professionals and creators.',
     url: `${siteConfig.url}/recommendations`,
     siteName: siteConfig.name,

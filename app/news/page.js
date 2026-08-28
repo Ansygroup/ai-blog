@@ -6,7 +6,7 @@ export const dynamic = 'force-static';
 export const revalidate = 1800;
 
 export const metadata = {
-  title: 'AI News — Latest Artificial Intelligence Updates 2026',
+  title: `AI News — Latest Artificial Intelligence Updates ${new Date().getFullYear()}`,
   description: 'Breaking AI news, research breakthroughs, product launches, and industry analysis. Updated continuously.',
   alternates: { canonical: `${siteConfig.url}/news` },
   openGraph: {

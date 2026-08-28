@@ -41,7 +41,7 @@ export function generateMetadata({ params }) {
   const product = products.find((p) => p.slug === params.slug);
   if (!product) return {};
   return {
-    title: `${product.name} — Price, Specs & Review 2026 | AI Pulse Daily`,
+    title: `${product.name} — Price, Specs & Review ${new Date().getFullYear()} | AI Pulse Daily`,
     description: product.description?.slice(0, 160),
     alternates: { canonical: `${siteConfig.url}/recommendations/products/${product.slug}` },
     openGraph: {

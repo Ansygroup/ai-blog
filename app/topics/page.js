@@ -6,7 +6,7 @@ import { breadcrumbJsonLd } from '../../lib/schema';
 export const dynamic = 'force-static';
 
 export const metadata = {
-  title: 'AI Topics — Guides, Comparisons & Tutorials 2026',
+  title: `AI Topics — Guides, Comparisons & Tutorials ${new Date().getFullYear()}`,
   description: 'Explore curated topic clusters: AI content creation, image generation, coding, marketing, voice, video, and more.',
   alternates: { canonical: `${siteConfig.url}/topics` },
   openGraph: {

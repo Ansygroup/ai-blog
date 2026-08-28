@@ -15,8 +15,9 @@ export async function GET() {
   }
 
   function safeDate(d) {
+    // Stable sentinel: the Unix epoch. Can never go stale.
     const parsed = new Date(d);
-    return isNaN(parsed.getTime()) ? '2026-01-01' : parsed.toISOString().split('T')[0];
+    return isNaN(parsed.getTime()) ? '1970-01-01' : parsed.toISOString().split('T')[0];
   }
 
   function escapeXml(s) {

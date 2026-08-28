@@ -25,11 +25,11 @@ export function generateMetadata({ params }) {
   const cat = db.categories[params.category];
   if (!cat) return {};
   return {
-    title: `${cat.name} — Best Deals 2026 | AI Pulse Daily`,
+    title: `${cat.name} — Best Deals ${new Date().getFullYear()} | AI Pulse Daily`,
     description: cat.description,
     alternates: { canonical: `${siteConfig.url}/recommendations/${params.category}` },
     openGraph: {
-      title: `${cat.name} — Best Deals 2026`,
+      title: `${cat.name} — Best Deals ${new Date().getFullYear()}`,
       description: cat.description,
       url: `${siteConfig.url}/recommendations/${params.category}`,
       siteName: siteConfig.name,

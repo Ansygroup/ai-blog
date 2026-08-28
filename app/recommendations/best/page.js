@@ -48,12 +48,12 @@ export default function BestPage() {
       <script id="ld-best-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
         { name: 'Home', url: siteConfig.url },
         { name: 'Tech Store', url: `${siteConfig.url}/recommendations` },
-        { name: 'Best Products 2026', url: `${siteConfig.url}/recommendations/best` },
+        { name: `Best Products ${new Date().getFullYear()}`, url: `${siteConfig.url}/recommendations/best` },
       ])) }} />
       <script id="ld-best-collection" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
-        name: 'Best Amazon Products 2026',
+        name: `Best Amazon Products ${new Date().getFullYear()}`,
         description: 'Top-rated tech products across all categories.',
         url: `${siteConfig.url}/recommendations/best`,
         mainEntity: { '@type': 'ItemList', itemListElement: top10.map((p, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Product', name: p.name, url: `${siteConfig.url}/recommendations/products/${p.slug}`, image: getProductImage(p), offers: { '@type': 'Offer', price: priceValue(p.price), priceCurrency: 'USD' } } })) },
@@ -65,13 +65,13 @@ export default function BestPage() {
             <li><ChevronRight className="w-4 h-4 text-slate-300" aria-hidden="true" /></li>
             <li><Link href="/recommendations" className="hover:text-blue-600">Tech Store</Link></li>
             <li><ChevronRight className="w-4 h-4 text-slate-300" aria-hidden="true" /></li>
-            <li className="text-slate-700 dark:text-dark-text">Best Products 2026</li>
+            <li className="text-slate-700 dark:text-dark-text">Best Products {new Date().getFullYear()}</li>
           </ol>
         </nav>
 
         <header className="mb-10">
           <span className="text-sm text-amber-500 font-semibold uppercase tracking-wider mb-2 block"><Award className="w-5 h-5 inline" /> Top Picks</span>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">Best Amazon Products 2026</h1>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">Best Amazon Products {new Date().getFullYear()}</h1>
           <p className="text-lg text-slate-600 dark:text-dark-muted max-w-3xl">We ranked every product in our store by rating and popularity to bring you the absolute best. These are the top-performing picks across laptops, headphones, monitors, AI books, and more.</p>
         </header>
 

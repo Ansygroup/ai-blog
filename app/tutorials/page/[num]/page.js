@@ -23,7 +23,7 @@ export function generateMetadata({ params }) {
   const allPosts = getAllPosts().filter((p) => p.category === 'Tutorials');
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
   return {
-    title: `AI Tutorials — Page ${num} | Step-by-Step Guides 2026`,
+    title: `AI Tutorials — Page ${num} | Step-by-Step Guides ${new Date().getFullYear()}`,
     description: `Step-by-step AI tutorials — page ${num} of ${totalPages}.`,
     alternates: { canonical: `${siteConfig.url}/tutorials/page/${num}` },
   };

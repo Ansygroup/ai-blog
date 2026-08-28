@@ -9,7 +9,7 @@ const POSTS_PER_PAGE = 24;
 
 export const metadata = {
   title: 'All Articles — AI Tool Reviews, Comparisons & Tutorials',
-  description: 'Browse all AI tool reviews, comparisons, tutorials, and best-of lists. 144+ in-depth articles updated for 2026.',
+  description: `Browse all AI tool reviews, comparisons, tutorials, and best-of lists. 144+ in-depth articles updated for ${new Date().getFullYear()}.`,
   alternates: { canonical: `${siteConfig.url}/posts` },
   openGraph: {
     title: 'All Articles — AI Pulse Daily',

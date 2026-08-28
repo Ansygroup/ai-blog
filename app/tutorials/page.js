@@ -10,11 +10,11 @@ import PaginationNav from '../../components/PaginationNav';
 const POSTS_PER_PAGE = 24;
 
 export const metadata = {
-  title: 'AI Tutorials — Step-by-Step Guides 2026',
+  title: `AI Tutorials — Step-by-Step Guides ${new Date().getFullYear()}`,
   description: 'Step-by-step tutorials on using the best AI tools. From ChatGPT prompts to AI image generation, learn with practical guides.',
   alternates: { canonical: `${siteConfig.url}/tutorials` },
   openGraph: {
-    title: 'AI Tutorials — Step-by-Step Guides 2026',
+    title: `AI Tutorials — Step-by-Step Guides ${new Date().getFullYear()}`,
     description: 'Step-by-step tutorials on using the best AI tools.',
     url: `${siteConfig.url}/tutorials`,
     siteName: siteConfig.name,
@@ -45,7 +45,7 @@ export default function TutorialsPage() {
         </nav>
         <header className="mb-10">
           <p className="text-sm text-slate-500 dark:text-dark-muted uppercase tracking-wider mb-2">Learn</p>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">AI Tutorials 2026</h1>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">AI Tutorials {new Date().getFullYear()}</h1>
           <p className="text-lg text-slate-600 dark:text-dark-muted max-w-2xl">Step-by-step tutorials on using the best AI tools. From ChatGPT prompts to AI image generation, learn with practical guides.</p>
         </header>
         <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />

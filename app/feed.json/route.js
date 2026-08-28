@@ -3,10 +3,12 @@ import { siteConfig } from '../../lib/config';
 
 export const dynamic = 'force-static';
 
-// Safely convert a post date to ISO; fall back to a fixed date if invalid.
+// Safely convert a post date to ISO; fall back to the Unix epoch (1970-01-01)
+// if invalid. The epoch is a stable sentinel that can never go stale — unlike
+// a hard-coded "current year" which would rot on every Jan 1.
 function safeISO(value) {
   const d = new Date(value);
-  return isNaN(d.getTime()) ? '2026-01-01T00:00:00.000Z' : d.toISOString();
+  return isNaN(d.getTime()) ? '1970-01-01T00:00:00.000Z' : d.toISOString();
 }
 
 export async function GET() {

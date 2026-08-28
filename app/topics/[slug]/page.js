@@ -20,11 +20,11 @@ export function generateMetadata({ params }) {
   const topic = topics.find((t) => t.slug === params.slug);
   if (!topic) return {};
   return {
-    title: `${topic.title} — Guides & Comparisons 2026`,
+    title: `${topic.title} — Guides & Comparisons ${new Date().getFullYear()}`,
     description: topic.description,
     alternates: { canonical: `${siteConfig.url}/topics/${topic.slug}` },
     openGraph: {
-      title: `${topic.title} 2026`,
+      title: `${topic.title} ${new Date().getFullYear()}`,
       description: topic.description,
       url: `${siteConfig.url}/topics/${topic.slug}`,
       siteName: siteConfig.name,
@@ -83,7 +83,7 @@ export default function TopicPage({ params }) {
         </nav>
 
         <header className="mb-10">
-          <h1 className="text-4xl font-extrabold tracking-tight mb-3">{topic.title} <span className="text-blue-600">2026</span></h1>
+          <h1 className="text-4xl font-extrabold tracking-tight mb-3">{topic.title} <span className="text-blue-600">{new Date().getFullYear()}</span></h1>
           <p className="text-lg text-slate-600 dark:text-dark-muted max-w-3xl">{topic.description}</p>
         </header>
 
