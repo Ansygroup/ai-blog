@@ -20,11 +20,11 @@ function getDb() {
 }
 
 export const metadata = {
-  title: 'Best Amazon Products 2026 — Top Picks Across All Categories',
-  description: 'Our top-rated picks across laptops, headphones, monitors, AI books, webcams, tablets, smart home, storage, keyboards, and office chairs. Updated for 2026.',
+  title: `Best Amazon Products ${new Date().getFullYear()} — Top Picks Across All Categories`,
+  description: `Our top-rated picks across laptops, headphones, monitors, AI books, webcams, tablets, smart home, storage, keyboards, and office chairs. Updated for ${new Date().getFullYear()}.`,
   alternates: { canonical: `${siteConfig.url}/recommendations/best` },
   openGraph: {
-    title: 'Best Amazon Products 2026 — Top Picks',
+    title: `Best Amazon Products ${new Date().getFullYear()} — Top Picks`,
     description: 'Curated top-rated tech picks for AI professionals.',
     url: `${siteConfig.url}/recommendations/best`,
     siteName: siteConfig.name,

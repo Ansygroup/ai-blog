@@ -115,9 +115,9 @@ export default function UpgradePage() {
         )}
       </div>
 
-      {/* Analysis results */}
+      {/* Analysis results — no animate-fade-in; same reason as the root layout. */}
       {analysis && (
-        <div className="space-y-6 animate-fade-in">
+        <div className="space-y-6">
           {/* Header */}
           <div className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card p-5">
             <div className="flex items-start justify-between mb-4">

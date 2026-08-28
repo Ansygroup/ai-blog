@@ -14,15 +14,10 @@
 }
 
 @layer utilities {
-  .animate-delay-100 { animation-delay: 100ms; }
-  .animate-delay-200 { animation-delay: 200ms; }
-  .animate-delay-300 { animation-delay: 300ms; }
-  .animate-delay-400 { animation-delay: 400ms; }
-  .animate-delay-500 { animation-delay: 500ms; }
-  .stagger-1 { animation-delay: 0ms; }
-  .stagger-2 { animation-delay: 100ms; }
-  .stagger-3 { animation-delay: 200ms; }
-  .stagger-4 { animation-delay: 300ms; }
+  /* Orphan stagger/delay utilities were removed alongside the home hero
+     choreographed entrance (commit design(home): strip hero decorative
+     motion). If a new feature genuinely needs staggered motion, define
+     the delays inline at the call site. */
   .stagger-5 { animation-delay: 400ms; }
   .stagger-6 { animation-delay: 500ms; }
 }

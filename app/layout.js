@@ -108,7 +108,10 @@ export default function RootLayout({ children }) {
         <ReadingProgress />
         <SkipLink />
         <Header />
-        <main id="main-content" className="min-h-screen animate-fade-in">{children}</main>
+        {/* No animate-fade-in on <main>: it ran on every route change
+            (client navigation re-mounts children inside <main>) and was
+            the #1 cause of "the site feels slow" on every internal link. */}
+        <main id="main-content" className="min-h-screen">{children}</main>
         <NewsletterCTA />
         <CookieBanner />
         <Analytics />
