@@ -45,7 +45,8 @@ jobs:
             if [ ! -f "$f" ]; then continue; fi
             echo "--- Checking $f ---"
             if ! head -30 "$f" | grep -q "^title:"; then echo "  ❌ Missing title"; ERRORS=$((ERRORS+1)); fi
-            if ! head -30 "$f" | grep -q "^excerpt:"; then echo "  ❌ Missing excerpt"; ERRORS=$((ERRORS+1)); fi
+            # Accept `excerpt:` OR `description:` as the post summary (some posts use description)
+            if ! head -30 "$f" | grep -qE "^(excerpt|description):"; then echo "  ❌ Missing excerpt/description"; ERRORS=$((ERRORS+1)); fi
             if ! head -30 "$f" | grep -q "^date:"; then echo "  ❌ Missing date"; ERRORS=$((ERRORS+1)); fi
             if ! head -30 "$f" | grep -q "^category:"; then echo "  ❌ Missing category"; ERRORS=$((ERRORS+1)); fi
             if ! head -30 "$f" | grep -q "^tags:"; then echo "  ❌ Missing tags"; ERRORS=$((ERRORS+1)); fi
