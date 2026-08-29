@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-08-29T03:01:39.135Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/automate-email-inbox/",
+      "title": "automate email inbox",
+      "topic": "Automate Email Inbox: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/chatgpt-connectors/",
+      "title": "chatgpt connectors",
+      "topic": "Chatgpt Connectors: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/google-ai-mode/",
+      "title": "google ai mode",
+      "topic": "Google Ai Mode: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-ai-notes-apps/",
+      "title": "best ai notes apps",
+      "topic": "Best Ai Notes Apps: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/automate-claude/",
+      "title": "automate claude",
+      "topic": "Automate Claude: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/just-eat-spain-ruben-del-fresno-restaurant-partner-onboarding/",
+      "title": "just eat spain ruben del fresno restaurant partner onboarding",
+      "topic": "Just Eat Spain Ruben Del Fresno Restaurant Partner Onboarding: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/gemini-apps/",
+      "title": "gemini apps",
+      "topic": "Gemini Apps: A 2026 Guide"
+    }
+  ]
+}
