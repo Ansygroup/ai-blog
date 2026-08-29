@@ -18,13 +18,7 @@ import { execSync } from 'node:child_process';
 process.env.GIT_TERMINAL_PROMPT = '0';
 process.env.GCM_INTERACTIVE = 'never';
 // Stop GCM from probing a tty entirely; fall back to cached/store creds.
-process.env.GIT_ASKPASS = '';
-// Disable the GUI/manager credential helper so git falls back to the
-// tty-free 'store' helper (cached token file) under unattended cron.
-process.env.GCM_TERMINAL_PROMPT = '0';
-process.env.GIT_CONFIG_COUNT = '1';
-process.env.GIT_CONFIG_KEY_0 = 'credential.helper';
-process.env.GIT_CONFIG_VALUE_0 = '';
+process.env.GIT_ASKPASS = '';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
