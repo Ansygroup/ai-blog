@@ -69,13 +69,19 @@ async function fetchSupabaseGroqKeys() {
 }
 
 const GROQ_API = 'https://api.groq.com/openai/v1/chat/completions';
+// qwen/qwen3-32b (groq-client default) 404s now; rotate current models.
+const GROQ_MODELS = [
+  process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+  'llama-3.3-70b-versatile',
+  'llama-3.1-8b-instant',
+];
 
-async function groqOnce(key, prompt) {
+async function groqOnce(key, prompt, model) {
   const res = await fetch(GROQ_API, {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: 'qwen/qwen3-32b',
+      model,
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.6,
       max_tokens: 2048,
@@ -93,12 +99,17 @@ async function gemini(prompt) {
     ...(await fetchSupabaseGroqKeys()),
   ];
   for (const key of keys) {
-    try {
-      const out = await groqOnce(key, prompt);
-      if (out) return out;
-    } catch (e) {
-      const retryable = /429|rate|quota/i.test(e.message);
-      if (!retryable) console.log(`  (groq key failed: ${String(e.message).slice(0, 60)})`);
+    for (const model of GROQ_MODELS) {
+      try {
+        const out = await groqOnce(key, prompt, model);
+        if (out) return out;
+      } catch (e) {
+        if (/404|model/i.test(e.message)) continue; // try next model
+        if (!/429|rate|quota/i.test(e.message)) {
+          console.log(`  (groq key failed: ${String(e.message).slice(0, 60)})`);
+          break; // bad key — next key
+        }
+      }
     }
   }
   let lastErr;
