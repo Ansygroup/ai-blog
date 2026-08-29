@@ -1,13 +1,11 @@
 {
   "expectedTag": "ansy07-20",
   "totalPosts": 669,
-  "totalAffiliateLinks": 1196,
+  "totalAffiliateLinks": 1198,
   "issues": {
     "missingTag": [],
-    "noLinks": [
-      "deepseek-vs-chatgpt-vs-claude-2026-comparison-ultimate-2026-edition.mdx"
-    ],
+    "noLinks": [],
     "wrongTag": []
   },
-  "generatedAt": "2026-08-29T03:01:51.940Z"
+  "generatedAt": "2026-08-29T03:09:00.421Z"
 }
