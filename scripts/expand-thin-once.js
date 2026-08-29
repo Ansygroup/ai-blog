@@ -12,6 +12,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const { groqGenerate, hasGroqKey, geminiGenerate, hasGeminiKey } = require('./ai-agent');
 
 const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
 const MIN_WORDS = 500;
@@ -23,8 +24,9 @@ const limitIdx = args.indexOf('--limit');
 const limit = limitIdx !== -1 ? parseInt(args[limitIdx + 1], 10) : 0;
 
 const apiKey = process.env.GEMINI_API_KEY;
-if (!apiKey && !dryRun) {
-  console.error('GEMINI_API_KEY not set');
+// Provider-agnostic: Groq first (CI secret), Gemini fallback (local).
+if (!dryRun && !hasGroqKey() && !hasGeminiKey()) {
+  console.error('No GROQ_API_KEY or GEMINI_API_KEY set');
   process.exit(1);
 }
 
@@ -50,7 +52,17 @@ async function geminiOnce(model, prompt) {
 }
 
 async function gemini(prompt) {
+  // Groq first (fast, CI secret available), Gemini fallback with retries.
+  if (hasGroqKey()) {
+    try {
+      const out = await groqGenerate(prompt, { temperature: 0.6, maxTokens: 2048 });
+      if (out) return out;
+    } catch (e) {
+      console.log(`  (groq failed: ${String(e.message).slice(0, 80)} — trying gemini)`);
+    }
+  }
   let lastErr;
+  if (!hasGeminiKey()) throw (lastErr || new Error('no AI provider available'));
   for (let attempt = 0; attempt < 4; attempt++) {
     const model = MODELS[attempt % MODELS.length];
     try {

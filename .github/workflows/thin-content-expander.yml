@@ -1,0 +1,63 @@
+name: Thin Content Expander — grow posts under 500 words
+
+# Finds posts under 500 words, expands them with topic-specific AI
+# sections (Groq in CI, Gemini fallback), and opens a PR. The PR gets
+# validated by the SEO Audit + Editor Agent pull_request_target
+# workflows automatically — no approval gate.
+
+on:
+  schedule:
+    - cron: '0 5 * * *'   # daily 05:00 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  expand:
+    name: Expand thin posts
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+
+      - name: Expand thin posts
+        id: expand
+        run: |
+          BEFORE=$(node -e "console.log(require('fs').readdirSync('content/posts').filter(f=>f.endsWith('.mdx')).length)")
+          node scripts/expand-thin-once.js
+          CHANGED=$(git diff --name-only -- content/posts/ | wc -l)
+          echo "changed=$CHANGED" >> $GITHUB_OUTPUT
+          echo "$CHANGED post(s) expanded (of $BEFORE total)"
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
+      - name: Open PR with expanded posts
+        if: steps.expand.outputs.changed != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="auto/thin-content-$(date +%s)"
+          git checkout -b "$BRANCH"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/posts/
+          git commit -m "auto: expand thin posts to 500+ words"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "auto: expand thin content" \
+            --body "Automated expansion of posts under 500 words. Sections are generated per-post (topic-specific, no template filler). Validation runs on this PR via the SEO Audit and Editor Agent workflows." \
+            --base main \
+            --head "$BRANCH"
+          gh pr merge --auto --squash 2>/dev/null || echo "auto-merge not enabled — PR left open for review"
+
+      - name: Nothing to do
+        if: steps.expand.outputs.changed == '0'
+        run: echo "No thin posts — all content above 500 words."
