@@ -32,8 +32,9 @@ function wordCount(text) {
   return text.split(/\s+/).filter(Boolean).length;
 }
 
-async function gemini(prompt) {
-  const model = process.env.GEMINI_MODEL || 'gemini-flash-latest';
+const MODELS = (process.env.GEMINI_MODELS || 'gemini-flash-latest,gemini-flash-lite-latest,gemini-2.0-flash,gemini-1.5-flash').split(',');
+
+async function geminiOnce(model, prompt) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
   const res = await fetch(url, {
     method: 'POST',
@@ -43,9 +44,27 @@ async function gemini(prompt) {
       generationConfig: { temperature: 0.6, maxOutputTokens: 2048 },
     }),
   });
-  if (!res.ok) throw new Error(`Gemini ${res.status}: ${(await res.text()).slice(0, 200)}`);
+  if (!res.ok) throw new Error(`Gemini ${model} ${res.status}: ${(await res.text()).slice(0, 120)}`);
   const data = await res.json();
   return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+}
+
+async function gemini(prompt) {
+  let lastErr;
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const model = MODELS[attempt % MODELS.length];
+    try {
+      const out = await geminiOnce(model, prompt);
+      if (out) return out;
+      lastErr = new Error('empty response');
+    } catch (e) {
+      lastErr = e;
+      const isRetryable = /503|429|overloaded|UNAVAILABLE/i.test(e.message);
+      if (!isRetryable) throw e;
+    }
+    await new Promise((r) => setTimeout(r, 8000 * (attempt + 1)));
+  }
+  throw lastErr;
 }
 
 function splitFrontmatter(content) {
