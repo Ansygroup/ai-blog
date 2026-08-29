@@ -51,14 +51,54 @@ async function geminiOnce(model, prompt) {
   return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
 }
 
+// CI keeps Groq keys in the Supabase groq_keys table (rotated by
+// GroqClient) — env secrets may be empty. Fetch them via REST.
+async function fetchSupabaseGroqKeys() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_KEY;
+  if (!url || !key) return [];
+  try {
+    const res = await fetch(`${url}/rest/v1/groq_keys?is_active=eq.true&select=key_value`, {
+      headers: { apikey: key, Authorization: `Bearer ${key}` },
+    });
+    if (!res.ok) return [];
+    return (await res.json()).map((r) => r.key_value).filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+const GROQ_API = 'https://api.groq.com/openai/v1/chat/completions';
+
+async function groqOnce(key, prompt) {
+  const res = await fetch(GROQ_API, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'qwen/qwen3-32b',
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.6,
+      max_tokens: 2048,
+    }),
+  });
+  if (!res.ok) throw new Error(`Groq ${res.status}: ${(await res.text()).slice(0, 120)}`);
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content?.trim() || '';
+}
+
 async function gemini(prompt) {
-  // Groq first (fast, CI secret available), Gemini fallback with retries.
-  if (hasGroqKey()) {
+  const keys = [
+    ...[process.env.GROQ_API_KEY, process.env.GROQ_API_KEY_2, process.env.GROQ_API_KEY_3,
+      process.env.GROQ_API_KEY_4, process.env.GROQ_API_KEY_5].filter(Boolean),
+    ...(await fetchSupabaseGroqKeys()),
+  ];
+  for (const key of keys) {
     try {
-      const out = await groqGenerate(prompt, { temperature: 0.6, maxTokens: 2048 });
+      const out = await groqOnce(key, prompt);
       if (out) return out;
     } catch (e) {
-      console.log(`  (groq failed: ${String(e.message).slice(0, 80)} — trying gemini)`);
+      const retryable = /429|rate|quota/i.test(e.message);
+      if (!retryable) console.log(`  (groq key failed: ${String(e.message).slice(0, 60)})`);
     }
   }
   let lastErr;
