@@ -19,6 +19,10 @@ export default function Header() {
     { href: '/about', label: 'About' },
   ];
 
+  const networkLinks = [
+    { href: 'https://dream-interpreter-alpha-ruddy.vercel.app', label: 'Dream Interpreter' },
+  ];
+
   return (
     <header className="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-slate-200 dark:bg-dark-bg/85 dark:border-dark-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,6 +46,18 @@ export default function Header() {
               >
                 {link.label}
               </Link>
+            ))}
+            <span className="mx-1 text-slate-300 dark:text-dark-border">|</span>
+            {networkLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-dark-card text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition font-semibold"
+              >
+                {link.label}
+              </a>
             ))}
           </nav>
 
