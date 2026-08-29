@@ -21,6 +21,7 @@ export default function Header() {
 
   const networkLinks = [
     { href: 'https://dream-interpreter-alpha-ruddy.vercel.app', label: 'Dream Interpreter' },
+    { href: 'https://ansygroup.com', label: 'Ansy Group' },
   ];
 
   return (
