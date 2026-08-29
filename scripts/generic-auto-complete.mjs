@@ -3,7 +3,7 @@
  * generic-auto-complete.mjs — self-completing workflow for any repo.
  * Runs on cron. Checks for available credentials and finishes pending work:
  *   - .env with STRIPE_SECRET_KEY → runs `npm run stripe:links` if present
- *   - git remote reachable        → commit + push pending work
+ *   - git remote reachable        → pull --rebase + commit + push pending work
  * Idempotent and prompt-free.
  *
  * Usage: node generic-auto-complete.mjs   (run inside the target repo)
@@ -35,6 +35,9 @@ try {
   const st = execSync('git status --short', { cwd: root, encoding: 'utf8' }).trim();
   if (st) { execSync('git add -A', { cwd: root }); execSync('git -c user.email="ansy0@ansygroup.com" -c user.name="ansy0" commit -q -m "chore: auto-complete pending work"', { cwd: root }); }
   const b = execSync('git branch --show-current', { cwd: root, encoding: 'utf8' }).trim();
+  // Sync with remote first so we never hit a non-fast-forward rejection.
+  try { execSync(`git pull --rebase origin ${b}`, { cwd: root, stdio: 'inherit' }); }
+  catch (pe) { log(`⚠ pull skipped: ${pe.message.split('\n')[0]}`); }
   execSync(`git push origin ${b}`, { cwd: root, stdio: 'inherit' });
   log('✅ pushed');
 } catch (e) { log(`⚠ push skipped: ${e.message.split('\n')[0]}`); }
