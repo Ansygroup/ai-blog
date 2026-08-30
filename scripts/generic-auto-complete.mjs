@@ -20,6 +20,7 @@ import { execSync } from 'node:child_process';
 process.env.GIT_TERMINAL_PROMPT = '0';
 process.env.GCM_INTERACTIVE = 'never';
 process.env.GIT_ASKPASS = '';
+process.env.GIT_PAGER = 'cat';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
