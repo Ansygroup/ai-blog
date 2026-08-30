@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-08-30T16:25:20.069Z",
+  "ranAt": "2026-08-30T16:34:46.292Z",
   "apply": false,
   "fixed": {
     "corrupt": 0,
@@ -7,12 +7,10 @@
     "claims": 0,
     "crlf": 0
   },
-  "details": [
-    "adsense:PLACEHOLDER"
-  ],
+  "details": [],
   "corruptRemaining": 0,
   "adsense": {
     "placeholderClient": "ca-pub-3423159322001021",
-    "warning": "lib/config.js still serves the PLACEHOLDER AdSense client — supply the real NEXT_PUBLIC_ADSENSE_CLIENT or revenue misroutes."
+    "warning": null
   }
 }
