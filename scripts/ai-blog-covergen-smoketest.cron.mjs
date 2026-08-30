@@ -4,29 +4,57 @@
  * downloading, then generates ONE cover (smoke test) to validate quality on this
  * CPU-only host, commits + pushes it, and disables itself (one-shot).
  *
- * This unblocks the "see quality before scaling" step without a human watching the
- * download. Once it has generated + pushed the first cover, it removes its own
- * cron job so it never runs again.
- *
  * Run from repo root. Safe: only touches one cover image.
+ *
+ * Readiness fix: SD-Turbo ships weights nested under unet/vae/text_encoder (not a
+ * top-level *.safetensors), and covergen_worker.py loads the fp32 component files,
+ * so we wait for those three component .safetensors specifically.
  */
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 
 const ROOT = process.cwd();
 const MODEL = path.join(ROOT, 'models', 'sd-turbo');
 const PY = path.join(ROOT, '.venv-img', 'Scripts', 'python.exe');
-const SELF_JOB = '726481e67a94'; // the real daily covergen cron (leave it)
-const WATCHER_JOB = process.env.CRON_JOB_ID || '';
+const POSTS = path.join(ROOT, 'content', 'posts');
+const IMG = path.join(ROOT, 'public', 'images');
+// One-shot guard: even if the cron-pause below fails, we never regenerate twice.
+const DONE = path.join(os.tmpdir(), 'ai-blog-covergen-smoke-done');
+// Watcher job (this one). CRON_JOB_ID is injected by Hermes cron; fall back to the
+// known id so self-pause always targets the right job.
+const WATCHER_JOB = process.env.CRON_JOB_ID || '10367860cb0c';
+const DAILY_JOB = '726481e67a94'; // the real daily covergen cron — DO NOT TOUCH
 
 function run(cmd) {
   return execSync(cmd, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
 }
 
-// Model ready?
-if (!fs.existsSync(MODEL) || !fs.readdirSync(MODEL).some((f) => f.endsWith('.safetensors'))) {
-  console.log('[covergen-smoke] model not ready yet — retry next run');
+if (fs.existsSync(DONE)) {
+  console.log('[covergen-smoke] already completed (sentinel present) — one-shot, exiting');
+  process.exit(0);
+}
+
+// Model readiness: SD-Turbo ships weights nested; the worker loads fp32 component
+// files, so readiness = those three component .safetensors are present.
+function hasSafetensors(dir) {
+  if (!fs.existsSync(dir)) return false;
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (e.isDirectory()) {
+      if (hasSafetensors(path.join(dir, e.name))) return true;
+    } else if (e.name.endsWith('.safetensors')) return true;
+  }
+  return false;
+}
+const componentsReady = [
+  'unet/diffusion_pytorch_model.safetensors',
+  'vae/diffusion_pytorch_model.safetensors',
+  'text_encoder/model.safetensors',
+].every((rel) => fs.existsSync(path.join(MODEL, rel)));
+
+if (!hasSafetensors(MODEL) || !componentsReady) {
+  console.log('[covergen-smoke] model not ready yet (missing component weights) — retry next run');
   process.exit(0);
 }
 if (!fs.existsSync(PY)) {
@@ -34,11 +62,19 @@ if (!fs.existsSync(PY)) {
   process.exit(0);
 }
 
-// Pick the first post that still has the OLD cover (mtime before this run).
-const POSTS = path.join(ROOT, 'content', 'posts');
-const IMG = path.join(ROOT, 'public', 'images');
-const slug = fs.readdirSync(POSTS).find((f) => f.endsWith('.mdx'));
-const m = fs.readFileSync(path.join(POSTS, slug), 'utf8').match(/cover:\s*['"]?(.*?)['"]?/m);
+// Pick the first post that declares a LOCAL cover (so we overwrite an existing file).
+const mdxFiles = fs.readdirSync(POSTS).filter((f) => f.endsWith('.mdx'));
+const slug = mdxFiles.find((f) => {
+  const raw = fs.readFileSync(path.join(POSTS, f), 'utf8');
+  const m = raw.match(/cover:\s*['"]?(.*?)['"]?/m);
+  return m && m[1].startsWith('/images/');
+});
+if (!slug) {
+  console.log('[covergen-smoke] no post with a local cover found — abort');
+  process.exit(0);
+}
+const raw = fs.readFileSync(path.join(POSTS, slug), 'utf8');
+const m = raw.match(/cover:\s*['"]?(.*?)['"]?/m);
 const coverRel = m ? m[1] : '';
 const outFile = coverRel.startsWith('/images/') ? path.join(IMG, path.basename(coverRel)) : null;
 if (!outFile) {
@@ -71,10 +107,14 @@ try {
   process.exit(1);
 }
 
-// Self-disable note: this watcher is meant to run ONCE. After it pushes the
-// smoke-test cover, pause it via the cron tool (or set WATCHER_DONE). The daily
-// cron 726481e67a94 carries the ongoing batch work.
-if (WATCHER_JOB && fs.existsSync(outFile)) {
-  console.log(`[covergen-smoke] DONE — pause watcher job ${WATCHER_JOB} (one-shot)`);
+// One-shot: mark done + disable the watcher cron so it never runs again.
+fs.writeFileSync(DONE, new Date().toISOString());
+if (WATCHER_JOB && WATCHER_JOB !== DAILY_JOB) {
+  try {
+    run(`hermes cron pause ${WATCHER_JOB}`);
+    console.log(`[covergen-smoke] paused watcher ${WATCHER_JOB} ✓`);
+  } catch (e) {
+    console.log(`[covergen-smoke] auto-pause failed (sentinel set): ${String(e.message).slice(0, 120)}`);
+  }
 }
 process.exit(0);
