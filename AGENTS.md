@@ -31,6 +31,7 @@ shell commands, and other important information, read the current plan
 - Landing page: Mission Control (agent cards grouped into 7 categories, live status dots, Run buttons)
 
 ## Key Scripts
+- `scripts/ai-blog-doctor.mjs` — Reusable, idempotent health-fixer. Recurring defect classes: corrupt frontmatter (stacked `cover:`, `>- (2026)` title artifact), mangled stacked markdown links `](/posts/x](/posts/y)`, fake "our team spent N hours testing" SEO-spam sentences, CRLF→LF. Run `--apply` to mutate, `--only links,claims` to scope. Report -> `data/doctor-report.json`. Never commits.
 - `scripts/humanize-post.js` — Groq + humanizer to remove AI writing tells
 - `scripts/generate-post.js` — AI post generation engine
 - `scripts/polish-posts.js` — Formatting/content cleanup
@@ -69,16 +70,22 @@ shell commands, and other important information, read the current plan
 - `hooks/useAdminShortcuts.js` — Keyboard shortcuts (g+s → Stats, g+p → Performance, ? → help)
 
 ## Site Stats
-- 195 posts, 13+ categories, 55 controlled tags
-- Build: 401 static pages, 0 errors (all admin pages dynamic)
+- 669 posts (NOT 195 — old AGENTS.md was stale), 13+ categories, 55 controlled tags
+- Build: 926 static pages, 0 errors (all admin pages dynamic)
+- Tests: 175 passing (vitest) across 12 files
 - Content Performance: 3 strong, 144 needs-improvement, 47 weak (Score 62/100)
-- 0 remaining SEO issues (all resolved — 34 thin content expanded to 700+, excerpts/titles fixed)
-- ~11 posts with excerpt length issues (can fix via SEO Meta admin page)
-- Link Checker: scans all 195 posts, shows internal/external link inventory, filterable by domain
-- Tag pages: `force-dynamic` + `noindex` (not pre-rendered)
+- 0 corrupt frontmatter (doctor fixes any that appear)
+- 0 remaining fake "spent N hours testing" claims (doctor strips them)
 - openGraph metadata: all public pages covered
 - Error boundaries: all dynamic routes covered (including paginated)
 - Newsletter CTAs link to `/#newsletter` (works site-wide, not just homepage)
+
+## Security Notes
+- `middleware.js` guards BOTH `/admin` pages AND `/admin/api/*` (401 without session).
+  The NextAuth handler `/admin/api/auth/*` is the only public exception.
+  Do NOT re-add `api/` to the matcher exclusion — that reopened an unauthenticated
+  GitHub Actions / deploy trigger (see 2026-08-30 audit).
+- `NEXTAUTH_SECRET` MUST be set in production or auth silently fails open.
 
 ## Tests
 - 95 tests across 9 files: `lib/__tests__/`
