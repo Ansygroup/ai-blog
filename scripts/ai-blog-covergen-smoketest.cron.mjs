@@ -10,7 +10,7 @@
  *
  * Run from repo root. Safe: only touches one cover image.
  */
-import { execSync } from 'node:child_process';
+import { execSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -24,9 +24,34 @@ function run(cmd) {
   return execSync(cmd, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
 }
 
-// Model ready?
+// Model ready? If not, self-start the (resumable) SD-Turbo download so this
+// watcher becomes self-completing instead of spinning forever. A lockfile
+// guards against concurrent downloads and recovers if a previous one died.
+const DL_LOCK = path.join(MODEL, '.download.lock');
+function pidAlive(pid) { try { process.kill(pid, 0); return true; } catch { return false; } }
 if (!fs.existsSync(MODEL) || !fs.readdirSync(MODEL).some((f) => f.endsWith('.safetensors'))) {
-  console.log('[covergen-smoke] model not ready yet — retry next run');
+  let triggered = false;
+  if (fs.existsSync(DL_LOCK)) {
+    const lp = parseInt(fs.readFileSync(DL_LOCK, 'utf8').trim(), 10);
+    if (lp && pidAlive(lp)) {
+      console.log('[covergen-smoke] model not ready — download in progress (pid ' + lp + ')');
+    } else {
+      try { fs.unlinkSync(DL_LOCK); } catch {}
+      triggered = true;
+    }
+  } else {
+    triggered = true;
+  }
+  if (triggered) {
+    try {
+      const dl = spawn('bash', ['scripts/download-sdturbo.sh'], { cwd: ROOT, detached: true, stdio: 'ignore' });
+      dl.unref();
+      fs.writeFileSync(DL_LOCK, String(dl.pid));
+      console.log('[covergen-smoke] model not ready — started resumable download (pid ' + dl.pid + ')');
+    } catch (e) {
+      console.log('[covergen-smoke] model not ready — download trigger failed: ' + e.message);
+    }
+  }
   process.exit(0);
 }
 if (!fs.existsSync(PY)) {
