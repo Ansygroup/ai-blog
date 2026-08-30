@@ -1,0 +1,9 @@
+# Never upload these to Vercel (build happens in the cloud)
+models/
+.venv-img/
+.next/
+node_modules/
+scripts/*.cron.mjs
+.env.local
+*.log
+.git/
