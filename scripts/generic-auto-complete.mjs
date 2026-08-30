@@ -36,8 +36,8 @@ const root = resolve(__dirname, '..');
 const envPath = resolve(root, '.env');
 
 function log(m) { console.log(`[auto ${new Date().toISOString()}] ${m}`); }
-function sh(cmd) { return execSync(cmd, { cwd: root, stdio: ['ignore','inherit','inherit'], env: process.env }); }
-function capture(cmd) { return execSync(cmd, { cwd: root, encoding: 'utf8', env: process.env }).trim(); }
+function sh(cmd) { return execSync(cmd, { cwd: root, stdio: ['ignore','inherit','inherit'], env: process.env, maxBuffer: 64*1024*1024 }); }
+function capture(cmd) { return execSync(cmd, { cwd: root, encoding: 'utf8', env: process.env, maxBuffer: 64*1024*1024 }).trim(); }
 function netGit(cmd, label) {
   for (let attempt = 1; attempt <= 2; attempt++) {
     try { sh(cmd); return true; }

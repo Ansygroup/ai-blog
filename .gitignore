@@ -27,3 +27,6 @@ strategy-report.txt
 ai-blog/
 .vercel
 .env*
+
+# Python venv (image processing deps — never commit)
+.venv-img/
