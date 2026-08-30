@@ -17,10 +17,19 @@ import { execSync } from 'node:child_process';
 // non-tty stdin — that surfaces as "stdin is not a tty" under cron. (First
 // cold-start may still need a one-time tty to cache the credential; once
 // cached, non-tty runs work fine.)
+// Fully non-interactive: never fall back to the GUI 'manager' credential
+// helper (which opens a tty / prompts for auth on a cold cache and surfaces
+// as the uncaught 'stdin is not a tty' error under cron). Force the tty-free
+// 'store' helper, which already holds the cached github.com credentials.
 process.env.GIT_TERMINAL_PROMPT = '0';
 process.env.GCM_INTERACTIVE = 'never';
-process.env.GIT_ASKPASS = '';
+process.env.GIT_ASKPASS = '/bin/true';
 process.env.GIT_PAGER = 'cat';
+process.env.GIT_CONFIG_COUNT = '2';
+process.env.GIT_CONFIG_KEY_0 = 'credential.helper';
+process.env.GIT_CONFIG_VALUE_0 = '';
+process.env.GIT_CONFIG_KEY_1 = 'credential.helper';
+process.env.GIT_CONFIG_VALUE_1 = 'store';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
