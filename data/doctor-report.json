@@ -1,16 +1,18 @@
 {
-  "ranAt": "2026-08-30T15:37:13.163Z",
-  "apply": true,
+  "ranAt": "2026-08-30T16:25:20.069Z",
+  "apply": false,
   "fixed": {
     "corrupt": 0,
     "links": 0,
-    "claims": 3,
+    "claims": 0,
     "crlf": 0
   },
   "details": [
-    "claims: comparison-of-ai-driven-content-generation-platforms-for-enterprise-blogging.mdx",
-    "claims: jasper-for-coding.mdx",
-    "claims: writesonic-vs-chatgpt-2026.mdx"
+    "adsense:PLACEHOLDER"
   ],
-  "corruptRemaining": 0
+  "corruptRemaining": 0,
+  "adsense": {
+    "placeholderClient": "ca-pub-3423159322001021",
+    "warning": "lib/config.js still serves the PLACEHOLDER AdSense client — supply the real NEXT_PUBLIC_ADSENSE_CLIENT or revenue misroutes."
+  }
 }
