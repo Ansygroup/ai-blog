@@ -49,9 +49,13 @@ def main():
         model_path = local
 
     try:
+        # variant="fp16": load the fp16 weights (the only ones we keep on this
+        # near-full disk) and upcast to float32 on CPU. from_pretrained upcasts
+        # fp16->float32 at load time, so CPU inference runs in float32 compute.
         pipe = AutoPipelineForText2Image.from_pretrained(
             model_path,
             torch_dtype=torch.float32,
+            variant="fp16",
             use_safetensors=True,
             low_cpu_mem_usage=True,
         )

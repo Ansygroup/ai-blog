@@ -29,7 +29,11 @@ console.log(`[covergen-cron] batch=${BATCH}`);
 
 // Model ready?
 const modelDir = path.join(ROOT, 'models', 'sd-turbo');
-if (!fs.existsSync(modelDir) || !fs.readdirSync(modelDir).some((f) => f.endsWith('.safetensors'))) {
+// Readiness = the fp16 weights the worker actually loads (the disk-safe download
+// skips the redundant ~3.4GB merged root file, so we check the real components).
+const unetFp16 = path.join(modelDir, 'unet', 'diffusion_pytorch_model.fp16.safetensors');
+const teFp16 = path.join(modelDir, 'text_encoder', 'model.fp16.safetensors');
+if (!fs.existsSync(modelDir) || !fs.existsSync(unetFp16) || !fs.existsSync(teFp16)) {
   console.log('[covergen-cron] model not ready yet (still downloading) — retry next run');
   process.exit(0);
 }
