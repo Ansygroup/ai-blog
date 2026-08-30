@@ -5,12 +5,13 @@ import { siteConfig } from '../../lib/config';
 
 export const dynamic = 'force-static';
 
-// Safely convert a post date to ISO; fall back to the Unix epoch (1970-01-01)
-// if invalid. The epoch is a stable sentinel that can never go stale — unlike
-// a hard-coded "current year" which would rot on every Jan 1.
-function safeISO(value) {
+// Safely convert a post date to ISO; fall back to the newest-post date
+// if invalid. Never emit the Unix epoch (1970) — it told crawlers the page
+// was half a century old and suppressed crawl priority for /news, /reviews, etc.
+function safeISO(value, fallback) {
   const d = new Date(value);
-  return isNaN(d.getTime()) ? '1970-01-01T00:00:00.000Z' : d.toISOString();
+  if (!isNaN(d.getTime())) return d.toISOString();
+  return fallback ? fallback.toISOString() : new Date().toISOString();
 }
 
 export async function GET() {
@@ -56,7 +57,9 @@ export async function GET() {
     if (u === base + '/' || u === base + '/topics' || categoryUrls.includes(u) || topicUrls.includes(u)) {
       return newestPost.toISOString();
     }
-    return '1970-01-01T00:00:00.000Z';
+    // Category pages and any other static section fall back to newest-post date,
+    // never the 1970 epoch.
+    return newestPost.toISOString();
   };
 
   const allUrls = [...new Set([...pageUrls, ...postUrls, ...categoryUrls, ...topicUrls])];

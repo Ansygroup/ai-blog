@@ -5,6 +5,8 @@ const nextConfig = {
   compress: true,
   productionBrowserSourceMaps: false,
   images: {
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'inline',
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },

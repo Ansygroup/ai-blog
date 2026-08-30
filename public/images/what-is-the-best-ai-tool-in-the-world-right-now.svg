@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs><radialGradient id="g" cx="26%" cy="16%" r="100%"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/></radialGradient></defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <circle cx="997" cy="90" r="217" fill="none" stroke="#818cf8" stroke-opacity="0.16" stroke-width="2"/>
+  <circle cx="997" cy="90" r="156" fill="none" stroke="#818cf8" stroke-opacity="0.24" stroke-width="1.5"/>
+  <circle cx="187" cy="513" r="107" fill="none" stroke="#818cf8" stroke-opacity="0.10" stroke-width="2"/>
+  <text x="80" y="110" fill="#818cf8" font-family="ui-monospace,monospace" font-size="20" letter-spacing="6">AI PULSE</text>
+  <rect x="80" y="140" width="56" height="3" fill="#6366f1"/>
+  <text x="80" y="291" fill="#e2e8f0" font-family="Georgia,serif" font-size="52" font-weight="600">What is the best AI tool in the</text>
+  <text x="80" y="353" fill="#e2e8f0" font-family="Georgia,serif" font-size="52" font-weight="600">world right now (2026 Guide)</text>
+  <text x="80" y="575" fill="#94a3b8" font-family="ui-monospace,monospace" font-size="24">AI insights · free reading at aipulse.blog</text>
+</svg>

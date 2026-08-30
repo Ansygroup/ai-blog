@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480">
+  <defs><radialGradient id="g" cx="80%" cy="20%" r="110%"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/></radialGradient></defs>
+  <rect width="1200" height="480" rx="18" fill="url(#g)"/>
+  <circle cx="1034" cy="90" r="254" fill="none" stroke="#818cf8" stroke-opacity="0.16" stroke-width="2"/>
+  <circle cx="1034" cy="90" r="183" fill="none" stroke="#818cf8" stroke-opacity="0.24" stroke-width="1.5"/>
+  <circle cx="164" cy="516" r="94" fill="none" stroke="#818cf8" stroke-opacity="0.10" stroke-width="2"/>
+  <rect x="90" y="120" width="44" height="4" fill="#6366f1"/>
+  <text x="90" y="205" fill="#e2e8f0" font-family="Georgia,serif" font-size="40" font-weight="600">Top Contenders</text>
+  <text x="90" y="420" fill="#94a3b8" font-family="ui-monospace,monospace" font-size="19" letter-spacing="4">AI PULSE · 01</text>
+</svg>
