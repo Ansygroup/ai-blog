@@ -83,6 +83,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${fontHeading.variable} ${fontBody.variable}`}>
       <head>
+        {/* Google AdSense account declaration (verification + auto ads) */}
+        <meta name="google-adsense-account" content={siteConfig.adsenseClient} />
         {/* Preconnect & DNS-prefetch for third-party origins */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
