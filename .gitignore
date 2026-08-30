@@ -30,3 +30,5 @@ ai-blog/
 
 # Python venv (image processing deps — never commit)
 .venv-img/
+models/
+/models/
