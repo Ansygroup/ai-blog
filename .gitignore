@@ -25,3 +25,5 @@ data/subscribers.json
 # local CI output
 strategy-report.txt
 ai-blog/
+.vercel
+.env*
