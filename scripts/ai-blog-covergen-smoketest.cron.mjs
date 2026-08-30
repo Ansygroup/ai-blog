@@ -24,7 +24,7 @@ const IMG = path.join(ROOT, 'public', 'images');
 const DONE = path.join(os.tmpdir(), 'ai-blog-covergen-smoke-done');
 // Watcher job (this one). CRON_JOB_ID is injected by Hermes cron; fall back to the
 // known id so self-pause always targets the right job.
-const WATCHER_JOB = process.env.CRON_JOB_ID || '10367860cb0c';
+const WATCHER_JOB = process.env.CRON_JOB_ID || 'ae4ab28d4cb7';
 const DAILY_JOB = '726481e67a94'; // the real daily covergen cron — DO NOT TOUCH
 
 function run(cmd) {
