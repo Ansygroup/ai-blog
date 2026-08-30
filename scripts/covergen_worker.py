@@ -14,6 +14,7 @@ failures without losing the whole run.
 """
 import argparse
 import io
+import os
 import sys
 
 from PIL import Image
@@ -36,14 +37,22 @@ def main():
         sys.stderr.write(f"import error: {e}\n")
         sys.exit(2)
 
+    # Native model res; we upscale to the requested cover size afterwards.
+    native = 512
     w, h = (int(x) for x in args.size.split("x"))
+
+    # Prefer a locally pre-downloaded model dir (fast, offline). Fall back to the
+    # Hub id if the local dir is absent.
+    model_path = args.model
+    local = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "models", "sd-turbo")
+    if os.path.isdir(local):
+        model_path = local
 
     try:
         pipe = AutoPipelineForText2Image.from_pretrained(
-            args.model,
+            model_path,
             torch_dtype=torch.float32,
             use_safetensors=True,
-            variant="fp16" if False else None,
             low_cpu_mem_usage=True,
         )
         pipe = pipe.to("cpu")
@@ -56,9 +65,13 @@ def main():
             negative_prompt=args.neg,
             num_inference_steps=args.steps,
             guidance_scale=0.0,
-            height=h,
-            width=w,
+            height=native,
+            width=native,
         ).images[0]
+
+        # SD-Turbo only outputs 512x512; upscale to the requested cover ratio
+        # (blog covers are 1024x512 / 1200x630). LANCZOS keeps it crisp.
+        image = image.resize((w, h), Image.LANCZOS)
 
         # ensure RGB + save as JPEG (small, web-safe)
         if image.mode != "RGB":

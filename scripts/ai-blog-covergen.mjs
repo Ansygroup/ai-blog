@@ -13,6 +13,7 @@
  *   (default)  regenerate ALL posts whose cover file is older than this run OR missing
  *   --slug X   only one post (smoke test)
  *   --force    regenerate every post regardless
+ *   --batch N  only generate the first N pending posts (daily cron uses this)
  *   --dry      list what WOULD be generated, no writes
  *
  * Safe: never touches frontmatter; only overwrites the image file at the path the
@@ -30,11 +31,14 @@ const POSTS = path.join(ROOT, 'content', 'posts');
 const IMG = path.join(ROOT, 'public', 'images');
 const PY = path.join(ROOT, '.venv-img', 'Scripts', 'python.exe');
 const GEN = path.join(ROOT, 'scripts', 'covergen_worker.py');
+const SIZE = '1024x512';
 
 const args = process.argv.slice(2);
 const onlySlug = args.find((a) => a === '--slug') ? args[args.indexOf('--slug') + 1] : null;
 const force = args.includes('--force');
 const dry = args.includes('--dry');
+const batchIdx = args.indexOf('--batch');
+const batch = batchIdx !== -1 ? parseInt(args[batchIdx + 1], 10) : Infinity;
 
 function readFrontmatter(file) {
   const raw = fs.readFileSync(file, 'utf8');
@@ -95,9 +99,9 @@ function main() {
     plan.push({ ...fm, action: 'GEN', outFile, prompt: buildPrompt(fm.title, fm.category) });
   }
 
-  const toGen = plan.filter((p) => p.action === 'GEN');
+  const toGen = plan.filter((p) => p.action === 'GEN').slice(0, batch);
   console.log(
-    `[covergen] posts=${files.length} gen=${toGen.length} skip_external=${plan.filter((p) => p.action === 'SKIP_EXTERNAL').length} skip_no_cover=${plan.filter((p) => p.action === 'SKIP_NO_COVER').length} exists=${plan.filter((p) => p.action === 'OK_EXISTS').length}`
+    `[covergen] posts=${files.length} pending=${plan.filter((p) => p.action === 'GEN').length} this_batch=${toGen.length} skip_external=${plan.filter((p) => p.action === 'SKIP_EXTERNAL').length} skip_no_cover=${plan.filter((p) => p.action === 'SKIP_NO_COVER').length} exists=${plan.filter((p) => p.action === 'OK_EXISTS').length}`
   );
 
   if (dry) {
@@ -110,10 +114,10 @@ function main() {
   let fail = 0;
   for (const p of toGen) {
     try {
-      execFileSync(PY, [GEN, '--out', p.outFile, '--prompt', p.prompt], { stdio: 'pipe' });
+      execFileSync(PY, [GEN, '--out', p.outFile, '--prompt', p.prompt, '--size', SIZE], { stdio: 'pipe' });
       if (fs.existsSync(p.outFile)) {
         done++;
-        if (done % 25 === 0) console.log(`[covergen] progress ${done}/${toGen.length}`);
+        if (done % 5 === 0) console.log(`[covergen] progress ${done}/${toGen.length}`);
       } else {
         fail++;
         console.error('[covergen] FAIL (no output) ', p.slug);
@@ -123,7 +127,7 @@ function main() {
       console.error('[covergen] FAIL', p.slug, String(e.stderr || e.message).slice(-200));
     }
   }
-  console.log(`[covergen] DONE generated=${done} failed=${fail}`);
+  console.log(`[covergen] DONE generated=${done} failed=${fail} batch_cap=${batch === Infinity ? 'all' : batch}`);
   process.exit(fail > 0 ? 1 : 0);
 }
 
