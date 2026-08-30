@@ -53,7 +53,11 @@ jobs:
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
           NEXT_PUBLIC_SITE_NAME: ${{ secrets.NEXT_PUBLIC_SITE_NAME }}
-          NEXT_PUBLIC_ADSENSE_CLIENT: ${{ secrets.NEXT_PUBLIC_ADSENSE_CLIENT }}
+          # NEXT_PUBLIC_ADSENSE_CLIENT intentionally NOT passed here: the real
+          # client is baked into lib/config.js fallback (ca-pub-4665838048081250)
+          # as of 2026-08-30. Passing a stale GitHub secret would override it and
+          # break AdSense verification. Set NEXT_PUBLIC_ADSENSE_CLIENT in Vercel
+          # project env only if you want to override config.js.
           NEXT_PUBLIC_ADSENSE_SLOT_TOP: ${{ secrets.NEXT_PUBLIC_ADSENSE_SLOT_TOP }}
           NEXT_PUBLIC_ADSENSE_SLOT_MID: ${{ secrets.NEXT_PUBLIC_ADSENSE_SLOT_MID }}
           NEXT_PUBLIC_ADSENSE_SLOT_SIDE: ${{ secrets.NEXT_PUBLIC_ADSENSE_SLOT_SIDE }}
