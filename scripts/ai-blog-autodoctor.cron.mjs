@@ -22,6 +22,10 @@ function main() {
   catch (e) { return { ok: false, stage: 'check', error: String(e) }; }
 
   if (check.corruptRemaining === 0 && check.fixed.links === 0 && check.fixed.claims === 0 && check.fixed.crlf === 0) {
+    // No file defects, but still surface the AdSense placeholder warning if present.
+    if (check.adsenseWarning) {
+      return { ok: true, stage: 'check', message: 'no file defects', adsenseWarning: check.adsenseWarning, report: check };
+    }
     return { ok: true, stage: 'check', message: 'no defects — nothing to do', report: check };
   }
 
@@ -35,14 +39,15 @@ function main() {
   // 4) commit + push (deploy happens via CI)
   try {
     run('git add -A');
+    const note = apply.adsenseWarning ? ' | WARNING: AdSense placeholder client still set' : '';
     run('git -c user.email="ansy0@autopilot.local" -c user.name="Ansy Autopilot" commit -q -m "chore: ai-blog-doctor auto-fix (' +
-      `corrupt:${apply.fixed.corrupt} links:${apply.fixed.links} claims:${apply.fixed.claims} crlf:${apply.fixed.crlf})`);
+      `corrupt:${apply.fixed.corrupt} links:${apply.fixed.links} claims:${apply.fixed.claims} crlf:${apply.fixed.crlf})` + note + '"');
     run('git push origin main');
   } catch (e) {
     return { ok: false, stage: 'push', error: String(e), report: apply };
   }
 
-  return { ok: true, stage: 'applied', message: 'defects fixed, committed, pushed (CI will redeploy)', report: apply };
+  return { ok: true, stage: 'applied', message: 'defects fixed, committed, pushed (CI will redeploy)', adsenseWarning: apply.adsenseWarning, report: apply };
 }
 
 const out = main();

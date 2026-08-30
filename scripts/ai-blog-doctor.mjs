@@ -156,6 +156,21 @@ for (const fn of files) {
 }
 report.corruptRemaining = corruptCount - report.fixed.corrupt;
 
+// ---------- 5. AdSense client audit (read-only warning) ----------
+// lib/config.js hardcodes a fallback ca-pub id. If the live/served client is still
+// the placeholder, revenue misroutes to the wrong account. We CANNOT auto-fix
+// (the real id is a secret the operator must supply) — we only flag it.
+const PLACEHOLDER_ADSENSE = 'ca-pub-3423159322001021';
+report.adsense = { placeholderClient: PLACEHOLDER_ADSENSE, warning: null };
+try {
+  const cfg = fs.readFileSync(path.join(ROOT, 'lib', 'config.js'), 'utf8');
+  const m = cfg.match(/adsenseClient:\s*[^,]*?'(ca-pub-\d+)'/);
+  if (m && m[1] === PLACEHOLDER_ADSENSE) {
+    report.adsense.warning = 'lib/config.js still serves the PLACEHOLDER AdSense client — supply the real NEXT_PUBLIC_ADSENSE_CLIENT or revenue misroutes.';
+    report.details.push('adsense:PLACEHOLDER');
+  }
+} catch { /* config missing — skip */ }
+
 fs.mkdirSync(path.join(ROOT, 'data'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'data', 'doctor-report.json'), JSON.stringify(report, null, 2));
 
@@ -163,6 +178,7 @@ console.log(JSON.stringify({
   apply: APPLY,
   corruptRemaining: report.corruptRemaining,
   fixed: report.fixed,
+  adsenseWarning: report.adsense.warning,
   detailsCount: report.details.length,
   sample: report.details.slice(0, 15),
 }, null, 2));
