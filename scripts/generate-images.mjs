@@ -104,7 +104,9 @@ let coversMade = 0, illosMade = 0, postsTouched = 0, skipped = 0;
 for (const file of files) {
   const slug = file.replace(/\.mdx$/, '');
   const p = join(postsDir, file);
-  let src = fs.readFileSync(p, 'utf8');
+  // Normalize CRLF → LF: Windows-edited files would otherwise fail the
+  // frontmatter regex silently and get skipped entirely.
+  let src = fs.readFileSync(p, 'utf8').replace(/\r\n/g, '\n');
   const meta = parseFrontmatter(src);
   if (!meta) { skipped++; continue; }
 
