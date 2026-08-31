@@ -1,39 +1,11 @@
 {
   "expectedTag": "ansy07-20",
   "totalPosts": 669,
-  "totalAffiliateLinks": 1198,
+  "totalAffiliateLinks": 1252,
   "issues": {
     "missingTag": [],
-    "noLinks": [
-      "best-ai-tools-for-email-marketing-2026.mdx",
-      "how-are-people-using-ai-prompts-in-2026.mdx",
-      "how-to-use-ai-for-content-creation-2026.mdx",
-      "how-to-use-ai-for-digital-marketing-2026.mdx",
-      "how-to-use-ai-for-social-media-management.mdx",
-      "how-to-use-ai-for-video-editing-2026.mdx",
-      "qa-is-claude-better-than-chatgpt-for-coding-in-2026.mdx",
-      "qa-is-cursor-better-than-github-copilot-for-coding.mdx",
-      "qa-is-there-an-ai-tool-that-produces-high-quality-ui-from-a-prompt.mdx",
-      "qa-what-ai-tool-removes-repetitive-work-for-a-small-team.mdx",
-      "qa-what-are-the-best-ai-productivity-tools-for-everyday-work.mdx",
-      "qa-what-are-the-best-free-ai-text-to-speech-tools.mdx",
-      "qa-what-is-a-good-site-to-create-ai-music.mdx",
-      "qa-what-is-the-best-ai-design-tool-out-there.mdx",
-      "qa-what-is-the-best-ai-essay-writer-for-students-in-2026.mdx",
-      "qa-what-is-the-best-ai-tool-for-business-growth-in-2026.mdx",
-      "qa-what-is-the-best-ai-tool-for-research-in-2026.mdx",
-      "qa-what-is-the-best-framework-to-build-ai-agents-without-coding.mdx",
-      "qa-what-is-the-best-free-ai-tool-for-students-in-2026.mdx",
-      "qa-which-ai-model-is-the-best-in-image-generation.mdx",
-      "qa-which-ai-tool-creates-content-that-actually-ranks-on-google.mdx",
-      "qa-which-ai-tools-are-best-for-a-non-technical-business.mdx",
-      "qa-which-ai-tools-are-best-for-content-marketing.mdx",
-      "what-are-the-best-ai-image-generators-2026.mdx",
-      "what-is-the-best-ai-tool-in-the-world-right-now.mdx",
-      "what-is-the-best-all-in-one-ai-tool-2026.mdx",
-      "which-ai-tool-do-you-use-most-frequently-and-why.mdx"
-    ],
+    "noLinks": [],
     "wrongTag": []
   },
-  "generatedAt": "2026-08-30T03:03:15.954Z"
+  "generatedAt": "2026-08-31T03:05:31.767Z"
 }
