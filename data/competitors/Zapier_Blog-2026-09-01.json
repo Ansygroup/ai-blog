@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-09-01T03:12:40.311Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/find-email-address/",
+      "title": "find email address",
+      "topic": "Find Email Address: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/train-chatgpt-to-write-like-you/",
+      "title": "train chatgpt to write like you",
+      "topic": "Train Chatgpt To Write Like You: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/automate-email-inbox/",
+      "title": "automate email inbox",
+      "topic": "Automate Email Inbox: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/chatgpt-connectors/",
+      "title": "chatgpt connectors",
+      "topic": "Chatgpt Connectors: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/google-ai-mode/",
+      "title": "google ai mode",
+      "topic": "Google Ai Mode: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-ai-notes-apps/",
+      "title": "best ai notes apps",
+      "topic": "Best Ai Notes Apps: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/automate-claude/",
+      "title": "automate claude",
+      "topic": "Automate Claude: A 2026 Guide"
+    }
+  ]
+}
