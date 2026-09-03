@@ -1,37 +1,37 @@
 #!/usr/bin/env node
 /**
- * ai-blog-covergen — regenerate every post cover with an OPEN-SOURCE, locally-run
- * image model (no paid API). CPU-only by design (this host has no GPU).
+ * ai-blog-covergen — regenerate every post cover via Pollinations (Flux).
  *
  * Pipeline:
- *   read content/posts/*.mdx  (frontmatter: title, category, slug)
- *     -> build a clean EN prompt from title+category
- *     -> call the Python generator (diffusers SDXL-Turbo, 1-step, 1024x512)
- *     -> write public/images/<slug>.jpg OVER the existing cover (idempotent)
+ *   read content/posts/*.mdx
+ *     -> extract title/category/excerpt/tags
+ *     -> build magazine-quality prompt (scripts/prompt-builder.js)
+ *     -> call covergen_flux.py (Pollinations Flux, free, no key)
+ *     -> write public/images/<slug>.jpg
  *
  * Modes:
- *   (default)  regenerate ALL posts whose cover file is older than this run OR missing
- *   --slug X   only one post (smoke test)
- *   --force    regenerate every post regardless
- *   --batch N  only generate the first N pending posts (daily cron uses this)
- *   --dry      list what WOULD be generated, no writes
+ *   (default)  regenerate ALL posts whose cover is missing/older
+ *   --slug X   only one post
+ *   --force    regenerate every post regardless of existing
+ *   --batch N  only generate the first N pending
+ *   --dry      show what would be generated, no writes
+ *   --backend flux|local  choose backend (default flux)
  *
- * Safe: never touches frontmatter; only overwrites the image file at the path the
- * post already declares. If a post's cover path is external (http), it is skipped
- * (flagged) so we don't break remote assets.
- *
- * Run from repo root. Requires the python venv at .venv-img (see setup step).
+ * Safe: never touches frontmatter; only overwrites the image at the path the
+ * post already declares. External (http) covers are skipped.
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { buildMagazinePrompt } from './prompt-builder.js';
 
 const ROOT = process.cwd();
 const POSTS = path.join(ROOT, 'content', 'posts');
 const IMG = path.join(ROOT, 'public', 'images');
 const PY = path.join(ROOT, '.venv-img', 'Scripts', 'python.exe');
-const GEN = path.join(ROOT, 'scripts', 'covergen_worker.py');
-const SIZE = '1024x512';
+const FLUX_WORKER = path.join(ROOT, 'scripts', 'covergen_flux.py');
+const LOCAL_WORKER = path.join(ROOT, 'scripts', 'covergen_worker.py');
+const SIZE = '1024x1280';
 
 const args = process.argv.slice(2);
 const onlySlug = args.find((a) => a === '--slug') ? args[args.indexOf('--slug') + 1] : null;
@@ -39,6 +39,7 @@ const force = args.includes('--force');
 const dry = args.includes('--dry');
 const batchIdx = args.indexOf('--batch');
 const batch = batchIdx !== -1 ? parseInt(args[batchIdx + 1], 10) : Infinity;
+const backend = (args.find((a) => a === '--backend') && args[args.indexOf('--backend') + 1]) || 'flux';
 
 function readFrontmatter(file) {
   const raw = fs.readFileSync(file, 'utf8');
@@ -47,32 +48,50 @@ function readFrontmatter(file) {
     const m = fm.match(new RegExp(`^${k}:\\s*['"]?(.*?)['"]?\\s*$`, 'm'));
     return m ? m[1].trim() : '';
   };
+  const getArray = (k) => {
+    const m = fm.match(new RegExp(`^${k}:\\s*$`, 'm'));
+    if (!m) return [];
+    const start = fm.indexOf('\n', m.index) + 1;
+    const lines = fm.slice(start).split('\n');
+    const out = [];
+    for (const line of lines) {
+      if (!line.trim() || line.trim().startsWith('-')) continue;
+      if (line.startsWith('---')) break;
+      const item = line.replace(/^[-•]\s*/, '').replace(/['"]/g, '').trim();
+      if (item) out.push(item);
+    }
+    return out;
+  };
   const title = get('title');
   const category = get('category');
   const cover = get('cover');
+  const excerpt = get('excerpt') || get('description');
+  const tags = getArray('tags');
   const slugMatch = file.match(/([^\\/]+)\.mdx$/);
   const slug = slugMatch ? slugMatch[1] : '';
-  return { title, category, cover, slug };
-}
-
-function buildPrompt(title, category) {
-  const cat = (category || 'technology').toLowerCase();
-  const base =
-    'cinematic editorial blog cover, clean modern flat illustration, ' +
-    'professional AI/tech magazine aesthetic, soft gradient background, ' +
-    'minimal geometric shapes suggesting the topic, no text, no watermark, ' +
-    'high contrast, vibrant but tasteful palette';
-  const topic = (title || '').slice(0, 80).replace(/[[\](){}]/g, '').trim();
-  return `${base}, subject: ${topic}, category: ${cat}`;
+  // pull a chunk of body text so prompt builder can see real content
+  const rawNoFm = raw.replace(/^---[\s\S]*?---\s*/, '');
+  const body = rawNoFm
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // strip [text](url)
+    .replace(/^#+\s*/gm, '')
+    .replace(/^[-*]\s+/gm, '')
+    .replace(/^\|.*$/gm, '')
+    .replace(/!\[.*?\]\(.*?\)/g, '')
+    .replace(/<\/?[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 1200);
+  return { title, category, cover, slug, excerpt, tags, body };
 }
 
 function main() {
+  const worker = backend === 'local' ? LOCAL_WORKER : FLUX_WORKER;
   if (!fs.existsSync(PY)) {
     console.error('[covergen] venv missing at .venv-img — run setup first');
     process.exit(1);
   }
-  if (!fs.existsSync(GEN)) {
-    console.error('[covergen] worker missing at scripts/covergen_worker.py');
+  if (!fs.existsSync(worker)) {
+    console.error('[covergen] worker missing:', worker);
     process.exit(1);
   }
 
@@ -96,16 +115,27 @@ function main() {
       plan.push({ ...fm, action: 'OK_EXISTS' });
       continue;
     }
-    plan.push({ ...fm, action: 'GEN', outFile, prompt: buildPrompt(fm.title, fm.category) });
+    const built = buildMagazinePrompt(fm);
+    plan.push({
+      ...fm,
+      action: 'GEN',
+      outFile,
+      prompt: built.prompt,
+      archetype: built.archetype,
+      paletteKey: built.paletteKey,
+      headline: built.headline,
+    });
   }
 
   const toGen = plan.filter((p) => p.action === 'GEN').slice(0, batch);
   console.log(
-    `[covergen] posts=${files.length} pending=${plan.filter((p) => p.action === 'GEN').length} this_batch=${toGen.length} skip_external=${plan.filter((p) => p.action === 'SKIP_EXTERNAL').length} skip_no_cover=${plan.filter((p) => p.action === 'SKIP_NO_COVER').length} exists=${plan.filter((p) => p.action === 'OK_EXISTS').length}`
+    `[covergen] backend=${backend} posts=${files.length} pending=${plan.filter((p) => p.action === 'GEN').length} this_batch=${toGen.length} skip_external=${plan.filter((p) => p.action === 'SKIP_EXTERNAL').length} skip_no_cover=${plan.filter((p) => p.action === 'SKIP_NO_COVER').length} exists=${plan.filter((p) => p.action === 'OK_EXISTS').length}`
   );
 
   if (dry) {
-    toGen.slice(0, 10).forEach((p) => console.log('  WOULD GEN', p.slug, '->', p.outFile));
+    toGen.slice(0, 10).forEach((p) =>
+      console.log(`  WOULD GEN [${p.archetype}/${p.paletteKey}] ${p.slug} "${p.headline.join(' ')}" -> ${path.basename(p.outFile)}`)
+    );
     console.log('[covergen] dry run, no writes');
     return;
   }
@@ -114,21 +144,37 @@ function main() {
   let fail = 0;
   for (const p of toGen) {
     try {
-      execFileSync(PY, [GEN, '--out', p.outFile, '--prompt', p.prompt, '--size', SIZE], { stdio: 'pipe' });
+      const seed = Math.abs(hashStr(p.slug + p.title)) % (2 ** 31);
+      const cmd = backend === 'local' ? LOCAL_WORKER : FLUX_WORKER;
+      const argsArr = backend === 'local'
+        ? [cmd, '--out', p.outFile, '--prompt', p.prompt, '--size', SIZE, '--seed', String(seed)]
+        : [cmd, '--out', p.outFile, '--prompt', p.prompt, '--size', SIZE, '--seed', String(seed)];
+      execFileSync(PY, argsArr, { stdio: 'pipe' });
       if (fs.existsSync(p.outFile)) {
         done++;
         if (done % 5 === 0) console.log(`[covergen] progress ${done}/${toGen.length}`);
       } else {
         fail++;
-        console.error('[covergen] FAIL (no output) ', p.slug);
+        console.error('[covergen] FAIL (no output)', p.slug);
       }
     } catch (e) {
       fail++;
       console.error('[covergen] FAIL', p.slug, String(e.stderr || e.message).slice(-200));
+      // log to a separate failures file so we can retry later
+      try {
+        fs.appendFileSync(path.join(ROOT, '.prompts-cache', 'failures.log'),
+          `${p.slug}\t${p.archetype}\t${p.paletteKey}\n`);
+      } catch {}
     }
   }
   console.log(`[covergen] DONE generated=${done} failed=${fail} batch_cap=${batch === Infinity ? 'all' : batch}`);
-  process.exit(fail > 0 ? 1 : 0);
+  process.exit(fail > 0 && done === 0 ? 1 : 0);
+}
+
+function hashStr(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return h;
 }
 
 main();

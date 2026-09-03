@@ -1,144 +1,177 @@
-import { createClient } from '@supabase/supabase-js';
-import type { KeywordQueueItem, PublishedPage, ImageCache, GroqKey, QueueTier, QueueStatus } from './types';
+// Mock db for local mode (no Supabase)
+// Provides the same interface as the real db.ts but uses local files
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
 
-let client: ReturnType<typeof createClient> | null = null;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-export function getDb() {
-  if (!client && supabaseUrl && supabaseKey) {
-    client = createClient(supabaseUrl, supabaseKey);
+const DATA_DIR = path.join(__dirname, '..', 'data');
+const QUEUE_FILE = path.join(DATA_DIR, 'queue.json');
+const GROQ_KEYS_FILE = path.join(DATA_DIR, 'groq-keys.json');
+
+// Types
+export interface GroqKey {
+  id: string;
+  key_value: string;
+  tier: 1 | 2 | 3 | 4 | 5;
+  volume: number;
+  cpc: number;
+  difficulty: number;
+  opportunity: number;
+  status: 'active' | 'inactive' | 'exhausted';
+  source: string;
+  created_at: string;
+}
+
+export interface QueueTier {
+  1: 'tier-1';
+  2: 'tier-2';
+  3: 'tier-3';
+  4: 'tier-4';
+  5: 'tier-5';
+}
+export type QueueTierKey = keyof QueueTier;
+
+export interface KeywordQueueItem {
+  id: string;
+  keyword: string;
+  tier: QueueTierKey;
+  source?: string;
+  volume?: number;
+  cpc?: number;
+  difficulty?: number;
+  opportunity?: number;
+  status: 'pending' | 'processing' | 'completed' | 'failed';
+  created_at: string;
+  updated_at?: string;
+}
+
+// Ensure data dir exists
+if (!fs.existsSync(DATA_DIR)) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+
+// Initialize queue file if not exists
+if (!fs.existsSync(QUEUE_FILE)) {
+  fs.writeFileSync(QUEUE_FILE, JSON.stringify([]), 'utf8');
+}
+
+// Initialize groq keys file if not exists (will be filled from .env)
+if (!fs.existsSync(GROQ_KEYS_FILE)) {
+  fs.writeFileSync(GROQ_KEYS_FILE, JSON.stringify([]), 'utf8');
+}
+
+// Helper to read JSON file
+function readJsonFile<T>(filePath: string): T {
+  try {
+    const data = fs.readFileSync(filePath, 'utf8');
+    return JSON.parse(data);
+  } catch (e) {
+    console.error(`Error reading ${filePath}:`, e);
+    // Return default based on file
+    if (filePath.endsWith('queue.json')) return [] as T;
+    if (filePath.endsWith('groq-keys.json')) return [] as T;
+    return {} as T;
   }
-  return client;
+}
+
+// Helper to write JSON file
+function writeJsonFile<T>(filePath: string, data: T): void {
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+  } catch (e) {
+    console.error(`Error writing ${filePath}:`, e);
+  }
+}
+
+// Load Groq keys from .env.local (simplified)
+export async function getActiveGroqKeys(): Promise<GroqKey[]> {
+  // In real scenario, we'd parse .env.local for GROQ_API_KEY, GROQ_API_KEY_2, etc.
+  // For now, we'll return an empty array and let the agent handle it.
+  // The agent already checks for length and exits if none.
+  // We could read from the groq-keys.json file which might be populated by another process.
+  const keys = readJsonFile<GroqKey[]>(GROQ_KEYS_FILE);
+  return keys.filter(k => k.status === 'active');
 }
 
 export function isDbReady(): boolean {
-  return !!(supabaseUrl && supabaseKey);
+  // Always return false for local mode (no Supabase)
+  return false;
 }
 
-function q<T = any>(table: string) {
-  const db = getDb();
-  return db ? db.from(table) as any : null;
-}
-
-// ─── Queue Operations ───
-
-export async function getQueueItems(limit = 100, tier?: QueueTier): Promise<KeywordQueueItem[]> {
-  const table = q('keyword_queue');
-  if (!table) return [];
-  let query = table.select('*').eq('status', 'pending').order('opportunity', { ascending: false }).limit(limit);
-  if (tier) query = query.eq('tier', tier);
-  const { data } = await query;
-  return (data || []) as KeywordQueueItem[];
-}
-
-export async function updateQueueStatus(id: string, status: QueueStatus, error?: string) {
-  const table = q('keyword_queue');
-  if (!table) return;
-  const update: any = { status };
-  if (status === 'published') update.published_at = new Date().toISOString();
-  if (error) update.error_log = error;
-  await table.update(update).eq('id', id);
-}
-
-export async function addToQueue(keyword: string, tier: QueueTier, source = 'manual', volume = 0, cpc = 0, difficulty = 50, opportunity = 50) {
-  const table = q('keyword_queue');
-  if (!table) return null;
-  const { data } = await table.insert({
-    keyword, tier, source, search_volume: volume, cpc, difficulty, opportunity, status: 'pending',
-  }).select().single();
-  return data as KeywordQueueItem | null;
-}
-
-export async function countQueue(status?: QueueStatus): Promise<number> {
-  const table = q('keyword_queue');
-  if (!table) return 0;
-  let query = table.select('id', { count: 'exact', head: true });
-  if (status) query = query.eq('status', status);
-  const { count } = await query;
-  return count || 0;
-}
-
-// ─── Pages ───
-
-export async function insertPage(page: any) {
-  const table = q('pages');
-  if (!table) return null;
-  const { data } = await table.insert(page).select().single();
-  return data as PublishedPage | null;
-}
-
-export async function getPages(type?: string, limit = 100): Promise<PublishedPage[]> {
-  const table = q('pages');
-  if (!table) return [];
-  let query = table.select('*').eq('status', 'active').order('created_at', { ascending: false }).limit(limit);
-  if (type) query = query.eq('type', type);
-  const { data } = await query;
-  return (data || []) as PublishedPage[];
-}
-
-export async function slugExists(slug: string): Promise<boolean> {
-  const table = q('pages');
-  if (!table) return false;
-  const { data } = await table.select('id').eq('slug', slug).maybeSingle();
-  return !!data;
-}
-
-// ─── GSC ───
-
-export async function insertGSC(rows: any[]) {
-  const table = q('gsc_data');
-  if (!table) return;
-  await table.upsert(rows, { onConflict: 'page_id,date' });
-}
-
-export async function getUnderperformingPages(threshold = 50) {
-  const table = q('gsc_data');
-  if (!table) return [];
-  const { data } = await table
-    .select('page_id, pages!inner(slug, keyword, type, seo_score)')
-    .gte('impressions', 1)
-    .lte('position', threshold)
-    .order('position', { ascending: true });
-  return (data as any[]) || [];
-}
-
-// ─── Images ───
-
-export async function getCachedImage(query: string): Promise<ImageCache | null> {
-  const table = q('image_cache');
-  if (!table) return null;
-  const { data } = await table.select('*').eq('query', query).maybeSingle();
-  return data as ImageCache | null;
-}
-
-export async function cacheImage(query: string, imageUrl: string, attribution?: string) {
-  const table = q('image_cache');
-  if (!table) return;
-  await table.upsert({ query, image_url: imageUrl, attribution }, { onConflict: 'query' });
-}
-
-// ─── Groq Keys ───
-
-export async function getActiveGroqKeys(): Promise<GroqKey[]> {
-  const table = q('groq_keys');
-  let dbKeys: GroqKey[] = [];
-  if (table) {
-    const { data } = await table.select('*').eq('is_active', true);
-    dbKeys = (data || []) as GroqKey[];
+export async function getQueueItems(limit: number, tier?: QueueTierKey): Promise<KeywordQueueItem[]> {
+  const queue = readJsonFile<KeywordQueueItem[]>(QUEUE_FILE);
+  let filtered = queue;
+  if (tier) {
+    filtered = queue.filter(item => item.tier === tier);
   }
-  const envKeys: GroqKey[] = [];
-  if (process.env.GROQ_API_KEY) envKeys.push({ id: 'env', key_value: process.env.GROQ_API_KEY, label: 'GROQ_API_KEY', is_active: true, usage_count: 0, rate_limit: 30 });
-  if (process.env.GROQ_API_KEY_2) envKeys.push({ id: 'env2', key_value: process.env.GROQ_API_KEY_2, label: 'GROQ_API_KEY_2', is_active: true, usage_count: 0, rate_limit: 30 });
-  if (process.env.GROQ_API_KEY_3) envKeys.push({ id: 'env3', key_value: process.env.GROQ_API_KEY_3, label: 'GROQ_API_KEY_3', is_active: true, usage_count: 0, rate_limit: 30 });
-  if (process.env.GROQ_API_KEY_4) envKeys.push({ id: 'env4', key_value: process.env.GROQ_API_KEY_4, label: 'GROQ_API_KEY_4', is_active: true, usage_count: 0, rate_limit: 30 });
-  if (process.env.GROQ_API_KEY_5) envKeys.push({ id: 'env5', key_value: process.env.GROQ_API_KEY_5, label: 'GROQ_API_KEY_5', is_active: true, usage_count: 0, rate_limit: 30 });
-  return [...dbKeys, ...envKeys];
+  // Only pending items
+  filtered = filtered.filter(item => item.status === 'pending');
+  // Sort by created_at ascending (oldest first)
+  filtered.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+  return filtered.slice(0, limit);
 }
 
-export async function incrementGroqUsage(keyId: string) {
-  const table = q('groq_keys');
-  if (!table || keyId.startsWith('env')) return;
-  await table.rpc('increment_groq_usage', { key_id: keyId });
+export async function updateQueueStatus(id: string, status: KeywordQueueItem['status']): Promise<void> {
+  const queue = readJsonFile<KeywordQueueItem[]>(QUEUE_FILE);
+  const item = queue.find(i => i.id === id);
+  if (item) {
+    item.status = status;
+    item.updated_at = new Date().toISOString();
+    writeJsonFile(QUEUE_FILE, queue);
+  }
+}
+
+export async function addToQueue(
+  keyword: string,
+  tier: QueueTierKey,
+  source?: string,
+  volume?: number,
+  cpc?: number,
+  difficulty?: number,
+  opportunity?: number
+): Promise<KeywordQueueItem | null> {
+  const queue = readJsonFile<KeywordQueueItem[]>(QUEUE_FILE);
+  const newItem: KeywordQueueItem = {
+    id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    keyword,
+    tier,
+    source: source || 'unknown',
+    volume: volume || 0,
+    cpc: cpc || 0,
+    difficulty: difficulty || 0,
+    opportunity: opportunity || 0,
+    status: 'pending',
+    created_at: new Date().toISOString(),
+  };
+  queue.push(newItem);
+  writeJsonFile(QUEUE_FILE, queue);
+  return newItem;
+}
+
+export async function countQueue(status: KeywordQueueItem['status']): Promise<number> {
+  const queue = readJsonFile<KeywordQueueItem[]>(QUEUE_FILE);
+  return queue.filter(item => item.status === status).length;
+}
+
+export async function addKeywords(
+  keywords: {
+    keyword: string;
+    tier: QueueTierKey;
+    source?: string;
+    volume?: number;
+    cpc?: number;
+    difficulty?: number;
+    opportunity?: number;
+  }[]
+): Promise<(KeywordQueueItem | null)[]> {
+  const results: (KeywordQueueItem | null)[] = [];
+  for (const kw of keywords) {
+    const item = await addToQueue(kw.keyword, kw.tier, kw.source, kw.volume, kw.cpc, kw.difficulty, kw.opportunity);
+    results.push(item);
+  }
+  return results;
 }

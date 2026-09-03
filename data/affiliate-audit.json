@@ -1,11 +1,17 @@
 {
   "expectedTag": "ansy07-20",
-  "totalPosts": 669,
-  "totalAffiliateLinks": 1252,
+  "totalPosts": 676,
+  "totalAffiliateLinks": 1254,
   "issues": {
     "missingTag": [],
-    "noLinks": [],
+    "noLinks": [
+      "best-ai-coding-assistants-2026.mdx",
+      "best-ai-voice-generators-2026.mdx",
+      "gemini-vs-copilot-2026-comparison.mdx",
+      "how-to-use-ai-for-customer-support-2026.mdx",
+      "how-to-use-ai-for-video-editing-2026.mdx"
+    ],
     "wrongTag": []
   },
-  "generatedAt": "2026-09-01T03:12:54.038Z"
+  "generatedAt": "2026-09-03T03:15:14.189Z"
 }

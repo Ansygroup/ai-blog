@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-09-03T03:13:10.007Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-connectors/",
+      "title": "claude connectors",
+      "topic": "Claude Connectors: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/gemini-apps/",
+      "title": "gemini apps",
+      "topic": "Gemini Apps: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/chatgpt-scheduled-tasks/",
+      "title": "chatgpt scheduled tasks",
+      "topic": "Chatgpt Scheduled Tasks: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-email-clients-windows/",
+      "title": "best email clients windows",
+      "topic": "Best Email Clients Windows: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-models-on-zapier/",
+      "title": "ai models on zapier",
+      "topic": "Ai Models On Zapier: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-vs-chatgpt/",
+      "title": "claude vs chatgpt",
+      "topic": "Claude Vs Chatgpt: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-ai/",
+      "title": "claude ai",
+      "topic": "Claude Ai: A 2026 Guide"
+    }
+  ]
+}

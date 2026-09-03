@@ -149,12 +149,19 @@ async function apifyTrendResearch() {
 // ---- AI Suggestion Generator ----
 async function generateSuggestions(posts, queue) {
   const apiKey = process.env.GROQ_API_KEY || process.env.OPENAI_API_KEY || process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    console.log('  ℹ️  No AI API key found — using rule-based suggestions only\n');
-    return fallbackSuggestions(posts, queue);
+  let provider;
+  if (process.env.GROQ_API_KEY) provider = 'groq';
+  else if (process.env.OPENAI_API_KEY) provider = 'openai';
+  else if (process.env.GEMINI_API_KEY) provider = 'gemini';
+  else {
+    console.log('  ℹ️  No AI API key found — using Pollinations (free, no key)');
+    provider = 'pollinations';
+  }
+  if (provider === 'pollinations' && !apiKey) {
+    // Pollinations doesn't need a key but we set a dummy for the signature
+    process.env.POLLINATIONS = 'free';
   }
 
-  const provider = process.env.GROQ_API_KEY ? 'groq' : process.env.OPENAI_API_KEY ? 'openai' : 'gemini';
   const existingTopics = posts.map((p) => p.title);
   const queuedTopics = queue.map((q) => q.topic);
 
@@ -234,12 +241,39 @@ async function queryAI(provider, apiKey, prompt) {
     const data = await res.json();
     return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
   }
+  if (provider === 'pollinations') {
+    // Free, no key, unlimited. Use POST to avoid URL length limits.
+    const res = await fetch('https://text.pollinations.ai/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [
+          { role: 'system', content: 'You are a content strategy expert. Return ONLY valid JSON array.' },
+          { role: 'user', content: prompt },
+        ],
+        model: 'openai-fast',
+        seed: Date.now() % 100000,
+      }),
+    });
+    if (!res.ok) throw new Error(`Pollinations ${res.status}`);
+    const data = await res.json();
+    // Response format: { choices: [{ message: { content: '...' } }] } OR plain text
+    if (data?.choices?.[0]?.message?.content) {
+      return data.choices[0].message.content.trim();
+    }
+    return (await res.text()).trim();
+  }
   throw new Error('No valid provider');
 }
 
 function fallbackSuggestions(posts, queue) {
   const existingTopics = new Set(posts.map((p) => p.title.toLowerCase()));
-  const queuedTopics = new Set(queue.map((q) => q.topic.toLowerCase()));
+  const queuedTopics = new Set(
+    queue
+      .map((q) => (typeof q === 'string' ? q : q?.topic || ''))
+      .filter(Boolean)
+      .map((t) => t.toLowerCase())
+  );
 
   const suggestions = [
     { topic: 'best ai tools for video editing 2026', category: 'Best Of', keywords: ['ai video editing', 'video tools', 'descript', 'runway'] },
@@ -252,12 +286,14 @@ function fallbackSuggestions(posts, queue) {
     { topic: 'best ai writing tools for fiction 2026', category: 'Best Of', keywords: ['ai fiction writing', 'creative writing ai', 'novel ai'] },
     { topic: 'how to use ai for market research 2026', category: 'Tutorials', keywords: ['ai market research', 'consumer insights ai', 'market analysis ai'] },
     { topic: 'ai tools for seo agencies 2026', category: 'Reviews', keywords: ['seo agency ai', 'enterprise ai seo', 'surfer seo'] },
+    { topic: 'claude vs gpt-4 for coding 2026', category: 'Comparisons', keywords: ['claude code', 'gpt-4 coding', 'ai programming'] },
+    { topic: 'how to use ai for instagram reels 2026', category: 'Tutorials', keywords: ['ai reels', 'instagram ai', 'short video ai'] },
   ];
 
   return suggestions.filter((s) => {
     const t = s.topic.toLowerCase();
     return !existingTopics.has(t) && !queuedTopics.has(t);
-  }).slice(0, 8);
+  }).slice(0, 12);
 }
 
 // ---- Queue Update ----

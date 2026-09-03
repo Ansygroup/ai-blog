@@ -24,10 +24,20 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     ap.add_argument("--prompt", required=True)
-    ap.add_argument("--neg", default="text, words, letters, watermark, signature, blurry, low quality, deformed")
+    ap.add_argument(
+        "--neg",
+        default=(
+            "text, words, letters, numbers, watermark, signature, blurry, low quality, "
+            "deformed, ugly, duplicate, morbid, mutilated, poorly drawn face, "
+            "mutation, bad proportions, gross proportions, long neck, "
+            "cluttered background, busy background, overlapping elements, "
+            "human faces, people, hands, fingers"
+        ),
+    )
     ap.add_argument("--model", default="stabilityai/sdxl-turbo")
-    ap.add_argument("--steps", type=int, default=1)
+    ap.add_argument("--steps", type=int, default=4)
     ap.add_argument("--size", default="1024x512")
+    ap.add_argument("--seed", type=int, default=None)
     args = ap.parse_args()
 
     try:
@@ -64,6 +74,10 @@ def main():
         if hasattr(pipe, "set_progress_bar_config"):
             pipe.set_progress_bar_config(disable=True)
 
+        generator = None
+        if args.seed is not None:
+            generator = torch.Generator(device="cpu").manual_seed(args.seed)
+
         image = pipe(
             prompt=args.prompt,
             negative_prompt=args.neg,
@@ -71,6 +85,7 @@ def main():
             guidance_scale=0.0,
             height=native,
             width=native,
+            generator=generator,
         ).images[0]
 
         # SD-Turbo only outputs 512x512; upscale to the requested cover ratio
