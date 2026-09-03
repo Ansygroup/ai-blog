@@ -7,6 +7,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter');
 
 const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
 const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.mdx'));
@@ -16,22 +17,13 @@ console.log(`🔍 Auditing ${files.length} posts...\n`);
 
 for (const file of files) {
   const content = fs.readFileSync(path.join(POSTS_DIR, file), 'utf8');
-  const fmMatch = content.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]+)$/);
-  if (!fmMatch) { console.error(`❌ ${file}: malformed frontmatter`); errors++; continue; }
-  const fm = fmMatch[1]; const body = fmMatch[2];
-  const get = (k) => {
-    const match = new RegExp(`^${k}:\\s*"((?:[^"\\\\]|\\\\.)*)"\\s*$`, 'm').exec(fm);
-    if (match) return match[1].replace(/\\(["\\])/g, '$1');
-    const fallback = new RegExp(`^${k}:\\s*(\\S+)`, 'm').exec(fm);
-    return fallback ? fallback[1] : '';
-  };
-
+  const { data, content: body } = matter(content);
   const issues = [];
-  const title = get('title');
-  const excerpt = get('excerpt');
-  const date = get('date');
-  const tagsMatch = fm.match(/^tags:\s*\[(.*?)\]/m);
-  const tags = tagsMatch ? tagsMatch[1].split(',').map((t) => t.trim().replace(/['"]/g, '')) : [];
+
+  const title = data.title || '';
+  const excerpt = data.excerpt || '';
+  const date = data.date || '';
+  const tags = Array.isArray(data.tags) ? data.tags : (data.tags ? [data.tags] : []);
 
   if (!title) issues.push('missing title');
   else if (title.length < 30) issues.push(`title too short (${title.length} chars)`);

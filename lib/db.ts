@@ -218,4 +218,4 @@ export async function cacheImage(
   // Keep cache size bounded (~500 entries) to avoid unbounded growth.
   if (cache.length > 500) cache.splice(0, cache.length - 500);
   writeJsonFile(IMAGE_CACHE_FILE, cache);
-}
+}# Last fix: 2026-09-03 22:13:04 UTC - added getCachedImage/cacheImage exports
