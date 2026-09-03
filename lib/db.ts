@@ -11,6 +11,14 @@ const __dirname = path.dirname(__filename);
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const QUEUE_FILE = path.join(DATA_DIR, 'queue.json');
 const GROQ_KEYS_FILE = path.join(DATA_DIR, 'groq-keys.json');
+const IMAGE_CACHE_FILE = path.join(DATA_DIR, 'image-cache.json');
+
+export interface CachedImage {
+  query: string;
+  image_url: string;
+  attribution?: string;
+  created_at: string;
+}
 
 // Types
 export interface GroqKey {
@@ -174,4 +182,40 @@ export async function addKeywords(
     results.push(item);
   }
   return results;
+}
+
+// ---- Image cache (local JSON-backed; replaces a missing SQLite helper) ----
+
+function readImageCache(): CachedImage[] {
+  return readJsonFile<CachedImage[]>(IMAGE_CACHE_FILE);
+}
+
+export async function getCachedImage(query: string): Promise<CachedImage | null> {
+  if (!query) return null;
+  const cache = readImageCache();
+  return cache.find((c) => c.query === query) ?? null;
+}
+
+export async function cacheImage(
+  query: string,
+  imageUrl: string,
+  attribution?: string
+): Promise<void> {
+  if (!query || !imageUrl) return;
+  const cache = readImageCache();
+  const existingIdx = cache.findIndex((c) => c.query === query);
+  const entry: CachedImage = {
+    query,
+    image_url: imageUrl,
+    attribution,
+    created_at: new Date().toISOString(),
+  };
+  if (existingIdx >= 0) {
+    cache[existingIdx] = entry;
+  } else {
+    cache.push(entry);
+  }
+  // Keep cache size bounded (~500 entries) to avoid unbounded growth.
+  if (cache.length > 500) cache.splice(0, cache.length - 500);
+  writeJsonFile(IMAGE_CACHE_FILE, cache);
 }
