@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import type { Article } from '../../../lib/types';
+import type { Article, PageType, PageStatus } from '../../../lib/types';
 import { insertPage, slugExists, updateQueueStatus } from '../../../lib/db';
 
 const POSTS_DIR = path.join(process.cwd(), 'content', 'posts');
@@ -92,15 +92,18 @@ export async function publishArticle(article: Article, queueItemId?: string): Pr
     fs.writeFileSync(filePath, fullContent, 'utf-8');
 
     const page = {
-      slug,
-      keyword: article.title,
-      type: article.category === 'AI News' ? 'news' : 'article',
-      word_count: article.wordCount,
-      seo_score: article.seoScore,
-      cover_image: article.coverImage || '',
-      status: 'active',
-      queue_item_id: queueItemId || null,
-    };
+              id: queueItemId ?? `${slug}-${Date.now()}`,
+              slug,
+              keyword: article.title,
+              type: (article.category === 'AI News' ? 'news' : 'article') as PageType,
+              word_count: article.wordCount,
+              seo_score: article.seoScore,
+              cover_image: article.coverImage || '',
+              status: 'active' as PageStatus,
+              queue_item_id: queueItemId ?? undefined,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            };
 
     await insertPage(page);
     if (queueItemId) await updateQueueStatus(queueItemId, 'published');
