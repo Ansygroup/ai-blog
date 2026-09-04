@@ -1,0 +1,14 @@
+[
+  {
+    "id": "test-key-1",
+    "key_value": "dummy-key-for-testing-only",
+    "tier": 1,
+    "volume": 1000,
+    "cpc": 0.5,
+    "difficulty": 50,
+    "opportunity": 80,
+    "status": "active",
+    "source": "test",
+    "created_at": "2026-09-01T00:00:00Z"
+  }
+]

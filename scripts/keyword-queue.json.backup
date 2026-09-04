@@ -1,5 +1,6 @@
 [
   {
+<<<<<<< HEAD
     "topic": "midjourney vs firefly vs dalle 2026",
     "category": "Comparisons",
     "keywords": [
@@ -17,60 +18,14 @@
       "productivity ai",
       "ai for freelancers"
     ]
-  },
-  {
-    "topic": "claude vs gpt-4 for coding 2026",
-    "category": "Comparisons",
-    "keywords": [
-      "claude code",
-      "gpt-4 coding",
-      "ai programming"
-    ]
-  },
-  {
-    "topic": "how to use ai for instagram reels 2026",
-    "category": "Tutorials",
-    "keywords": [
-      "ai reels",
-      "instagram ai",
-      "short video ai"
-    ]
-  },
-  {
-    "keyword": "The Grand Tour Throttle House Richard Hammond Cameo: A 2026 Guide",
-    "category": "Reviews",
-    "source": "competitor",
-    "sourceName": "TechRadar",
-    "sourceUrl": "https://www.techradar.com/streaming/amazon-prime-video/the-grand-tour-throttle-house-richard-hammond-cameo",
-    "tier": 2,
-    "addedAt": "2026-09-04T03:01:03.872Z"
-  },
-  {
-    "keyword": "Launching Business In Use These Ai Tools: A 2026 Guide",
-    "category": "Reviews",
-    "source": "competitor",
-    "sourceName": "TechRadar",
-    "sourceUrl": "https://www.techradar.com/pro/launching-a-business-in-2026-use-these-7-ai-tools",
-    "tier": 2,
-    "addedAt": "2026-09-04T03:01:03.872Z"
-  },
-  {
-    "keyword": "Lords Call For Kill Switch On Powerful Ai Systems: A 2026 Guide",
-    "category": "Reviews",
-    "source": "competitor",
-    "sourceName": "TechRadar",
-    "sourceUrl": "https://www.techradar.com/pro/security/lords-call-for-a-kill-switch-on-powerful-ai-systems-used-in-the-united-kingdom",
-    "tier": 2,
-    "addedAt": "2026-09-04T03:01:03.872Z"
-  },
-  {
+=======
     "keyword": "When Ai Agents Go Rogue The Law Doesnt Disappear: A 2026 Guide",
     "category": "Reviews",
     "source": "competitor",
     "sourceName": "TechRadar",
     "sourceUrl": "https://www.techradar.com/pro/when-ai-agents-go-rogue-the-law-doesnt-disappear",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:03.872Z"
+    "addedAt": "2026-09-03T03:13:01.755Z"
   },
   {
     "keyword": "Lloyds Tour Of Britain Free: A 2026 Guide",
@@ -79,97 +34,133 @@
     "sourceName": "TechRadar",
     "sourceUrl": "https://www.techradar.com/how-to-watch/cycling/lloyds-tour-of-britain-2026-free",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:03.872Z"
+    "addedAt": "2026-09-03T03:13:01.755Z"
   },
   {
-    "keyword": "Fieldy Ai: A 2026 Guide",
+    "keyword": "Openai Data Center Chief Leaves The Company As Exec: A 2026 Guide",
     "category": "Reviews",
     "source": "competitor",
     "sourceName": "TechRadar",
-    "sourceUrl": "https://www.techradar.com/coupons/fieldy-ai",
+    "sourceUrl": "https://www.techradar.com/pro/openai-data-center-chief-leaves-the-company-as-exec-exodus-continues",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:03.872Z"
+    "addedAt": "2026-09-03T03:13:01.755Z"
   },
   {
-    "keyword": "Straight Talk: A 2026 Guide",
+    "keyword": "Pentagon Launches Chatgpt And Grok Models Tailored To Warfighter: A 2026 Guide",
     "category": "Reviews",
     "source": "competitor",
     "sourceName": "TechRadar",
-    "sourceUrl": "https://www.techradar.com/coupons/straight-talk",
+    "sourceUrl": "https://www.techradar.com/pro/pentagon-launches-chatgpt-and-grok-models-tailored-to-warfighter-needs",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:03.872Z"
+    "addedAt": "2026-09-03T03:13:01.755Z"
   },
   {
-    "keyword": "How To Watch The Terror Devil In Silver: A 2026 Guide",
+    "keyword": "The Grand Tour Season Release Date Time: A 2026 Guide",
+    "category": "Reviews",
+    "source": "competitor",
+    "sourceName": "TechRadar",
+    "sourceUrl": "https://www.techradar.com/streaming/amazon-prime-video/the-grand-tour-season-7-release-date-time",
+    "tier": 2,
+    "addedAt": "2026-09-03T03:13:01.755Z"
+  },
+  {
+    "keyword": "Exclusive Sonos Ceo Tom Conrad Talks Ace Ultra Beam: A 2026 Guide",
+    "category": "Reviews",
+    "source": "competitor",
+    "sourceName": "TechRadar",
+    "sourceUrl": "https://www.techradar.com/audio/multi-room/exclusive-sonos-ceo-tom-conrad-talks-ace-ultra-beam-ultra-sonos-27-ai-features",
+    "tier": 2,
+    "addedAt": "2026-09-03T03:13:01.755Z"
+  },
+  {
+    "keyword": "Website Performance Is The New Defining Metric For Ai: A 2026 Guide",
+    "category": "Reviews",
+    "source": "competitor",
+    "sourceName": "TechRadar",
+    "sourceUrl": "https://www.techradar.com/pro/website-performance-is-the-new-defining-metric-for-ai-search",
+    "tier": 2,
+    "addedAt": "2026-09-03T03:13:01.755Z"
+  },
+  {
+    "keyword": "Overcoming The Biggest Blocker To Ai Production: A 2026 Guide",
+    "category": "Reviews",
+    "source": "competitor",
+    "sourceName": "TechRadar",
+    "sourceUrl": "https://www.techradar.com/pro/overcoming-the-biggest-blocker-to-ai-production",
+    "tier": 2,
+    "addedAt": "2026-09-03T03:13:01.755Z"
+  },
+  {
+    "keyword": "How To Watch The Traitors India Season: A 2026 Guide",
     "category": "Reviews",
     "source": "competitor",
     "sourceName": "Tom's Guide",
-    "sourceUrl": "https://www.tomsguide.com/entertainment/streaming/how-to-watch-the-terror-devil-in-silver",
+    "sourceUrl": "https://www.tomsguide.com/entertainment/streaming/how-to-watch-the-traitors-india-season-2",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:04.992Z"
+    "addedAt": "2026-09-03T03:13:06.580Z"
   },
   {
-    "keyword": "How To Watch Italian Grand Prix On Apple Tv: A 2026 Guide",
+    "keyword": "Sonos 27 Is Here To Clean Up The App: A 2026 Guide",
     "category": "Reviews",
     "source": "competitor",
     "sourceName": "Tom's Guide",
-    "sourceUrl": "https://www.tomsguide.com/entertainment/apple-tv/how-to-watch-italian-grand-prix-on-apple-tv",
+    "sourceUrl": "https://www.tomsguide.com/audio/speakers/sonos-27-is-here-to-clean-up-the-app-mess-again-this-time-with-ai",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:04.992Z"
+    "addedAt": "2026-09-03T03:13:06.580Z"
   },
   {
-    "keyword": "Meet The Mass Produced Humanoid Robot That Wants To: A 2026 Guide",
+    "keyword": "Paramount Report Card Are Taylor Sheridan Shows And Nfl: A 2026 Guide",
     "category": "Reviews",
     "source": "competitor",
     "sourceName": "Tom's Guide",
-    "sourceUrl": "https://www.tomsguide.com/ai/meet-the-mass-produced-humanoid-robot-that-wants-to-steal-your-face",
+    "sourceUrl": "https://www.tomsguide.com/entertainment/prime-video/paramount-report-card-2026-are-taylor-sheridan-shows-and-nfl-games-enough",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:04.992Z"
+    "addedAt": "2026-09-03T03:13:06.580Z"
   },
   {
-    "keyword": "15 Best Apple Labor Day Deals Airpods Ipads And: A 2026 Guide",
+    "keyword": "You Might Be Using Claude Wrong Habits To Stop: A 2026 Guide",
     "category": "Reviews",
     "source": "competitor",
     "sourceName": "Tom's Guide",
-    "sourceUrl": "https://www.tomsguide.com/sales-events/15-best-apple-labor-day-deals-airpods-ipads-and-macbooks-from-just-usd99",
+    "sourceUrl": "https://www.tomsguide.com/ai/claude/you-might-be-using-claude-wrong-5-habits-to-stop-right-now",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:04.992Z"
+    "addedAt": "2026-09-03T03:13:06.580Z"
   },
   {
-    "keyword": "How To Watch Conan Obrien Must Go Season: A 2026 Guide",
+    "keyword": "Twopages Curtains Coupons: A 2026 Guide",
     "category": "Reviews",
     "source": "competitor",
     "sourceName": "Tom's Guide",
-    "sourceUrl": "https://www.tomsguide.com/entertainment/hbo-max/how-to-watch-conan-obrien-must-go-season-3",
+    "sourceUrl": "https://www.tomsguide.com/home/twopages-curtains-coupons",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:04.992Z"
+    "addedAt": "2026-09-03T03:13:06.580Z"
   },
   {
-    "keyword": "How To Watch The Gentlemen Season: A 2026 Guide",
+    "keyword": "Fubotv Coupon Codes: A 2026 Guide",
     "category": "Reviews",
     "source": "competitor",
     "sourceName": "Tom's Guide",
-    "sourceUrl": "https://www.tomsguide.com/entertainment/streaming/how-to-watch-the-gentlemen-season-2",
+    "sourceUrl": "https://www.tomsguide.com/entertainment/streaming/fubotv-coupon-codes",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:04.992Z"
+    "addedAt": "2026-09-03T03:13:06.580Z"
   },
   {
-    "keyword": "Iphone Air Rumors Biggest Expected Upgrades: A 2026 Guide",
+    "keyword": "Espn Coupon Codes: A 2026 Guide",
     "category": "Reviews",
     "source": "competitor",
     "sourceName": "Tom's Guide",
-    "sourceUrl": "https://www.tomsguide.com/phones/iphones/iphone-air-2-rumors-5-biggest-expected-upgrades",
+    "sourceUrl": "https://www.tomsguide.com/entertainment/streaming/espn-coupon-codes",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:04.992Z"
+    "addedAt": "2026-09-03T03:13:06.580Z"
   },
   {
-    "keyword": "Watch Chad Powers Season: A 2026 Guide",
+    "keyword": "Directv Coupon Codes: A 2026 Guide",
     "category": "Reviews",
     "source": "competitor",
     "sourceName": "Tom's Guide",
-    "sourceUrl": "https://www.tomsguide.com/entertainment/streaming/watch-chad-powers-season-2",
+    "sourceUrl": "https://www.tomsguide.com/entertainment/streaming/directv-coupon-codes",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:04.992Z"
+    "addedAt": "2026-09-03T03:13:06.580Z"
   },
   {
     "keyword": "Productivity: A 2026 Guide",
@@ -178,16 +169,7 @@
     "sourceName": "Zapier Blog",
     "sourceUrl": "https://zapier.com/blog/categories/productivity/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:06.955Z"
-  },
-  {
-    "keyword": "Gmail Labels: A 2026 Guide",
-    "category": "Tutorials",
-    "source": "competitor",
-    "sourceName": "Zapier Blog",
-    "sourceUrl": "https://zapier.com/blog/gmail-labels/",
-    "tier": 2,
-    "addedAt": "2026-09-04T03:01:06.955Z"
+    "addedAt": "2026-09-03T03:13:10.008Z"
   },
   {
     "keyword": "Claude Connectors: A 2026 Guide",
@@ -196,7 +178,7 @@
     "sourceName": "Zapier Blog",
     "sourceUrl": "https://zapier.com/blog/claude-connectors/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:06.955Z"
+    "addedAt": "2026-09-03T03:13:10.008Z"
   },
   {
     "keyword": "Gemini Apps: A 2026 Guide",
@@ -205,7 +187,7 @@
     "sourceName": "Zapier Blog",
     "sourceUrl": "https://zapier.com/blog/gemini-apps/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:06.955Z"
+    "addedAt": "2026-09-03T03:13:10.008Z"
   },
   {
     "keyword": "Chatgpt Scheduled Tasks: A 2026 Guide",
@@ -214,7 +196,7 @@
     "sourceName": "Zapier Blog",
     "sourceUrl": "https://zapier.com/blog/chatgpt-scheduled-tasks/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:06.955Z"
+    "addedAt": "2026-09-03T03:13:10.008Z"
   },
   {
     "keyword": "Best Email Clients Windows: A 2026 Guide",
@@ -223,7 +205,7 @@
     "sourceName": "Zapier Blog",
     "sourceUrl": "https://zapier.com/blog/best-email-clients-windows/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:06.955Z"
+    "addedAt": "2026-09-03T03:13:10.008Z"
   },
   {
     "keyword": "Ai Models On Zapier: A 2026 Guide",
@@ -232,7 +214,7 @@
     "sourceName": "Zapier Blog",
     "sourceUrl": "https://zapier.com/blog/ai-models-on-zapier/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:06.955Z"
+    "addedAt": "2026-09-03T03:13:10.008Z"
   },
   {
     "keyword": "Claude Vs Chatgpt: A 2026 Guide",
@@ -241,7 +223,16 @@
     "sourceName": "Zapier Blog",
     "sourceUrl": "https://zapier.com/blog/claude-vs-chatgpt/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:06.955Z"
+    "addedAt": "2026-09-03T03:13:10.008Z"
+  },
+  {
+    "keyword": "Claude Ai: A 2026 Guide",
+    "category": "Tutorials",
+    "source": "competitor",
+    "sourceName": "Zapier Blog",
+    "sourceUrl": "https://zapier.com/blog/claude-ai/",
+    "tier": 2,
+    "addedAt": "2026-09-03T03:13:10.008Z"
   },
   {
     "keyword": "Zeichen Die Dir Zeigen Dass Dein Mail Marketing Ein: A 2026 Guide",
@@ -250,7 +241,7 @@
     "sourceName": "Neil Patel",
     "sourceUrl": "https://neilpatel.com/de/blog/5-zeichen-die-dir-zeigen-dass-dein-e-mail-marketing-ein-makeover-braucht/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:12.673Z"
+    "addedAt": "2026-09-03T03:13:20.761Z"
   },
   {
     "keyword": "How And When To Grow Your Ppc Campaigns: A 2026 Guide",
@@ -259,7 +250,7 @@
     "sourceName": "Neil Patel",
     "sourceUrl": "https://neilpatel.com/blog/how-and-when-to-grow-your-ppc-campaigns/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:12.673Z"
+    "addedAt": "2026-09-03T03:13:20.762Z"
   },
   {
     "keyword": "Google Adwords Video Ads: A 2026 Guide",
@@ -268,7 +259,7 @@
     "sourceName": "Neil Patel",
     "sourceUrl": "https://neilpatel.com/blog/google-adwords-video-ads/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:12.673Z"
+    "addedAt": "2026-09-03T03:13:20.762Z"
   },
   {
     "keyword": "Creating Viral Video: A 2026 Guide",
@@ -277,7 +268,7 @@
     "sourceName": "Neil Patel",
     "sourceUrl": "https://neilpatel.com/blog/creating-a-viral-video/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:12.673Z"
+    "addedAt": "2026-09-03T03:13:20.762Z"
   },
   {
     "keyword": "Awesome Mailchimp Automation Hacks: A 2026 Guide",
@@ -286,7 +277,7 @@
     "sourceName": "Neil Patel",
     "sourceUrl": "https://neilpatel.com/blog/awesome-mailchimp-automation-hacks/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:12.673Z"
+    "addedAt": "2026-09-03T03:13:20.762Z"
   },
   {
     "keyword": "Estrategias Essenciais Do Google Analytics: A 2026 Guide",
@@ -295,7 +286,7 @@
     "sourceName": "Neil Patel",
     "sourceUrl": "https://neilpatel.com/br/blog/5-estrategias-essenciais-do-google-analytics/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:12.673Z"
+    "addedAt": "2026-09-03T03:13:20.762Z"
   },
   {
     "keyword": "Domain Registrar: A 2026 Guide",
@@ -304,7 +295,7 @@
     "sourceName": "Neil Patel",
     "sourceUrl": "https://neilpatel.com/de/blog/domain-registrar/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:12.673Z"
+    "addedAt": "2026-09-03T03:13:20.762Z"
   },
   {
     "keyword": "Insider Information How To Set Up Google Display Campaign: A 2026 Guide",
@@ -313,6 +304,7 @@
     "sourceName": "Neil Patel",
     "sourceUrl": "https://neilpatel.com/blog/insider-information-how-to-set-up-a-google-display-campaign/",
     "tier": 2,
-    "addedAt": "2026-09-04T03:01:12.673Z"
+    "addedAt": "2026-09-03T03:13:20.762Z"
+>>>>>>> f265d6f2d (auto: daily growth — competitor topics + media + seo (2026-09-03))
   }
 ]
