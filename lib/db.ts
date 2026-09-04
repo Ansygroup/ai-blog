@@ -179,11 +179,12 @@ export async function addToQueue(
   opportunity?: number
 ): Promise<KeywordQueueItem | null> {
   const queue = readJsonFile<StoredKeywordQueueItem[]>(QUEUE_FILE);
+  const itemSource: string = source || 'unknown';
   const newItem: StoredKeywordQueueItem = {
     id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     keyword,
     tier,
-    source: source || 'unknown',
+    source: itemSource,
     volume: volume ?? 0,
     cpc: cpc ?? 0,
     difficulty: difficulty ?? 0,
