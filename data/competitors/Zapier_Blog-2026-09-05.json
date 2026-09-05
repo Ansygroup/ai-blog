@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-09-05T03:01:30.476Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-mythos/",
+      "title": "claude mythos",
+      "topic": "Claude Mythos: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-ai/",
+      "title": "claude ai",
+      "topic": "Claude Ai: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-vs-chatgpt/",
+      "title": "claude vs chatgpt",
+      "topic": "Claude Vs Chatgpt: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-api/",
+      "title": "claude api",
+      "topic": "Claude Api: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/google-gemini/",
+      "title": "google gemini",
+      "topic": "Google Gemini: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/automate-google-ai-studio/",
+      "title": "automate google ai studio",
+      "topic": "Automate Google Ai Studio: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/agent-harness/",
+      "title": "agent harness",
+      "topic": "Agent Harness: A 2026 Guide"
+    }
+  ]
+}
