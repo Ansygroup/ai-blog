@@ -26,7 +26,7 @@ import { dirname } from 'node:path';
 const REPO_ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 process.chdir(REPO_ROOT);
 
-const REAL = 'ca-pub-4665838048081250';
+const REAL = 'ca-pub-7002931469499133';
 const SITE = 'https://ai-blog-ten-steel.vercel.app';
 
 function run(cmd) {
