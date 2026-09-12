@@ -1,0 +1,47 @@
+{
+  "name": "TechRadar",
+  "scrapedAt": "2026-09-12T03:03:03.466Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://www.techradar.com/pro/security/anthropic-reveals-rogue-ai-agents-hate-captchas-just-like-you",
+      "title": "anthropic reveals rogue ai agents hate captchas just like you",
+      "topic": "Anthropic Reveals Rogue Ai Agents Hate Captchas Just Like: A 2026 Guide"
+    },
+    {
+      "url": "https://www.techradar.com/pro/security/a-new-android-attack-combines-malware-and-ransomware-in-a-cocktail-of-cybercrime",
+      "title": "a new android attack combines malware and ransomware in a cocktail of cybercrime",
+      "topic": "New Android Attack Combines Malware And Ransomware In Cocktail: A 2026 Guide"
+    },
+    {
+      "url": "https://www.techradar.com/pro/more-ads-are-coming-to-chatgpt-as-amazon-signs-new-openai-deal",
+      "title": "more ads are coming to chatgpt as amazon signs new openai deal",
+      "topic": "More Ads Are Coming To Chatgpt As Amazon Signs: A 2026 Guide"
+    },
+    {
+      "url": "https://www.techradar.com/pro/meta-is-begging-some-employees-to-step-up-and-become-managers-again",
+      "title": "meta is begging some employees to step up and become managers again",
+      "topic": "Meta Is Begging Some Employees To Step Up And: A 2026 Guide"
+    },
+    {
+      "url": "https://www.techradar.com/pro/the-visibility-gap-thats-smuggling-risk-into-ai-code",
+      "title": "the visibility gap thats smuggling risk into ai code",
+      "topic": "The Visibility Gap Thats Smuggling Risk Into Ai Code: A 2026 Guide"
+    },
+    {
+      "url": "https://www.techradar.com/pro/younger-workers-apparently-want-their-bosses-to-start-behaving-more-like-ai",
+      "title": "younger workers apparently want their bosses to start behaving more like ai",
+      "topic": "Younger Workers Apparently Want Their Bosses To Start Behaving: A 2026 Guide"
+    },
+    {
+      "url": "https://www.techradar.com/pro/ukraine-starts-building-jet-powered-drone-with-a-range-of-over-1-000-kilometers",
+      "title": "ukraine starts building jet powered drone with a range of over 1 000 kilometers",
+      "topic": "Ukraine Starts Building Jet Powered Drone With Range Of: A 2026 Guide"
+    },
+    {
+      "url": "https://www.techradar.com/vpn/vpn-services/no-user-data-affected-surfshark-reveals-details-of-septembers-security-incident",
+      "title": "no user data affected surfshark reveals details of septembers security incident",
+      "topic": "No User Data Affected Surfshark Reveals Details Of Septembers: A 2026 Guide"
+    }
+  ]
+}
