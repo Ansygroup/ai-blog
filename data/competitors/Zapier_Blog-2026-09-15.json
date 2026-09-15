@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-09-15T04:58:49.722Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/chatgpt-alternatives/",
+      "title": "chatgpt alternatives",
+      "topic": "Chatgpt Alternatives: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-ai-search-engine/",
+      "title": "best ai search engine",
+      "topic": "Best Ai Search Engine: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/sales-automation/",
+      "title": "sales automation",
+      "topic": "Sales Automation: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-ai-visibility-tool/",
+      "title": "best ai visibility tool",
+      "topic": "Best Ai Visibility Tool: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-agents-for-business/",
+      "title": "ai agents for business",
+      "topic": "Ai Agents For Business: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-for-small-business/",
+      "title": "claude for small business",
+      "topic": "Claude For Small Business: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-model-flexibility/",
+      "title": "ai model flexibility",
+      "topic": "Ai Model Flexibility: A 2026 Guide"
+    }
+  ]
+}

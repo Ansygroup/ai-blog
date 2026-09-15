@@ -1,20 +1,11 @@
 {
   "expectedTag": "ansy07-20",
   "totalPosts": 679,
-  "totalAffiliateLinks": 1256,
+  "totalAffiliateLinks": 1272,
   "issues": {
     "missingTag": [],
-    "noLinks": [
-      "ai-tools-for-freelancers-2026.mdx",
-      "best-ai-coding-assistants-2026.mdx",
-      "best-ai-writing-assistants-2026.mdx",
-      "best-ai-writing-tools-2026.mdx",
-      "best-ai-writing-tools-for-blog-posts-2026.mdx",
-      "claude-vs-gpt-4-for-coding-2026.mdx",
-      "how-to-use-ai-for-instagram-reels-2026.mdx",
-      "midjourney-vs-firefly-vs-dalle-2026.mdx"
-    ],
+    "noLinks": [],
     "wrongTag": []
   },
-  "generatedAt": "2026-09-12T03:03:28.026Z"
+  "generatedAt": "2026-09-15T04:59:04.860Z"
 }
