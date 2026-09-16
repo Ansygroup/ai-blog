@@ -30,11 +30,13 @@ jobs:
             node scripts/humanize-post.js "$(basename "$f" .mdx)"
           done
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
-          GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
-          GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
-          GROQ_API_KEY_5: ${{ secrets.GROQ_API_KEY_5 }}
+                  GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+                  GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
+                  GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
+                  GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
+                  GROQ_API_KEY_5: ${{ secrets.GROQ_API_KEY_5 }}
+                  AI_PROVIDER: openrouter
+                  OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       - name: Run SEO audit
         run: node scripts/seo-audit.js
       - name: Open PR with new post and enable auto-merge
