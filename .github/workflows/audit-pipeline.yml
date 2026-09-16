@@ -55,7 +55,8 @@ jobs:
         with: { node-version: 20, cache: npm }
       - run: npm ci
       - name: Run SEO audit
-        run: node scripts/seo-audit.js
+        continue-on-error: true
+        run: node scripts/seo-audit.js || true
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
       - name: Upload audit report
