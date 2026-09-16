@@ -53,7 +53,7 @@ for (const file of files) {
     console.log(`✅ ${file}`);
   } else {
     console.log(`⚠️  ${file}:`);
-    issues.forEach((i) => { console.log(`   - ${i}`); warnings++; });
+    issues.forEach((i) => { console.log(`   - ${i}`); errors++; });
   }
 }
 
