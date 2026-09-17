@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-09-17T08:39:12.027Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/vibe-automation/",
+      "title": "vibe automation",
+      "topic": "Vibe Automation: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-text-generator/",
+      "title": "ai text generator",
+      "topic": "Ai Text Generator: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-ai-photo-editor/",
+      "title": "best ai photo editor",
+      "topic": "Best Ai Photo Editor: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-for-small-business/",
+      "title": "claude for small business",
+      "topic": "Claude For Small Business: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-ai-writing-generator/",
+      "title": "best ai writing generator",
+      "topic": "Best Ai Writing Generator: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-ai-project-management-tools/",
+      "title": "best ai project management tools",
+      "topic": "Best Ai Project Management Tools: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/sales-automation-software/",
+      "title": "sales automation software",
+      "topic": "Sales Automation Software: A 2026 Guide"
+    }
+  ]
+}
