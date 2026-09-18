@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-09-18T04:13:22.080Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/zapier-vs-workato-for-enterprise-agents/",
+      "title": "zapier vs workato for enterprise agents",
+      "topic": "Zapier Vs Workato For Enterprise Agents: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/n8n-for-marketing-automation/",
+      "title": "n8n for marketing automation",
+      "topic": "N8n For Marketing Automation: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/chatgpt-alternatives/",
+      "title": "chatgpt alternatives",
+      "topic": "Chatgpt Alternatives: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/airtable-alternatives/",
+      "title": "airtable alternatives",
+      "topic": "Airtable Alternatives: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/what-is-airtable/",
+      "title": "what is airtable",
+      "topic": "What Is Airtable: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-by-zapier-guide/",
+      "title": "ai by zapier guide",
+      "topic": "Ai By Zapier Guide: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/vibe-automation/",
+      "title": "vibe automation",
+      "topic": "Vibe Automation: A 2026 Guide"
+    }
+  ]
+}
