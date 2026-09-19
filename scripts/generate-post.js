@@ -174,7 +174,7 @@ async function makeOpenRouterProvider() {
 async function makeGeminiProvider() {
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY missing. Get a free key at https://aistudio.google.com/app/apikey');
-  const model = process.env.GEMINI_MODEL || 'gemini-flash-latest';
+  const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
   return {
     name: `gemini/${model}`,
     async generateText(prompt, systemPrompt) {
