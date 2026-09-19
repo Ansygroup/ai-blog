@@ -107,7 +107,9 @@ async function makeGroqProvider() {
               const res = await tryKey(allKeys[ki], model, prompt, systemPrompt);
               if (res.ok) {
                 const data = await res.json();
-                return data.choices?.[0]?.message?.content?.trim() || '';
+      const text = data.choices?.[0]?.message?.content?.trim();
+      if (!text) throw new Error("OpenRouter returned empty content");
+      return text;
               }
               const errText = await res.text();
               if (res.status === 429) {
@@ -193,7 +195,9 @@ async function makeGeminiProvider() {
         throw new Error(`Gemini ${res.status}: ${err.slice(0, 200)}`);
       }
       const data = await res.json();
-      return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+      if (!text) throw new Error("Gemini returned empty content");
+      return text;
     },
   };
 }
