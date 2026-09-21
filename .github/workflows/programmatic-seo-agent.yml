@@ -20,7 +20,10 @@ jobs:
       - name: Generate comparison pages
         run: node scripts/programmatic-generator.js
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_PROVIDER: gemini
+          GEMINI_MODEL: gemini-3.6-flash
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 
       - name: Build verification
         run: npm run build

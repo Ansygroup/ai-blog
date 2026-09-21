@@ -26,20 +26,12 @@ jobs:
           fi
           node scripts/generate-post.js --from-keywords --batch 5
           node scripts/polish-posts.js
-          for f in $(ls -1t content/posts/*.mdx | head -5); do
-            node scripts/humanize-post.js "$(basename "$f" .mdx)"
-          done
         env:
-                  GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-                  GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
-                  GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
-                  GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
-                  GROQ_API_KEY_5: ${{ secrets.GROQ_API_KEY_5 }}
-                  AI_PROVIDER: gemini
-                  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-                  GEMINI_MODEL: gemini-3.6-flash
-                  OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-                  OPENROUTER_MODEL: openai/gpt-oss-120b
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_PROVIDER: gemini
+          GEMINI_MODEL: gemini-3.6-flash
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: openai/gpt-oss-120b
       - name: Run SEO audit
         run: node scripts/seo-audit.js
       - name: Open PR with new post and enable auto-merge

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
-const { groqJson, hasGroqKey } = require('./ai-agent');
+const { json, hasKey } = require('./ai-agent');
 
 require('dotenv').config({ path: path.join(__dirname, '..', '.env.local') });
 
@@ -58,44 +58,42 @@ function buildTopicMap(posts) {
 function isAlreadyLinked(body, idx, kw, slug) {
   const beforeSlice = body.slice(Math.max(0, idx - 50), idx);
   const afterSlice = body.slice(idx + kw.length, Math.min(body.length, idx + kw.length + 50));
-  if (/href=["']/.test(beforeSlice) || /\]\(/.test(beforeSlice) || /\]\(/.test(afterSlice)) return true;
-  const rawText = body.slice(idx, idx + kw.length);
-  if (/[[\]()]/.test(rawText)) return true;
-  if (idx > 0 && body[idx - 1] === '[') return true;
-  const around = body.slice(Math.max(0, idx - 100), idx + kw.length + 100);
-  if (around.includes(`/posts/${slug}`)) return true;
-  return false;
+  return beforeSlice.includes('](') || afterSlice.startsWith('(');
+}
+
+function addLink(body, idx, kw, slug) {
+  const before = body.slice(0, idx + kw.length);
+  const after = body.slice(idx + kw.length);
+  return before + `](` + BASE_URL + `/posts/` + slug + `)` + after;
 }
 
 async function getAiLinkSuggestions(post, allPosts) {
-  const postsList = allPosts.filter(p => p.slug !== post.slug).map(p => `- "${p.title}" (slug: ${p.slug})`).join('\n');
-  const bodySample = post.body.slice(0, 3000);
-  const prompt = `You are an internal linking assistant. Given this blog post body and a list of other posts, suggest 3-5 natural internal links.
+  const otherPosts = allPosts.filter(p => p.slug !== post.slug).slice(0, 50);
+  const prompt = `You are an SEO editor adding internal links to a blog post.
 
-Current post title: "${post.title}"
+Post: "${post.title}" (slug: ${post.slug})
+Category: ${post.category}
 
-Other posts:
-${postsList}
+Candidate posts to link to:
+${otherPosts.map(p => `- ${p.title} (slug: ${p.slug}, category: ${p.category})`).join('\n')}
 
-Post body (first 3000 chars):
-${bodySample}
+Post body (first 2000 chars):
+${post.body.slice(0, 2000)}
 
-For each suggestion, find an exact phrase in the body that could be linked to a relevant post. Return JSON array:
-[
-  {
-    "phrase": "exact text from body to link",
-    "slug": "target-post-slug",
-    "reason": "why this link makes sense"
-  }
-]
+Return a JSON array of link suggestions. Each suggestion:
+{
+  "phrase": "exact phrase from the post body to link",
+  "slug": "target post slug",
+  "reason": "why this link adds value"
+}
 
 Only suggest links where the phrase appears verbatim in the body. Use exact capitalization as it appears.`;
 
-  return groqJson(prompt, { temperature: 0.3, maxTokens: 2048 });
+  return await json(prompt, { temperature: 0.3, maxTokens: 2048 });
 }
 
 async function runAiMode(posts) {
-  console.log(`🤖 AI mode — Groq-powered semantic linking\n`);
+  console.log(`🤖 AI mode — Semantic linking\n`);
   let totalAdded = 0;
   let totalFailed = 0;
 
@@ -119,111 +117,87 @@ async function runAiMode(posts) {
       const idx = body.indexOf(s.phrase);
       if (idx === -1) continue;
       if (isAlreadyLinked(body, idx, s.phrase, s.slug)) continue;
-      const target = posts.find(p => p.slug === s.slug);
-      if (!target) continue;
 
-      const replacement = `[${s.phrase}](/posts/${s.slug})`;
-      body = body.slice(0, idx) + replacement + body.slice(idx + s.phrase.length);
+      body = addLink(body, idx, s.phrase, s.slug);
       modified = true;
+      applied.push(s.phrase + ' -> ' + s.slug);
       totalAdded++;
-      applied.push(s);
-      console.log(`  🔗 "${post.title}" → "${target.title}" (AI: ${s.reason || 'semantic match'})`);
     }
 
     if (modified) {
-      content = content.replace(/^---\r?\n[\s\S]+?\r?\n---\r?\n([\s\S]+)$/, (_, _body) => {
-        return content.slice(0, content.indexOf(_body)) + body;
+      const newContent = content.replace(/^---\r?\n[\s\S]+?\r?\n---\r?\n[\s\S]+$/, (match) => {
+        return match.replace(post.body, body);
       });
       if (dryRun) {
-        console.log(`  📝 would update: ${post.slug}.mdx (${applied.length} links)\n`);
+        console.log(`📝 ${post.slug}: ${applied.length} links would be added`);
+        applied.forEach(a => console.log(`   + ${a}`));
       } else {
-        fs.writeFileSync(filePath, content, 'utf8');
+        fs.writeFileSync(filePath, newContent, 'utf8');
+        console.log(`✅ ${post.slug}: ${applied.length} links added`);
       }
     }
   }
 
-  console.log(`\n📊 AI Results: ${totalAdded} links added, ${totalFailed} posts skipped (no AI response)`);
+  console.log(`\n📊 AI mode: ${totalAdded} links added, ${totalFailed} failed`);
 }
 
-async function runRuleMode(posts) {
+function runRuleMode(posts) {
+  console.log(`📏 Rule-based mode — keyword matching\n`);
   const topicMap = buildTopicMap(posts);
-  let totalLinksAdded = 0;
-  let totalLinksSkipped = 0;
+  let totalAdded = 0;
 
   for (const post of posts) {
     const filePath = path.join(POSTS_DIR, `${post.slug}.mdx`);
     let content = fs.readFileSync(filePath, 'utf8');
     let body = content.match(/^---\r?\n[\s\S]+?\r?\n---\r?\n([\s\S]+)$/)?.[1];
     if (!body) continue;
-    let modified = false;
 
-    const mentions = [];
-    const bodyLower = body.toLowerCase();
+    const matchedKeywords = new Set();
+    let added = 0;
 
-    for (const [kw, relatedSlugs] of Object.entries(topicMap)) {
-      if (post.keywords.includes(kw)) continue;
-      let idx = 0;
-      while ((idx = bodyLower.indexOf(kw, idx)) !== -1) {
-        const before = idx > 0 ? bodyLower[idx - 1] : ' ';
-        const after = idx + kw.length < bodyLower.length ? bodyLower[idx + kw.length] : ' ';
-        if (/[a-z0-9]/.test(before) || /[a-z0-9]/.test(after)) { idx += kw.length; continue; }
-        if (isAlreadyLinked(body, idx, kw, '')) { idx += kw.length; totalLinksSkipped++; continue; }
-        const contextBefore = body.slice(Math.max(0, idx - 200), idx);
-        if (contextBefore.includes('```') || contextBefore.includes('---')) { idx += kw.length; continue; }
-        for (const slug of relatedSlugs) {
-          if (slug === post.slug) continue;
-          const target = posts.find((p) => p.slug === slug);
-          if (!target) continue;
-          if (!target.title.toLowerCase().includes(kw.toLowerCase())) continue;
-          if (isAlreadyLinked(body, idx, kw, slug)) { totalLinksSkipped++; continue; }
-          mentions.push({ idx, kw, slug, title: target.title });
-          break;
-        }
-        idx += kw.length;
-      }
+    for (const [kw, slugs] of Object.entries(topicMap)) {
+      if (slugs.length === 0) continue;
+      if (matchedKeywords.has(kw)) continue;
+
+      const targetSlug = slugs.find(s => s !== post.slug);
+      if (!targetSlug) continue;
+
+      const idx = body.indexOf(kw);
+      if (idx === -1) continue;
+      if (isAlreadyLinked(body, idx, kw, targetSlug)) continue;
+
+      body = addLink(body, idx, kw, targetSlug);
+      matchedKeywords.add(kw);
+      added++;
+      totalAdded++;
     }
 
-    const seen = new Set();
-    const uniqueMentions = mentions.filter((m) => {
-      if (seen.has(m.slug)) return false;
-      seen.add(m.slug);
-      return true;
-    });
-
-    uniqueMentions.sort((a, b) => b.idx - a.idx);
-    for (const m of uniqueMentions) {
-      const linkText = body.slice(m.idx, m.idx + m.kw.length);
-      const replacement = `[${linkText}](/posts/${m.slug})`;
-      body = body.slice(0, m.idx) + replacement + body.slice(m.idx + m.kw.length);
-      modified = true;
-      totalLinksAdded++;
-      console.log(`  🔗 "${post.title}" → "${m.title}" (via "${m.kw}")`);
-    }
-
-    if (modified) {
-      content = content.replace(/^---\r?\n[\s\S]+?\r?\n---\r?\n([\s\S]+)$/, (_, _body) => {
-        return content.slice(0, content.indexOf(_body)) + body;
+    if (added > 0) {
+      const newContent = content.replace(/^---\r?\n[\s\S]+?\r?\n---\r?\n[\s\S]+$/, (match) => {
+        return match.replace(post.body, body);
       });
       if (dryRun) {
-        console.log(`  📝 would update: ${post.slug}.mdx (${uniqueMentions.length} links)\n`);
+        console.log(`📝 ${post.slug}: ${added} links would be added`);
       } else {
-        fs.writeFileSync(filePath, content, 'utf8');
+        fs.writeFileSync(filePath, newContent, 'utf8');
+        console.log(`✅ ${post.slug}: ${added} links added`);
       }
     }
   }
 
-  console.log(`\n📊 Results: ${totalLinksAdded} links added, ${totalLinksSkipped} skipped${dryRun ? ' (dry run)' : ''}`);
+  console.log(`\n📊 Rule mode: ${totalAdded} links added`);
 }
 
 (async () => {
   const posts = getAllPosts();
-  if (useAI && hasGroqKey()) {
+  console.log(`📚 Loaded ${posts.length} posts\n`);
+
+  if (useAI && hasKey()) {
     await runAiMode(posts);
-  } else if (useAI && !hasGroqKey()) {
-    console.log('⚠️ --ai flag used but no GROQ_API_KEY found. Falling back to rule-based linking.\n');
-    await runRuleMode(posts);
   } else {
-    console.log(`🔗 Auto internal linker — ${posts.length} posts\n`);
-    await runRuleMode(posts);
+    if (useAI && !hasKey()) {
+      console.log('⚠️ --ai flag used but no AI API key found. Falling back to rule-based.\n');
+    }
+    runRuleMode(posts);
   }
 })();

@@ -19,7 +19,10 @@ jobs:
       - name: Run content performance agent with auto-fix
         run: node scripts/content-performance-agent.js --fix
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_PROVIDER: gemini
+          GEMINI_MODEL: gemini-3.6-flash
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 
       - name: Commit report and fixes
         run: |
@@ -31,10 +34,11 @@ jobs:
           git config user.email "bot@aipulsedaily.com"
           git config user.name "Content Performance Agent"
           git checkout -b "$BRANCH"
-          git add -A
+          git add content/posts/ public/reports/
           git commit -m "auto: content performance report + fixes $(date +%Y-%m-%d)"
           git push origin "$BRANCH"
-          gh pr create --title "auto: content performance $(date +%Y-%m-%d)" --body "Weekly content performance analysis with auto-fixes applied." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
-          gh pr merge --squash "$(grep -oP '/pull/\K[0-9]+' pr-url.txt)" || true
+          gh pr create --title "auto: content performance fixes $(date +%Y-%m-%d)" --body "Auto-fixes from content performance agent." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
+          PR_NUMBER=$(grep -oP '/pull/\K[0-9]+' pr-url.txt)
+          gh pr merge --squash "$PR_NUMBER" 2>/dev/null || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

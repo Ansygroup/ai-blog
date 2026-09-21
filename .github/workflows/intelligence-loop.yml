@@ -38,11 +38,10 @@ jobs:
           echo "Generating AI topic suggestions..."
           node scripts/content-strategy.js --fill-queue 2>&1 || echo "suggestion_failed=true" >> $GITHUB_OUTPUT
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
-          GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
-          GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
-          GROQ_API_KEY_5: ${{ secrets.GROQ_API_KEY_5 }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_PROVIDER: gemini
+          GEMINI_MODEL: gemini-3.6-flash
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           APIFY_API_KEY: ${{ secrets.APIFY_API_KEY }}
 
       - name: SEO optimization
@@ -51,11 +50,10 @@ jobs:
           echo "Running SEO optimizer..."
           node scripts/seo-optimizer.js --fix 2>&1 || true
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
-          GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
-          GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
-          GROQ_API_KEY_5: ${{ secrets.GROQ_API_KEY_5 }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_PROVIDER: gemini
+          GEMINI_MODEL: gemini-3.6-flash
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 
       - name: Refresh stale content
         if: inputs.skip_optimization != 'true'
@@ -85,11 +83,10 @@ jobs:
           done
           echo "generated=true" >> $GITHUB_OUTPUT
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
-          GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
-          GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
-          GROQ_API_KEY_5: ${{ secrets.GROQ_API_KEY_5 }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_PROVIDER: gemini
+          GEMINI_MODEL: gemini-3.6-flash
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 
       - name: Auto internal linking
         if: steps.generate.outputs.generated == 'true'
@@ -129,8 +126,8 @@ jobs:
           - New post generation (if queue had items)
           - Auto internal linking"
           git push origin "$BRANCH"
-          gh pr create \\
-            --title "auto: content improvement cycle $(date +%Y-%m-%d)" \\
+          gh pr create \
+            --title "auto: content improvement cycle $(date +%Y-%m-%d)" \
             --body "$(cat <<-EOB
           ## Content Improvement Cycle
 
@@ -152,11 +149,11 @@ jobs:
 
           Merge when ready.
           EOB
-          )" \\
-            --base main \\
-            --head "$BRANCH" \\
+          )" \
+            --base main \
+            --head "$BRANCH" \
             --label "auto-generated" | tee pr-url.txt
-          PR_NUMBER=$(grep -oP '/pull/\\K[0-9]+' pr-url.txt)
+          PR_NUMBER=$(grep -oP '/pull/\K[0-9]+' pr-url.txt)
           gh pr merge --squash "$PR_NUMBER" || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

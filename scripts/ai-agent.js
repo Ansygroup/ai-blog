@@ -3,6 +3,15 @@ const https = require('https');
 require('dotenv').config({ path: require('path').join(__dirname, '..', '.env.local') });
 
 const GROQ_API = 'https://api.groq.com/openai/v1/chat/completions';
+const OPENROUTER_API = 'https://openrouter.ai/api/v1/chat/completions';
+
+// ---- Provider selection (priority: GEMINI > OPENROUTER > GROQ) ----
+function getActiveProvider() {
+  if (process.env.GEMINI_API_KEY) return 'gemini';
+  if (process.env.OPENROUTER_API_KEY) return 'openrouter';
+  if (process.env.GROQ_API_KEY || process.env.GROQ_API_KEY_2) return 'groq';
+  return null;
+}
 
 function getGroqKey() {
   return process.env.GROQ_API_KEY || process.env.GROQ_API_KEY_2 || '';
@@ -81,7 +90,7 @@ function geminiGenerate(prompt, options = {}) {
   return new Promise((resolve) => {
     const key = getGeminiKey();
     if (!key) return resolve(null);
-    const model = options.model || 'gemini-flash-latest';
+    const model = options.model || process.env.GEMINI_MODEL || 'gemini-3.6-flash';
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
     const body = JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
@@ -133,4 +142,93 @@ function hasGeminiKey() {
   return !!getGeminiKey();
 }
 
-module.exports = { getGroqKey, groqGenerate, groqJson, hasGroqKey, getGeminiKey, geminiGenerate, geminiJson, hasGeminiKey };
+// ---- OpenRouter ----
+function getOpenRouterKey() {
+  return process.env.OPENROUTER_API_KEY || '';
+}
+
+function openrouterGenerate(prompt, options = {}) {
+  return new Promise((resolve) => {
+    const key = getOpenRouterKey();
+    if (!key) return resolve(null);
+    const model = options.model || process.env.OPENROUTER_MODEL || 'openai/gpt-oss-120b';
+    const body = JSON.stringify({
+      model,
+      messages: [{ role: 'user', content: prompt }],
+      temperature: options.temperature ?? 0.5,
+      max_tokens: options.maxTokens || 2048,
+    });
+    const urlObj = new URL(OPENROUTER_API);
+    const req = https.request(
+      {
+        hostname: urlObj.hostname,
+        path: urlObj.pathname,
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${key}`,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(body),
+        },
+      },
+      (res) => {
+        let data = '';
+        res.on('data', (c) => (data += c));
+        res.on('end', () => {
+          if (res.statusCode !== 200) {
+            console.error(`OpenRouter error ${res.statusCode}: ${data.slice(0, 200)}`);
+            return resolve(null);
+          }
+          try {
+            const parsed = JSON.parse(data);
+            resolve(parsed.choices?.[0]?.message?.content || null);
+          } catch { resolve(null); }
+        });
+      }
+    );
+    req.on('error', (err) => { console.error('OpenRouter request failed:', err.message); resolve(null); });
+    req.write(body);
+    req.end();
+  });
+}
+
+function openrouterJson(prompt, options = {}) {
+  return openrouterGenerate(
+    `${prompt}\n\nRespond with valid JSON only, no markdown formatting, no code fences.`,
+    { ...options, temperature: 0.3, maxTokens: 2048 }
+  ).then((text) => {
+    if (!text) return null;
+    try { return JSON.parse(text.trim()); } catch { return null; }
+  });
+}
+
+function hasOpenRouterKey() {
+  return !!getOpenRouterKey();
+}
+
+// ---- Unified API ----
+async function generate(prompt, options = {}) {
+  const provider = getActiveProvider();
+  if (provider === 'gemini') return geminiGenerate(prompt, options);
+  if (provider === 'openrouter') return openrouterGenerate(prompt, options);
+  if (provider === 'groq') return groqGenerate(prompt, options);
+  return null;
+}
+
+async function json(prompt, options = {}) {
+  const provider = getActiveProvider();
+  if (provider === 'gemini') return geminiJson(prompt, options);
+  if (provider === 'openrouter') return openrouterJson(prompt, options);
+  if (provider === 'groq') return groqJson(prompt, options);
+  return null;
+}
+
+function hasKey() {
+  return hasGeminiKey() || hasOpenRouterKey() || hasGroqKey();
+}
+
+module.exports = {
+  getGroqKey, groqGenerate, groqJson, hasGroqKey,
+  getGeminiKey, geminiGenerate, geminiJson, hasGeminiKey,
+  getOpenRouterKey, openrouterGenerate, openrouterJson, hasOpenRouterKey,
+  generate, json, hasKey, getActiveProvider
+};

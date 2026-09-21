@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
-const { groqJson, hasGroqKey } = require('../ai-agent');
+const { json, hasKey, generate } = require('../ai-agent');
 require('dotenv').config({ path: path.join(__dirname, '..', '..', '.env.local') });
 
 const POSTS_DIR = path.join(__dirname, '..', '..', 'content', 'posts');
@@ -22,7 +22,7 @@ function getPostFiles() {
 }
 
 function parseFrontmatter(content) {
-  const get = (k) => (content.match(new RegExp(`^${k}:\\s*"?([^"\\n]*)"?`, 'm')) || [])[1] || '';
+  const get = (k) => (content.match(new RegExp(`^${k}:\\s*"?([^"\n]*)"?`, 'm')) || [])[1] || '';
   const num = (k) => { const m = content.match(new RegExp(`^${k}:\\s*(\\d+)`, 'm')); return m ? parseInt(m[1]) : null; };
   return {
     title: get('title'),
@@ -78,62 +78,47 @@ function scanSiteState() {
   const queue = fs.existsSync(queuePath) ? JSON.parse(fs.readFileSync(queuePath, 'utf8')) : [];
 
   return {
-    totalPosts: files.length,
-    weakSeoCount,
-    oldPosts,
-    noFaqCount,
-    thinContent,
-    missingExcerpt,
-    shortExcerpt,
-    noAffiliateDisclosure,
+    totalPosts: posts.length,
+    weakSeoCount, oldPosts, noFaqCount, thinContent, missingExcerpt, shortExcerpt, noAffiliateDisclosure,
     totalInternalLinks,
-    avgLinksPerPost: files.length ? (totalInternalLinks / files.length).toFixed(1) : '0',
-    queueSize: queue.length,
-    strongSeo: posts.filter(p => p.seoScore !== null && p.seoScore >= 80).length,
-    needsImprovement: posts.filter(p => p.seoScore !== null && p.seoScore >= 70 && p.seoScore < 80).length,
+    queueLength: queue.length,
+    posts,
   };
 }
 
-async function aiPlan(state) {
-  const prompt = `You are the Auto-Pilot operations director for a blog. Based on these site stats, create a prioritized execution plan.
+async function decideAction(state) {
+  const issues = [];
+  if (state.weakSeoCount > 0) issues.push({ type: 'seo', count: state.weakSeoCount, priority: 1, reason: `${state.weakSeoCount} posts have SEO score < 70` });
+  if (state.thinContent > 0) issues.push({ type: 'thin', count: state.thinContent, priority: 2, reason: `${state.thinContent} posts under 700 words` });
+  if (state.noFaqCount > 0) issues.push({ type: 'faq', count: state.noFaqCount, priority: 3, reason: `${state.noFaqCount} posts missing FAQ section` });
+  if (state.missingExcerpt > 0) issues.push({ type: 'excerpt', count: state.missingExcerpt, priority: 4, reason: `${state.missingExcerpt} posts missing excerpt` });
+  if (state.oldPosts > 0) issues.push({ type: 'stale', count: state.oldPosts, priority: 5, reason: `${state.oldPosts} posts older than 6 months` });
+  if (state.queueLength < 5) issues.push({ type: 'queue', count: state.queueLength, priority: 6, reason: `Keyword queue low (${state.queueLength} topics)` });
 
-Site Stats:
-- Total posts: ${state.totalPosts}
-- Weak SEO (<70): ${state.weakSeoCount}
-- Needs improvement (70-79): ${state.needsImprovement}
-- Strong (80+): ${state.strongSeo}
-- Stale (>6 months): ${state.oldPosts}
-- No FAQ section: ${state.noFaqCount}
-- Thin content (<700 words): ${state.thinContent}
-- Missing excerpt: ${state.missingExcerpt}
-- Bad excerpt length: ${state.shortExcerpt}
-- No affiliate disclosure: ${state.noAffiliateDisclosure}
-- Total internal links: ${state.totalInternalLinks}
-- Avg links per post: ${state.avgLinksPerPost}
-- Queue size: ${state.queueSize}
+  if (issues.length === 0) {
+    return { action: 'none', reason: 'Site healthy — no action needed', priority: 0 };
+  }
 
-Available scripts to run:
-1. "seo-optimizer" — node scripts/seo-optimizer.js --fix (fixes SEO scores, excerpts, titles)
-2. "fix-excerpts" — node scripts/fix-excerpts.js (trims excerpts to 120-160 chars) or node scripts/fix-excerpts.js --ai (AI excerpts)
-3. "expand-thin-content" — node scripts/expand-thin-content.js (expands posts <700 words)
-4. "auto-internal-link" — node scripts/auto-internal-link.js (adds contextual internal links) or --ai for AI mode
-5. "content-refresher" — node scripts/content-refresher.js --ai (refreshes stale posts)
-6. "affiliate-linker" — node scripts/affiliate-linker.js <file> (adds affiliate links)
-7. "fix-broken-links" — node scripts/fix-broken-links.js (removes broken internal links)
-8. "queue-refill" — trigger queue-refill.yml GitHub workflow
-9. "content-performance" — node scripts/content-performance-agent.js --fix (analyzes and improves)
-10. "humanize-posts" — node scripts/humanize-post.js <slug> (removes AI patterns)
+  issues.sort((a, b) => a.priority - b.priority);
+  const top = issues[0];
 
-Return a JSON array of 3-7 actions ordered by priority. Each action:
-{
-  "action": "script-name",
-  "args": ["--ai", "--fix"] or null,
-  "priority": 1-10 (1 = highest),
-  "reason": "why this action is needed now",
-  "expectedImpact": "what will improve"
-}`;
+  const scriptMap = {
+    seo: 'scripts/seo-optimizer.js',
+    thin: 'scripts/expand-thin-content.js',
+    faq: 'scripts/generate-faq.js',
+    excerpt: 'scripts/fix-excerpts.js',
+    stale: 'scripts/content-refresher.js',
+    queue: 'scripts/content-strategy.js',
+  };
 
-  return groqJson(prompt, { temperature: 0.3, maxTokens: 2048 });
+  return {
+    action: top.type,
+    script: scriptMap[top.type],
+    args: ['--ai', '--fix'],
+    priority: top.priority,
+    reason: top.reason,
+    expectedImpact: `Fixes ${top.type} for ${top.count} posts`,
+  };
 }
 
 function runScript(script, args = []) {
@@ -171,112 +156,40 @@ function saveHistory(entry) {
 (async () => {
   console.log('🤖 AUTO-PILOT AGENT v1.0\n');
 
-  if (!hasGroqKey()) {
-    console.log('❌ GROQ_API_KEY required for auto-pilot.');
+  if (!hasKey()) {
+    console.log('❌ AI API key required (GEMINI_API_KEY, OPENROUTER_API_KEY, or GROQ_API_KEY).');
     process.exit(1);
   }
 
   const startTime = Date.now();
-
-  // Scan site state
-  console.log('📊 Scanning site state...');
   const state = scanSiteState();
-  console.log(`   Posts: ${state.totalPosts} | Weak SEO: ${state.weakSeoCount} | Stale: ${state.oldPosts} | Thin: ${state.thinContent}`);
-  console.log(`   Missing excerpts: ${state.missingExcerpt} | Queue: ${state.queueSize} | Internal links: ${state.totalInternalLinks}\n`);
+  console.log(`📊 Site scan: ${state.totalPosts} posts, ${state.weakSeoCount} weak SEO, ${state.thinContent} thin, ${state.queueLength} queue`);
 
-  // If single script requested, run it directly
+  const decision = await decideAction(state);
+  console.log(`\n🎯 Decision: ${decision.action.toUpperCase()} — ${decision.reason}`);
+
+  if (decision.action === 'none') {
+    console.log('✅ No action needed.');
+    return;
+  }
+
+  if (dryRun) {
+    console.log(`[DRY RUN] Would run: ${decision.script} ${decision.args.join(' ')}`);
+    return;
+  }
+
   if (singleScript) {
-    console.log(`🎯 Running single script: ${singleScript}\n`);
-    const result = runScript(`${singleScript}.js`, ['--ai', '--fix']);
-    const summary = {
-      timestamp: new Date().toISOString(),
-      mode: 'single',
-      script: singleScript,
-      state: scanSiteState(),
-      plan: [{ action: singleScript, priority: 1, reason: 'User-requested' }],
-      results: [{ action: singleScript, ...result }],
-      duration: Date.now() - startTime,
-    };
-    saveHistory(summary);
-    console.log(result.success ? `✅ ${singleScript} completed` : `❌ ${singleScript} failed: ${result.error || result.output}`);
-    console.log(`\n📊 Duration: ${(Date.now() - startTime) / 1000}s`);
-    process.exit(result.success ? 0 : 1);
+    const result = runScript(singleScript, ['--ai', '--fix']);
+    console.log(result.success ? '✅ Done' : `❌ ${result.error}`);
+    return;
   }
 
-  // AI planning
-  console.log('🧠 AI planning optimal execution sequence...');
-  const plan = await aiPlan(state);
-  if (!plan || !Array.isArray(plan) || plan.length === 0) {
-    console.log('❌ AI failed to generate a plan.');
-    process.exit(1);
+  if (decision.script) {
+    const result = runScript(decision.script, decision.args);
+    console.log(result.success ? '✅ Done' : `❌ ${result.error}`);
+    if (result.output) console.log(result.output.slice(0, 500));
   }
 
-  plan.sort((a, b) => (a.priority || 99) - (b.priority || 99));
-  console.log(`\n📋 Execution plan (${plan.length} steps):`);
-  for (const step of plan) {
-    console.log(`   ${step.priority}. ${step.action} — ${step.reason}`);
-  }
-
-  // Execute plan
-  console.log('\n' + '='.repeat(50));
-  console.log('🚀 EXECUTING PLAN\n');
-  const results = [];
-  let allSuccess = true;
-
-  for (const step of plan) {
-    console.log(`▶️ [${step.priority}] ${step.action}${step.args ? ' ' + step.args.join(' ') : ''}`);
-    console.log(`   Reason: ${step.reason}`);
-
-    const result = runScript(`${step.action}.js`, step.args || []);
-    results.push({ action: step.action, ...result });
-
-    if (result.success) {
-      const lines = result.output.split('\n').filter(l => l.trim());
-      const lastLine = lines[lines.length - 1] || '';
-      console.log(`   ✅ ${lastLine.slice(0, 100)}`);
-    } else {
-      console.log(`   ❌ ${result.error?.slice(0, 200) || 'Unknown error'}`);
-      if (!fullCycle) {
-        console.log('   ⏭ Stopping (use --full to continue on failure)');
-        allSuccess = false;
-        break;
-      }
-    }
-    console.log('');
-  }
-
-  const duration = Date.now() - startTime;
-  const successCount = results.filter(r => r.success).length;
-  const failCount = results.filter(r => !r.success).length;
-
-  // Save to history
-  const entry = {
-    timestamp: new Date().toISOString(),
-    mode: fullCycle ? 'full' : 'smart',
-    state,
-    plan,
-    results,
-    successCount,
-    failCount,
-    duration,
-    allSuccess,
-  };
-  saveHistory(entry);
-
-  // Summary
-  console.log('='.repeat(50));
-  console.log('📊 AUTO-PILOT SUMMARY');
-  console.log(`   ✅ Successful: ${successCount}`);
-  console.log(`   ❌ Failed: ${failCount}`);
-  console.log(`   ⏱ Duration: ${(duration / 1000).toFixed(1)}s`);
-  console.log(`   📁 Log: ${LOG_FILE}`);
-
-  const updated = scanSiteState();
-  console.log(`\n📈 Site changes:`);
-  if (updated.weakSeoCount !== state.weakSeoCount) console.log(`   SEO weak: ${state.weakSeoCount} → ${updated.weakSeoCount}`);
-  if (updated.thinContent !== state.thinContent) console.log(`   Thin content: ${state.thinContent} → ${updated.thinContent}`);
-  if (updated.totalInternalLinks !== state.totalInternalLinks) console.log(`   Internal links: ${state.totalInternalLinks} → ${updated.totalInternalLinks}`);
-  if (updated.missingExcerpt !== state.missingExcerpt) console.log(`   Missing excerpts: ${state.missingExcerpt} → ${updated.missingExcerpt}`);
-
-  process.exit(allSuccess ? 0 : 1);
+  saveHistory({ timestamp: new Date().toISOString(), action: decision.action, reason: decision.reason, durationMs: Date.now() - startTime });
+  console.log(`\n⏱️  Completed in ${Date.now() - startTime}ms`);
 })();

@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
-const { groqGenerate, groqJson, hasGroqKey } = require('./ai-agent');
+const { generate, hasKey } = require('./ai-agent');
 
 const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
 const POSTS_PER_BATCH = 5;
@@ -27,7 +27,7 @@ function getBody(content) {
 }
 
 function getFrontmatter(content) {
-  const get = (k) => (content.match(new RegExp(`^${k}:\\s*"?([^"\\n]*)"?`, 'm')) || [])[1] || '';
+  const get = (k) => (content.match(new RegExp(`^${k}:\s*"?([^"\n]*)"?`, 'm')) || [])[1] || '';
   return { title: get('title'), excerpt: get('excerpt'), category: get('category'), tags: get('tags') };
 }
 
@@ -50,7 +50,7 @@ Instructions:
 
 Important: Preserve all existing markdown formatting, links, and structure. Only update content that is actually stale or outdated.`;
 
-  return groqGenerate(prompt, { temperature: 0.4, maxTokens: 4096 });
+  return await generate(prompt, { temperature: 0.4, maxTokens: 4096 });
 }
 
 async function aiNewExcerpt(title, body) {
@@ -58,40 +58,19 @@ async function aiNewExcerpt(title, body) {
   const prompt = `Write a fresh SEO excerpt (120-160 characters) for this updated blog post.
 
 Title: "${title}"
-Content: ${clean}
+Body preview: ${clean}
 
-Return only the excerpt text, 120-160 characters, no quotes.`;
+Return ONLY the excerpt text, no quotes, no preamble.`;
 
-  return groqGenerate(prompt, { temperature: 0.4, maxTokens: 200 });
+  return await generate(prompt, { temperature: 0.3, maxTokens: 200 });
 }
 
 (async () => {
-  console.log('🔄 Content Refresher');
-  console.log(`   ${dryRun ? 'DRY RUN — no changes will be saved' : 'LIVE mode'}\n`);
-
-  if (!hasGroqKey()) {
-    console.log('❌ GROQ_API_KEY is required for content-refresher. Set it in .env.local or environment.');
-    process.exit(1);
-  }
-
-  if (!useAI) {
-    console.log('⚠️ Content-refresher requires --ai flag (it uses Groq for all operations).');
-    process.exit(1);
-  }
-
   let files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.mdx'));
-
   if (targetSlug) {
-    const match = files.find(f => f.startsWith(targetSlug) || f === targetSlug + '.mdx');
-    if (match) { files = [match]; }
-    else { console.log(`❌ Post not found: ${targetSlug}`); process.exit(1); }
-  } else {
-    files.sort((a, b) => {
-      const da = parseDate(fs.readFileSync(path.join(POSTS_DIR, a), 'utf8')) || new Date(0);
-      const db = parseDate(fs.readFileSync(path.join(POSTS_DIR, b), 'utf8')) || new Date(0);
-      return da - db;
-    });
-    files = files.slice(0, POSTS_PER_BATCH);
+    const tf = files.find(f => f.startsWith(targetSlug) || f === `${targetSlug}.mdx`);
+    if (!tf) { console.error(`Post not found: ${targetSlug}`); process.exit(1); }
+    files = [tf];
   }
 
   let refreshed = 0;
@@ -113,13 +92,13 @@ Return only the excerpt text, 120-160 characters, no quotes.`;
       if (monthsOld < 3) { console.log(`   ⏭ Less than 3 months old, skipping`); skipped++; continue; }
     }
 
-    if (body.includes('## What\'s New in 2026') || body.includes('## What\'s New in 2027')) {
+    if (body.includes("## What's New in 2026") || body.includes("## What's New in 2027")) {
       console.log(`   ⏭ Already refreshed, skipping`);
       skipped++;
       continue;
     }
 
-    const updatedBody = await aiRefreshPost(data.title || file, body, data);
+    const updatedBody = useAI && hasKey() ? await aiRefreshPost(data.title || file, body, data) : null;
     if (!updatedBody || wordCount(updatedBody) < wordCount(body) * 0.5) {
       console.log(`   ⏭ Refresh failed (AI returned insufficient content)`);
       skipped++;
@@ -127,7 +106,7 @@ Return only the excerpt text, 120-160 characters, no quotes.`;
     }
 
     let updatedExcerpt = data.excerpt || '';
-    const newExcerpt = await aiNewExcerpt(data.title || file, updatedBody);
+    const newExcerpt = useAI && hasKey() ? await aiNewExcerpt(data.title || file, updatedBody) : null;
     if (newExcerpt && newExcerpt.length >= 80) {
       updatedExcerpt = newExcerpt.trim().slice(0, 160).replace(/\s+\S*$/, '');
     }

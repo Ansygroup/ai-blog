@@ -29,7 +29,10 @@ jobs:
 
       - name: Run Auto-Pilot Agent
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_PROVIDER: gemini
+          GEMINI_MODEL: gemini-3.6-flash
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           EXTRA=""
           if [ "${{ inputs.mode }}" = "full" ]; then EXTRA="$EXTRA --full"; fi

@@ -1,7 +1,7 @@
 name: Thin Content Expander — grow posts under 500 words
 
 # Finds posts under 500 words, expands them with topic-specific AI
-# sections (Groq in CI, Gemini fallback), and opens a PR. The PR gets
+# sections (Gemini in CI), and opens a PR. The PR gets
 # validated by the SEO Audit + Editor Agent pull_request_target
 # workflows automatically — no approval gate.
 
@@ -30,7 +30,7 @@ jobs:
       - run: npm ci
 
       - name: Debug key presence
-        run: node -e "console.log('groq:',!!process.env.GROQ_API_KEY,'_2:',!!process.env.GROQ_API_KEY_2,'_3:',!!process.env.GROQ_API_KEY_3,'_4:',!!process.env.GROQ_API_KEY_4,'_5:',!!process.env.GROQ_API_KEY_5,'gemini:',!!process.env.GEMINI_API_KEY)"
+        run: node -e "console.log('gemini:',!!process.env.GEMINI_API_KEY,'openrouter:',!!process.env.OPENROUTER_API_KEY)"
 
       - name: Expand thin posts
         id: expand
@@ -41,12 +41,10 @@ jobs:
           echo "changed=$CHANGED" >> $GITHUB_OUTPUT
           echo "$CHANGED post(s) expanded (of $BEFORE total)"
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
-          GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
-          GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
-          GROQ_API_KEY_5: ${{ secrets.GROQ_API_KEY_5 }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_PROVIDER: gemini
+          GEMINI_MODEL: gemini-3.6-flash
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
 

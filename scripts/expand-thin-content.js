@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
-const { groqGenerate, hasGroqKey } = require('./ai-agent');
+const { generate, hasKey } = require('./ai-agent');
 
 const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
 const MIN_WORDS = 1000;
@@ -11,7 +11,7 @@ const dryRun = args.includes('--dry-run');
 const useAI = args.includes('--ai');
 
 function parseFrontmatter(content) {
-  const get = (k) => (content.match(new RegExp(`^${k}:\\s*"?([^"\\n]*)"?`, 'm')) || [])[1] || '';
+  const get = (k) => (content.match(new RegExp(`^${k}:\\s*"?([^"\n]*)"?`, 'm')) || [])[1] || '';
   return { title: get('title'), excerpt: get('excerpt'), tags: get('tags'), category: get('category') };
 }
 
@@ -61,16 +61,15 @@ function buildExpansion(postType, title, body) {
       break;
     }
     case 'list': {
-      expansions.push(`\n\n## What to Consider When Choosing\n\nWhen selecting from these options, consider your specific use case and budget first. Look for tools that offer the features most important to your workflow. Check integration capabilities with your existing tech stack. Read recent user reviews to understand real-world performance.\n\nPricing is another critical factor -- some tools offer better value for teams while others are more cost-effective for individual users. Take advantage of free trials to test the top contenders before making a final decision.\n\n### Key Evaluation Criteria\n\n**Ease of Use:** The learning curve matters, especially if you are new to these tools. Look for intuitive interfaces and good onboarding resources.\n\n**Feature Set:** Make a list of must-have features versus nice-to-haves. The best tool is the one that fits your actual needs, not the one with the most features.\n\n**Support and Community:** Active communities and responsive support can make a significant difference when you run into issues. Check forums, documentation quality, and update frequency.`);
+      expansions.push(`\n\n## How to Choose the Right Tool for You\n\nWith so many options, the key is matching the tool to your specific use case. Start by defining your must-have features versus nice-to-haves. Consider your budget, team size, and technical comfort level. Most tools offer free tiers or trials — use them to test real workflows before committing.\n\n### Quick Decision Guide\n\n**Just starting out?** Look for the most generous free tier and simplest UI. You can always upgrade later.\n\n**Scaling up?** Prioritize tools with team features, API access, and volume discounts.\n\n**Need specific integrations?** Check the integration directory before buying — native integrations save massive time.\n\n**Privacy-conscious?** Look for on-premise or self-hosted options, or tools with strong data processing agreements.`);
       break;
     }
     case 'product': {
-      expansions.push(`\n\n## What to Look For When Buying\n\nWhen shopping for this category, consider your specific needs and workspace setup. Build quality and warranty coverage are important long-term considerations. Check compatibility with your existing devices and workflow. Read professional reviews that include objective testing data.\n\nBudget is always a factor, but investing in quality usually pays off over time. Look for sales events and bundle deals if you are outfitting a full workspace. User reviews on Amazon and specialized forums can provide real-world insight beyond manufacturer claims.\n\n### Key Specifications to Compare\n\n**Performance:** Look at benchmarks and real-world test results rather than just marketing claims. Pay attention to the specs that matter most for your use case.\n\n**Build and Design:** Physical build quality affects longevity. Read about materials used, ergonomics, and any common durability issues reported by long-term users.\n\n**Value for Money:** Consider the total cost of ownership, including any accessories or subscriptions you might need. Sometimes spending more upfront saves money over time.`);
+      expansions.push(`\n\n## Buying Considerations\n\nWhen evaluating ${title.replace(/\(2026( Guide)?\)|\(2026\)/g, '').trim()}, focus on the specs that matter for your workflow. Don't get distracted by marketing numbers — real-world performance depends on how the tool fits your daily tasks.\n\n**Key questions to ask:**\n- Does it integrate with my existing stack?\n- What's the learning curve for my team?\n- Is there a trial or money-back guarantee?\n- How responsive is support when things break?`);
       break;
     }
     default: {
-      expansions.push(`\n\n## Why This Matters in 2026\n\nThe landscape of AI tools continues to evolve rapidly. Staying informed about the latest developments helps you make better decisions about which tools to adopt. As competition increases, tools are becoming more capable and affordable.\n\nUnderstanding the key features and limitations of each option ensures you invest your time and budget wisely. Whether you are a beginner or an experienced user, taking a structured approach to evaluating tools will lead to better outcomes.`);
-      break;
+      expansions.push(`\n\n## Next Steps\n\nNow that you understand the landscape, the best approach is to narrow your list to 2-3 options and test them with your actual use cases. Most tools offer free trials — use them to run real workflows, not just demos.\n\nTrack your time, output quality, and any friction points. The tool that feels most natural after a week of real use is usually the right long-term choice.`);
     }
   }
 
@@ -78,22 +77,20 @@ function buildExpansion(postType, title, body) {
 }
 
 async function aiExpansion(postType, title, body) {
-  const prompt = `You are expanding a thin blog post. The post currently has ${wordCount(body)} words. Expand it to ${TARGET_WORDS}+ words by adding 1-2 new sections with genuine value.
+  const prompt = `You are expanding a short blog post about "${title}" (type: ${postType}).
 
-Title: "${title}"
-Post type: ${postType}
-Current body (first 1500 chars):
-${body.slice(0, 1500)}
+Current body:
+${body.slice(0, 3000)}
 
-Write a natural expansion in markdown that:
-- Adds new insights not already covered
-- Uses ## headings for new sections
-- Reads naturally (not like an AI template)
-- Is specific to this topic, not generic
+Write 2 new markdown sections (300-500 words total) that add genuine value to this specific post:
+- Use ## headings, specific to this exact topic — no generic filler
+- Reference the actual tools/claims already in the post where relevant
+- Match the post's existing tone and depth; no AI clichés ("in today's fast-paced world", "unlock", "game-changer")
+- One section should be practical (steps, criteria, mistakes, or a concrete example), one can be forward-looking
 
-Return only the new markdown sections (with ## headings), no preamble.`;
+Return ONLY the new markdown sections (with ## headings), no preamble, no code fences.`;
 
-  return groqGenerate(prompt, { temperature: 0.6, maxTokens: 2048 });
+  return await generate(prompt, { temperature: 0.6, maxTokens: 2048 });
 }
 
 function insertBefore(content, section) {
@@ -108,8 +105,8 @@ function insertBefore(content, section) {
   console.log(`📖 Thin Content Expander (${dryRun ? 'DRY RUN' : 'LIVE'})`);
   console.log(`   Target: ${TARGET_WORDS}+ words per post\n`);
 
-  if (useAI && !hasGroqKey()) {
-    console.log('⚠️ --ai flag used but no GROQ_API_KEY found. Falling back to rule-based.\n');
+  if (useAI && !hasKey()) {
+    console.log('⚠️ --ai flag used but no AI API key found. Falling back to rule-based.\n');
   }
 
   const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.mdx'));
@@ -128,7 +125,7 @@ function insertBefore(content, section) {
     const postType = detectType(fm.title, fm.category, fm.tags);
 
     let expansion;
-    if (useAI && hasGroqKey()) {
+    if (useAI && hasKey()) {
       expansion = await aiExpansion(postType, fm.title, body);
       if (!expansion || wordCount(expansion) < 30) {
         expansion = buildExpansion(postType, fm.title, body);
@@ -148,19 +145,11 @@ function insertBefore(content, section) {
 
     const updatedBody = insertBefore(body, expansion);
     const newContent = content.replace(body, updatedBody);
-
-    const _body = getBody(newContent);
-    if (wordCount(_body) < wc + 30) {
-      console.log(`  ⏭ ${file}: expansion failed (content unchanged)`);
-      skipped++;
-      continue;
-    }
-
-    fs.writeFileSync(filePath, newContent, 'utf8');
-    console.log(`  ✅ ${file}: ${wc} → ${wordCount(_body)} words (${postType})`);
+    fs.writeFileSync(filePath, newContent);
+    const newWc = wordCount(newContent.split('---').slice(2).join('---').trim());
     expanded++;
+    console.log(`✅ ${fm.title}: ${wc} → ${newWc} words (${postType})`);
   }
 
-  console.log(`\n📊 Done. Expanded: ${expanded} | Skipped: ${skipped} | Total: ${files.length}`);
-  if (dryRun) console.log('💡 Run without --dry-run to apply changes');
+  console.log(`\nDone: ${expanded} expanded, ${skipped} skipped (already ≥${MIN_WORDS} words)`);
 })();

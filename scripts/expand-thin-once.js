@@ -12,7 +12,7 @@
  */
 const fs = require('fs');
 const path = require('path');
-const { groqGenerate, hasGroqKey, geminiGenerate, hasGeminiKey } = require('./ai-agent');
+const { generate, hasKey } = require('./ai-agent');
 
 const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
 const MIN_WORDS = 500;
@@ -23,10 +23,8 @@ const dryRun = args.includes('--dry-run');
 const limitIdx = args.indexOf('--limit');
 const limit = limitIdx !== -1 ? parseInt(args[limitIdx + 1], 10) : 0;
 
-const apiKey = process.env.GEMINI_API_KEY;
-// Provider-agnostic: Groq first (CI secret), Gemini fallback (local).
-if (!dryRun && !hasGroqKey() && !hasGeminiKey()) {
-  console.error('No GROQ_API_KEY or GEMINI_API_KEY set');
+if (!dryRun && !hasKey()) {
+  console.error('No AI API key set (GEMINI_API_KEY, OPENROUTER_API_KEY, or GROQ_API_KEY)');
   process.exit(1);
 }
 
@@ -34,127 +32,37 @@ function wordCount(text) {
   return text.split(/\s+/).filter(Boolean).length;
 }
 
-const MODELS = (process.env.GEMINI_MODELS || 'gemini-flash-latest,gemini-flash-lite-latest,gemini-2.0-flash,gemini-1.5-flash').split(',');
-
-async function geminiOnce(model, prompt) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      generationConfig: { temperature: 0.6, maxOutputTokens: 2048 },
-    }),
-  });
-  if (!res.ok) throw new Error(`Gemini ${model} ${res.status}: ${(await res.text()).slice(0, 120)}`);
-  const data = await res.json();
-  return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
-}
-
-// CI keeps Groq keys in the Supabase groq_keys table (rotated by
-// GroqClient) — env secrets may be empty. Fetch them via REST.
-async function fetchSupabaseGroqKeys() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_KEY;
-  if (!url || !key) return [];
-  try {
-    const res = await fetch(`${url}/rest/v1/groq_keys?is_active=eq.true&select=key_value`, {
-      headers: { apikey: key, Authorization: `Bearer ${key}` },
-    });
-    if (!res.ok) return [];
-    return (await res.json()).map((r) => r.key_value).filter(Boolean);
-  } catch {
-    return [];
-  }
-}
-
-const GROQ_API = 'https://api.groq.com/openai/v1/chat/completions';
-// qwen/qwen3-32b (groq-client default) 404s now; rotate current models.
-const GROQ_MODELS = [
-  process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
-  'llama-3.3-70b-versatile',
-  'llama-3.1-8b-instant',
-];
-
-async function groqOnce(key, prompt, model) {
-  const res = await fetch(GROQ_API, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model,
-      messages: [{ role: 'user', content: prompt }],
-      temperature: 0.6,
-      max_tokens: 2048,
-    }),
-  });
-  if (!res.ok) throw new Error(`Groq ${res.status}: ${(await res.text()).slice(0, 120)}`);
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content?.trim() || '';
-}
-
-async function gemini(prompt) {
-  const keys = [
-    ...[process.env.GROQ_API_KEY, process.env.GROQ_API_KEY_2, process.env.GROQ_API_KEY_3,
-      process.env.GROQ_API_KEY_4, process.env.GROQ_API_KEY_5].filter(Boolean),
-    ...(await fetchSupabaseGroqKeys()),
-  ];
-  for (const key of keys) {
-    for (const model of GROQ_MODELS) {
-      try {
-        const out = await groqOnce(key, prompt, model);
-        if (out) return out;
-      } catch (e) {
-        if (/404|model/i.test(e.message)) continue; // try next model
-        if (!/429|rate|quota/i.test(e.message)) {
-          console.log(`  (groq key failed: ${String(e.message).slice(0, 60)})`);
-          break; // bad key — next key
-        }
-      }
-    }
-  }
-  let lastErr;
-  if (!hasGeminiKey()) throw (lastErr || new Error('no AI provider available'));
-  for (let attempt = 0; attempt < 4; attempt++) {
-    const model = MODELS[attempt % MODELS.length];
-    try {
-      const out = await geminiOnce(model, prompt);
-      if (out) return out;
-      lastErr = new Error('empty response');
-    } catch (e) {
-      lastErr = e;
-      const isRetryable = /503|429|overloaded|UNAVAILABLE/i.test(e.message);
-      if (!isRetryable) throw e;
-    }
-    await new Promise((r) => setTimeout(r, 8000 * (attempt + 1)));
-  }
-  throw lastErr;
-}
-
 function splitFrontmatter(content) {
-  const m = content.match(/^---\n[\s\S]*?\n---\n/);
-  if (!m) return { fm: '', body: content };
-  return { fm: m[0], body: content.slice(m[0].length) };
+  const match = content.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]*)$/);
+  if (!match) return { fm: '', body: content };
+  return { fm: '---\n' + match[1] + '\n---\n', body: match[2].trimStart() };
 }
 
 function getMeta(fm) {
-  const get = (k) => (fm.match(new RegExp(`^${k}:\\s*"?(.*?)"?\\s*$`, 'm')) || [])[1] || '';
-  return { title: get('title'), tags: get('tags'), category: get('category') };
+  const get = (k) => (fm.match(new RegExp(`^${k}:\s*"?([^"\n]*)"?`, 'm')) || [])[1] || '';
+  return { title: get('title'), category: get('category'), tags: get('tags') };
 }
 
 function insertBeforeLastSection(body, section) {
-  const idx = body.lastIndexOf('\n## ');
-  if (idx === -1) return body.trimEnd() + '\n' + section;
-  return body.slice(0, idx).trimEnd() + '\n' + section + '\n' + body.slice(idx + 1);
+  const h2s = [...body.matchAll(/^## /gm)];
+  if (h2s.length === 0) return body + section;
+  const idx = h2s[h2s.length - 1].index;
+  return body.slice(0, idx) + section + '\n' + body.slice(idx);
 }
 
 (async () => {
-  const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.mdx'));
+  const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.mdx'));
   const targets = [];
-  for (const f of files) {
-    const c = fs.readFileSync(path.join(POSTS_DIR, f), 'utf8');
-    const w = wordCount(c);
-    if (w < MIN_WORDS) targets.push({ file: f, words: w });
+
+  for (const file of files) {
+    const content = fs.readFileSync(path.join(POSTS_DIR, file), 'utf8');
+    const { fm, body } = splitFrontmatter(content);
+    const words = wordCount(body);
+    if (words < MIN_WORDS) {
+      targets.push({ file, words, meta: getMeta(fm) });
+    }
   }
+
   targets.sort((a, b) => a.words - b.words);
   console.log(`Found ${targets.length} posts under ${MIN_WORDS} words`);
 
@@ -187,7 +95,7 @@ Write 2 new markdown sections (300-450 words total) that add genuine value to th
 
 Return ONLY the new markdown sections, no preamble, no code fences.`;
 
-      const section = await gemini(prompt);
+      const section = await generate(prompt, { temperature: 0.6, maxTokens: 2048 });
       if (!section || section.length < 200) throw new Error('empty/short response');
 
       const newBody = insertBeforeLastSection(body, '\n' + section.replace(/^#+\s*$/, '').trim() + '\n');

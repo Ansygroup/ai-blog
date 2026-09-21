@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
+const { generate, hasKey } = require('./ai-agent');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env.local') });
 
 const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
@@ -54,73 +55,31 @@ async function humanizePost(slug) {
   const systemPrompt = HUMANIZER_PROMPT;
   const userPrompt = `Humanize the following blog post. Make it sound natural and human-written while preserving all facts, links, and the MDX frontmatter exactly as-is.\n\n\`\`\`mdx\n${content}\n\`\`\``;
 
-  const apiKey = process.env.GROQ_API_KEY
-    || process.env.GROQ_API_KEY_2
-    || process.env.GROQ_API_KEY_3
-    || process.env.GROQ_API_KEY_4
-    || process.env.GROQ_API_KEY_5;
-  if (!apiKey) {
-    console.warn('⚠️  GROQ_API_KEY missing — skipping humanize (post left as-is).');
+  if (!hasKey()) {
+    console.warn('⚠️  No AI API key found — skipping humanize (post left as-is).');
     return;
   }
 
-  const model = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
-
-  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-    body: JSON.stringify({
-      model,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      temperature: 0.5,
-      max_tokens: 8000,
-    }),
-  });
-
-  if (!res.ok) {
-    const err = await res.text();
-    // Rate-limit (429) and other API errors are non-fatal: leave the post as-is
-    // so the CI job can still commit the freshly generated article.
-    console.warn(`⚠️  Groq ${res.status}: ${err.slice(0, 200)} — skipping humanize (post left as-is).`);
+  const result = await generate(`${systemPrompt}\n\n${userPrompt}`, { temperature: 0.5, maxTokens: 8000 });
+  
+  if (!result || result.trim().length < 100) {
+    console.warn('⚠️  Humanizer returned empty/short result — post left as-is.');
     return;
   }
 
-  const data = await res.json();
-  const rewritten = data.choices?.[0]?.message?.content?.trim();
-  if (!rewritten) {
-    console.warn('⚠️  Empty response from Groq — skipping humanize (post left as-is).');
-    return;
-  }
-
-  const rewrittenMatch = rewritten.match(/^---\r?\n[\s\S]+?\r?\n---\r?\n[\s\S]+$/);
-  const finalContent = rewrittenMatch ? rewritten : `---\n${frontmatter}\n---\n\n${rewritten}`;
-
-  fs.writeFileSync(filePath, finalContent, 'utf8');
-  console.log(`Done: ${slug}`);
+  fs.writeFileSync(filePath, result.trim());
+  console.log(`✅ ${slug} humanized`);
 }
 
-async function main() {
-  const args = process.argv.slice(2);
-  const slugIndex = args.findIndex(a => !a.startsWith('--'));
+const args = process.argv.slice(2);
+const slug = args.find(a => !a.startsWith('--'));
 
-  if (slugIndex === -1) {
-    const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.mdx'));
-    console.log(`Humanizing all ${files.length} posts...`);
-    for (const file of files) {
-      const slug = file.replace(/\.mdx$/, '');
-      try {
-        await humanizePost(slug);
-      } catch (err) {
-        console.warn(`⚠️  humanize failed for ${slug}: ${err.message} (skipped)`);
-      }
-    }
-  } else {
-    const slug = args[slugIndex].replace(/\.mdx$/, '');
-    await humanizePost(slug);
+if (slug) {
+  humanizePost(slug);
+} else {
+  const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.mdx'));
+  for (const file of files) {
+    await humanizePost(file.replace(/\.mdx$/, ''));
   }
+  console.log('\n✅ All posts processed');
 }
-
-main().catch(err => { console.error('humanize error:', err && err.message ? err.message : err); /* non-fatal: never fail the CI run */ });
