@@ -149,10 +149,12 @@ async function apifyTrendResearch() {
 // ---- AI Suggestion Generator ----
 async function generateSuggestions(posts, queue) {
   const apiKey = process.env.GROQ_API_KEY || process.env.OPENAI_API_KEY || process.env.GEMINI_API_KEY;
+  const openrouterKey = process.env.OPENROUTER_API_KEY;
   let provider;
-  if (process.env.GROQ_API_KEY) provider = 'groq';
+  if (process.env.GEMINI_API_KEY) provider = 'gemini';
+  else if (process.env.OPENROUTER_API_KEY) provider = 'openrouter';
+  else if (process.env.GROQ_API_KEY) provider = 'groq';
   else if (process.env.OPENAI_API_KEY) provider = 'openai';
-  else if (process.env.GEMINI_API_KEY) provider = 'gemini';
   else {
     console.log('  ℹ️  No AI API key found — using Pollinations (free, no key)');
     provider = 'pollinations';
@@ -229,7 +231,8 @@ async function queryAI(provider, apiKey, prompt) {
     return completion.choices[0].message.content.trim();
   }
   if (provider === 'gemini') {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
     const res = await fetch(url, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
