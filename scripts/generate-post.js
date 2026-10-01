@@ -303,10 +303,48 @@ async function getProvider() {
   const requested = (process.env.AI_PROVIDER || 'groq').toLowerCase();
   // Auto-detect if user only set one of the keys
   let provider = requested;
+  // Candidate chain for a requested provider, in preference order, skipping
+  // providers whose key is not present. A workflow that hardcodes
+  // AI_PROVIDER=gemini but has no GEMINI_API_KEY secret (removed/rotated)
+  // must NOT hard-fail while another configured provider is usable.
+  const FALLBACKS = {
+    gemini: ['gemini', 'groq', 'openrouter', 'nvidia', 'openai'],
+    groq: ['groq', 'openrouter', 'gemini', 'nvidia', 'openai'],
+    openrouter: ['openrouter', 'groq', 'gemini', 'nvidia', 'openai'],
+    openai: ['openai', 'groq', 'openrouter', 'gemini', 'nvidia'],
+    nvidia: ['nvidia', 'groq', 'openrouter', 'gemini', 'openai'],
+    // ollama is local-only and needs a running daemon; never auto-fallback to it
+    // or a credential-less CI run would silently "succeed" until the HTTP call
+    // fails. It is usable only when explicitly requested.
+    ollama: ['ollama'],
+  };
+  const keyPresent = (p) => {
+    switch (p) {
+      case 'gemini':    return !!(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY);
+      case 'groq':      return !!process.env.GROQ_API_KEY;
+      case 'openrouter':return !!process.env.OPENROUTER_API_KEY;
+      case 'openai':    return !!process.env.OPENAI_API_KEY;
+      case 'nvidia':    return !!process.env.NVIDIA_API_KEY;
+      case 'ollama':    return true; // local daemon, never key-gated
+      default:          return false;
+    }
+  };
   if (requested === 'groq' && !process.env.GROQ_API_KEY) {
     if (process.env.OPENROUTER_API_KEY) { provider = 'openrouter'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to openrouter`); }
     else if (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY) { provider = 'gemini'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to gemini`); }
     else if (process.env.OPENAI_API_KEY) { provider = 'openai'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to openai`); }
+  }
+  // Generic fallback: if the REQUESTED provider has no key but another one
+  // does, switch instead of throwing. Keeps CI green when a secret is removed
+  // or rotated out from under a hardcoded AI_PROVIDER value.
+  if (keyPresent(provider)) {
+    // nothing to do — requested provider is usable
+  } else {
+    const alt = (FALLBACKS[provider] || FALLBACKS.groq).find((p) => p !== provider && keyPresent(p));
+    if (alt) {
+      console.log(`   ⚡ ${provider.toUpperCase()} key not set — falling back to ${alt}`);
+      provider = alt;
+    }
   }
   // If NVIDIA key is present and no provider requested, prefer it (free, strong model)
   if (requested === 'groq' && !process.env.GROQ_API_KEY && process.env.NVIDIA_API_KEY) {
