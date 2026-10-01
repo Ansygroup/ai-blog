@@ -11,13 +11,28 @@ const matter = require('gray-matter');
 
 const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
 const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.mdx'));
-let errors = 0, warnings = 0;
+let errors = 0, warnings = 0, unreadable = 0;
+const UNREADABLE = [];
 
 console.log(`🔍 Auditing ${files.length} posts...\n`);
 
 for (const file of files) {
   const content = fs.readFileSync(path.join(POSTS_DIR, file), 'utf8');
-  const { data, content: body } = matter(content);
+
+  // A single malformed frontmatter block must not abort the whole audit:
+  // gray-matter throws, which used to kill the run and fail CI for every
+  // other post. Report the file and keep going.
+  let data, body;
+  try {
+    ({ data, content: body } = matter(content));
+  } catch (err) {
+    unreadable++;
+    UNREADABLE.push({ file, reason: String(err.reason || err.message).split('\n')[0] });
+    errors++;
+    console.log(`❌ ${file}: unparseable frontmatter — ${err.reason || err.message}`);
+    continue;
+  }
+
   const issues = [];
 
   const title = data.title || '';
@@ -58,4 +73,8 @@ for (const file of files) {
 }
 
 console.log(`\n📊 ${errors} errors, ${warnings} warnings across ${files.length} posts.`);
-process.exit(errors > 0 ? 1 : 0);
+if (unreadable > 0) {
+  console.log(`\n❌ ${unreadable} post(s) have unparseable frontmatter (hard failure):`);
+  UNREADABLE.forEach((u) => console.log(`   - ${u.file}: ${u.reason}`));
+}
+process.exit(unreadable > 0 ? 1 : 0);
