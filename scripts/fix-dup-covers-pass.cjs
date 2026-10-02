@@ -66,7 +66,13 @@ for (const [cover, group] of dupGroups) {
         execSync(`curl -sL --max-time 25 -o "${dest}" "${url}"`, { stdio: 'ignore' });
         if (fs.existsSync(dest) && fs.statSync(dest).size > 3000) {
           const txt = fs.readFileSync(full, 'utf8');
-          fs.writeFileSync(full, txt.replace(/^cover:[ \t]*['"]?[^'"\r\n]+/m, `cover: "/images/${newName}"`));
+          // The replacement must consume the WHOLE old cover line, trailing
+          // closing quote included. A pattern that stops before the quote
+          // (`[^'"\r\n]+`) leaves the quote behind, and every pass adds one
+          // more: `cover: "/x.jpg` -> `cover: "/x.jpg""` -> ... which makes
+          // the frontmatter unparseable YAML and fails the seo-audit CI job.
+          const rewritten = txt.replace(/^[ \t]*cover:[ \t]*['"]?[^'"\r\n]*['"]?[ \t]*\r?$/m, `cover: "/images/${newName}"`);
+          fs.writeFileSync(full, rewritten);
           generated++; fixed++; ok = true;
           console.log(`  ✓ ${f} -> /images/${newName} (was ${cover}, shared by ${group.length})`);
           break;
