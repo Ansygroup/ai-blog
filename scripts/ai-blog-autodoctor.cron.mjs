@@ -21,7 +21,14 @@ function main() {
   try { check = JSON.parse(run('node scripts/ai-blog-doctor.mjs')); }
   catch (e) { return { ok: false, stage: 'check', error: String(e) }; }
 
-  if (check.corruptRemaining === 0 && check.fixed.links === 0 && check.fixed.claims === 0 && check.fixed.crlf === 0) {
+  // A file defect in ANY counter means there is work to do. The previous
+  // gate only inspected corrupt/links/claims/crlf, which let the
+  // content (119) and covers (679) fixes fall through as "no defects"
+  // and left the applied changes uncommitted forever.
+  const DEFECT_KEYS = ['corrupt', 'links', 'claims', 'crlf', 'content', 'covers', 'dates', 'excerpts', 'long', 'old'];
+  const hasFileDefects = check.corruptRemaining > 0 || DEFECT_KEYS.some((k) => (check.fixed?.[k] ?? 0) > 0);
+
+  if (!hasFileDefects) {
     // No file defects, but still surface the AdSense placeholder warning if present.
     if (check.adsenseWarning) {
       return { ok: true, stage: 'check', message: 'no file defects', adsenseWarning: check.adsenseWarning, report: check };

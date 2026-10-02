@@ -1,13 +1,21 @@
 {
-  "ranAt": "2026-08-31T01:02:00.329Z",
-  "apply": false,
+  "ranAt": "2026-10-02T01:06:31.009Z",
+  "apply": true,
   "fixed": {
     "corrupt": 0,
     "links": 0,
     "claims": 0,
-    "crlf": 0
+    "crlf": 0,
+    "content": 1,
+    "covers": 0,
+    "dates": 0,
+    "excerpts": 0,
+    "long": 0,
+    "old": 0
   },
-  "details": [],
+  "details": [
+    "content: ai-marketing-automation-platforms-b2b-comparison.mdx"
+  ],
   "corruptRemaining": 0,
   "adsense": {
     "placeholderClient": "ca-pub-3423159322001021",
