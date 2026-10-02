@@ -71,7 +71,7 @@ for (const [cover, group] of dupGroups) {
           // (`[^'"\r\n]+`) leaves the quote behind, and every pass adds one
           // more: `cover: "/x.jpg` -> `cover: "/x.jpg""` -> ... which makes
           // the frontmatter unparseable YAML and fails the seo-audit CI job.
-          const rewritten = txt.replace(/^[ \t]*cover:[ \t]*['"]?[^'"\r\n]*['"]?[ \t]*\r?$/m, `cover: "/images/${newName}"`);
+          const rewritten = txt.replace(/^[ \t]*cover:[ \t]*['"]?[^'"\r\n]*['"]*[ \t]*\r?$/m, `cover: "/images/${newName}"`);
           fs.writeFileSync(full, rewritten);
           generated++; fixed++; ok = true;
           console.log(`  ✓ ${f} -> /images/${newName} (was ${cover}, shared by ${group.length})`);
