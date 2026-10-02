@@ -340,21 +340,41 @@ const PROVIDERS = {
   openai: makeOpenAIProvider,
 };
 
+// Returns true when the provider's credential is actually available.
+// resolveNvidiaKey() also reads ~/.hermes/.env, so process.env alone is not a valid check.
+function providerHasKey(name) {
+  switch (name) {
+    case 'groq': return Boolean(process.env.GROQ_API_KEY);
+    case 'openrouter': return Boolean(process.env.OPENROUTER_API_KEY);
+    case 'gemini': return Boolean(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY);
+    case 'nvidia': return Boolean(resolveNvidiaKey());
+    case 'openai': return Boolean(process.env.OPENAI_API_KEY);
+    // ollama is deliberately excluded from auto-selection: it needs a local server,
+    // so silently falling back to it would just hang the run.
+    case 'ollama': return false;
+    default: return false;
+  }
+}
+
+// Ordered preference when the requested provider has no usable key. Every free tier
+// first so an unattended CI run never burns a paid key.
+const FALLBACK_ORDER = ['groq', 'nvidia', 'openrouter', 'gemini', 'openai'];
+
 async function getProvider() {
   const requested = (process.env.AI_PROVIDER || 'groq').toLowerCase();
-  // Auto-detect if user only set one of the keys
+
+  // Fall back on ANY requested provider whose key is missing, not just `groq`.
+  // The workflows hardcode AI_PROVIDER: gemini while GEMINI_API_KEY is an empty
+  // secret; the old groq-only branch left makeGeminiProvider() to throw and killed
+  // the whole run even though GROQ_API_KEY was present.
   let provider = requested;
-  if (requested === 'groq' && !process.env.GROQ_API_KEY) {
-    if (process.env.OPENROUTER_API_KEY) { provider = 'openrouter'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to openrouter`); }
-    else if (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY) { provider = 'gemini'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to gemini`); }
-    else if (process.env.OPENAI_API_KEY) { provider = 'openai'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to openai`); }
-  }
-  // If NVIDIA key is present and no other provider requested, prefer it (free, strong model).
-    // resolveNvidiaKey() also reads ~/.hermes/.env, so process.env alone is not a valid check.
-    if (requested === 'groq' && !process.env.GROQ_API_KEY && resolveNvidiaKey()) {
-      provider = 'nvidia';
-      console.log(`   ⚡ NVIDIA key found — using nvidia (${NVIDIA_MODELS[0]})`);
+  if (!providerHasKey(requested)) {
+    const fallback = FALLBACK_ORDER.find((p) => p !== requested && providerHasKey(p));
+    if (fallback) {
+      provider = fallback;
+      console.log(`   ⚡ ${requested} requested but its key is not set — falling back to ${fallback}`);
     }
+  }
   const factory = PROVIDERS[provider];
   if (!factory) {
     throw new Error(`Unknown AI_PROVIDER "${provider}". Valid: ${Object.keys(PROVIDERS).join(', ')}`);
@@ -369,9 +389,12 @@ async function getProvider() {
 // ================================================================
 
 const args = process.argv.slice(2);
-const topicArg = args.find((a) => !a.startsWith('--'));
+const batchIdx = args.indexOf('--batch');
+const batchSize = parseInt(args[batchIdx + 1] || '1', 10);
+// The first non-flag token is the topic, but it must NOT be the --batch value
+// (e.g. `--batch 5` was read as the topic "5", which generated a junk post).
+const topicArg = args.find((a, i) => !a.startsWith('--') && i !== batchIdx + 1);
 const fromQueue = args.includes('--from-keywords');
-const batchSize = parseInt(args[args.indexOf('--batch') + 1] || '1', 10);
 
 function slugify(s) {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60);
