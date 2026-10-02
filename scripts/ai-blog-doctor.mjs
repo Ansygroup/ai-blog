@@ -240,7 +240,7 @@ async function fixOldPosts(raw, fn) {
   return raw;
 }
 
-function processPost(fn) {
+async function processPost(fn) {
   const fp = path.join(POSTS, fn);
   const raw0 = fs.readFileSync(fp, 'utf8');
   let parseOk = true;
