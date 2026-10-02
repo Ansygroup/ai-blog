@@ -14,8 +14,10 @@ const fs = require('fs');
 const path = require('path');
 
 const QUEUE_PATH = path.join(__dirname, 'keyword-queue.json');
+const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
 const args = process.argv.slice(2);
 const cap = parseInt(args[args.indexOf('--count') + 1] || '100', 10);
+const prune = args.includes('--prune');
 
 // 60 high-intent topics across the 4 categories. Mix of head terms and long tail.
 const NEW_TOPICS = [
@@ -88,19 +90,55 @@ const NEW_TOPICS = [
 ];
 
 const existing = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8'));
+
+// generate-post.js overwrites silently when the topic slugifies to an existing
+// post file, so a topic whose post already exists can NEVER produce a new URL —
+// it just burns API quota and rewrites live content. Measured 2026-10-02: 21 of
+// 22 queued topics were already published. Filter against the posts directory,
+// not just against the queue, so the queue always holds fresh, publishable work.
+const postSlugs = new Set(
+  fs.existsSync(POSTS_DIR)
+    ? fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.mdx')).map((f) => f.replace(/\.mdx$/, ''))
+    : []
+);
+const slugify = (s) => String(s)
+  .toLowerCase()
+  .replace(/['"]/g, '')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '');
+
+// NOTE: t is the queue ENTRY (an object), so slugify t.topic — slugifying t
+// itself stringifies to "[object Object]" and the check silently never matches.
+const isPublished = (t) => postSlugs.has(slugify(t.topic));
+
+let pruned = 0;
+if (prune) {
+  const kept = existing.filter((t) => {
+    if (isPublished(t)) { pruned++; return false; }
+    return true;
+  });
+  if (pruned) {
+    existing.length = 0;
+    existing.push(...kept);
+  }
+}
+
 const existingTopics = new Set(existing.map((t) => t.topic.toLowerCase()));
 
 let added = 0;
 let skipped = 0;
+let skippedPublished = 0;
 for (const t of NEW_TOPICS) {
   if (existingTopics.has(t.topic.toLowerCase())) { skipped++; continue; }
+  if (isPublished(t)) { skippedPublished++; continue; }
   if (existing.length + added >= cap) break;
   existing.push(t);
   added++;
 }
 
 fs.writeFileSync(QUEUE_PATH, JSON.stringify(existing, null, 2) + '\n', 'utf8');
-console.log(`✅ Added ${added} new topics, skipped ${skipped} duplicates. Queue now has ${existing.length} topics.`);
+console.log(`✅ Added ${added} new topics, skipped ${skipped} queued-dupes, ${skippedPublished} already-published. Queue now has ${existing.length} topics.`);
+if (pruned) console.log(`🧹 Pruned ${pruned} queued topic(s) that already have a published post.`);
 
 const byCat = existing.reduce((acc, t) => { acc[t.category] = (acc[t.category] || 0) + 1; return acc; }, {});
 console.log('By category:');

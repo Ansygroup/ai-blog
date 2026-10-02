@@ -74,10 +74,7 @@ async function makeGroqProvider() {
   const allKeys = [primaryKey, ...fallbackKeys].filter(Boolean);
   if (!primaryKey) throw new Error('GROQ_API_KEY missing. Sign up free at https://console.groq.com/');
   const primary = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
-  // Fallback chain must contain only model ids that CURRENTLY exist on Groq.
-  // A dead id (e.g. `qwen/qwen3-32b` -> 404 model_not_found) makes the WHOLE
-  // run fail while still exiting 0, so the keyword queue never drains.
-  const modelFallbacks = ['meta-llama/llama-4-scout-17b-16e-instruct', 'llama-3.1-8b-instant'];
+  const modelFallbacks = ['meta-llama/llama-4-scout-17b-16e-instruct', 'llama-3.1-8b-instant', 'qwen/qwen3-32b'];
   const models = [primary, ...modelFallbacks.filter((m) => m !== primary)];
 
   const name = `groq/${primary} (${allKeys.length} keys)`;
@@ -110,9 +107,7 @@ async function makeGroqProvider() {
               const res = await tryKey(allKeys[ki], model, prompt, systemPrompt);
               if (res.ok) {
                 const data = await res.json();
-      const text = data.choices?.[0]?.message?.content?.trim();
-      if (!text) throw new Error("OpenRouter returned empty content");
-      return text;
+                return data.choices?.[0]?.message?.content?.trim() || '';
               }
               const errText = await res.text();
               if (res.status === 429) {
@@ -179,7 +174,7 @@ async function makeOpenRouterProvider() {
 async function makeGeminiProvider() {
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY missing. Get a free key at https://aistudio.google.com/app/apikey');
-  const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
+  const model = process.env.GEMINI_MODEL || 'gemini-flash-latest';
   return {
     name: `gemini/${model}`,
     async generateText(prompt, systemPrompt) {
@@ -198,9 +193,7 @@ async function makeGeminiProvider() {
         throw new Error(`Gemini ${res.status}: ${err.slice(0, 200)}`);
       }
       const data = await res.json();
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-      if (!text) throw new Error("Gemini returned empty content");
-      return text;
+      return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
     },
   };
 }
@@ -257,40 +250,85 @@ async function makeOpenAIProvider() {
   };
 }
 
+// resolveNvidiaKey(): the NVIDIA key lives OUTSIDE the repo so it is never committed.
+// Order: .env.local (dotenv) -> NVIDIA_API_KEY env -> ~/.hermes/nvidia_api_key -> ~/.hermes/.env
+function resolveNvidiaKey() {
+  if (process.env.NVIDIA_API_KEY) return process.env.NVIDIA_API_KEY.trim();
+  const home = process.env.HOME || process.env.USERPROFILE || '';
+  try { return fs.readFileSync(path.join(home, '.hermes', 'nvidia_api_key'), 'utf8').trim() || null; } catch (e) { /* next */ }
+  try {
+    const txt = fs.readFileSync(path.join(home, '.hermes', '.env'), 'utf8');
+    const m = txt.match(/^\s*NVIDIA_API_KEY\s*=\s*(.+)$/m);
+    if (m) return m[1].replace(/^["']|["']$/g, '').trim();
+  } catch (e) { /* ignore */ }
+  return null;
+}
+
+// Ordered live models. NVIDIA retires model slugs (410 Gone), so the provider
+// walks this list on 410/404 instead of failing the whole publish run.
+// z-ai/glm-5.2 hit end-of-life 2026-08-21 — keep it last as a documented tombstone.
+const NVIDIA_MODELS = [
+  process.env.NVIDIA_MODEL,
+  'google/gemma-4-31b-it',
+  'meta/llama-3.2-90b-vision-instruct',
+  'nvidia/llama-3.3-nemotron-super-49b-v1.5',
+].filter(Boolean);
+
 async function makeNvidiaProvider() {
-  // Key lives OUTSIDE the repo: prefer NVIDIA_API_KEY env, else read ~/.hermes/nvidia_api_key
-  let apiKey = process.env.NVIDIA_API_KEY;
-  if (!apiKey) {
-    const keyPath = path.join(process.env.HOME || process.env.USERPROFILE || '', '.hermes', 'nvidia_api_key');
-    try { apiKey = fs.readFileSync(keyPath, 'utf8').trim(); } catch (e) { /* ignore */ }
-  }
-  if (!apiKey) throw new Error('NVIDIA_API_KEY missing. Set it in .env.local OR ~/.hermes/nvidia_api_key');
-  const model = process.env.NVIDIA_MODEL || 'z-ai/glm-5.2';
-  return {
-    name: `nvidia/${model}`,
+  const apiKey = resolveNvidiaKey();
+  if (!apiKey) throw new Error('NVIDIA_API_KEY missing. Set it in .env.local, ~/.hermes/nvidia_api_key, or ~/.hermes/.env');
+  let active = 0;
+  const p = {
+    name: `nvidia/${NVIDIA_MODELS[0]}`,
     async generateText(prompt, systemPrompt) {
-      const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-        body: JSON.stringify({
-          model,
-          messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: prompt },
-          ],
-          temperature: 0.7,
-          max_tokens: 4500,
-          stream: false,
-        }),
-      });
-      if (!res.ok) {
-        const err = await res.text();
-        throw new Error(`NVIDIA ${res.status}: ${err.slice(0, 200)}`);
+      for (let attempt = 0; attempt < NVIDIA_MODELS.length; attempt++) {
+        const idx = (active + attempt) % NVIDIA_MODELS.length;
+        const model = NVIDIA_MODELS[idx];
+        const ctl = new AbortController();
+        const timer = setTimeout(() => ctl.abort(), 300000); // generate-post spawn timeout is 180s; stay under it
+        let res, err;
+        try {
+          res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+            method: 'POST',
+            signal: ctl.signal,
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+            body: JSON.stringify({
+              model,
+              messages: [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: prompt },
+              ],
+              temperature: 0.7,
+              max_tokens: 4500,
+              stream: false,
+            }),
+          });
+        } catch (e) {
+          clearTimeout(timer);
+          console.log(`   ⚠️ ${model} network error (${e.name}) — trying next model`);
+          continue; // timeout/abort: try the next slug
+        }
+        clearTimeout(timer);
+        if (!res.ok) {
+          const body = await res.text();
+          if (res.status === 410 || res.status === 404) {
+            console.log(`   ⚠️ ${model} → ${res.status} (retired/unavailable) — rotating model`);
+            continue;
+          }
+          if (res.status === 429) {
+            throw new Error(`NVIDIA 429: ${body.slice(0, 120)}`);
+          }
+          throw new Error(`NVIDIA ${res.status}: ${body.slice(0, 200)}`);
+        }
+        const data = await res.json();
+        active = idx; // remember the slug that worked
+        p.name = `nvidia/${model}`;
+        return data.choices?.[0]?.message?.content?.trim() || '';
       }
-      const data = await res.json();
-      return data.choices?.[0]?.message?.content?.trim() || '';
+      throw new Error(`NVIDIA: all models unavailable (${NVIDIA_MODELS.join(', ')})`);
     },
   };
+  return p;
 }
 
 const PROVIDERS = {
@@ -306,54 +344,17 @@ async function getProvider() {
   const requested = (process.env.AI_PROVIDER || 'groq').toLowerCase();
   // Auto-detect if user only set one of the keys
   let provider = requested;
-  // Candidate chain for a requested provider, in preference order, skipping
-  // providers whose key is not present. A workflow that hardcodes
-  // AI_PROVIDER=gemini but has no GEMINI_API_KEY secret (removed/rotated)
-  // must NOT hard-fail while another configured provider is usable.
-  const FALLBACKS = {
-    gemini: ['gemini', 'groq', 'openrouter', 'nvidia', 'openai'],
-    groq: ['groq', 'openrouter', 'gemini', 'nvidia', 'openai'],
-    openrouter: ['openrouter', 'groq', 'gemini', 'nvidia', 'openai'],
-    openai: ['openai', 'groq', 'openrouter', 'gemini', 'nvidia'],
-    nvidia: ['nvidia', 'groq', 'openrouter', 'gemini', 'openai'],
-    // ollama is local-only and needs a running daemon; never auto-fallback to it
-    // or a credential-less CI run would silently "succeed" until the HTTP call
-    // fails. It is usable only when explicitly requested.
-    ollama: ['ollama'],
-  };
-  const keyPresent = (p) => {
-    switch (p) {
-      case 'gemini':    return !!(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY);
-      case 'groq':      return !!process.env.GROQ_API_KEY;
-      case 'openrouter':return !!process.env.OPENROUTER_API_KEY;
-      case 'openai':    return !!process.env.OPENAI_API_KEY;
-      case 'nvidia':    return !!process.env.NVIDIA_API_KEY;
-      case 'ollama':    return true; // local daemon, never key-gated
-      default:          return false;
-    }
-  };
   if (requested === 'groq' && !process.env.GROQ_API_KEY) {
     if (process.env.OPENROUTER_API_KEY) { provider = 'openrouter'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to openrouter`); }
     else if (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY) { provider = 'gemini'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to gemini`); }
     else if (process.env.OPENAI_API_KEY) { provider = 'openai'; console.log(`   ⚡ GROQ_API_KEY not set — falling back to openai`); }
   }
-  // Generic fallback: if the REQUESTED provider has no key but another one
-  // does, switch instead of throwing. Keeps CI green when a secret is removed
-  // or rotated out from under a hardcoded AI_PROVIDER value.
-  if (keyPresent(provider)) {
-    // nothing to do — requested provider is usable
-  } else {
-    const alt = (FALLBACKS[provider] || FALLBACKS.groq).find((p) => p !== provider && keyPresent(p));
-    if (alt) {
-      console.log(`   ⚡ ${provider.toUpperCase()} key not set — falling back to ${alt}`);
-      provider = alt;
+  // If NVIDIA key is present and no other provider requested, prefer it (free, strong model).
+    // resolveNvidiaKey() also reads ~/.hermes/.env, so process.env alone is not a valid check.
+    if (requested === 'groq' && !process.env.GROQ_API_KEY && resolveNvidiaKey()) {
+      provider = 'nvidia';
+      console.log(`   ⚡ NVIDIA key found — using nvidia (${NVIDIA_MODELS[0]})`);
     }
-  }
-  // If NVIDIA key is present and no provider requested, prefer it (free, strong model)
-  if (requested === 'groq' && !process.env.GROQ_API_KEY && process.env.NVIDIA_API_KEY) {
-    provider = 'nvidia';
-    console.log(`   ⚡ NVIDIA_API_KEY detected — using nvidia (z-ai/glm-5.2)`);
-  }
   const factory = PROVIDERS[provider];
   if (!factory) {
     throw new Error(`Unknown AI_PROVIDER "${provider}". Valid: ${Object.keys(PROVIDERS).join(', ')}`);

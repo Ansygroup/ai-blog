@@ -40,21 +40,32 @@ for (const [cover, files] of Object.entries(coverMap)) {
     const dest = path.join(IMG, `${slug}.jpg`);
     // force regenerate (remove stale if present)
     if (fs.existsSync(dest)) fs.unlinkSync(dest);
-    // try loremflickr download
-    try {
-      const url = `https://loremflickr.com/1200/630/${encodeURIComponent(kw)}`;
-      execSync(`curl -sL --max-time 30 -o "${dest}" "${url}"`);
-      if (fs.existsSync(dest) && fs.statSync(dest).size > 3000) {
-        txt = txt.replace(/^cover:\s*['"]?([^'"\n]+)/m, `cover: ${newCover}`);
-        fs.writeFileSync(full, txt);
-        generated++; fixed++;
-        console.log(`  ✓ ${d} -> ${newCover} (kw=${kw})`);
-      } else {
-        console.log(`  ✗ ${d} download failed, left as-is`);
+    // Cover sources, tried in order. loremflickr (the original) began returning
+    // HTTP 401 / connect-timeouts in Oct 2026, so picsum.photos/seed/<slug> is a
+    // deterministic free fallback: same slug -> same image, no API key.
+    const sources = [
+      `https://loremflickr.com/1200/630/${encodeURIComponent(kw)}`,
+      `https://picsum.photos/seed/${encodeURIComponent(slug.replace(/[^a-z0-9-]/gi, '-'))}/1200/630`,
+    ];
+    let ok = false;
+    for (const url of sources) {
+      try {
+        execSync(`curl -sL --max-time 30 -o "${dest}" "${url}"`, { stdio: 'ignore' });
+        if (fs.existsSync(dest) && fs.statSync(dest).size > 3000) {
+          txt = txt.replace(/^cover:\s*['"]?([^'"\n]+)/m, `cover: ${newCover}`);
+          fs.writeFileSync(full, txt);
+          generated++; fixed++;
+          console.log(`  ✓ ${d} -> ${newCover} (kw=${kw})`);
+          ok = true;
+          break;
+        }
+        console.log(`  ⚠ ${d} source failed (${new URL(url).host})`);
+      } catch (e) {
+        console.log(`  ⚠ ${d} ${new URL(url).host} error: ${e.message.split('\n')[0]}`);
       }
-    } catch (e) {
-      console.log(`  ✗ ${d} error: ${e.message.split('\n')[0]}`);
+      if (fs.existsSync(dest)) fs.unlinkSync(dest); // never leave an HTML error page as a cover
     }
+    if (!ok) console.log(`  ✗ ${d} all cover sources failed, left as-is`);
   }
 }
 console.log(`\nSUMMARY: reassign_targets=${fixed}, images_generated=${generated}`);
