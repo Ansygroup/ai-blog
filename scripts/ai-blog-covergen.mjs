@@ -182,14 +182,23 @@ function main() {
 
   let done = 0;
   let fail = 0;
+  // Pollinations' free tier answers 402/502 (gated or rate-limited) and can stay
+  // that way for days. Don't burn the whole batch window failing every post the
+  // same way: after this many consecutive online failures, switch the rest of the
+  // run to the offline SD-Turbo backend, which always works once the weights are
+  // on disk. `activeBackend` is what gets reported, never the requested one.
+  const ONLINE_GIVEUP = 3;
+  let onlineFails = 0;
+  let activeBackend = backend;
+  const canFallback = backend !== 'local';
+
   for (const p of toRun) {
     try {
       const seed = Math.abs(hashStr(p.slug + p.title)) % (2 ** 31);
-      const cmd = backend === 'local' ? LOCAL_WORKER : FLUX_WORKER;
-      const argsArr = backend === 'local'
-        ? [cmd, '--out', p.outFile, '--prompt', p.prompt, '--size', SIZE, '--seed', String(seed)]
-        : [cmd, '--out', p.outFile, '--prompt', p.prompt, '--size', SIZE, '--seed', String(seed)];
+      const cmd = activeBackend === 'local' ? LOCAL_WORKER : FLUX_WORKER;
+      const argsArr = [cmd, '--out', p.outFile, '--prompt', p.prompt, '--size', SIZE, '--seed', String(seed)];
       execFileSync(PY, argsArr, { stdio: 'pipe', env: cleanEnv });
+      onlineFails = 0;
       if (fs.existsSync(p.outFile)) {
         done++;
         if (done % 5 === 0) console.log(`[covergen] progress ${done}/${toRun.length}`);
@@ -199,7 +208,17 @@ function main() {
       }
     } catch (e) {
       fail++;
-      console.error('[covergen] FAIL', p.slug, String(e.stderr || e.message).slice(-200));
+      const err = String(e.stderr || e.message).slice(-200);
+      console.error('[covergen] FAIL', p.slug, err);
+      if (canFallback && /HTTP Error (4\d\d|5\d\d)|402|429|502|Payment Required/i.test(err)) {
+        onlineFails++;
+        if (onlineFails >= ONLINE_GIVEUP) {
+          activeBackend = 'local';
+          console.error(
+            `[covergen] online backend unusable after ${onlineFails} attempts — falling back to local SD-Turbo for the rest of this batch`
+          );
+        }
+      }
       // log to a separate failures file so we can retry later
       try {
         fs.appendFileSync(path.join(ROOT, '.prompts-cache', 'failures.log'),
@@ -207,7 +226,7 @@ function main() {
       } catch {}
     }
   }
-  console.log(`[covergen] DONE generated=${done} failed=${fail} batch_cap=${batch === Infinity ? 'all' : batch}`);
+  console.log(`[covergen] DONE generated=${done} failed=${fail} backend=${activeBackend} batch_cap=${batch === Infinity ? 'all' : batch}`);
   process.exit(fail > 0 && done === 0 ? 1 : 0);
 }
 

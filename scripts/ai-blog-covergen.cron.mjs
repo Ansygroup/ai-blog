@@ -91,7 +91,15 @@ try {
 } catch (e) {
   genOut = (e.stdout || '') + (e.stderr || '');
 }
-console.log(genOut.split('\n').slice(-4).join('\n'));
+// Keep the fallback signal and the DONE line; the tail alone dropped the reason
+// the run failed, which made every batch look identical in the cron log.
+console.log(
+  genOut
+    .split('\n')
+    .filter((l) => /DONE generated=|falling back|placeholder covers detected|backend=/.test(l))
+    .slice(-5)
+    .join('\n')
+);
 
 const doneMatch = genOut.match(/DONE generated=(\d+)/);
 const done = doneMatch ? parseInt(doneMatch[1], 10) : 0;
