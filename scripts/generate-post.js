@@ -74,7 +74,10 @@ async function makeGroqProvider() {
   const allKeys = [primaryKey, ...fallbackKeys].filter(Boolean);
   if (!primaryKey) throw new Error('GROQ_API_KEY missing. Sign up free at https://console.groq.com/');
   const primary = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
-  const modelFallbacks = ['meta-llama/llama-4-scout-17b-16e-instruct', 'llama-3.1-8b-instant', 'qwen/qwen3-32b'];
+  // Fallback chain must contain only model ids that CURRENTLY exist on Groq.
+  // A dead id (e.g. `qwen/qwen3-32b` -> 404 model_not_found) makes the WHOLE
+  // run fail while still exiting 0, so the keyword queue never drains.
+  const modelFallbacks = ['meta-llama/llama-4-scout-17b-16e-instruct', 'llama-3.1-8b-instant'];
   const models = [primary, ...modelFallbacks.filter((m) => m !== primary)];
 
   const name = `groq/${primary} (${allKeys.length} keys)`;
