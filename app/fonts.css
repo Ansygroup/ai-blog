@@ -1,0 +1,33 @@
+/* Self-hosted variable fonts.
+   WHY: next/font/google downloads the Google Fonts CSS at BUILD time. When
+   fonts.googleapis.com rate-limits or returns a truncated body, Next's
+   google loader throws "TypeError: Cannot read properties of null (reading '1')"
+   and the whole `next build` dies — in GitHub Actions AND in the Vercel cloud
+   build, so production silently stops updating.
+   These .woff2 files are committed, so the build now has zero network
+   dependency. Both are variable fonts: one file covers every weight.
+   latin subsets only (site copy is English); add more @font-face blocks here
+   if a non-latin locale ever ships. */
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/SpaceGrotesk-latin.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/DMSans-latin.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Same contract as the next/font `variable` option: expose the family names as
+   CSS variables that tailwind.config.js references (heading/body fontFamily). */
+:root {
+  --font-heading: 'Space Grotesk';
+  --font-body: 'DM Sans';
+}

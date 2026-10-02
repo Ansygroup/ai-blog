@@ -1,5 +1,5 @@
 import './globals.css';
-import { Space_Grotesk, DM_Sans } from 'next/font/google';
+import './fonts.css';
 import { siteConfig } from '../lib/config';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -15,19 +15,6 @@ import Script from 'next/script';
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const fontHeading = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-heading',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-const fontBody = DM_Sans({
-  subsets: ['latin'],
-  variable: '--font-body',
-  display: 'swap',
-  weight: ['300', '400', '500', '700'],
-});
 
 export const metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -81,7 +68,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${fontHeading.variable} ${fontBody.variable}`}>
+    <html lang="en">
       <head>
         {/* Google AdSense account declaration (verification + auto ads) */}
         <meta name="google-adsense-account" content={siteConfig.adsenseClient} />
