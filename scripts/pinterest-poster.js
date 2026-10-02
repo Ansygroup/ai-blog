@@ -116,18 +116,18 @@ async function postToPinterest(title, description, url, imageUrl) {
     console.log(`   ${url}`);
 
     if (await postToPinterest(fm.title, fm.description, url, fm.cover)) {
-          posted++;
-          // ONLY successful pins go into the pin-data file. mark-processed.js
-          // treats "a public/pins/*.json naming this slug" as proof that a pin was
-          // really created, so recording a post here when the API call failed (or
-          // PINTEREST_ACCESS_TOKEN was missing) would satisfy that gate with a
-          // lie and hide the post from pick-pending forever.
-          pins.push({ title: fm.title, slug: fm.slug, url, description: fm.description });
-        } else {
-          skipped++;
-          console.log(`   ⏭ not recorded as pinned (no pin created): ${fm.slug}`);
-        }
-      }
+      posted++;
+      // ONLY successful pins go into the pin-data file. mark-processed.js
+      // treats "a public/pins/*.json naming this slug" as proof that a pin was
+      // really created, so recording a post here when the API call failed (or
+      // PINTEREST_ACCESS_TOKEN was missing) would satisfy that gate with a
+      // lie and hide the post from pick-pending forever.
+      pins.push({ title: fm.title, slug: fm.slug, url, description: fm.description });
+    } else {
+      skipped++;
+      console.log(`   ⯭ not recorded as pinned (no pin created): ${fm.slug}`);
+    }
+  }
 
   const pinDataPath = path.join(PIN_DATA_DIR, `pins-${Date.now()}.json`);
   fs.writeFileSync(pinDataPath, JSON.stringify(pins, null, 2), 'utf8');
