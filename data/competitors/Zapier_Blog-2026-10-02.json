@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-10-02T03:04:01.699Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/google-gemini/",
+      "title": "google gemini",
+      "topic": "Google Gemini: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/gemini-vs-chatgpt/",
+      "title": "gemini vs chatgpt",
+      "topic": "Gemini Vs Chatgpt: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/claude-vs-chatgpt/",
+      "title": "claude vs chatgpt",
+      "topic": "Claude Vs Chatgpt: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/automate-chatgpt/",
+      "title": "automate chatgpt",
+      "topic": "Automate Chatgpt: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/openai-models/",
+      "title": "openai models",
+      "topic": "Openai Models: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-llm/",
+      "title": "best llm",
+      "topic": "Best Llm: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-models-on-zapier/",
+      "title": "ai models on zapier",
+      "topic": "Ai Models On Zapier: A 2026 Guide"
+    }
+  ]
+}
