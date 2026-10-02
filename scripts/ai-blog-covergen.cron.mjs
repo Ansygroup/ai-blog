@@ -28,15 +28,23 @@ function run(cmd, opts = {}) {
 console.log(`[covergen-cron] batch=${BATCH}`);
 
 // Model ready?
+// Only the `local` backend (SD-Turbo) needs the weights on disk. The default
+// backend is Flux (Pollinations, free, no key), which needs no local model — so
+// gating every run on the SD-Turbo download would block covers indefinitely.
+const BACKEND = process.env.COVERGEN_BACKEND || 'flux';
 const modelDir = path.join(ROOT, 'models', 'sd-turbo');
 // Readiness = the fp16 weights the worker actually loads (the disk-safe download
 // skips the redundant ~3.4GB merged root file, so we check the real components).
 const unetFp16 = path.join(modelDir, 'unet', 'diffusion_pytorch_model.fp16.safetensors');
 const teFp16 = path.join(modelDir, 'text_encoder', 'model.fp16.safetensors');
-if (!fs.existsSync(modelDir) || !fs.existsSync(unetFp16) || !fs.existsSync(teFp16)) {
+if (
+  BACKEND === 'local' &&
+  (!fs.existsSync(modelDir) || !fs.existsSync(unetFp16) || !fs.existsSync(teFp16))
+) {
   console.log('[covergen-cron] model not ready yet (still downloading) — retry next run');
   process.exit(0);
 }
+console.log(`[covergen-cron] backend=${BACKEND}`);
 
 // venv ready?
 const py = path.join(ROOT, '.venv-img', 'Scripts', 'python.exe');
@@ -45,10 +53,26 @@ if (!fs.existsSync(py)) {
   process.exit(0);
 }
 
+// The ambient PYTHONPATH (Hermes' own venv site-packages) shadows this venv's
+// PIL and kills the worker on import with "cannot import name '_imaging'".
+// The cron inherits the scheduler's env, so strip it for every child process —
+// otherwise a fully provisioned venv still reports zero covers, silently.
+const childEnv = { ...process.env };
+delete childEnv.PYTHONPATH;
+
+// Cheap readiness probe: the venv must be able to import PIL, or every generate
+// call would fail one-per-post and waste the whole batch window.
+try {
+  run(`"${py}" -c "import PIL"`, { env: childEnv });
+} catch (e) {
+  console.log('[covergen-cron] venv cannot import PIL — retry next run');
+  process.exit(0);
+}
+
 // count pending first
 let pending = 0;
 try {
-  const out = run('node scripts/ai-blog-covergen.mjs --dry 2>&1');
+  const out = run(`node scripts/ai-blog-covergen.mjs --dry --backend ${BACKEND} 2>&1`, { env: childEnv });
   const m = out.match(/pending=(\d+)/);
   pending = m ? parseInt(m[1], 10) : 0;
 } catch {
@@ -63,7 +87,7 @@ if (pending === 0) {
 // Generate this batch
 let genOut = '';
 try {
-  genOut = run(`node scripts/ai-blog-covergen.mjs --batch ${BATCH} 2>&1`);
+  genOut = run(`node scripts/ai-blog-covergen.mjs --batch ${BATCH} --backend ${BACKEND} 2>&1`, { env: childEnv });
 } catch (e) {
   genOut = (e.stdout || '') + (e.stderr || '');
 }
@@ -79,7 +103,7 @@ if (done === 0) {
 // Commit + push (deploy happens via CI)
 try {
   run('git add -A');
-  run(`git -c user.email="ansy0@autopilot.local" -c user.name="Ansy Autopilot" commit -q -m "chore: regenerate ${done} AI covers (open-source SD-Turbo)"`);
+  run(`git -c user.email="ansy0@autopilot.local" -c user.name="Ansy Autopilot" commit -q -m "chore: regenerate ${done} AI covers (${BACKEND})"`);
   run('git push origin main 2>&1 | tail -2');
   console.log(`[covergen-cron] committed + pushed ${done} covers`);
 } catch (e) {

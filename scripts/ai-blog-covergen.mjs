@@ -31,6 +31,7 @@ const IMG = path.join(ROOT, 'public', 'images');
 const PY = path.join(ROOT, '.venv-img', 'Scripts', 'python.exe');
 const FLUX_WORKER = path.join(ROOT, 'scripts', 'covergen_flux.py');
 const LOCAL_WORKER = path.join(ROOT, 'scripts', 'covergen_worker.py');
+const SCAN = path.join(ROOT, 'scripts', 'covergen_placeholder_scan.py');
 const SIZE = '1024x1280';
 
 const args = process.argv.slice(2);
@@ -90,12 +91,34 @@ function main() {
     console.error('[covergen] venv missing at .venv-img — run setup first');
     process.exit(1);
   }
+  // The ambient PYTHONPATH (Hermes' own venv site-packages) shadows this venv's
+  // PIL and breaks it with "cannot import name '_imaging'". Strip it for every
+  // worker call, otherwise the worker dies on import before doing any work.
+  const cleanEnv = { ...process.env };
+  delete cleanEnv.PYTHONPATH;
   if (!fs.existsSync(worker)) {
     console.error('[covergen] worker missing:', worker);
     process.exit(1);
   }
 
   const files = fs.readdirSync(POSTS).filter((f) => f.endsWith('.mdx'));
+  // Covers that exist but are flat-colour filler must be regenerated, so ask the
+  // scanner once instead of trusting file existence. `skipScan` keeps the scan
+  // out of --force runs, where every post is regenerated anyway.
+  const degenerate = new Set();
+  if (!force && fs.existsSync(SCAN)) {
+    try {
+      const out = execFileSync(PY, [SCAN, '--dir', IMG], {
+        encoding: 'utf8',
+        env: cleanEnv,
+        stdio: ['ignore', 'pipe', 'ignore'],
+      });
+      for (const line of out.split('\n')) if (line.trim()) degenerate.add(line.trim());
+      console.log(`[covergen] placeholder covers detected: ${degenerate.size}`);
+    } catch (e) {
+      console.error('[covergen] placeholder scan failed (continuing):', String(e.message).slice(-120));
+    }
+  }
   const plan = [];
   for (const f of files) {
     const fm = readFrontmatter(path.join(POSTS, f));
@@ -111,7 +134,11 @@ function main() {
     }
     const outFile = path.join(IMG, path.basename(fm.cover));
     const exists = fs.existsSync(outFile);
-    if (!force && exists) {
+    // Existence alone is NOT "done": the growth engine wrote flat-colour filler
+    // covers, so a present file can still be a degenerate one-image-per-post
+    // placeholder. Treat scanner-flagged covers as pending.
+    const placeholder = exists && !force && degenerate.has(path.basename(fm.cover));
+    if (!force && exists && !placeholder) {
       plan.push({ ...fm, action: 'OK_EXISTS' });
       continue;
     }
@@ -127,9 +154,9 @@ function main() {
     });
   }
 
-  const toGen = plan.filter((p) => p.action === 'GEN').slice(0, batch);
+  const toGen = plan.filter((p) => p.action === 'GEN');
   console.log(
-    `[covergen] backend=${backend} posts=${files.length} pending=${plan.filter((p) => p.action === 'GEN').length} this_batch=${toGen.length} skip_external=${plan.filter((p) => p.action === 'SKIP_EXTERNAL').length} skip_no_cover=${plan.filter((p) => p.action === 'SKIP_NO_COVER').length} exists=${plan.filter((p) => p.action === 'OK_EXISTS').length}`
+    `[covergen] backend=${backend} posts=${files.length} pending=${toGen.length} batch_cap=${batch === Infinity ? 'all' : batch} skip_external=${plan.filter((p) => p.action === 'SKIP_EXTERNAL').length} skip_no_cover=${plan.filter((p) => p.action === 'SKIP_NO_COVER').length} exists=${plan.filter((p) => p.action === 'OK_EXISTS').length}`
   );
 
   if (dry) {
@@ -140,19 +167,32 @@ function main() {
     return;
   }
 
+  // Several posts can declare the SAME cover basename (247 posts across 97 files),
+  // so without this the loop would issue the identical API call 2x+ and burn the
+  // rate limit to write one image twice. Generate each distinct output once.
+  const seenOut = new Set();
+  const toRun = [];
+  for (const p of toGen) {
+    const key = path.basename(p.outFile);
+    if (seenOut.has(key)) continue;
+    seenOut.add(key);
+    toRun.push(p);
+    if (toRun.length >= batch) break;
+  }
+
   let done = 0;
   let fail = 0;
-  for (const p of toGen) {
+  for (const p of toRun) {
     try {
       const seed = Math.abs(hashStr(p.slug + p.title)) % (2 ** 31);
       const cmd = backend === 'local' ? LOCAL_WORKER : FLUX_WORKER;
       const argsArr = backend === 'local'
         ? [cmd, '--out', p.outFile, '--prompt', p.prompt, '--size', SIZE, '--seed', String(seed)]
         : [cmd, '--out', p.outFile, '--prompt', p.prompt, '--size', SIZE, '--seed', String(seed)];
-      execFileSync(PY, argsArr, { stdio: 'pipe' });
+      execFileSync(PY, argsArr, { stdio: 'pipe', env: cleanEnv });
       if (fs.existsSync(p.outFile)) {
         done++;
-        if (done % 5 === 0) console.log(`[covergen] progress ${done}/${toGen.length}`);
+        if (done % 5 === 0) console.log(`[covergen] progress ${done}/${toRun.length}`);
       } else {
         fail++;
         console.error('[covergen] FAIL (no output)', p.slug);
