@@ -102,15 +102,6 @@ function fixCorrupt(fn, raw) {
 // ---------- 2. broken links ----------
 const LINK_RE = /\[([^\]]*)\]\((\/posts\/[^)\n]*?)\)\]\((\/posts\/[a-z0-9-]+)\)/g;
 const LINK_RE_B = /\[([^\]]*)\]\((\/posts\/[a-z0-9-]+)\]\((\/posts\/[a-z0-9-]+)\)/g;
-// Same defect class, but the mangler emitted ABSOLUTE site URLs instead of
-// relative /posts/ paths. Without these the doctor reported links:0 while
-// hundreds of posts still shipped nested-link garbage.
-const LINK_RE_ABS = /\[([^\]]*)\]\((https?:\/\/[^\s)\n]*?)\]\((https?:\/\/[^\s)\n]*?)\]\(/g;
-const LINK_RE_ABS_B = /\[([^\]]*)\]\((https?:\/\/[^\s)\n]*?)\]\((https?:\/\/[^\s)\n]*?)\)\]\(/g;
-const toRelative = (u) => {
-  const m = /^(?:https?:\/\/[^/]+)?(\/posts\/[a-z0-9-]+)/.exec(u || '');
-  return m ? m[1] : null;
-};
 
 // ---------- 3. fake claims ----------
 const CLAIM_RE = /(?:[Oo]ur (?:editorial )?team|[Ww]e) (?:has )?spent over \d+ hours[^\n.]*\./g;
@@ -282,17 +273,6 @@ async function processPost(fn) {
         out = out
           .replace(LINK_RE, (_, w, _j, real) => `[${w}](/posts/${real.replace(/^\/posts\//, '')})`)
           .replace(LINK_RE_B, (_, w, _x, y) => `[${w}](/posts/${y.replace(/^\/posts\//, '')})`)
-          // Absolute-URL nested links: keep the LAST (deepest) target and
-          // rewrite it as a clean relative /posts/ path. Text becomes the
-          // slug's humanised form so the anchor still reads sensibly.
-          .replace(LINK_RE_ABS_B, (_, _w, _a, _b, last) => {
-            const rel = toRelative(last);
-            return rel ? `[${_w || ''}](${rel})` : `[${_w || ''}](${last})`;
-          })
-          .replace(LINK_RE_ABS, (_, _w, _a, _b, last) => {
-            const rel = toRelative(last);
-            return rel ? `[${_w || ''}](${rel})` : `[${_w || ''}](${last})`;
-          })
           .replace(/\[\[([^\]]+)\]\(\/posts\//g, '[$1](/posts/');
         guard++;
       } while (out !== prev && guard < 20);
@@ -300,8 +280,7 @@ async function processPost(fn) {
     };
     raw = fixLinks(raw);
     if (raw !== before) {
-      const n = (before.match(LINK_RE) || []).length + (before.match(LINK_RE_B) || []).length
-        + (before.match(LINK_RE_ABS) || []).length + (before.match(LINK_RE_ABS_B) || []).length;
+      const n = (before.match(LINK_RE) || []).length + (before.match(LINK_RE_B) || []).length;
       report.fixed.links += n;
       addDetail('links', fn);
       changedThis = true;
