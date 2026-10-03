@@ -12,10 +12,15 @@
  *   groq           — FREE, fastest. Llama 3.3 70B (latest stable).
  *                    Sign up: https://console.groq.com/  (no card)
  *                    Get key: https://console.groq.com/keys
- *                    Model:   llama-3.3-70b-versatile  (recommended, default)
- *                             meta-llama/llama-4-scout-17b-16e-instruct  (newest)
- *                             llama-3.1-8b-instant     (faster, weaker)
- *                             openai/gpt-oss-120b      (OpenAI open-source 120B)
+ *                    Model:   openai/gpt-oss-120b      (verified live, default)
+ *                             openai/gpt-oss-20b       (faster, cheaper)
+ *                             qwen/qwen3.8-27b         (alternative)
+ *                    DECOMMISSION WARNING: Groq shut down `llama-3.3-70b-versatile`
+ *                    and `llama-3.1-8b-instant` for the free/developer tier on
+ *                    2026-08-16, and `qwen/qwen3-32b` before that. Any of those ids
+ *                    now returns model_decommissioned/404. Check the live list with
+ *                    curl -s https://api.groq.com/openai/v1/models \
+ *                      -H "Authorization: Bearer $GROQ_API_KEY"
  *                    Limits:  30 req/min, ~14,400 req/day (free tier)
  *
  *   openrouter     — FREE tier with many models, single API.
@@ -72,7 +77,7 @@ async function makeGroqProvider() {
   const fallbackKeys = [2,3,4,5].map(i => process.env[`GROQ_API_KEY_${i}`]).filter(Boolean);
   const allKeys = [primaryKey, ...fallbackKeys].filter(Boolean);
   if (!primaryKey) throw new Error('GROQ_API_KEY missing. Sign up free at https://console.groq.com/');
-  const primary = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+  const primary = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
   // NOTE: `qwen/qwen3-32b` was REMOVED here on 2026-10-03 — Groq answers
   // 404 model_not_found for it, and because it was the LAST entry in the
   // chain its 404 was the only error that ever surfaced. Every generation in
@@ -82,9 +87,17 @@ async function makeGroqProvider() {
   // the first live re-test also 404'd on it. Keep this list to ids that are
   // verified live against the Groq API; an unverified id silently costs a
   // generation every time it is reached, and the LAST entry's error is all the
-  // operator ever sees. gpt-oss-120b is rate-limited (429) on the free tier,
-  // not dead, so it stays as a lower-priority fallback.
-  const modelFallbacks = ['llama-3.1-8b-instant', 'openai/gpt-oss-120b'];
+  // operator ever sees.
+  //
+  // DECOMMISSION, 2026-10-03 (the real reason generation had stopped):
+  // Groq DECOMMISSIONED `llama-3.3-70b-versatile` AND `llama-3.1-8b-instant` for
+  // the free/developer tier on 2026-08-16, so the entire previous chain was
+  // returning model_decommissioned/404. Groq's own migration targets are
+  // `openai/gpt-oss-120b`, `openai/gpt-oss-20b` and `qwen/qwen3.8-27b`.
+  // VERIFY BEFORE ADDING ANY MODEL — only ids in this response are callable:
+  //   curl -s https://api.groq.com/openai/v1/models -H "Authorization: Bearer $GROQ_API_KEY"
+  // Note gpt-oss-120b accepts reasoning_effort low|medium|high only, never "none".
+  const modelFallbacks = ['openai/gpt-oss-20b', 'qwen/qwen3.8-27b'];
   const models = [primary, ...modelFallbacks.filter((m) => m !== primary)];
 
   const name = `groq/${primary} (${allKeys.length} keys)`;

@@ -27,7 +27,10 @@ function groqGenerate(prompt, options = {}) {
       // 404 model_not_found for it, so every caller fell through to
       // resolve(null) and silently produced no text. Keep this a verified
       // live id, and honour GROQ_MODEL so CI can override it.
-      model: options.model || process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+      // THEN on 2026-10-03 Groq DECOMMISSIONED `llama-3.3-70b-versatile` and
+      // `llama-3.1-8b-instant` for the free/developer tier (2026-08-16), which
+      // broke this default too. Current verified id per console.groq.com/docs/models.
+      model: options.model || process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
       messages: [{ role: 'user', content: prompt }],
       temperature: options.temperature ?? 0.5,
       max_tokens: options.maxTokens || 2048,

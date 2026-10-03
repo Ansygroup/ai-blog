@@ -16,7 +16,9 @@ interface GroqResponse {
 const DEFAULT_OPTIONS: GroqOptions = {
   // `qwen/qwen3-32b` was the default until 2026-10-03 — Groq answers
   // 404 model_not_found for it, so every request failed. Verified live id.
-  model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+  // Groq DECOMMISSIONED llama-3.3-70b-versatile and llama-3.1-8b-instant for the
+  // free/developer tier on 2026-08-16, so this default died too. Live id now.
+  model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
   temperature: 0.7,
   maxTokens: 4096,
 };

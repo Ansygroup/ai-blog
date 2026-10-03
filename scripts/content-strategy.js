@@ -208,7 +208,7 @@ async function queryAI(provider, apiKey, prompt) {
   if (provider === 'groq') {
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-      body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages: [
+      body: JSON.stringify({ model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b', messages: [
         { role: 'system', content: 'You are a content strategy expert. Return ONLY valid JSON.' },
         { role: 'user', content: prompt },
       ], temperature: 0.7, max_tokens: 2000 }),
