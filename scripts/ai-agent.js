@@ -23,7 +23,11 @@ function groqGenerate(prompt, options = {}) {
     if (!key) return resolve(null);
 
     const body = JSON.stringify({
-      model: options.model || 'qwen/qwen3-32b',
+      // `qwen/qwen3-32b` was the default until 2026-10-03 — Groq answers
+      // 404 model_not_found for it, so every caller fell through to
+      // resolve(null) and silently produced no text. Keep this a verified
+      // live id, and honour GROQ_MODEL so CI can override it.
+      model: options.model || process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
       messages: [{ role: 'user', content: prompt }],
       temperature: options.temperature ?? 0.5,
       max_tokens: options.maxTokens || 2048,

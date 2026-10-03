@@ -15,7 +15,6 @@
  *                    Model:   llama-3.3-70b-versatile  (recommended, default)
  *                             meta-llama/llama-4-scout-17b-16e-instruct  (newest)
  *                             llama-3.1-8b-instant     (faster, weaker)
- *                             qwen/qwen3-32b           (strong, large)
  *                             openai/gpt-oss-120b      (OpenAI open-source 120B)
  *                    Limits:  30 req/min, ~14,400 req/day (free tier)
  *
@@ -74,7 +73,13 @@ async function makeGroqProvider() {
   const allKeys = [primaryKey, ...fallbackKeys].filter(Boolean);
   if (!primaryKey) throw new Error('GROQ_API_KEY missing. Sign up free at https://console.groq.com/');
   const primary = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
-  const modelFallbacks = ['meta-llama/llama-4-scout-17b-16e-instruct', 'llama-3.1-8b-instant', 'qwen/qwen3-32b'];
+  // NOTE: `qwen/qwen3-32b` was REMOVED here on 2026-10-03 — Groq answers
+  // 404 model_not_found for it, and because it was the LAST entry in the
+  // chain its 404 was the only error that ever surfaced. Every generation in
+  // the chain 404'd, the batch printed "0 generated, 5 failed", and the run
+  // still exited 0 — a green CI run that produced nothing. Keep this list to
+  // ids that are verified live; adding an unverified id re-arms the trap.
+  const modelFallbacks = ['llama-3.1-8b-instant', 'openai/gpt-oss-120b', 'meta-llama/llama-4-scout-17b-16e-instruct'];
   const models = [primary, ...modelFallbacks.filter((m) => m !== primary)];
 
   const name = `groq/${primary} (${allKeys.length} keys)`;
@@ -694,6 +699,15 @@ Do NOT place Key Takeaways or Quick Answer anywhere else in the article.
   }
   console.log(`\n🎉 Done. ${ok} generated, ${fail} failed.`);
   console.log('Next: review files in content/posts/, add cover images, then git push to deploy.');
+  // A batch where every generation failed is a failure, not a success. Exiting
+  // 0 here is what let the dead-model 404 chain (fixed above) ship days of
+  // "green" scheduled-content runs that wrote zero posts. Callers in CI now go
+  // red on it instead of silently no-op-ing. Partial success (ok > 0) and an
+  // empty queue (fail === 0) both still exit 0.
+  if (fail > 0 && ok === 0) {
+    console.error(`\n💥 All ${fail} generations failed — no posts written. Failing the run.`);
+    process.exit(1);
+  }
 })().catch((err) => {
   console.error('\n💥 Fatal:', err.message);
   console.error('\nQuick fix:');

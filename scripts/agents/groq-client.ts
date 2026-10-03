@@ -14,7 +14,9 @@ interface GroqResponse {
 }
 
 const DEFAULT_OPTIONS: GroqOptions = {
-  model: process.env.GROQ_MODEL || 'qwen/qwen3-32b',
+  // `qwen/qwen3-32b` was the default until 2026-10-03 — Groq answers
+  // 404 model_not_found for it, so every request failed. Verified live id.
+  model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
   temperature: 0.7,
   maxTokens: 4096,
 };

@@ -36,10 +36,22 @@ console.log('\n═════════════════════�
 console.log('  DAILY GROWTH ENGINE  —  competitor scout + media + SEO');
 console.log('════════════════════════════════════════════════════════\n');
 
+// SAFETY PRE-FLIGHT: a local engine run was observed wiping the whole project +
+// .git. Abort (do not run) if the tree is degraded. Recovery = re-clone.
+for (const must of ['content/posts', 'app', 'scripts', 'data']) {
+  if (!fs.existsSync(path.join(ROOT, must))) {
+    console.error(`\n✗ ABORT: missing '${must}' — tree looks degraded. Refusing to run.`);
+    process.exit(1);
+  }
+}
+
 run('node scripts/competitor-scout.js');
 run('node scripts/media-gen.js');
-run('node scripts/affiliate-audit.js');
-run('node scripts/affiliate-fill.js');
+// Amazon was removed by user order 2026-08-26 ("شيل امازون بالكامل") and MUST
+// NOT be re-added. The previous affiliate-audit/affiliate-fill calls did exactly
+// that on 2026-10-02 (636/685 posts re-linked). strip-amazon-links.py is
+// idempotent and returns non-zero if any amazon.com/dp survives.
+run('python scripts/strip-amazon-links.py', true);
 // Guard: parallel-publish pulls topics from the queue BEFORE generating.
 // If no AI provider key is configured locally, every pull is silently lost
 // (generation fails, CI can't see them). Skip and let GitHub Actions publish.
@@ -51,7 +63,22 @@ const hasLocalKey = (() => {
     .some(k => process.env[k]);
 })();
 if (hasLocalKey) {
-  run('node scripts/parallel-publish.js --count 20 --concurrency 3');
+  // Guard: parallel-publish POPS topics off the queue BEFORE generating. If
+  // generation dies (timeout/429) the topics are LOST forever. Snapshot first,
+  // then re-append anything missing afterwards.
+  const QUEUE = path.join(ROOT, 'scripts', 'keyword-queue.json');
+  const BACKUP = path.join(ROOT, 'data', 'keyword-queue.backup.json');
+  const before = fs.existsSync(QUEUE) ? JSON.parse(fs.readFileSync(QUEUE, 'utf8')) : [];
+  fs.writeFileSync(BACKUP, JSON.stringify(before, null, 2));
+  run(`timeout 480 node scripts/parallel-publish.js --count 20 --concurrency 3`);
+  const after = fs.existsSync(QUEUE) ? JSON.parse(fs.readFileSync(QUEUE, 'utf8')) : [];
+  const missing = before.filter(t => !JSON.stringify(after).includes(JSON.stringify(t)));
+  if (missing.length) {
+    fs.writeFileSync(QUEUE, JSON.stringify(after.concat(missing), null, 2));
+    console.log(`  ↩ restored ${missing.length} topic(s) drained but not published: ${missing.join(', ')}`);
+  } else {
+    console.log(`  ↩ queue intact (${before.length} → ${after.length}, nothing lost).`);
+  }
 } else {
   console.log('\n⏭ No local AI provider key — skipping local publish (queue left for CI).');
 }
