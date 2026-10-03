@@ -476,7 +476,7 @@ Your output must be valid Markdown with YAML frontmatter. Use this exact structu
 
 ---
 title: "<SEO title 50-60 chars>"
-slug: "<auto>"
+slug: "<lowercase-hyphen-slug-derived-from-the-title-NEVER-angle-brackets-NEVER-the-literal-text-auto>"
 excerpt: "<150-160 char meta description including primary keyword>"
 description: "<same as excerpt>"
 date: "<YYYY-MM-DD>"
@@ -613,8 +613,13 @@ Do NOT place Key Takeaways or Quick Answer anywhere else in the article.
   const slugMatch = cleaned.match(/^slug:\s*["']?([^"'\n]+)["']?/m);
   if (slugMatch) {
     const candidate = slugMatch[1].trim().toLowerCase();
-    // Only use the regex match if it looks like a valid slug (no YAML key names, no colons)
-    if (!/^(title|excerpt|description|date|author|category|tags|cover|draft|slug)[:\s]/.test(candidate) && !candidate.includes(':') && candidate.length > 5) {
+    // Only use the regex match if it looks like a valid slug (no YAML key names, no colons).
+    // Also reject any non-slug character: `<auto>` is 6 chars with no colon, so it used to
+    // PASS this gate, overwrite the good slugify(topic) value, and get written to disk as
+    // content/posts/<auto>.mdx — an invalid Windows path that breaks every local
+    // checkout/rebase of the repo (git: "invalid path 'content/posts/<auto>.mdx'").
+    // A slug is [a-z0-9-] only; anything else means the model copied a prompt placeholder.
+    if (/^[a-z0-9][a-z0-9-]*$/.test(candidate) && candidate.length > 5) {
       slug = candidate;
     }
   }
