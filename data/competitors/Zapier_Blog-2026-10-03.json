@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-10-03T03:04:24.554Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-for-gtm/",
+      "title": "ai for gtm",
+      "topic": "Ai For Gtm: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-in-it/",
+      "title": "ai in it",
+      "topic": "Ai In It: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/gemini-connectors/",
+      "title": "gemini connectors",
+      "topic": "Gemini Connectors: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-productivity-apps/",
+      "title": "best productivity apps",
+      "topic": "Best Productivity Apps: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/content-marketing-workflow/",
+      "title": "content marketing workflow",
+      "topic": "Content Marketing Workflow: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/automation-at-scale/",
+      "title": "automation at scale",
+      "topic": "Automation At Scale: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/vibe-automation/",
+      "title": "vibe automation",
+      "topic": "Vibe Automation: A 2026 Guide"
+    }
+  ]
+}
