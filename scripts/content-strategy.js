@@ -18,11 +18,56 @@ const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
 const QUEUE_PATH = path.join(__dirname, 'keyword-queue.json');
 
 // ---- Data extraction ----
+// Unquote a YAML scalar the way a loader would. Handles BOTH quote styles and,
+// critically, the single-quote escape where '' is a literal ' (three posts carry
+// titles like "ChatGPT''s Potential" in single-quoted form).
+function unquote(v) {
+  const s = v.trim();
+  if (s.length >= 2 && s[0] === '"' && s[s.length - 1] === '"') {
+    return s.slice(1, -1).replace(/\\"/g, '"');
+  }
+  if (s.length >= 2 && s[0] === "'" && s[s.length - 1] === "'") {
+    return s.slice(1, -1).replace(/''/g, "'");
+  }
+  return s;
+}
+
 function getAllPostData() {
   return fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.mdx')).map((f) => {
     const c = fs.readFileSync(path.join(POSTS_DIR, f), 'utf8');
     const slug = f.replace(/\.mdx?$/, '');
-    const get = (k) => (c.match(new RegExp(`^${k}:\\s*"?([^"\\n]*)"?`, 'm')) || [])[1] || '';
+    // YAML-aware scalar reader.
+    // The old regex `/^key:\s*"?([^"\n]*)"?/` returned the BLOCK-SCALAR MARKER
+    // (">-", "|", ">-", "|-") as the value whenever a key used a folded/literal
+    // scalar, e.g. `title: >-\n  Real Title...`. 64 of 695 posts use that form,
+    // so all 64 titles collapsed to the single key ">-" in the queue-dedup set
+    // (addToQueue / fallbackSuggestions) and those articles became invisible to
+    // duplicate detection. Real YAML parsers (and therefore the live site) were
+    // always correct -- this only broke the reporting/dedup scripts.
+    // Now: strip a trailing block-scalar marker and join the indented continuation
+    // lines, exactly like a YAML loader would.
+    const get = (k) => {
+      const lines = c.replace(/\r\n/g, '\n').split('\n');
+      const re = new RegExp(`^${k}:[ \\t]*(.*)$`);
+      for (let i = 0; i < lines.length; i++) {
+        const m = lines[i].match(re);
+        if (!m) continue;
+        let v = m[1].trim();
+        if (/^[>|][-+]?[0-9]*$/.test(v)) {
+          // Block scalar: collect following lines that are indented or blank.
+          const parts = [];
+          for (let j = i + 1; j < lines.length; j++) {
+            const ln = lines[j];
+            if (ln.trim() === '') { parts.push(''); continue; }
+            if (!/^[ \t]/.test(ln)) break;
+            parts.push(ln.trim());
+          }
+          return parts.join(' ').replace(/\s+/g, ' ').trim();
+        }
+        return unquote(v);
+      }
+      return '';
+    };
     const title = get('title');
     const excerpt = get('excerpt');
     const category = get('category');
