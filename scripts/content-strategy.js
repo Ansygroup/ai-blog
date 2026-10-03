@@ -165,6 +165,13 @@ async function generateSuggestions(posts, queue) {
   }
 
   const existingTopics = posts.map((p) => p.title);
+  // Cap how many titles go into the prompt. Sending all of them made the
+  // request body exceed Groq's limit (HTTP 413) once the blog passed a few
+  // hundred posts, and the catch below turned that into a silent fallback to
+  // the hardcoded list. The model only needs a representative sample; the
+  // authoritative de-dup still uses the FULL set in addToQueue/fallback.
+  const PROMPT_TITLE_CAP = 120;
+  const promptTitles = existingTopics.slice(0, PROMPT_TITLE_CAP);
   const queuedTopics = queue.map((q) => q.topic);
 
   console.log('  🔍 Searching Google for trending AI topics...');
@@ -172,13 +179,14 @@ async function generateSuggestions(posts, queue) {
 
   const prompt = `You are a content strategy expert for an AI tools review blog.
 
-EXISTING POSTS (${posts.length} total):
-${existingTopics.map((t, i) => `  ${i + 1}. ${t}`).join('\n')}
+EXISTING POSTS (${posts.length} total, showing the ${promptTitles.length} most recent;
+do NOT re-propose anything resembling these):
+${promptTitles.map((t, i) => `  ${i + 1}. ${t}`).join('\n')}
 
 CURRENT QUEUE (${queuedTopics.length} topics):
 ${queuedTopics.map((t, i) => `  ${i + 1}. ${t}`).join('\n')}
 
-${webData ? `REAL SEARCH RESULTS FROM GOOGLE (use these for data-driven insights):\n${webData}\n` : ''}
+${webData ? `REAL SEARCH RESULTS FROM GOOGLE (use these for data-driven insights):\n${webData.slice(0, 6000)}\n` : ''}
 
 Analyze the gaps and suggest 8-12 NEW high-intent AI niche topics that:
 1. Are NOT already covered by existing posts or in the queue
