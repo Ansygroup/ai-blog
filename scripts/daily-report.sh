@@ -2,7 +2,9 @@
 # Daily ai-blog health + revenue report. Self-contained; reads tokens from files.
 cd /c/Users/ansy0/ai-blog
 
-TOKEN=$(grep -oE 'https://Ansygroup:[^@\r\n]+@github.com' ~/.git-credentials | head -1 | sed -E 's#https://Ansygroup:([^@]+)@github.com#\1#')
+# NOTE: grep -E has no \r/\n escapes — they degrade to literal 'r'/'n' inside the
+# class, which strips most GitHub tokens. Strip CR first, match on [^@]+.
+TOKEN=$(tr -d '\r' < ~/.git-credentials | grep -oE 'https://Ansygroup:[^@]+@github.com' | head -1 | sed -E 's#https://Ansygroup:([^@]+)@github.com#\1#')
 REPO="Ansygroup/ai-blog"
 SITE="https://ai-blog-ten-steel.vercel.app"
 
