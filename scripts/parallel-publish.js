@@ -25,7 +25,10 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const QUEUE = path.join(ROOT, 'scripts', 'keyword-queue.json');
+const QUEUE = path.join(__dirname, 'keyword-queue.json');
+// Work-in-progress journal: topics claimed for the current run. Survives a kill
+// so nothing is lost; recover-publish-wip.cjs returns unfinished topics to the queue.
+const WIP_JOURNAL = path.join(__dirname, '.publish-wip.json');
 const POSTS_DIR = path.join(ROOT, 'content', 'posts');
 
 // --batch is an alias for --count (the cron prompt uses --batch 15).
@@ -76,8 +79,25 @@ function pullTopics(n) {
   const q = JSON.parse(fs.readFileSync(QUEUE, 'utf8'));
   const picked = q.slice(0, n);
   const rest = q.slice(n);
-  fs.writeFileSync(QUEUE, JSON.stringify(rest, null, 2));
+  // Do NOT rewrite the queue yet. Generation takes minutes per topic and the run
+  // itself can be cut short (tool/timeout kill). If we drain the queue up front, a
+  // killed run DESTROYS those topics — measured 2026-10-03: 15 topics vanished and
+  // 0 posts were written. Instead persist a work-in-progress journal; topics are
+  // only removed from the queue as each one succeeds.
+  fs.writeFileSync(WIP_JOURNAL, JSON.stringify(picked, null, 2));
   return picked;
+}
+
+// Consume topics that reached a terminal state (generated / skipped-existing).
+// Anything still in the journal after a kill is returned to the queue on the
+// next run by scripts/recover-publish-wip.cjs.
+function commitCompleted(doneTopics) {
+  if (!doneTopics.length) return;
+  const done = new Set(doneTopics.map((t) => slugifyTopic(typeof t === 'string' ? t : t.topic)));
+  const q = JSON.parse(fs.readFileSync(QUEUE, 'utf8'));
+  const rest = q.filter((t) => !done.has(slugifyTopic(t.topic)));
+  fs.writeFileSync(QUEUE, JSON.stringify(rest, null, 2));
+  try { fs.unlinkSync(WIP_JOURNAL); } catch (e) { /* already gone */ }
 }
 
 function genOne(topic) {
@@ -115,11 +135,12 @@ async function run() {
   }
 
   const topics = pullTopics(COUNT);
-  console.log(`  Pulled ${topics.length} topics from queue (${topics.length} left in queue).\n`);
+  console.log(`  Claimed ${topics.length} topics from queue (journaled for crash safety).`);
 
   let done = 0, failed = 0, skipped = 0, backoff = 5;
   const queue = [...topics];
   const exhausted = []; // topics that failed MAX_TRIES times -> put back on the queue
+  const settled = [];   // terminal-state topics, removed from the queue at the end
 
   async function worker() {
     while (queue.length) {
@@ -132,9 +153,9 @@ async function run() {
         console.error(`  ❌ ${topic.topic || topic}: ${e.message}`);
       }
       if (ok === true) {
-        done++; backoff = 5;
+        done++; backoff = 5; settled.push(topic);
       } else if (ok === 'skip') {
-        skipped++; backoff = 5;
+        skipped++; backoff = 5; settled.push(topic);
       } else if (topic._tries >= MAX_TRIES) {
         failed++;
         delete topic._tries;
@@ -154,6 +175,9 @@ async function run() {
 
   const workers = Array.from({ length: CONCURRENCY }, () => worker());
   await Promise.all(workers);
+
+  // Only now consume the topics that actually finished; the rest stay in the queue.
+  commitCompleted(settled);
 
   // Return permanently-failed topics so a provider outage never silently eats the queue.
   if (exhausted.length) {
