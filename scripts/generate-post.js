@@ -77,9 +77,14 @@ async function makeGroqProvider() {
   // 404 model_not_found for it, and because it was the LAST entry in the
   // chain its 404 was the only error that ever surfaced. Every generation in
   // the chain 404'd, the batch printed "0 generated, 5 failed", and the run
-  // still exited 0 — a green CI run that produced nothing. Keep this list to
-  // ids that are verified live; adding an unverified id re-arms the trap.
-  const modelFallbacks = ['llama-3.1-8b-instant', 'openai/gpt-oss-120b', 'meta-llama/llama-4-scout-17b-16e-instruct'];
+  // still exited 0 — a green CI run that produced nothing.
+  // `meta-llama/llama-4-scout-17b-16e-instruct` was removed the same day after
+  // the first live re-test also 404'd on it. Keep this list to ids that are
+  // verified live against the Groq API; an unverified id silently costs a
+  // generation every time it is reached, and the LAST entry's error is all the
+  // operator ever sees. gpt-oss-120b is rate-limited (429) on the free tier,
+  // not dead, so it stays as a lower-priority fallback.
+  const modelFallbacks = ['llama-3.1-8b-instant', 'openai/gpt-oss-120b'];
   const models = [primary, ...modelFallbacks.filter((m) => m !== primary)];
 
   const name = `groq/${primary} (${allKeys.length} keys)`;
@@ -407,11 +412,26 @@ function slugify(s) {
 
 function getTopics() {
   let queue = JSON.parse(fs.readFileSync(KEYWORD_QUEUE, 'utf8'));
-  // Drop malformed entries (missing/!string topic) so downstream .toLowerCase() can't crash
+  // Producers are inconsistent about the field name: competitor-scout and the
+  // queue-refill path write `{ keyword, category, source, tier, ... }`, while
+  // the generator and a few older entries use `{ topic, keywords, category }`.
+  // Requiring `topic` alone silently DROPPED 47 of 53 entries on 2026-10-03 —
+  // the run then generated from the 6 leftovers and called it normal. Normalise
+  // `keyword` -> `topic` instead of discarding the work; only entries with
+  // neither field are genuinely malformed (they would crash .toLowerCase()).
   const before = queue.length;
-  queue = queue.filter((t) => t && typeof t.topic === 'string' && t.topic.trim());
+  queue = queue
+    .filter((t) => t && typeof t === 'object')
+    .map((t) => {
+      const topic = typeof t.topic === 'string' && t.topic.trim()
+        ? t.topic
+        : (typeof t.keyword === 'string' && t.keyword.trim() ? t.keyword : null);
+      if (!topic) return null;
+      return { ...t, topic, keywords: Array.isArray(t.keywords) && t.keywords.length ? t.keywords : [topic] };
+    })
+    .filter(Boolean);
   if (queue.length !== before) {
-    console.log(`   🧹 queue: dropped ${before - queue.length} malformed entry(ies)`);
+    console.log(`   🧹 queue: normalised ${before} -> ${queue.length} usable entries`);
     fs.writeFileSync(KEYWORD_QUEUE, JSON.stringify(queue, null, 2));
   }
   if (fromQueue) {
