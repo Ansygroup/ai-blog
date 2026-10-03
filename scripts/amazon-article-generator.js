@@ -27,7 +27,7 @@ async function callGroq(prompt) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
     body: JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
+      model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
       messages: [
         { role: 'system', content: 'You write SEO-optimized product roundup articles. Output ONLY markdown body content (no frontmatter, no preamble). Use specific product names and specs.' },
         { role: 'user', content: prompt },

@@ -93,7 +93,7 @@ Return ONLY valid JSON array: [{"question": "...", "answer": "..."}]`;
     if (provider === 'groq') {
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-        body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages: [
+        body: JSON.stringify({ model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b', messages: [
           { role: 'system', content: 'Return ONLY valid JSON.' },
           { role: 'user', content: prompt },
         ], temperature: 0.5, max_tokens: 1000 }),

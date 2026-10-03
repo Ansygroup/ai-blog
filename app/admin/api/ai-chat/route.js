@@ -116,7 +116,7 @@ Answer concisely and helpfully. If the user asks about recommendations, suggest 
     const result = await groqGenerate(`${systemContext}\n\nUser question: ${message}`, {
       temperature: 0.5,
       maxTokens: 1024,
-      model: 'qwen/qwen3-32b',
+      model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
     });
 
     if (!result) {

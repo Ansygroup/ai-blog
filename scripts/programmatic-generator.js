@@ -21,7 +21,8 @@ const apiKey = process.env.GROQ_API_KEY;
 if (!apiKey) { console.log('No GROQ_API_KEY — skipping generation'); process.exit(0); }
 
 async function callGroq(prompt) {
-  const models = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'];
+  // Both original ids were decommissioned by Groq on 2026-08-16 (free tier).
+  const models = [process.env.GROQ_MODEL || 'openai/gpt-oss-120b', 'openai/gpt-oss-20b', 'qwen/qwen3.8-27b'];
   for (const model of models) {
     try {
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {

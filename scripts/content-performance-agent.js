@@ -8,7 +8,8 @@ const REPORTS_DIR = path.join(__dirname, '..', 'public', 'reports');
 if (!fs.existsSync(REPORTS_DIR)) fs.mkdirSync(REPORTS_DIR, { recursive: true });
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
-const GROQ_MODEL = 'llama-3.3-70b-versatile';
+// Groq decommissioned the llama ids on 2026-08-16; this is a verified live id.
+const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
 const FIX_MODE = process.argv.includes('--fix');
 
 function getPostData() {
