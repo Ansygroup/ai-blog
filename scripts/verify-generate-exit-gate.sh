@@ -21,7 +21,9 @@ cp scripts/generate-post.js "$SB/scripts/"
 ln -s "$REPO/node_modules" "$SB/node_modules" 2>/dev/null \
   || cp -r "$REPO/node_modules" "$SB/node_modules" 2>/dev/null || true
 if [ ! -e "$SB/node_modules/dotenv" ]; then echo "FATAL: no dotenv in scratch tree"; exit 97; fi
-printf '[{"keyword":"ai agent testing guide 2026","priority":1},{"keyword":"best ai cms 2026","priority":1},{"keyword":"ai seo tools 2026","priority":1}]' > "$SB/scripts/keyword-queue.json"
+# getTopics() drops entries without a string `topic` field as malformed, so the
+# fixture must use "topic" (this is what silently zeroed the first attempt).
+printf '[{"topic":"ai agent testing guide 2026"},{"topic":"best ai cms 2026"},{"topic":"ai seo tools 2026"}]' > "$SB/scripts/keyword-queue.json"
 
 echo "=== CASE 1: every generation 404s -> MUST be non-zero ==="
 AI_PROVIDER=groq \
