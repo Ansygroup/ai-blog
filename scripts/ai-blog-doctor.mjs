@@ -153,7 +153,11 @@ async function fixCovers(raw, fn) {
   if (!coverMatch) return raw;
   let cover = coverMatch[1].replace(/^\"|\"$/g, '');
   // If cover is empty or doesn't exist as a file, try to find a suitable image
-  const coverPath = path.join(ROOT, cover);
+  // `cover` is already root-relative to the web root ("/images/foo.jpg"), so it
+  // must resolve under public/. Joining it straight onto ROOT looked in
+  // <ROOT>\imagesoo.jpg, which never exists -> every existing cover tested
+  // as missing and this function repointed valid covers at unrelated images.
+  const coverPath = path.join(ROOT, 'public', cover);
   if (!cover || !fs.existsSync(coverPath)) {
     // Find images in public/images whose name shares keywords with slug
     const imageFiles = fs.readdirSync(PUBLIC_IMAGES).filter(f => 

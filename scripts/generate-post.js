@@ -416,7 +416,15 @@ const batchIdx = args.indexOf('--batch');
 const batchSize = parseInt(args[batchIdx + 1] || '1', 10);
 // The first non-flag token is the topic, but it must NOT be the --batch value
 // (e.g. `--batch 5` was read as the topic "5", which generated a junk post).
-const topicArg = args.find((a, i) => !a.startsWith('--') && i !== batchIdx + 1);
+// BUG (2026-10-04): when --batch is ABSENT, batchIdx === -1, so the guard
+// `i !== batchIdx + 1` became `i !== 0` and skipped the FIRST argument. That
+// made the documented single-topic form
+//   node scripts/generate-post.js "topic here"
+// ALWAYS fall through to the usage banner and exit 1 — i.e. every direct
+// single-topic generation silently failed, while --from-keywords (no
+// positional token) still worked. The daily loop saw "0 generated" and exited 0.
+// Fix: only skip the batch value when --batch was actually supplied.
+const topicArg = args.find((a, i) => !a.startsWith('--') && !(batchIdx !== -1 && i === batchIdx + 1));
 const fromQueue = args.includes('--from-keywords');
 
 function slugify(s) {
