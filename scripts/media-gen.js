@@ -72,6 +72,16 @@ async function genCover(slug, keywords, promptHint) {
   if (!ok && promptHint) {
     ok = await download(pollinationsUrl(promptHint, 1200, 630), dest);
   }
+  // (2026-10-04) loremflickr now answers 401 (source went behind auth) and
+  // image.pollinations.xyz no longer resolves. Deterministic picsum.photos is
+  // reachable and keyless, so it is the last-resort source. Same slug always
+  // yields the same photo, so covers stay stable across reruns.
+  if (!ok) {
+    if (fs.existsSync(dest)) { try { fs.unlinkSync(dest); } catch (_) {} }
+    const seedHex = Buffer.from(slug).toString('hex').slice(0, 12) || String(seed);
+    ok = await download(`https://picsum.photos/seed/${seedHex}/1200/630`, dest);
+    if (ok) console.log(`    ↩ picsum fallback used for ${slug}`);
+  }
   return ok ? `/images/${slug}.jpg` : null;
 }
 
@@ -82,8 +92,15 @@ async function fillPending() {
   for (const f of files) {
     const raw = fs.readFileSync(path.join(POSTS_DIR, f), 'utf8');
     const m = raw.match(/^cover:\s*"?(.*?)"?\s*$/m);
-    const hasCover = m && m[1] && m[1].startsWith('/images/');
-    if (hasCover) { skipped++; continue; }
+        // A cover line is only "already covered" if the FILE actually exists.
+        // (2026-10-04) media-gen ran before parallel-publish, so every freshly
+        // generated post shipped with an /images/ path to a non-existent file and
+        // this check skipped them forever. Now verify on disk.
+        let hasCover = false;
+        if (m && m[1] && m[1].startsWith('/images/')) {
+          hasCover = fs.existsSync(path.join(ROOT, 'public', m[1]));
+        }
+        if (hasCover) { skipped++; continue; }
     const slug = f.replace(/\.mdx$/, '');
     const title = (raw.match(/^title:\s*"?(.*?)"?\s*$/m) || [])[1] || slug;
     const tags = (raw.match(/^tags:\s*\[(.*?)\]/m) || [])[1] || '';
