@@ -1,19 +1,23 @@
 {
-  "ranAt": "2026-10-03T02:02:51.206Z",
+  "ranAt": "2026-10-04T01:28:32.138Z",
   "apply": true,
   "fixed": {
     "corrupt": 0,
     "links": 0,
     "claims": 0,
     "crlf": 0,
-    "content": 0,
+    "content": 3,
     "covers": 0,
     "dates": 0,
     "excerpts": 0,
     "long": 0,
     "old": 0
   },
-  "details": [],
+  "details": [
+    "content: ai-powered-podcast-seo-optimization-boost-discoverability-2026.mdx",
+    "content: automating-webinar-follow-up-sequences-with-ai-step-by-step-2026.mdx",
+    "content: best-ai-tools-for-creating-interactive-e-learning-quizzes-2026.mdx"
+  ],
   "corruptRemaining": 0,
   "adsense": {
     "placeholderClient": "ca-pub-3423159322001021",
