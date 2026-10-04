@@ -624,6 +624,37 @@ Do NOT place Key Takeaways or Quick Answer anywhere else in the article.
 
   // Strip code fences if model wrapped it
   let cleaned = content.replace(/^```markdown\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '');
+
+  // Strip any PREAMBLE the model emitted before the frontmatter fence. The prompt
+  // already says "Start directly with ---", but models (especially gpt-oss, which
+  // reasons before answering) sometimes emit "Here is the article:" or a
+  // reasoning block first. Without this, `polish-posts.js` aborts the whole
+  // scheduled-content run with "missing frontmatter" on a post that was counted
+  // as generated — observed 2026-10-03 on run 37156706739
+  // ("5 generated, 0 failed" then "❌ chatgpt-prompting-guide-2026.mdx:
+  // missing frontmatter" and exit 1).
+  const fenceAt = cleaned.search(/^---\r?$/m);
+  if (fenceAt > 0) {
+    const preamble = cleaned.slice(0, fenceAt);
+    // Only cut when what follows really is a frontmatter block (fence, keys, fence).
+    const after = cleaned.slice(fenceAt).match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n/);
+    if (after && /^[a-zA-Z_-]+:\s/m.test(after[1])) {
+      cleaned = cleaned.slice(fenceAt);
+      console.log(`   ⚠  stripped ${preamble.split('\n').length} line(s) of prose preamble before the frontmatter`);
+    }
+  }
+
+  // GATE: a post without frontmatter is a FAILED generation, not a generated one.
+  // Written before this gate, the file went to disk, the topic was dequeued, and
+  // `ok++` ran — so the run reported success while shipping a post that reds the
+  // build and deletes a queue topic. Never write, never dequeue, never count ok.
+  if (!/^---\r?\n([\s\S]+?)\r?\n---\r?\n/.test(cleaned)) {
+    throw new Error(
+      'model returned no valid YAML frontmatter (no "---" ... "---" block with keys); ' +
+      'refusing to write the post or dequeue the topic'
+    );
+  }
+
   // Fix date and lastUpdated to actual today (use m flag for multiline)
   const todayStr = new Date().toISOString().split('T')[0];
   cleaned = cleaned.replace(/^date:\s*["']?[^"'\n]+["']?/m, `date: "${todayStr}"`);
