@@ -30,7 +30,14 @@ jobs:
           git config user.email "bot@aipulsedaily.com"
           git config user.name "Analytics Agent"
           git checkout -b "$BRANCH"
+          # public/reports/ was gitignored, so `git add public/reports/` exited 1
+          # and `bash -e` killed this step (same bug as content-performance.yml).
           git add public/reports/
+          if git diff --cached --quiet; then
+          echo "No staged changes to commit."
+          exit 0
+          fi
+          echo "Staged files:"; git diff --cached --name-only
           git commit -m "auto: weekly analytics $(date +%Y-%m-%d)"
           git push origin "$BRANCH"
           gh pr create --title "auto: analytics report $(date +%Y-%m-%d)" --body "Weekly content analytics report." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt

@@ -12,9 +12,17 @@ public/*.txt
 !public/llms.txt
 !public/llms-full.txt
 !public/ads.txt
-public/reports/
-public/digests/
-public/social/
+# public/reports/ and public/digests/ are COMMITTED by CI agent workflows
+# (content-performance.yml, analytics-agent.yml, newsletter-agent.yml). They must
+# stay un-ignored or `git add public/reports/` exits 1 and the agent's fixes are
+# silently dropped. Un-ignore only the agent artifacts, not the whole dir tree.
+public/reports/*
+!public/reports/*.md
+!public/reports/geo-check.txt
+public/digests/*
+!public/digests/*.md
+public/social/*
+!public/social/*.json
 !public/social/
 tsconfig.tsbuildinfo
 

@@ -35,7 +35,16 @@ jobs:
           git config user.email "bot@aipulsedaily.com"
           git config user.name "Content Performance Agent"
           git checkout -b "$BRANCH"
-          git add content/posts/ public/reports/
+          # `git add <ignored-path>` exits 1 and `bash -e` aborts the step, so any
+          # agent fix made earlier in the run is thrown away. The .gitignore
+          # un-ignore rules now keep these artifacts committable; verify that
+          # something is actually staged before creating a PR.
+          git add content/posts/ public/reports/ public/digests/
+          if git diff --cached --quiet; then
+            echo "No staged changes to commit."
+            exit 0
+          fi
+          echo "Staged files:"; git diff --cached --name-only
           git commit -m "auto: content performance report + fixes $(date +%Y-%m-%d)"
           git push origin "$BRANCH"
           gh pr create --title "auto: content performance fixes $(date +%Y-%m-%d)" --body "Auto-fixes from content performance agent." --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
