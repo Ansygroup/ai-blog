@@ -102,14 +102,20 @@ async function decideAction(state) {
   issues.sort((a, b) => a.priority - b.priority);
   const top = issues[0];
 
-  const scriptMap = {
-    seo: 'scripts/seo-optimizer.js',
-    thin: 'scripts/expand-thin-content.js',
-    faq: 'scripts/generate-faq.js',
-    excerpt: 'scripts/fix-excerpts.js',
-    stale: 'scripts/content-refresher.js',
-    queue: 'scripts/content-strategy.js',
-  };
+  // NOTE (fixed 2026-10-05): `faq` and `excerpt` used to point at
+    // scripts/generate-faq.js and scripts/fix-excerpts.js, neither of which
+    // exists in this repo — so those two decisions could only ever print
+    // "Script not found". `faq` now points at the script that does the work;
+    // `excerpt` is an alias onto seo-optimizer, which owns the excerpt/meta/title
+    // fixes under --fix, noted inline so the next reader knows it is deliberate.
+    const scriptMap = {
+      seo: 'scripts/seo-optimizer.js',
+      thin: 'scripts/expand-thin-content.js',
+      faq: 'scripts/add-faq-to-qa-pages.js',
+      excerpt: 'scripts/seo-optimizer.js', // alias: seo-optimizer --fix also repairs excerpts
+      stale: 'scripts/content-refresher.js',
+      queue: 'scripts/content-strategy.js',
+    };
 
   return {
     action: top.type,
@@ -122,8 +128,28 @@ async function decideAction(state) {
 }
 
 function runScript(script, args = []) {
-  const scriptPath = path.join(__dirname, '..', script);
-  if (!fs.existsSync(scriptPath)) return { success: false, error: `Script not found: ${script}` };
+  // ROOT is the repo root. `script` arrives REPO-RELATIVE ("scripts/foo.js")
+  // both from scriptMap below and from the workflow_dispatch `script` input,
+  // so it must be resolved against ROOT — NOT against `__dirname`.
+  //
+  // BUG (fixed 2026-10-05): this used to be
+  //   path.join(__dirname, '..', script)
+  // With __dirname = <repo>/scripts/agents that yields
+  //   <repo>/scripts/agents/../scripts/foo.js -> <repo>/scripts/scripts/foo.js
+  // i.e. ONE LEVEL TOO DEEP, so fs.existsSync() was false for EVERY mapped
+  // action and every run returned
+  //   { success: false, error: 'Script not found: scripts/<name>.js' }
+  // The failing auto-pilot run 33328814158 logged exactly that
+  // ("Script not found: ai-blog-doctor.js") and the fix below is verified by
+  // `node scripts/verify-autopilot-scriptpath.js`.
+  const ROOT = path.join(__dirname, '..', '..');
+  // Accept both "scripts/foo.js" and a bare "foo.js" from manual dispatch.
+  const scriptPath = path.isAbsolute(script)
+    ? script
+    : path.resolve(ROOT, path.basename(path.dirname(script)) === 'scripts'
+        ? script
+        : path.join('scripts', script));
+  if (!fs.existsSync(scriptPath)) return { success: false, error: `Script not found: ${script} (resolved to ${scriptPath})` };
 
   const cmd = `node "${scriptPath}"${args.length ? ' ' + args.map(a => `"${a}"`).join(' ') : ''}`;
   try {
