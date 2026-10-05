@@ -32,19 +32,147 @@
     ]
   },
   {
-    "topic": "copilot free tier limits 2026",
+    "topic": "copilot limitations 2026",
     "category": "Reviews",
     "keywords": [
       "copilot",
+      "limitations"
+    ]
+  },
+  {
+    "topic": "copilot prompting guide 2026",
+    "category": "Reviews",
+    "keywords": [
+      "copilot",
+      "prompting guide"
+    ]
+  },
+  {
+    "topic": "copilot workflow examples 2026",
+    "category": "Reviews",
+    "keywords": [
+      "copilot",
+      "workflow examples"
+    ]
+  },
+  {
+    "topic": "copilot vs zapier 2026",
+    "category": "Comparisons",
+    "keywords": [
+      "copilot",
+      "vs zapier"
+    ]
+  },
+  {
+    "topic": "copilot for teams 2026",
+    "category": "Reviews",
+    "keywords": [
+      "copilot",
+      "for teams"
+    ]
+  },
+  {
+    "topic": "copilot accuracy test 2026",
+    "category": "Reviews",
+    "keywords": [
+      "copilot",
+      "accuracy test"
+    ]
+  },
+  {
+    "topic": "copilot setup guide 2026",
+    "category": "Reviews",
+    "keywords": [
+      "copilot",
+      "setup guide"
+    ]
+  },
+  {
+    "topic": "cursor review 2026",
+    "category": "Reviews",
+    "keywords": [
+      "cursor",
+      "review"
+    ]
+  },
+  {
+    "topic": "best cursor tools 2026",
+    "category": "Best Of",
+    "keywords": [
+      "cursor",
+      "best"
+    ]
+  },
+  {
+    "topic": "cursor vs chatgpt 2026",
+    "category": "Comparisons",
+    "keywords": [
+      "cursor",
+      "vs chatgpt"
+    ]
+  },
+  {
+    "topic": "cursor alternatives 2026",
+    "category": "Comparisons",
+    "keywords": [
+      "cursor",
+      "alternatives"
+    ]
+  },
+  {
+    "topic": "cursor pricing breakdown 2026",
+    "category": "Reviews",
+    "keywords": [
+      "cursor",
+      "pricing breakdown"
+    ]
+  },
+  {
+    "topic": "cursor free tier limits 2026",
+    "category": "Reviews",
+    "keywords": [
+      "cursor",
       "free tier limits"
     ]
   },
   {
-    "topic": "copilot api cost comparison 2026",
+    "topic": "cursor api cost comparison 2026",
+    "category": "Reviews",
+    "keywords": [
+      "cursor",
+      "api cost comparison"
+    ]
+  },
+  {
+    "topic": "copilot vs chatgpt 2026",
+    "category": "Comparisons",
+    "keywords": [
+      "copilot",
+      "vs chatgpt"
+    ]
+  },
+  {
+    "topic": "copilot vs chatgpt 2026",
+    "category": "Comparisons",
+    "keywords": [
+      "copilot",
+      "vs chatgpt"
+    ]
+  },
+  {
+    "topic": "copilot alternatives 2026",
+    "category": "Comparisons",
+    "keywords": [
+      "copilot",
+      "alternatives"
+    ]
+  },
+  {
+    "topic": "copilot pricing breakdown 2026",
     "category": "Reviews",
     "keywords": [
       "copilot",
-      "api cost comparison"
+      "pricing breakdown"
     ]
   },
   {
@@ -928,5 +1056,21 @@
     "sourceUrl": "https://www.tomsguide.com/entertainment/sports/simple-way-to-watch-nrl-grand-final-2026-free",
     "tier": 2,
     "addedAt": "2026-10-05T03:04:30.730Z"
+  },
+  {
+    "topic": "copilot free tier limits 2026",
+    "category": "Reviews",
+    "keywords": [
+      "copilot",
+      "free tier limits"
+    ]
+  },
+  {
+    "topic": "copilot api cost comparison 2026",
+    "category": "Reviews",
+    "keywords": [
+      "copilot",
+      "api cost comparison"
+    ]
   }
 ]

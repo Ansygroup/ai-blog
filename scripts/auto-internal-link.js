@@ -6,7 +6,22 @@ const { json, hasKey } = require('./ai-agent');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env.local') });
 
 const POSTS_DIR = path.join(__dirname, '..', 'content', 'posts');
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ai-blog-ten-steel.vercel.app';
+// Links MUST be site-relative (`/posts/<slug>`), never absolute.
+//
+// Why (2026-10-05): this script used to emit
+//   BASE_URL + '/posts/' + slug
+// i.e. a ~60-90 char absolute URL. On the NEXT run `buildTopicMap()` produced a
+// keyword that occurs *inside* that URL text, `body.indexOf(kw)` landed inside
+// the URL, and `isAlreadyLinked()` -- which only looked 50 chars back -- did not
+// see the `](` opener of such a long URL, so it injected a NEW anchor in the
+// middle of the previous URL. Result: unbounded `](url)](url)](url)` glue,
+// 206,161 occurrences across 748/750 posts, growing on every CI run.
+//
+// Two invariants enforce that:
+//   1. emit `/posts/<slug>` (short, and the convention the rest of the repo uses)
+//   2. `isInsideAnchor()` below refuses any offset that sits inside `[...]` or
+//      inside a `](...)` target, whatever its length -- see that function.
+// Keep both. Do NOT reintroduce BASE_URL here.
 
 const useAI = process.argv.includes('--ai');
 const dryRun = process.argv.includes('--dry-run');
@@ -55,7 +70,34 @@ function buildTopicMap(posts) {
   return map;
 }
 
+// Is offset `idx` inside an existing markdown anchor -- either the visible label
+// `[...]` or the target `](...)`? Length is irrelevant: this walks the anchor
+// structure instead of using a fixed character window, which is what let the
+// previous 50-char `beforeSlice.includes('](')` test miss a 90-char absolute URL
+// and splice new links into it.
+function isInsideAnchor(body, idx) {
+  let inTarget = false;
+  for (let i = idx - 1; i >= 0; i--) {
+    const ch = body[i];
+    if (ch === '\n') return false;       // anchors do not span lines
+    if (ch === ']') {
+      // a ']' immediately followed by '(' opens a target -- keep scanning back
+      // through the target until we reach its '['.
+      if (body[i + 1] === '(') { inTarget = true; continue; }
+      return true;                        // ']' not followed by '(' ends a label
+    }
+    if (ch === '[') return true;          // reached the label opener
+    if (inTarget && ch === '(') { inTarget = false; continue; }
+    if (ch === ']' || ch === ')') { /* keep scanning */ }
+  }
+  return true;
+}
+
 function isAlreadyLinked(body, idx, kw, slug) {
+  // Never touch text that belongs to an existing anchor -- that is where the
+  // `](url)](url)` glue came from.
+  if (isInsideAnchor(body, idx)) return true;
+
   // An occurrence of `kw` is already linked when EITHER
   //   a) the 50 chars BEFORE it contain a `](` anchor opener, or
   //   b) the text right AFTER it starts an anchor target: `](` or `(`.
@@ -73,13 +115,14 @@ function isAlreadyLinked(body, idx, kw, slug) {
 function addLink(body, idx, kw, slug) {
   const before = body.slice(0, idx + kw.length);
   const after = body.slice(idx + kw.length);
-  // Emit a COMPLETE markdown anchor: [phrase](url).
+  // Emit a COMPLETE markdown anchor: [phrase](/posts/slug).
   // The old version appended only `](url)` with no opening `[`, so every
   // injected link was invalid markdown (`prose](https://...)`) and rendered as
   // literal link soup on the live site. Rewrite the phrase in place instead of
   // duplicating it.
+  // The target is RELATIVE on purpose -- see the BASE_URL note at the top.
   const head = before.slice(0, before.length - kw.length);
-  return head + '[' + kw + '](' + BASE_URL + '/posts/' + slug + ')' + after;
+  return head + '[' + kw + '](/posts/' + slug + ')' + after;
 }
 
 async function getAiLinkSuggestions(post, allPosts) {
