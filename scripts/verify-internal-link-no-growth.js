@@ -26,6 +26,7 @@ const SAMPLES = [
 console.log('[verify-internal-link-no-growth] scratch: %s', SCRATCH);
 const postsDir = path.join(SCRATCH, 'content', 'posts');
 fs.mkdirSync(postsDir, { recursive: true });
+fs.mkdirSync(path.join(SCRATCH, 'scripts'), { recursive: true });
 
 // Stub node_modules so `require('dotenv')` from the script resolves.
 const nm = path.join(SCRATCH, 'node_modules');
@@ -47,6 +48,20 @@ try {
 fs.writeFileSync(path.join(SCRATCH, 'scripts', 'ai-agent.js'),
   'module.exports = { json: async () => [], hasKey: () => false };\n');
 
+// CRITICAL: copy the script UNDER TEST into the scratch tree and run the COPY.
+// The script derives POSTS_DIR from its own `__dirname`, so running the repo
+// path would read and WRITE the real content/posts. That mistake rewrote 289 real
+// posts on 2026-10-05 (caught by git status, reverted with `git checkout --`).
+// Never exec a repo-path script that resolves data relative to __dirname.
+const scriptSrc = path.join(REPO, 'scripts', 'auto-internal-link.js');
+const script = path.join(SCRATCH, 'scripts', 'auto-internal-link.js');
+fs.copyFileSync(scriptSrc, script);
+if (!fs.readFileSync(script, 'utf8').includes("path.join(__dirname, '..', 'content', 'posts')")) {
+  console.error('FATAL: copied script no longer derives POSTS_DIR from __dirname;');
+  console.error('       the isolation guarantee above no longer holds. Refusing to run.');
+  process.exit(2);
+}
+
 const sizes = [];
 for (const f of SAMPLES) {
   const src = path.join(REPO, 'content', 'posts', f);
@@ -54,7 +69,11 @@ for (const f of SAMPLES) {
   fs.copyFileSync(src, path.join(postsDir, f));
 }
 
-const script = path.join(REPO, 'scripts', 'auto-internal-link.js');
+// Record the real posts dir state so we can PROVE nothing outside scratch changed.
+const repoPosts = path.join(REPO, 'content', 'posts');
+const repoSignatureBefore = fs.readdirSync(repoPosts)
+  .map((f) => { try { return f + ':' + fs.statSync(path.join(repoPosts, f)).size; } catch (e) { return f; } })
+  .join('|');
 
 for (let run = 1; run <= 3; run++) {
   let out = '';
