@@ -60,7 +60,7 @@ function gitLocked(label, cmd, { staleMs = STALE_LOCK_MS, tries = 4 } = {}) {
     try { sh(cmd); return true; }
     catch (e) {
       const msg = e.message.split('\n')[0];
-      if (/index\.lock/i.test(e.message)) {
+      if (lockAgeMs() >= 0 || /index\.lock/i.test(e.message)) {
         const age = lockAgeMs();
         if (age > staleMs) {
           log(`STALE-LOCK ${label}: .git/index.lock is ${Math.round(age / 1000)}s old - reclaiming`);
