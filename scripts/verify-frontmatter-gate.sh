@@ -77,11 +77,32 @@ else
 fi
 
 echo
+echo "=== CASE 4 (2026-10-05 regression): UNCLOSED fence, body swallowed into YAML ==="
+# Live failure: commit 1d28ea9d8 wrote 3 posts whose frontmatter never closed
+# (CI runs 37312070267 / 37312070234, "unparseable frontmatter"). The old regex
+# /---([\s\S]+?)---/ matched a LATER --- inside the body, so the gate passed and
+# the broken file was written. The response here is exactly that shape.
+rm -f "$SB/content/posts/verified-gate-article-2026.mdx"
+printf '[{"topic":"verified gate article 2026"}]' > "$SB/scripts/keyword-queue.json"
+STUB_MODE=unclosed AI_PROVIDER=groq \
+GROQ_API_KEY=gsk_fake_key_for_verification \
+GROQ_MODEL=openai/gpt-oss-120b \
+node --require "$REPO/scripts/stub-groq-frontmatter.cjs" "$SBW/scripts/generate-post.js" --from-keywords --batch 1 \
+  > "$SB/case4.txt" 2>&1
+C4=$?
+echo "CASE4 exit=$C4 (MUST be non-zero)"
+grep -E "not parseable YAML|missing required key|no valid YAML|Failed:" "$SB/case4.txt" | tail -4
+WROTE4=$(count_posts "$SB/content/posts" 'verified-gate-article-2026\.mdx')
+KEPT4=$(grep 'verified gate article 2026' "$SB/scripts/keyword-queue.json" | wc -l | tr -d ' ')
+echo "CASE4 post_written=$WROTE4 (MUST be 0) | topic_still_queued=$KEPT4 (MUST be 1)"
+
+echo
 echo "=== VERDICT ==="
 if [ "$C1" -eq 0 ] && [ "$WROTE1" = "1" ] && [ "$HEAD1" = "---" ] \
-   && [ "$C2" -ne 0 ] && [ "$WROTE2" = "0" ] && [ "$KEPT2" = "1" ] && [ "$C3" -eq 0 ]; then
-  echo "PASS: preamble recovered into a valid post; frontmatter-less output fails loudly, writes nothing, keeps its queue topic; repo untouched"
+   && [ "$C2" -ne 0 ] && [ "$WROTE2" = "0" ] && [ "$KEPT2" = "1" ] && [ "$C3" -eq 0 ] \
+   && [ "$C4" -ne 0 ] && [ "$WROTE4" = "0" ] && [ "$KEPT4" = "1" ]; then
+  echo "PASS: preamble recovered into a valid post; frontmatter-less AND unclosed-fence output fail loudly, write nothing, keep their queue topics; repo untouched"
   exit 0
 fi
-echo "FAIL: C1=$C1 WROTE1=$WROTE1 HEAD1=$HEAD1 C2=$C2 WROTE2=$WROTE2 KEPT2=$KEPT2 C3=$C3"
+echo "FAIL: C1=$C1 WROTE1=$WROTE1 HEAD1=$HEAD1 C2=$C2 WROTE2=$WROTE2 KEPT2=$KEPT2 C3=$C3 C4=$C4 WROTE4=$WROTE4 KEPT4=$KEPT4"
 exit 1

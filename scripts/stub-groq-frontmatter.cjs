@@ -52,6 +52,13 @@ globalThis.fetch = async function (url, opts) {
       text = PLAIN;
     } else if (MODE === 'preamble') {
       text = 'Here is the publication-ready article as requested.\n\n---\n' + FM + '---\n' + BODY;
+    } else if (MODE === 'unclosed') {
+      // The real 2026-10-05 failure (commit 1d28ea9d8): the model opened the
+      // fence, then never closed it, so the whole body was swallowed into the
+      // YAML. The OLD gate regex matched the `---` inside BODY below and let the
+      // broken file through. gray-matter then threw "end of the stream or a
+      // document separator is expected".
+      text = '---\n' + FM + BODY;
     } else {
       text = '---\n' + FM + '---\n' + BODY;
     }

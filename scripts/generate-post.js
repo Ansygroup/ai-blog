@@ -59,6 +59,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter');
 
 require('dotenv').config({ path: path.join(__dirname, '..', '.env.local') });
 
@@ -666,10 +667,39 @@ Do NOT place Key Takeaways or Quick Answer anywhere else in the article.
   // Written before this gate, the file went to disk, the topic was dequeued, and
   // `ok++` ran — so the run reported success while shipping a post that reds the
   // build and deletes a queue topic. Never write, never dequeue, never count ok.
-  if (!/^---\r?\n([\s\S]+?)\r?\n---\r?\n/.test(cleaned)) {
+  //
+  // The regex alone was NOT enough (observed 2026-10-05, commit 1d28ea9d8, CI
+  // runs 37312070267 / 37312070234): it matches a body that merely CONTAINS a
+  // later `---`, so a response with an unclosed fence — whole body swallowed
+  // into the YAML — passed the gate and was written. gray-matter then threw
+  // "end of the stream or a document separator is expected" and 3 posts shipped
+  // with unreadable frontmatter. Parse for real, and require the keys the
+  // audit-pipeline frontmatter gate needs.
+  const FM_BLOCK = cleaned.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
+  if (!FM_BLOCK) {
     throw new Error(
       'model returned no valid YAML frontmatter (no "---" ... "---" block with keys); ' +
       'refusing to write the post or dequeue the topic'
+    );
+  }
+  let fmData;
+  try {
+    ({ data: fmData } = matter(cleaned));
+  } catch (err) {
+    throw new Error(
+      'model frontmatter is not parseable YAML (' + (err.reason || err.message) + '); ' +
+      'refusing to write the post or dequeue the topic'
+    );
+  }
+  const FM_KEYS = ['title', 'slug', 'excerpt', 'date', 'category', 'tags'];
+  const fmMissing = FM_KEYS.filter((k) => {
+    const v = fmData[k];
+    return v === undefined || v === null || v === '' || (Array.isArray(v) && !v.length);
+  });
+  if (fmMissing.length) {
+    throw new Error(
+      'model frontmatter is missing required key(s): ' + fmMissing.join(', ') +
+      '; refusing to write the post or dequeue the topic'
     );
   }
 
