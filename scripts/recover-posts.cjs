@@ -82,4 +82,4 @@ console.log('no baseline : ' + noBaseline.length + ' posts (left untouched)');
 console.log('already ok  : ' + cleanNow.length + ' posts');
 console.log('size        : ' + (bytesIn / 1048576).toFixed(1) + 'MB -> ' + (bytesOut / 1048576).toFixed(1) +
   'MB (reclaim ' + ((bytesIn - bytesOut) / 1048576).toFixed(1) + 'MB)');
-console.log('posts written: ' + wrote);
+console.log((APPLY ? 'posts written    : ' : 'posts selected  : ') + wrote);
