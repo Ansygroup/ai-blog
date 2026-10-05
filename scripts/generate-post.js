@@ -290,8 +290,15 @@ function resolveNvidiaKey() {
 // Ordered live models. NVIDIA retires model slugs (410 Gone), so the provider
 // walks this list on 410/404 instead of failing the whole publish run.
 // z-ai/glm-5.2 hit end-of-life 2026-08-21 — keep it last as a documented tombstone.
+// VERIFIED LIVE 2026-10-05 by direct probe of all 80 listed models:
+//   meta/llama-3.2-11b-vision-instruct  -> 200, 27 words of coherent prose
+//   google/diffusiongemma-26b-a4b-it   -> 200, 22 words
+// Everything below those two returned 404/410 or timed out on that date, and
+// OpenRouter's :free slugs now 429 (free-models-per-day) / 404 (paid-only).
 const NVIDIA_MODELS = [
   process.env.NVIDIA_MODEL,
+  'meta/llama-3.2-11b-vision-instruct',
+  'google/diffusiongemma-26b-a4b-it',
   'google/gemma-4-31b-it',
   'meta/llama-3.2-90b-vision-instruct',
   'nvidia/llama-3.3-nemotron-super-49b-v1.5',
@@ -621,6 +628,17 @@ Do NOT place Key Takeaways or Quick Answer anywhere else in the article.
 `;
 
   const content = await provider.generateText(userPrompt, SYSTEM_PROMPT);
+
+  // DEBUG (2026-10-05): the NVIDIA model list rotated onto live-but-small models
+  // (meta/llama-3.2-11b-vision-instruct). They return ~1000-2000 words for a
+  // 2,500-3,000 word prompt and sometimes omit the closing `---` fence, which the
+  // frontmatter gate below then rejects. Keep the last raw response on disk so a
+  // failed run is diagnosable without re-spending provider quota.
+  if (process.env.DEBUG_RAW_RESPONSE) {
+    try {
+      fs.writeFileSync(path.join(__dirname, '.last-raw-response.md'), String(content).slice(0, 40000));
+    } catch (_) { /* non-fatal */ }
+  }
 
   // Strip code fences if model wrapped it
   let cleaned = content.replace(/^```markdown\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '');
