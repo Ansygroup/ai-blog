@@ -101,6 +101,17 @@ const grew1 = sizes[1] - sizes[0];
 const grew2 = sizes[2] - sizes[1];
 console.log('[verify-internal-link-no-growth] delta run1->2 = %d, run2->3 = %d', grew1, grew2);
 
+// Isolation assertion: the real posts dir must be byte-identical to when we started.
+const repoSignatureAfter = fs.readdirSync(repoPosts)
+  .map((f) => { try { return f + ':' + fs.statSync(path.join(repoPosts, f)).size; } catch (e) { return f; } })
+  .join('|');
+if (repoSignatureAfter !== repoSignatureBefore) {
+  console.error('[verify-internal-link-no-growth] FAIL — the REAL content/posts changed.');
+  console.error('[verify-internal-link-no-growth] Revert with: git checkout -- content/posts');
+  process.exit(1);
+}
+console.log('[verify-internal-link-no-growth] isolation OK — real content/posts untouched.');
+
 if (grew2 !== 0) {
   console.log('[verify-internal-link-no-growth] FAIL — still growing on run 3; the guard is not idempotent.');
   process.exit(1);
