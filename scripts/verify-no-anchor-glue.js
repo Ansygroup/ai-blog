@@ -86,7 +86,7 @@ if (!offenders.length) {
 offenders.sort((a, b) => b.n - a.n);
 console.log('[verify-no-anchor-glue] FAIL — worst offenders:');
 offenders.slice(0, quiet ? 5 : MAX_LIST).forEach((o) => {
-  console.log('   %-72s regions=%-6d absolute=%d', o.f, o.n, o.abs);
+  console.log(`   ${o.f.padEnd(70)} regions=${String(o.n).padEnd(6)} absolute=${o.abs}`);
 });
 console.log('[verify-no-anchor-glue] Root cause (if this regressed): scripts/auto-internal-link.js');
 console.log('[verify-no-anchor-glue] must emit RELATIVE /posts/<slug> links and must refuse any');
