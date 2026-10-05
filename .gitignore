@@ -44,3 +44,4 @@ models/
 # Python bytecode caches (never commit)
 __pycache__/
 *.py[cod]
+.autoprobe.tmp
