@@ -56,15 +56,30 @@ function buildTopicMap(posts) {
 }
 
 function isAlreadyLinked(body, idx, kw, slug) {
+  // An occurrence of `kw` is already linked when EITHER
+  //   a) the 50 chars BEFORE it contain a `](` anchor opener, or
+  //   b) the text right AFTER it starts an anchor target: `](` or `(`.
+  // The old check only tested afterSlice.startsWith('('), so it missed the `](`
+  // form that addLink() itself emits. Every re-run therefore re-wrapped the same
+  // phrase, growing ](url)](url)](url) chains without bound.
   const beforeSlice = body.slice(Math.max(0, idx - 50), idx);
-  const afterSlice = body.slice(idx + kw.length, Math.min(body.length, idx + kw.length + 50));
-  return beforeSlice.includes('](') || afterSlice.startsWith('(');
+  const after = body.slice(idx + kw.length, Math.min(body.length, idx + kw.length + 50));
+  if (beforeSlice.includes('](')) return true;
+  if (after.startsWith('](') || after.startsWith('(')) return true;
+  // Same guard expressed structurally: `[phrase](` is already an anchor.
+  return body[idx - 1] === '[' && after.startsWith('](');
 }
 
 function addLink(body, idx, kw, slug) {
   const before = body.slice(0, idx + kw.length);
   const after = body.slice(idx + kw.length);
-  return before + `](` + BASE_URL + `/posts/` + slug + `)` + after;
+  // Emit a COMPLETE markdown anchor: [phrase](url).
+  // The old version appended only `](url)` with no opening `[`, so every
+  // injected link was invalid markdown (`prose](https://...)`) and rendered as
+  // literal link soup on the live site. Rewrite the phrase in place instead of
+  // duplicating it.
+  const head = before.slice(0, before.length - kw.length);
+  return head + '[' + kw + '](' + BASE_URL + '/posts/' + slug + ')' + after;
 }
 
 async function getAiLinkSuggestions(post, allPosts) {
