@@ -32,6 +32,10 @@ const FIX = process.argv.includes('--fix');
 
 // A trailing pair inside the BODY: blank line, `cover: "..."`, then `---`,
 // optionally followed by the author-bio block every healthy post ends with.
+// The `---` is KEPT on repair: seo-audit.js checks for it ("no separator line
+// before author bio"), and in these posts the orphan `cover:` line and that
+// separator were written as one pair — dropping both would trade an unparseable
+// post for a fresh warning and a bio that runs into the body.
 const TAIL = /(?:\r?\n)+cover:\s*"[^"]*"(?:\r?\n)---(\r?\n[\s\S]*)?$/;
 
 function parseOrNull(text) {
@@ -82,9 +86,9 @@ for (const file of files) {
     continue;
   }
 
-  // Keep whatever came after the orphan `---` (the author-bio block).
-  // Only the body tail is rewritten; frontmatter bytes are untouched (pitfall 2).
-  const kept = m[1] ? '\n' + m[1].replace(/^\r?\n/, '') : '\n';
+  // Drop ONLY the orphan `cover:` line; keep the `---` separator and the
+  // author-bio block that follows it (see the TAIL comment).
+  const kept = '\n---\n' + (m[1] ? m[1].replace(/^\r?\n/, '') : '');
   const rebuilt = parts.head + parts.body.slice(0, m.index) + kept;
 
   const check = parseOrNull(rebuilt);
