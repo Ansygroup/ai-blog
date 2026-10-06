@@ -24,12 +24,32 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const DRY = process.argv.includes('--dry-run');
+const LOGF = path.join(ROOT, 'data', 'growth-engine-run.log');
+
+// CRON-HARDENING: this engine used execSync(..., { stdio: 'inherit' }) for every
+// step. Under a scheduler/background launch on Windows there is no TTY, so inherit
+// makes Node throw "stdin is not a tty" and EVERY step dies at once (observed
+// 2026-10-06: engine aborted in <1s, zero output, nothing committed). Capture with
+// 'pipe' instead and forward the bytes ourselves — identical output, no TTY needed.
+const sh = (cmd) => execSync(cmd, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+
+const emit = (text, alsoLog = true) => {
+  if (!text) return;
+  process.stdout.write(text);
+  if (alsoLog) {
+    try { fs.appendFileSync(LOGF, text); } catch { /* logging must never abort the run */ }
+  }
+};
 
 const run = (cmd, fatal = false) => {
   console.log(`\n$ ${cmd}`);
   if (DRY) return 0;
-  try { return execSync(cmd, { cwd: ROOT, stdio: 'inherit' }).status ?? 0; }
-  catch (e) { console.warn(`  ! step failed${fatal ? '' : ' (non-fatal)'}: ${e.message}`); return 1; }
+  try { emit(sh(cmd)); return 0; }
+  catch (e) {
+    emit((e.stdout || '') + (e.stderr || ''));
+    console.warn(`  ! step failed${fatal ? '' : ' (non-fatal)'}: ${e.message}`);
+    return 1;
+  }
 };
 
 console.log('\n════════════════════════════════════════════════════════');
@@ -92,10 +112,10 @@ if (!DRY) {
     if (status) {
       const stamp = new Date().toISOString().slice(0, 10);
       execSync(`git commit -q -m "auto: daily growth — competitor topics + media + seo (${stamp})"`, { cwd: ROOT });
-      // rebase-safe push
-      try { execSync('git pull --rebase origin main', { cwd: ROOT, stdio: 'inherit' }); }
+      // rebase-safe push (pipe, not inherit — no TTY under cron; see sh() above)
+      try { emit(sh('git pull --rebase origin main')); }
       catch (e) { console.warn('  ! rebase had conflicts — resolve manually or next run will retry'); }
-      execSync('git push origin main', { cwd: ROOT, stdio: 'inherit' });
+      emit(sh('git push origin main'));
       console.log('\n✓ Pushed to origin/main — Vercel will redeploy.');
     } else {
       console.log('\n✓ Nothing new to commit.');
