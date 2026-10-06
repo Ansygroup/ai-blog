@@ -296,6 +296,86 @@ function resolveNvidiaKey() {
 //   google/diffusiongemma-26b-a4b-it   -> 200, 22 words
 // Everything below those two returned 404/410 or timed out on that date, and
 // OpenRouter's :free slugs now 429 (free-models-per-day) / 404 (paid-only).
+// A YAML frontmatter block. Trailing horizontal whitespace is tolerated on BOTH
+// fences because the live NVIDIA model emits the opening fence as "--- \n"; the
+// strict `/^---\r?\n/` form rejected otherwise-perfect responses (2026-10-06).
+// Shared by the preamble-stripper and the write gate so they cannot drift.
+const FM_BLOCK = /^---[ \t]*\r?\n([\s\S]+?)\r?\n---[ \t]*(?:\r?\n|$)/;
+
+// Re-insert a missing closing frontmatter fence. The key block ends at the
+// first line that is not a `key:` line and not part of a multi-line scalar
+// continuation; anything after that is body. Returns the text unchanged when
+// the model closed the fence properly.
+function repairFrontmatter(text) {
+  const m = /^---[ \t]*\r?\n/.exec(text);
+  if (!m) return { text, fixed: false, endReason: '' };
+  const afterFence = m[0].length;
+  const nl = text.indexOf('\n', afterFence);
+  if (nl < 0) return { text, fixed: false, endReason: '' };
+
+  // Walk the key block line by line.
+  const lines = text.slice(afterFence).split('\n');
+  let end = 0;                       // index into `lines` where frontmatter ends
+  let sawKey = false;
+  let pendingScalar = false;
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i].replace(/\r$/, '');
+    if (raw.trim() === '') {
+      // A blank line inside a multi-line scalar is part of the VALUE, not the
+      // end of the block. Only end here when we are not inside a folded scalar.
+      // (Bug fixed 2026-10-06: resetting pendingScalar unconditionally truncated
+      // `excerpt: >-` blocks that span a blank line.)
+      if (sawKey && !pendingScalar) { end = i; break; }
+      continue;
+    }
+    // NOTE: `raw` had its CR stripped above, so the fence pattern must NOT
+    // expect a trailing `\r` -- it would never match and a valid CRLF post
+    // would get a second `---` spliced in. Only horizontal whitespace may
+    // trail the fence.
+    if (/^---[ \t]*$/.test(raw)) { // model DID close the fence
+      return { text, fixed: false, endReason: '' };
+    }
+    // Multi-line scalar continuations MUST be tested BEFORE the key test: an
+    // indented `  spanning lines` is not a key, but if the key branch ran first
+    // it would end the block and truncate the folded value (bug fixed
+    // 2026-10-06 — `excerpt: >-` posts were being salvaged with a one-line
+    // excerpt, silently degrading every SEO meta description).
+    if (pendingScalar && /^\s+\S/.test(raw)) { end = i + 1; continue; }
+    if (/^[A-Za-z_][A-Za-z0-9_-]*:/.test(raw)) {
+      sawKey = true;
+      // `key: >` / `key: |` opens a multi-line scalar; its indented
+      // continuations are not new keys. The chomping indicator is optional and
+      // COMMON: `excerpt: >-` is how these posts are written. Without `[+-]?`
+      // the test failed on `>-`, `pendingScalar` stayed false, and the block
+      // ended at the first indented line -- truncating every folded excerpt to
+      // one line (bug fixed 2026-10-06).
+      pendingScalar = /:[ \t]*[>|][+-]?[ \t]*$/.test(raw);
+      end = i + 1;
+      continue;
+    }
+    if (!sawKey) { end = i; break; } // prose before any key -> not frontmatter
+    end = i;                         // heading/table/div = body starts here
+    break;
+  }
+
+  if (!sawKey) return { text, fixed: false, endReason: '' };
+
+  const keyBlock = lines.slice(0, end);
+  const rest = lines.slice(end);
+  const firstBody = (rest.find(l => l.trim() !== '') || [''])[0];
+  // Preserve the document's own line ending: split('\n') leaves any CR on each
+  // line, so re-join with '\n' and no separate EOL constant -- the CR rides
+  // along with the content. Rebuilding with '\n' alone would corrupt CRLF posts.
+  const rebuilt = m[0] + keyBlock.join('\n') + '\n---' + '\n' + rest.join('\n');
+  return {
+    text: rebuilt,
+    fixed: true,
+    endReason: firstBody.trim().startsWith('#') ? 'the H1' :
+      firstBody.trim().startsWith('|') ? 'the first table' :
+      firstBody.trim().startsWith('<') ? 'the first div' : 'the first body line',
+  };
+}
+
 const NVIDIA_MODELS = [
   process.env.NVIDIA_MODEL,
   'meta/llama-3.2-11b-vision-instruct',
@@ -652,15 +732,44 @@ Do NOT place Key Takeaways or Quick Answer anywhere else in the article.
   // as generated — observed 2026-10-03 on run 37156706739
   // ("5 generated, 0 failed" then "❌ chatgpt-prompting-guide-2026.mdx:
   // missing frontmatter" and exit 1).
-  const fenceAt = cleaned.search(/^---\r?$/m);
+  //
+  // TRAILING-SPACE TOLERANCE (2026-10-06): the live NVIDIA model emits an opening
+  // fence as "--- \n" (one trailing space). `/^---\r?$/m` cannot see that fence,
+  // so a preamble was never stripped AND the gate below rejected the response —
+  // 6/8 topics failed with "no valid YAML frontmatter" on output that had a
+  // complete, valid key block and 5.5KB of body. Fences now allow trailing
+  // horizontal whitespace; still anchored, still a real `---` line.
+  const fenceAt = cleaned.search(/^---[ \t]*\r?$/m);
   if (fenceAt > 0) {
     const preamble = cleaned.slice(0, fenceAt);
     // Only cut when what follows really is a frontmatter block (fence, keys, fence).
-    const after = cleaned.slice(fenceAt).match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n/);
+    const after = cleaned.slice(fenceAt).match(FM_BLOCK);
     if (after && /^[a-zA-Z_-]+:\s/m.test(after[1])) {
       cleaned = cleaned.slice(fenceAt);
       console.log(`   ⚠  stripped ${preamble.split('\n').length} line(s) of prose preamble before the frontmatter`);
     }
+  }
+
+  // REPAIR a missing closing fence, THEN gate.
+  //
+  // The live NVIDIA model sometimes emits an opening fence and then never closes
+  // it (2026-10-06: `--- ` + 11 valid keys, then straight into "# H1", with the
+  // only later `---` lines inside a `| --- | --- |` table). Two traps here:
+  //
+  //   1. Simply relaxing the gate regex to allow a trailing space made this
+  //      WORSE: the non-greedy `([\s\S]+?)` ran to the table separator and
+  //      swallowed the whole 5.5KB body into the YAML block, so a "passing"
+  //      response would have shipped a post that reds the build.
+  //   2. So the key block is delimited by the first line that is NOT `key:`
+  //      (blank line, heading, or prose) -- that is the true end of frontmatter
+  //      whether or not the model closed the fence -- and a closing fence is
+  //      re-inserted there when missing.
+  //
+  // This salvages the post instead of burning a queue topic on a cosmetic defect.
+  const repaired = repairFrontmatter(cleaned);
+  if (repaired.fixed) {
+    console.log(`   ⚠  model omitted the closing "---" fence; re-inserted it before ${repaired.endReason}`);
+    cleaned = repaired.text;
   }
 
   // GATE: a post without frontmatter is a FAILED generation, not a generated one.

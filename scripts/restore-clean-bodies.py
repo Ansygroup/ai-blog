@@ -39,6 +39,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 POSTS = os.path.join(ROOT, "content", "posts")
 BASE = "https://ai-blog-ten-steel.vercel.app"
 HISTORY = 600
+# Blobs read per `git cat-file --batch` process. Keep modest: an oversized batch
+# desyncs the stream (skill 4h). Batched for speed, with a per-blob fallback.
+BATCH = 40
+# How many blobs deep to look for a clean baseline. Corruption accumulates one
+# commit per cron run, so a long-lived bad post can have hundreds of stacked
+# blobs before the clean one; 40 was too shallow.
+SCAN_LIMIT = 400
 
 # One injected fragment: repeated ")" then "](" then a BASE url then ")".
 FRAG = re.compile(r"\)*\]\(" + re.escape(BASE) + r"/posts/[^)\s]*\)+")
@@ -57,6 +64,69 @@ def git(args, stdin=None):
     if p.returncode != 0:
         raise RuntimeError("git %s: %s" % (" ".join(args), (p.stderr or "")[:200]))
     return p.stdout
+
+
+def read_blobs(shas):
+    """sha -> bytes, BYTE-EXACT. One git process per batch.
+
+    THE TEXT-MODE BUG (why this resolved 0/295 on 2026-10-06):
+    `subprocess(text=True)` applies universal-newline translation, so the bytes
+    read never equal the size declared in the cat-file header -- measured 258883
+    declared vs 258884 read on a 253KB post. Every large blob then failed the
+    script's own `len(body) == size` guard, was stored as None, and the file was
+    reported as "no clean baseline" even though clean blobs sat in its chain.
+    Binary reads (`errors="replace"` decode only at the end) and `git show` are
+    both exact. Desync still happens on oversized batches, so any blob whose
+    length does not match falls back to a per-blob `git show`.
+    """
+    blobs, missing = {}, []
+    try:
+        p = subprocess.run(
+            ["git", "cat-file", "--batch"], cwd=ROOT,
+            input=("\n".join(shas) + "\n").encode(), capture_output=True,
+        )
+        raw = p.stdout
+        pos = 0
+        for sha in shas:
+            nl = raw.find(b"\n", pos)
+            if nl < 0:
+                missing.append(sha)
+                continue
+            parts = raw[pos:nl].split(b" ")
+            pos = nl + 1
+            if len(parts) < 3 or parts[1] != b"blob":
+                missing.append(sha)
+                continue
+            try:
+                size = int(parts[2])
+            except ValueError:
+                missing.append(sha)
+                continue
+            body = raw[pos: pos + size]
+            pos = pos + size + 1
+            if len(body) == size:
+                blobs[sha] = body
+            else:
+                missing.append(sha)  # desync -> per-blob fallback
+    except Exception:
+        missing = list(shas)
+    for sha in missing:
+        b = git_show_blob(sha)
+        if b is not None:
+            blobs[sha] = b
+    return blobs
+
+
+def git_show_blob(sha):
+    """Byte-exact single blob via `git show` (bare sha; `show <sha>:<path>` fails
+    on this repo). Returns None if unreadable."""
+    try:
+        p = subprocess.run(["git", "show", sha], cwd=ROOT, capture_output=True)
+        if p.returncode == 0 and p.stdout:
+            return p.stdout
+    except Exception:
+        pass
+    return None
 
 
 def frontmatter_ok(text: str) -> bool:
@@ -118,36 +188,28 @@ def main():
 
     resolved, unresolved = {}, []
     for n in corrupt:
-        shas = chains.get("content/posts/" + n, [])[:40]
+        # Cap the SCAN window, not the answer: a corrupt post accumulates many
+        # stacked-link commits, so the clean baseline can sit deep in the chain
+        # (measured 2026-10-06: ai-automation-with-zapier-2026.mdx had 162
+        # blobs with its first clean one at index 42 -- the old 40-cap called it
+        # "no clean baseline" and silently gave up).
+        shas = chains.get("content/posts/" + n, [])[:SCAN_LIMIT]
         if not shas:
             unresolved.append(n)
             continue
         found = None
-        # Batched blob read (bare shas) - one git process per 40 files.
-        for i in range(0, len(shas), 40):
-            chunk = shas[i:i + 40]
-            try:
-                out = git(["cat-file", "--batch"], stdin="\n".join(chunk) + "\n")
-            except RuntimeError:
-                continue
-            pos = 0
-            blobs = {}
-            for sha in chunk:
-                nl = out.find("\n", pos)
-                if nl < 0:
-                    break
-                parts = out[pos:nl].split(" ")
-                if len(parts) < 3 or parts[1] != "blob":
-                    pos = nl + 1
-                    continue
-                size = int(parts[2])
-                body = out[nl + 1:nl + 1 + size]
-                blobs[sha] = body if len(body) == size else None
-                pos = nl + 1 + size + 1
+        # Batched blob read (bare shas) - one git process per 40 files, with a
+        # per-blob `git show` fallback for any desynced entry.
+        for i in range(0, len(shas), BATCH):
+            chunk = shas[i:i + BATCH]
+            blobs = read_blobs(chunk)
             for sha in chunk:                       # newest clean wins
                 b = blobs.get(sha)
-                if b and b.strip() and not RUN.search(b):
-                    found = b
+                if not b:
+                    continue
+                txt = b.decode("utf-8", "replace")
+                if txt.strip() and not RUN.search(txt):
+                    found = txt
                     break
             if found:
                 break
