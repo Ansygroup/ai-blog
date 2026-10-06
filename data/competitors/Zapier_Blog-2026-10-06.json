@@ -1,0 +1,47 @@
+{
+  "name": "Zapier Blog",
+  "scrapedAt": "2026-10-06T03:08:11.046Z",
+  "count": 8,
+  "topics": [
+    {
+      "url": "https://zapier.com/blog/categories/productivity/",
+      "title": "productivity",
+      "topic": "Productivity: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-video-editing-software/",
+      "title": "best video editing software",
+      "topic": "Best Video Editing Software: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-business/",
+      "title": "ai business",
+      "topic": "Ai Business: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-marketing/",
+      "title": "ai marketing",
+      "topic": "Ai Marketing: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-sales-assistant/",
+      "title": "ai sales assistant",
+      "topic": "Ai Sales Assistant: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/ai-agents-for-marketing/",
+      "title": "ai agents for marketing",
+      "topic": "Ai Agents For Marketing: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/best-ai-marketing-tools/",
+      "title": "best ai marketing tools",
+      "topic": "Best Ai Marketing Tools: A 2026 Guide"
+    },
+    {
+      "url": "https://zapier.com/blog/meta-ai-muse-spark/",
+      "title": "meta ai muse spark",
+      "topic": "Meta Ai Muse Spark: A 2026 Guide"
+    }
+  ]
+}
