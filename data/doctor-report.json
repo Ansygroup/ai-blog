@@ -1,19 +1,27 @@
 {
-  "ranAt": "2026-10-05T02:33:05.686Z",
-  "apply": true,
+  "ranAt": "2026-10-06T01:03:38.107Z",
+  "apply": false,
   "fixed": {
     "corrupt": 0,
-    "links": 0,
-    "claims": 0,
+    "links": 3,
+    "claims": 3,
     "crlf": 0,
-    "content": 0,
+    "content": 1,
     "covers": 0,
     "dates": 0,
     "excerpts": 0,
     "long": 0,
     "old": 0
   },
-  "details": [],
+  "details": [
+    "links: ai-ad-copy-tutorial-2026.mdx",
+    "claims: best-ai-coding-assistants-2026.mdx",
+    "claims: best-ai-productivity-tools.mdx",
+    "claims: best-ai-video-generators.mdx",
+    "content: copy-ai-vs-jasper-2026.mdx",
+    "links: gemini-mobile-app-review.mdx",
+    "links: jasper-vs-perplexity.mdx"
+  ],
   "corruptRemaining": 0,
   "adsense": {
     "placeholderClient": "ca-pub-3423159322001021",
