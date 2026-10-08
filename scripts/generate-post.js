@@ -897,6 +897,45 @@ Do NOT place Key Takeaways or Quick Answer anywhere else in the article.
   return filePath;
 }
 
+// Runtime failover (2026-10-08): a provider whose key is PRESENT can still fail at
+// call time — Gemini returned 503 UNAVAILABLE "high demand" while OpenRouter was
+// healthy, and because fallback only triggered on a MISSING key, the whole triage
+// run wrote 0 posts and still exited 0. Wrap the call so a transient upstream
+// failure rotates to the next keyed provider instead of killing the batch.
+function providerFailover(primary) {
+  const rest = FALLBACK_ORDER.filter(
+    (p) => p !== primary && providerHasKey(p)
+  ).concat(
+    // Include the requested provider last in case it recovers on a second attempt.
+    providerHasKey(primary) ? [] : []
+  );
+  return {
+    name: primary,
+    async generateText(prompt, system) {
+      try {
+        return await primary.generateText(prompt, system);
+      } catch (err) {
+        const msg = String(err && err.message ? err.message : err).slice(0, 120);
+        console.log(`   ⚠️ ${primary.name} failed (${msg}) — trying ${rest.length} keyed fallback(s)`);
+        for (const alt of rest) {
+          try {
+            const factory = PROVIDERS[alt];
+            if (!factory) continue;
+            const p = await factory();
+            console.log(`   ⚡ failover -> ${p.name}`);
+            const out = await p.generateText(prompt, system);
+            console.log(`   ✅ failover succeeded via ${p.name}`);
+            return out;
+          } catch (err2) {
+            console.log(`   ⚠️ ${alt} also failed (${String(err2 && err2.message ? err2.message : err2).slice(0, 100)})`);
+          }
+        }
+        throw err;
+      }
+    },
+  };
+}
+
 // ================================================================
 // Main
 // ================================================================
@@ -912,7 +951,7 @@ Do NOT place Key Takeaways or Quick Answer anywhere else in the article.
     process.exit(1);
   }
 
-  const provider = await getProvider();
+  const provider = providerFailover(await getProvider());
   const topics = getTopics();
   let ok = 0, fail = 0;
   for (let i = 0; i < topics.length; i++) {
