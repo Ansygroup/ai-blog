@@ -33,6 +33,12 @@ const tk='$TOKEN';
 const req=https.get({host:'api.github.com',path:'/repos/$REPO/commits/main',headers:{'Authorization':'Bearer '+tk,'User-Agent':'node','Accept':'application/vnd.github+json'}},r=>{let d='';r.on('data',c=>d+=c);r.on('end',()=>{try{console.log(JSON.parse(d).sha.slice(0,10))}catch(e){console.log('ERR')}})});
 req.on('error',()=>console.log('ERR'));
 " 2>/dev/null)
+# Fall back to the local repo when the GitHub token is missing/unreadable —
+# local main == origin/main is already verified by the same report run.
+if [ "${SHA:-ERR}" = "ERR" ] || [ -z "$SHA" ]; then
+  SHA=$(git rev-parse --short=10 main 2>/dev/null)
+  [ -n "$SHA" ] && SHA="local:${SHA}"
+fi
 echo "[GIT]  main=${SHA:-unknown}"
 
 # 5. GSC snapshot
