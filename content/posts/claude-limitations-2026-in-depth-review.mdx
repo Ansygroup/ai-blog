@@ -125,7 +125,7 @@ The [price](/posts/gemini-api-cost-comparison-2026) gap means mid‑size busines
 
 ### Customer Support Chatbots
 
-Claude’s conversational style shines in **[customer service](/posts/ai-driven-customer-service-chatbots-ecommerce-review)**. However, the 100 k token limit forces us to truncate long chat histories after **≈30 turns**, which can cause context loss. Workarounds include:
+Claude’s [conversational](/posts/shopify-conversational-big-picture-design-control-2026-guide) style shines in **[customer service](/posts/ai-driven-customer-service-chatbots-ecommerce-review)**. However, the 100 k token limit forces us to truncate long chat histories after **≈30 turns**, which can cause context loss. Workarounds include:
 
 1. Summarizing prior turns with a separate “[summarizer](/posts/comparison-of-ai-video-summarization-platforms-2026)” Claude call (adds **≈0.5 s** latency).  
 2. Storing conversation state in an external vector DB (e.g., Pinecone) and [feed](/posts/how-to-use-ai-for-sentiment-analysis-in-customer-feedback-for-ecommerce)ing only relevant snippets.

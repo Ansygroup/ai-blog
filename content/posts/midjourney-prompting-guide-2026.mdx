@@ -109,7 +109,7 @@ In our testing, blended prompts reduced the need for manual post‑[processing](
 
 **Chaos Control** is another lever for creative exploration. While a chaos value of 0 produces deterministic outputs, raising it to 70 can generate wildly different compositions from the same seed—[perfect](/posts/midjourney-setup-guide-2026) for brainstorming sessions. However, we discovered diminishing returns after 80; the images become incoherent, and the “detail score” drops by 12%.  
 
-**Seed Locking with Variation** – By fixing the seed (`--seed 12345`) and adjusting only the weight or chaos, you can produce a controlled series of variations. This technique is invaluable [for product](/posts/how-to-use-ai-for-product-photography-2026) designers who need multiple angles of the same concept.  
+**Seed Locking with Variation** – By [fixing](/posts/fixing-undefined-best-ai-tools-to-debug-code) the seed (`--seed 12345`) and adjusting only the weight or chaos, you can produce a controlled series of variations. This technique is invaluable [for product](/posts/how-to-use-ai-for-product-photography-2026) designers who need multiple angles of the same concept.  
 
 A workflow we recommend for designers:  
 
@@ -183,7 +183,7 @@ A quick “debug” routine we recommend:
 
 **Workflow:**  
 
-1. **Idea Capture** – Brainstormed 5 core themes (e.g., “rain‑slick neon alley”).  
+1. **Idea Capture** – Brainstormed 5 core [theme](/posts/shopify-conversational-big-picture-design-control-2026-guide)s (e.g., “rain‑slick neon alley”).  
 2. **Prompt Drafting** – Used PromptHero to generate 30 candidate prompts, filtered by a success score > 85.  
 3. **Weight Tuning** – Applied `::2` to “neon signage” and `::0.5` to “wet pavement” to prioritize signage clarity.  
 4. **Batch Generation** – Ran each prompt in “Fast” mode with `--chaos 40`, locked seeds for each theme, and exported 4 variations per seed.  
