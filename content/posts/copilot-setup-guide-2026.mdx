@@ -117,16 +117,16 @@ Default settings are often too aggressive, suggesting completions while you are 
 ```json
 {
   "github.copilot.enable": {
-    "*": true,
-    "plaintext": false,
-    "markdown": false,
+    "*": true
+    "plaintext": false
+    "markdown": false
     "scm[input](/posts/cursor-accuracy-test-2026)": true
-  },
-  "github.copilot.editor.enableAutoCompletions": true,
-  "github.copilot.editor.delayMs": 75,
-  "editor.inlineSuggest.enabled": true,
-  "github.copilot.chat.localeOverride": "en",
-  "github.copilot.chat.agent.runTasks": true,
+  }
+  "github.copilot.editor.enableAutoCompletions": true
+  "github.copilot.editor.delayMs": 75
+  "editor.inlineSuggest.enabled": true
+  "github.copilot.chat.localeOverride": "en"
+  "github.copilot.chat.agent.runTasks": true
   "github.copilot.chat.experimental.multiDocumentUnification": true
 }
 ```
@@ -196,8 +196,8 @@ Using `lazy.nvim`, add the following specification to your plugin configuration:
 ```lua
 return {
   {
-    "github/copilot.vim",
-    lazy = false,
+    "github/copilot.vim"
+    lazy = false
     config = function()
       -- Map Copilot tab completion to Ctrl+J to prevent Tab conflicts with nvim-cmp
       vim.g.copilot_no_tab_map = true
@@ -205,12 +205,12 @@ return {
       
       -- Disable Copilot for specific file types
       vim.g.copilot_filetypes = {
-        ["*"] = true,
-        ["gitcommit"] = false,
-        ["yaml"] = false,
+        ["*"] = true
+        ["gitcommit"] = false
+        ["yaml"] = false
       }
-    end,
-  },
+    end
+  }
 }
 ```
 
@@ -225,7 +225,6 @@ One of [the most](/posts/chatgpt-alternatives-2026) consequential advancements i
 ---
 
 **About the author:** AI Pulse Daily is written by practitioners who use these tools daily. We never recommend anything we have not personally tested. [Affiliate disclosure](disclosure).
-
 
 ## Recommended Gear
 

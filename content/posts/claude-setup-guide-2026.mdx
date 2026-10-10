@@ -34,9 +34,7 @@ draft: false
 
 </div>
 
-
 Getting Claude up and running in 2026 is [fast](/posts/copilot-setup-guide-2026)er than you [think](/posts/chatgpt-reddit-reviews)—just follow these steps and you’ll be [generating](/posts/ai-for-seo-optimized-product-description-variations-2026) high‑[quality](/posts/ai-code-review-assistants-2026-deepcode-codeql-copilot-x) text in minutes. This guide walks you through everything from account creation to cost‑control dashboards.
-
 
 <div class="quick-answer">
 
@@ -90,9 +88,9 @@ client = anthropic.Anthropic(
 )
 
 response = client.messages.create(
-    model="claude-3.5-turbo",
-    max_tokens=1024,
-    temperature=0.7,
+    model="claude-3.5-turbo"
+    max_tokens=1024
+    temperature=0.7
     messages=[{"role": "user", "content": "Explain Claude's token pricing in 2026."}]
 )
 

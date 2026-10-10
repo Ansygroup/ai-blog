@@ -72,7 +72,7 @@ w_client = weaviate.Client("http://localhost:8080")
 
 # Create a new index
 w_client.schema.create_class("MyIndex", properties=[
- {"[data](/posts/ai-data-cleaning-tutorial)_type": "text", "name": "text"},
+ {"[data](/posts/ai-data-cleaning-tutorial)_type": "text", "name": "text"}
 ])
 
 # Index some data

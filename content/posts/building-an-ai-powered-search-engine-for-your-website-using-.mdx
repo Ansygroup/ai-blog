@@ -51,8 +51,8 @@ curl -X POST \
  -H 'Content-Type: application/json' \
  -d '[
  {
- "id": 1,
- "title": "Example Document",
+ "id": 1
+ "title": "Example Document"
  "[content](/posts/ai-for-seo-content-clusters-2026)": "This is an example document."
  }
  ]'
@@ -68,7 +68,7 @@ curl -X GET \
  http://localhost:7700/indexes/my_index/search \
  -H 'Content-Type: application/json' \
  -d '{
- "filter": ["category=blog"],
+ "filter": ["category=blog"]
  "query": "example"
  }'
 ```

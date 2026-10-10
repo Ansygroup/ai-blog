@@ -34,9 +34,7 @@ draft: false
 
 </div>
 
-
 Claude has become the go‑to LLM for many [enterprise](/posts/claude-for-teams-2026-review)s in 2026, but only if you know how to speak its [language](/posts/best-claude-alternatives-2026). This guide breaks down the exact prompting patterns that turn Claude from a clever chatbot into a precision‑[engine](/posts/ai-driven-ecommerce-product-recommendation-engine-optimization)ered assistant.
-
 
 <div class="[quick](/posts/claude-setup-guide-2026)-answer">
 
@@ -146,7 +144,7 @@ Claude can ingest JSON blocks directly:
 
 ```json
 {
-  "sales": [12000, 15000, 17000],
+  "sales": [12000, 15000, 17000]
   "quarter": ["Q1","Q2","Q3"]
 }
 ```
@@ -233,9 +231,9 @@ Add a `"role": "system"` field to the first message object in your request paylo
 
 ```python
 client.messages.create(
-    model="claude-2.1",
+    model="claude-2.1"
     messages=[
-        {"role": "system", "content": "You are a senior UX writer."},
+        {"role": "system", "content": "You are a senior UX writer."}
         {"role": "user", "content": "Create a microcopy for a sign‑up button."}
     ]
 )

@@ -23,9 +23,7 @@ draft: false
 
 </div>
 
-
 Encountering an **undefined** state in modern AI applications usually signals a critical breakdown between probabilistic model outputs and deterministic software runtimes. Whether your frontend crashes because an API response payload returned missing keys or an autonomous agent failed during function calling, handling missing data is essential. This guide breaks down why these runtime failures happen and how to eliminate them permanently.
-
 
 <div class="quick-answer">
 
@@ -104,10 +102,10 @@ In TypeScript environments, Zod provides complete runtime type safety:
 import { z } from "zod";
 
 const UserAnalysisSchema = z.object({
-  sentiment: z.enum(["positive", "neutral", "negative"]),
-  confidenceScore: z.number().min(0).max(1),
-  keyTopics: z.array(z.string()).default([]),
-  summary: z.string().nullable().default("No summary generated"),
+  sentiment: z.enum(["positive", "neutral", "negative"])
+  confidenceScore: z.number().min(0).max(1)
+  keyTopics: z.array(z.string()).default([])
+  summary: z.string().nullable().default("No summary generated")
 });
 
 export type UserAnalysis = z.infer<typeof UserAnalysisSchema>;
@@ -121,10 +119,10 @@ export function parseAIResponse(rawJsonString: string): UserAnalysis {
     if (!result.success) {
       console.error("Schema validation failed:", result.error.format());
       return {
-        sentiment: "neutral",
-        confidenceScore: 0.0,
-        keyTopics: [],
-        summary: "Fallback triggered due to schema mismatch",
+        sentiment: "neutral"
+        confidenceScore: 0.0
+        keyTopics: []
+        summary: "Fallback triggered due to schema mismatch"
       };
     }
     
