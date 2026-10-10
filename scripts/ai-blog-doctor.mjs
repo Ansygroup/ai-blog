@@ -131,43 +131,20 @@ const LINK_RE_B = /\[([^\]]*)\]\((\/posts\/[a-z0-9-]+)\]\((\/posts\/[a-z0-9-]+)\
 const CLAIM_RE =
   /(?<!\bper the\b[^.\n]{0,40})\b(?:[Oo]ur|[Ww]e|[Tt]he)\s+(?:(?:\[[^\]]*\]\([^)]*\)|[A-Za-z\s-])*?)(?:\[[^\]]*\]\([^)]*\)|\bteam\b)\s+(?:has\s+)?spent over\s+\d+\s+hours\b[^\n]*?\.(?=\s|$)/g;
 
-// Removing the claim sentence can strand the comma-joined clause that introduced it
-// ("To identify the top-performing tools, <GONE>"). Tidy that up, but ONLY in prose
-// and NEVER inside a fenced code block. Two earlier attempts at a broader rule were
-// reverted after they damaged real content on 2026-10-10:
-//   - a corpus-wide /^([^\n]{0,80}?),\s*$/gm deleted commas from YAML block-scalar
-//     continuation lines (an excerpt lost the comma after "Grammarly");
-//   - even scoped to prose, the same rule stripped trailing commas out of TypeScript
-//     snippets inside posts (a Zustand store object lost both trailing commas).
-// The dangling clause is cosmetic; corrupting a code sample or an excerpt is not.
-// So: strip fenced code blocks from consideration, then clean only what is left.
-function tidyAfterClaimRemoval(raw) {
-  const fence = /(^|\n)(```|~~~)[\s\S]*?\n\2[^\n]*\n?/g;
-  const spans = [];
-  raw.replace(fence, (m, lead, mark) => {
-    spans.push([m.index, m.index + m.length]);
-    return m;
-  });
-  const inFence = (i) => spans.some(([a, b]) => i >= a && i < b);
-  let out = '';
-  let last = 0;
-  // Only touch lines immediately left dangling: a short line ending in a comma
-  // that is followed by a newline.
-  const re = /^([^\n]{0,80}?),\s*$/gm;
-  let m;
-  while ((m = re.exec(raw)) !== null) {
-    if (inFence(m.index)) continue;
-    // also require the preceding character to be prose, not YAML frontmatter
-    const before = raw.slice(0, m.index);
-    if (!/^---$/m.test(before) || before.indexOf('---') === before.lastIndexOf('---')) {
-      // not inside a frontmatter block (two delimiters seen)
-    } else continue;
-    out += raw.slice(last, m.index) + m[1];
-    last = m.index + m[0].length;
-  }
-  out += raw.slice(last);
-  return out;
-}
+// A claim sentence removal can leave a dangling comma clause
+// ("To identify the top-performing tools, <GONE>"). That is cosmetic and is left
+// as-is on purpose. Three cleanup attempts were written and reverted on 2026-10-10
+// because each one damaged real content:
+//   1. /^([^\n]{0,80}?),\s*$/gm over the whole file deleted commas from YAML
+//      block-scalar continuation lines -- an excerpt lost the comma after
+//      "Grammarly", silently changing what the post promises in search results.
+//   2. The same rule scoped to prose stripped trailing commas out of TypeScript
+//      samples inside posts -- a Zustand store object lost both of its trailing
+//      commas, changing the code the post teaches.
+//   3. Fence-skipping plus a frontmatter offset still stripped commas from code.
+// Rule of thumb for this doctor: when a "cleanup" cannot be proven to touch only
+// the text it just removed, leave the cosmetic artifact instead. Schema/claims
+// correctness beats a tidy sentence; never mutate a code block or a YAML scalar.
 
 // ---------- 5. content-issues (title year + trim) ----------
 function fixContentIssues(raw) {
@@ -400,7 +377,7 @@ async function processPost(fn) {
   // 3. fake claims
   if (want('claims')) {
     const before = raw;
-    raw = tidyAfterClaimRemoval(raw.replace(CLAIM_RE, ''));
+    raw = raw.replace(CLAIM_RE, '');
     if (raw !== before) { 
       report.fixed.claims += (before.match(CLAIM_RE) || []).length; 
       addDetail('claims', fn); 
