@@ -104,6 +104,56 @@ function remoteMatchesHead(branch) {
   }
 }
 
+// `git pull --rebase` refuses to run while the worktree is dirty ("cannot pull
+// with rebase: You have unstaged changes"). That is NOT a failure here: a
+// concurrent content pipeline is legitimately mid-write, and the push below
+// still succeeds because it only ships already-committed work. Retrying this
+// specific refusal only burns wall-clock and re-logs the same error, so treat
+// it as a benign skip instead of a retryable fault.
+const BENIGN_PULL_REFUSALS = [
+  /cannot pull with rebase: you have unstaged changes/i,
+  /cannot pull with rebase: you have uncommitted changes/i,
+  /your local changes to the following files would be overwritten by merge/i,
+];
+
+function inRebase() {
+  return existsSync(resolve(root, '.git/rebase-merge')) ||
+         existsSync(resolve(root, '.git/rebase-apply'));
+}
+function pullRebase(branch, label = 'pull') {
+  // NB: sh() inherits stdio, so a git failure's stderr never reaches the error
+  // object - e.message holds only the command line. This variant pipes both
+  // streams so the refusal text below is actually matchable.
+  let out = '';
+  try {
+    out = execSync(`git pull --rebase origin ${branch}`, {
+      cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'],
+      env: process.env, maxBuffer: 64 * 1024 * 1024,
+    }) || '';
+    return true;
+  } catch (e) {
+    out = `${e.stdout || ''}${e.stderr || ''}`;
+    // A rebase CONFLICT is fatal in a different way than a dirty worktree:
+    // git leaves .git/rebase-merge/ behind, and every later 'git pull --rebase'
+    // then dies with 'Pulling is not possible because you have unmerged files'
+    // forever. One bad push would wedge the repo for all future cron runs, so
+    // abort the rebase to restore a clean, usable state (our commits stay safe
+    // on the local branch).
+    if (/unmerged files|could not apply/i.test(out) && inRebase()) {
+      log('CONFLICT: rebase halted mid-merge - aborting to keep the repo usable');
+      try { capture('git rebase --abort'); }
+      catch (e2) { log(`rebase --abort failed: ${String(e2.message).split(String.fromCharCode(10))[0]}`); }
+      return false;
+    }
+    if (BENIGN_PULL_REFUSALS.some((re) => re.test(out))) {
+      log(`ℹ️ ${label} skipped: worktree is dirty (concurrent writer) - push still applies to committed work`);
+      return false;
+    }
+    log(out.trim().split(/\s{2,}/).slice(-2).join(' | '));
+    return netGit(`git pull --rebase origin ${branch}`, label);
+  }
+}
+
 function netGit(cmd, label) {
   for (let attempt = 1; attempt <= 2; attempt++) {
     try { sh(cmd); return true; }
@@ -170,7 +220,7 @@ try {
   // advanced in the window between pull and push ("fetch first" / non-fast-
   // forward), rebase-pull again and retry, up to 3 times, so a transient
   // divergence never silently drops pending work.
-  netGit(`git pull --rebase origin ${b}`, 'pull');
+  pullRebase(b);
   // A no-op push ("Everything up-to-date") exits 0, so success is decided by
   // comparing origin/<branch> to local HEAD after the fact - not by exit code.
   let verified = false;
@@ -179,7 +229,7 @@ try {
     if (!/Everything up-to-date/i.test(out) && /rejected|non-fast-forward|could not read|failed to push/i.test(out)) {
       log(`\u21bb push (try ${attempt}) rejected - rebasing and retrying...`);
       log(out.split('\n').filter((l) => l.trim()).slice(-3).join(' | '));
-      netGit(`git pull --rebase origin ${b}`, `rebase-pull (try ${attempt})`);
+      pullRebase(b, `rebase-pull (try ${attempt})`);
       continue;
     }
     verified = remoteMatchesHead(b);
