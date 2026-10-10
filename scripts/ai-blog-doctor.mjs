@@ -104,7 +104,40 @@ const LINK_RE = /\[([^\]]*)\]\((\/posts\/[^)\n]*?)\)\]\((\/posts\/[a-z0-9-]+)\)/
 const LINK_RE_B = /\[([^\]]*)\]\((\/posts\/[a-z0-9-]+)\]\((\/posts\/[a-z0-9-]+)\)/g;
 
 // ---------- 3. fake claims ----------
-const CLAIM_RE = /(?:[Oo]ur (?:editorial )?team|[Ww]e) (?:has )?spent over \d+ hours[^\n.]*\./g;
+// The clause to drop is "the <Subject> team spent over N hours ... <end of sentence>".
+// Keep it anchored on the CLAIM, not on the marketing noun, so the sentence can be
+// removed whole even when a link was injected mid-word (e.g. "...12 [lead](/posts/x)ing AI
+// code generators..."). Previous versions alternation was:
+//   (?:[Oo]ur (?:editorial )?team|[Ww]e)
+// which silently MISSED "the AI Pulse Editorial team spent over 120 hours ..." (observed
+// 2026-10-10, 3 live posts) because the phrase after "spent over N hours" contained a
+// mid-word markdown link, so the old [^.\n]* stop-at-period heuristic matched nothing.
+// The phrase to remove is an unattributed first-hand testing claim:
+// "<we/our/the ...> team spent over N hours ...".
+// The subject may itself contain markdown links that a bulk internal-linker
+// injected MID-WORD (e.g. "12 [lead](/posts/x)ing AI code generators"), so the
+// old /^... spent over \d+ hours[^\n.]*\./ pattern silently matched nothing on
+// live posts. Both the subject and the word "team" are therefore link-aware,
+// and the sentence ends at a period followed by whitespace/EOL so that
+// "Node.js/TypeScript" is not mistaken for the end of the sentence.
+//
+// The negative lookbehind is what keeps this honest: a sentence that attributes
+// the hours to something real ("The QA team spent over 200 hours on manual
+// regression in 2024, per the changelog") is a factual statement about work
+// that happened, NOT an unverifiable "we tested this for you" claim. Those are
+// left alone.
+const CLAIM_RE =
+  /(?<!\bper the\b[^.\n]{0,40})\b(?:[Oo]ur|[Ww]e|[Tt]he)\s+(?:(?:\[[^\]]*\]\([^)]*\)|[A-Za-z\s-])*?)(?:\[[^\]]*\]\([^)]*\)|\bteam\b)\s+(?:has\s+)?spent over\s+\d+\s+hours\b[^.\n]*?\.(?=\s|$)/g;
+
+// Removing the sentence can strand the comma-joined clause that introduced it
+// ("To identify the top-performing tools, <GONE>"). Clean the leftovers.
+function tidyAfterClaimRemoval(raw) {
+  let out = raw;
+  out = out.replace(/^([^\n]{0,80}?),\s*$/gm, '$1');
+  out = out.replace(/^[ \t]*$/gm, (m, o) => m); // no-op, keeps shape
+  out = out.replace(/\n{3,}/g, '\n\n');
+  return out;
+}
 
 // ---------- 5. content-issues (title year + trim) ----------
 function fixContentIssues(raw) {
@@ -145,49 +178,92 @@ function fixContentIssues(raw) {
 }
 
 // ---------- 6. covers ----------
-async function fixCovers(raw, fn) {
-  // Extract slug from filename
-  const slug = fn.replace(/\.mdx$/, '');
-  // Extract cover from frontmatter
-  const coverMatch = raw.match(/^cover:\s*"?([^\n]+)"?\s*$/m);
-  if (!coverMatch) return raw;
-  let cover = coverMatch[1].replace(/^\"|\"$/g, '');
-  // If cover is empty or doesn't exist as a file, try to find a suitable image
-  // `cover` is already root-relative to the web root ("/images/foo.jpg"), so it
-  // must resolve under public/. Joining it straight onto ROOT looked in
-  // <ROOT>\imagesoo.jpg, which never exists -> every existing cover tested
-  // as missing and this function repointed valid covers at unrelated images.
-  const coverPath = path.join(ROOT, 'public', cover);
-  if (!cover || !fs.existsSync(coverPath)) {
-    // Find images in public/images whose name shares keywords with slug
-    const imageFiles = fs.readdirSync(PUBLIC_IMAGES).filter(f => 
-      /\.(jpg|jpeg|png|webp|svg)$/i.test(f)
-    );
-    if (imageFiles.length === 0) return raw;
-    // Simple match: count common words
-    const slugWords = slug.toLowerCase().split(/[-_]+/);
-    let bestImage = null;
-    let bestScore = 0;
-    for (const img of imageFiles) {
-      const imgName = path.parse(img).name.toLowerCase();
-      const imgWords = imgName.split(/[-_]+/);
-      let score = 0;
-      for (const w of slugWords) {
-        if (imgWords.includes(w)) score++;
-      }
-      if (score > bestScore) {
-        bestScore = score;
-        bestImage = img;
-      }
+const COVER_EXTS = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
+const LF = String.fromCharCode(10);
+const CR = String.fromCharCode(13);
+
+// Resolve a frontmatter `cover:` value, INCLUDING YAML block scalars:
+//
+//   cover: /images/foo.jpg
+//   cover: >-
+//     /images/foo.jpg
+//
+// The old parser used /^cover:\s*"?([^\n]+)"?\s*$/m, which captures the literal
+// block-scalar marker ">-" as the path. That always tested "missing", so the
+// doctor rewrote posts whose cover was perfectly valid. Worse, the rewrite
+// regex only consumed the "cover: >-" line and left the image path orphaned on
+// the next line, producing "bad indentation of a mapping entry" -- i.e. it
+// CREATED the corrupt frontmatter this doctor exists to repair.
+// Observed 2026-10-10: 43 false positives out of 55 reported hits.
+function coverIndex(lines) {
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].indexOf('cover:') === 0) return i;
+  }
+  return -1;
+}
+
+function readCover(raw) {
+  const lines = raw.split(LF);
+  const i = coverIndex(lines);
+  if (i < 0) return null;
+  const first = lines[i].slice(6).trim().replace(/^["']|["']$/g, '');
+  // A block scalar's real value lives on the following indented line.
+  if (first.charAt(0) === '>' || first.charAt(0) === '|') {
+    for (let j = i + 1; j < lines.length; j++) {
+      const l = lines[j];
+      if (!l.trim()) continue;
+      if (/^\s/.test(l)) return l.trim().replace(/^["']|["']$/g, '');
+      break; // dedent ends the block
     }
-    if (bestImage) {
-      const newCover = `/images/${bestImage}`;
-      // Replace cover line
-      const newRaw = raw.replace(/^cover:\s*"?[^\n]+"?\s*$/m, `cover: "${newCover}"`);
-      return newRaw;
+    return null;
+  }
+  return first;
+}
+
+// Replace a `cover:` entry whether it is inline or a block scalar, consuming
+// the continuation line too so it can never be orphaned into invalid YAML.
+function writeCover(raw, newCover) {
+  const eol = raw.indexOf(LF + CR) >= 0 ? LF + CR : LF;
+  const lines = raw.split(LF);
+  const i = coverIndex(lines);
+  if (i < 0) return raw;
+  const first = lines[i].slice(6).trim();
+  const wasBlock = first.charAt(0) === '>' || first.charAt(0) === '|';
+  lines[i] = 'cover: "' + newCover + '"';
+  if (wasBlock) {
+    for (let j = i + 1; j < lines.length; j++) {
+      const l = lines[j];
+      if (!l.trim()) continue;
+      if (/^\s/.test(l)) lines.splice(j, 1);
+      break;
     }
   }
-  return raw;
+  return lines.join(eol);
+}
+
+async function fixCovers(raw, fn) {
+  const slug = fn.replace(/\.mdx$/, '');
+  // `cover` is already root-relative to the web root ("/images/foo.jpg"), so it
+  // must resolve under public/. Joining it straight onto ROOT looked in
+  // <ROOT>/images/foo.jpg, which never exists -> every cover tested as missing.
+  const cover = readCover(raw);
+  if (!cover) return raw;
+  if (fs.existsSync(path.join(ROOT, 'public', cover))) return raw; // valid: never touch
+
+  // The cover file is genuinely absent. DO NOT repoint it at the
+  // highest-word-overlap image in public/images: that is a DIFFERENT subject's
+  // picture (a zapier post was being given a ChatGPT-setup cover, a
+  // midjourney-cost post an n8n cover). These posts are legitimately waiting on
+  // the SD-Turbo covergen queue (scripts/ai-blog-covergen.cron.mjs), which
+  // renders the post's OWN cover from its title. Only wire up an image we can
+  // prove belongs to this post: an exact slug match.
+  for (const ext of COVER_EXTS) {
+    const exact = slug + '.' + ext;
+    if (fs.existsSync(path.join(PUBLIC_IMAGES, exact))) {
+      return writeCover(raw, '/images/' + exact);
+    }
+  }
+  return raw; // not a defect -- leave it for covergen, do not mutate
 }
 
 // ---------- 7. dates ----------
@@ -294,7 +370,7 @@ async function processPost(fn) {
   // 3. fake claims
   if (want('claims')) {
     const before = raw;
-    raw = raw.replace(CLAIM_RE, '');
+    raw = tidyAfterClaimRemoval(raw.replace(CLAIM_RE, ''));
     if (raw !== before) { 
       report.fixed.claims += (before.match(CLAIM_RE) || []).length; 
       addDetail('claims', fn); 
