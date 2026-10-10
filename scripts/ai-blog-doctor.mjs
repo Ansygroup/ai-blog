@@ -114,28 +114,58 @@ const LINK_RE_B = /\[([^\]]*)\]\((\/posts\/[a-z0-9-]+)\]\((\/posts\/[a-z0-9-]+)\
 // mid-word markdown link, so the old [^.\n]* stop-at-period heuristic matched nothing.
 // The phrase to remove is an unattributed first-hand testing claim:
 // "<we/our/the ...> team spent over N hours ...".
-// The subject may itself contain markdown links that a bulk internal-linker
-// injected MID-WORD (e.g. "12 [lead](/posts/x)ing AI code generators"), so the
-// old /^... spent over \d+ hours[^\n.]*\./ pattern silently matched nothing on
-// live posts. Both the subject and the word "team" are therefore link-aware,
-// and the sentence ends at a period followed by whitespace/EOL so that
-// "Node.js/TypeScript" is not mistaken for the end of the sentence.
 //
-// The negative lookbehind is what keeps this honest: a sentence that attributes
-// the hours to something real ("The QA team spent over 200 hours on manual
-// regression in 2024, per the changelog") is a factual statement about work
-// that happened, NOT an unverifiable "we tested this for you" claim. Those are
-// left alone.
+// Two things make this hard to match on real posts, both confirmed 2026-10-10:
+//
+// 1. A bulk internal-linker injects links MID-WORD ("...12 [lead](/posts/x)ing AI code
+//    generators"), so the subject and even the word "team" may be wrapped in markdown links.
+//    A plain /(?:our|we) team/ alternation matched none of the 3 live offenders.
+// 2. The sentence usually ends in a product list containing version/file dots
+//    ("...Rust, and React/Next.js."), so "[^\n.]*" cannot reach the true sentence end -- the
+//    first "." it meets is inside "Node.js". Anchor on the LAST period before whitespace/EOL
+//    instead of the first.
+//
+// The negative lookbehind keeps attributed factual statements ("The QA team spent over 200 hours
+// on manual regression in 2024, per the changelog") from being stripped: those describe work that
+// actually happened, they are not unverifiable "we tested this for you" claims.
 const CLAIM_RE =
-  /(?<!\bper the\b[^.\n]{0,40})\b(?:[Oo]ur|[Ww]e|[Tt]he)\s+(?:(?:\[[^\]]*\]\([^)]*\)|[A-Za-z\s-])*?)(?:\[[^\]]*\]\([^)]*\)|\bteam\b)\s+(?:has\s+)?spent over\s+\d+\s+hours\b[^.\n]*?\.(?=\s|$)/g;
+  /(?<!\bper the\b[^.\n]{0,40})\b(?:[Oo]ur|[Ww]e|[Tt]he)\s+(?:(?:\[[^\]]*\]\([^)]*\)|[A-Za-z\s-])*?)(?:\[[^\]]*\]\([^)]*\)|\bteam\b)\s+(?:has\s+)?spent over\s+\d+\s+hours\b[^\n]*?\.(?=\s|$)/g;
 
-// Removing the sentence can strand the comma-joined clause that introduced it
-// ("To identify the top-performing tools, <GONE>"). Clean the leftovers.
+// Removing the claim sentence can strand the comma-joined clause that introduced it
+// ("To identify the top-performing tools, <GONE>"). Tidy that up, but ONLY in prose
+// and NEVER inside a fenced code block. Two earlier attempts at a broader rule were
+// reverted after they damaged real content on 2026-10-10:
+//   - a corpus-wide /^([^\n]{0,80}?),\s*$/gm deleted commas from YAML block-scalar
+//     continuation lines (an excerpt lost the comma after "Grammarly");
+//   - even scoped to prose, the same rule stripped trailing commas out of TypeScript
+//     snippets inside posts (a Zustand store object lost both trailing commas).
+// The dangling clause is cosmetic; corrupting a code sample or an excerpt is not.
+// So: strip fenced code blocks from consideration, then clean only what is left.
 function tidyAfterClaimRemoval(raw) {
-  let out = raw;
-  out = out.replace(/^([^\n]{0,80}?),\s*$/gm, '$1');
-  out = out.replace(/^[ \t]*$/gm, (m, o) => m); // no-op, keeps shape
-  out = out.replace(/\n{3,}/g, '\n\n');
+  const fence = /(^|\n)(```|~~~)[\s\S]*?\n\2[^\n]*\n?/g;
+  const spans = [];
+  raw.replace(fence, (m, lead, mark) => {
+    spans.push([m.index, m.index + m.length]);
+    return m;
+  });
+  const inFence = (i) => spans.some(([a, b]) => i >= a && i < b);
+  let out = '';
+  let last = 0;
+  // Only touch lines immediately left dangling: a short line ending in a comma
+  // that is followed by a newline.
+  const re = /^([^\n]{0,80}?),\s*$/gm;
+  let m;
+  while ((m = re.exec(raw)) !== null) {
+    if (inFence(m.index)) continue;
+    // also require the preceding character to be prose, not YAML frontmatter
+    const before = raw.slice(0, m.index);
+    if (!/^---$/m.test(before) || before.indexOf('---') === before.lastIndexOf('---')) {
+      // not inside a frontmatter block (two delimiters seen)
+    } else continue;
+    out += raw.slice(last, m.index) + m[1];
+    last = m.index + m[0].length;
+  }
+  out += raw.slice(last);
   return out;
 }
 

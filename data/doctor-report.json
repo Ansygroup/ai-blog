@@ -1,6 +1,6 @@
 {
-  "ranAt": "2026-10-10T01:20:31.611Z",
-  "apply": false,
+  "ranAt": "2026-10-10T01:30:32.875Z",
+  "apply": true,
   "fixed": {
     "corrupt": 0,
     "links": 0,
@@ -13,10 +13,7 @@
     "long": 0,
     "old": 0
   },
-  "details": [
-    "claims: best-ai-writing-tools-2024.mdx",
-    "claims: fixing-undefined-best-ai-tools-to-debug-code.mdx"
-  ],
+  "details": [],
   "corruptRemaining": 0,
   "adsense": {
     "placeholderClient": "ca-pub-3423159322001021",
