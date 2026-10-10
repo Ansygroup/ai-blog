@@ -85,7 +85,7 @@ A data‑science team [need](/posts/copilot-limitations-2026-what-developers-nee
 
 1. **Data ingestion** – Prompt: “Read CSV, infer dtypes, and drop columns with > 30 % missing [value](/posts/chatgpt-pricing-breakdown-2026)s.” Cursor produced a `pandas.read_csv` block with `df.dropna` logic in **45 seconds** (vs 2 min manually).  
 2. **Feature [engineering](/posts/ai-code-review-assistants-2026-deepcode-codeql-copilot-x)** – Generated one‑hot encoding and interaction terms automatically, reducing code from 120 lines to 32.  
-3. **Model training** – Cursor suggested a LightGBM hyperparameter grid, then ran `cursor tune` which performed 30 trials in **3 min** (vs 12 min using manual `GridSearchCV`).  
+3. **Model [training](/posts/2026-tutorial-ai-generated-data-for-privacy-safe-ml)** – Cursor suggested a LightGBM hyperparameter grid, then ran `cursor tune` which performed 30 trials in **3 min** (vs 12 min using manual `GridSearchCV`).  
 4. **Report generation** – One‑click `cursor report` produced a markdown [summary](/posts/comparison-of-ai-video-summarization-platforms-2026) with [visua](/posts/best-ai-data-analysis-visualization-tools-small-business)lizations, cutting report writing time from 1 hour to 12 minutes.
 
 Overall notebook execution time dropped from **2 hours 30 minutes** to **1 hour 32 minutes**, a **38 % improvement**. Error logs showed a 62 % reduction in `KeyError` and `TypeError` exceptions thanks to Cursor’s inline type‑checking suggestions.

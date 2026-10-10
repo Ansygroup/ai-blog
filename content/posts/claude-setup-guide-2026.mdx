@@ -141,7 +141,7 @@ Prompt [engineering](/posts/ai-code-review-assistants-2026-deepcode-codeql-copil
 | Goal | Prompt Template | Reason |
 |------|----------------|--------|
 | **Summarization** | `You are a concise analyst. Summarize the following text in 3 bullet points, each ≤ 20 words:` | Forces brevity and structure. |
-| **Code Generation** | `You are a senior Python developer. Write a function that {task}. Include type hints and docstring.` | Sets role, [improve](/posts/ai-powered-podcast-seo-optimization-boost-discoverability-2026)s correctness. |
+| **Code Generation** | `You are a senior Python developer. Write a function that {task}. Include type hints and [docs](/posts/top-ai-code-documentation-generators-review-ranking-2026)tring.` | Sets role, [improve](/posts/ai-powered-podcast-seo-optimization-boost-discoverability-2026)s correctness. |
 | **Cus[tome](/posts/gamma-vs-tome-vs-beautiful-ai-2026)r Support** | `You are a friendly support [agent](/posts/copilot-setup-guide-2026). Answer the user query below, staying under 150 words and never reveal internal policies.` | Controls tone and length. |
 
 Testing revealed that using explicit **role descriptors** (e.g., “You are a senior Python developer”) improves output relevance by **22 %** (measured via BLEU score against a human‑written reference).
@@ -216,7 +216,7 @@ Turbo is optimized for cost‑efficiency (input $0.75 / M, output $2.40 /�
 As of October 2026, Anthropic only offers **Claude Edge** in a limited beta for select partners. The public offering remains cloud‑only, so most teams will [need](/posts/copilot-limitations-2026-what-developers-need-to-know) to use the hosted API.
 
 ### How [does](/posts/brain-fm-review-2026) Claude handle data privacy?
-Anthropic retains API request data for up to 30 days for [debugging](/posts/fixing-undefined-best-ai-tools-to-debug-code), unless you opt into “no‑log” mode ([available](/posts/qa-what-is-the-best-ai-image-generator-available-today) on Enterprise). All data is encrypted at rest (AES‑256) and in transit (TLS 1.3).
+Anthropic retains API request [data for](/posts/2026-tutorial-ai-generated-data-for-privacy-safe-ml) up to 30 days for [debugging](/posts/fixing-undefined-best-ai-tools-to-debug-code), unless you opt into “no‑log” mode ([available](/posts/qa-what-is-the-best-ai-image-generator-available-today) on Enterprise). All data is encrypted at rest (AES‑256) and in transit (TLS 1.3).
 
 ### Is [there](/posts/qa-is-there-an-ai-tool-that-produces-high-quality-ui-from-a-prompt) a [free tier](/posts/chatgpt-free-tier-limits-2026) for testing Claude?
 Yes. The **Free** tier provides 5 M input and 5 M output tokens each month, sufficient for [small](/posts/qa-what-ai-tool-removes-repetitive-work-for-a-small-team) prototypes or [learning](/posts/ai-for-e-learning-comparison-of-adaptive-learning-platforms) exercises. No credit card is required.
