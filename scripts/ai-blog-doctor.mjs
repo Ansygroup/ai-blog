@@ -187,7 +187,7 @@ function fixContentIssues(raw) {
   //   'Fixing \ (2026 Guide)"undefined": Best AI Tools to Debug Code in 2026'
   //   -> 'Fixing \ (2026 Guide)"undefined""undefined": Best AI Tools to"undefined""...'
   // Use the full-line anchored form so exactly one complete line is rewritten.
-  const newRaw = raw.replace(/^title: ".*?"/m, `title: "${newTitle}"`);
+  const newRaw = raw.replace(/^title:\s*".*"\s*$/m, `title: "${newTitle}"`);
   return newRaw;
 }
 
@@ -324,7 +324,7 @@ function fixLongTitles(raw) {
   // Replace the title line. See fixContentIssues(): the writer must mirror the
   // capture regex (/^title:\s*"(.+)"\s*$/m). The old /^title: ".*?"/m writer was
   // non-greedy and corrupted titles containing escaped quotes.
-  const newRaw = raw.replace(/^title: ".*?"/m, `title: "${newTitle}"`);
+  const newRaw = raw.replace(/^title:\s*".*"\s*$/m, `title: "${newTitle}"`);
   return newRaw;
 }
 
