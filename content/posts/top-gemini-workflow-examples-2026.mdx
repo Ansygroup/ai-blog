@@ -59,7 +59,7 @@ The most popular Gemini workflow in 2026 is the **Idea‑to‑Publish** pipeline
 3. **Draft Writing** – A second prompt expands each outline point into a 150‑word paragraph, with tone set to “friendly yet authoritative.”  
 4. **Image Sourcing** – Gemini’s Vision model scans a stock‑photo library, selects three relevant images, and generates ALT text.  
 5. **SEO Optimization** – The workflow adds meta‑tags, [keyword](/posts/ai-powered-podcast-seo-optimization-boost-discoverability-2026) density checks, and internal link suggestions.  
-6. **Publishing Automation** – Via Zapier, the final markdown is pushed to **WordPress** and a **Notion** editorial board for final sign‑off.
+6. **Publishing Automation** – Via Zapier, the final markdown is [push](/posts/best-ai-powered-push-notification-ab-testing-platforms-2026)ed to **WordPress** and a **Notion** editorial board for final sign‑off.
 
 **Performance data:** The end‑to‑end latency averaged **7.4 seconds**, compared to **12.1 seconds** for an equivalent GPT‑4‑Turbo pipeline that required two separate API calls for research and [drafting](/posts/top-ai-legal-contract-drafting-tools-best-of-2026). Token consumption was **0.84 M tokens** per 1,000‑word article, translating to **$0.42** on Gemini’s Enterprise [plan](/posts/claude-pro-vs-claude-team) versus **$0.58** on GPT‑4‑Turbo.
 
@@ -100,7 +100,7 @@ Most Gemini workflows rely on **Zapier** as the glue layer, but [power user](/po
 | 1 | New “Idea” [page](/posts/best-ai-driven-landing-page-ab-testing-tools-2026) created | `/v1/prompt` | “New Database Item” | Draft outline stored in a child page |
 | 2 | Fetch latest stats | `/v1/browser` | “Update” on outline page | Inline citations inserted |
 | 3 | Generate full article | `/v1/completion` | “New Comment” on outline | Completed markdown block |
-| 4 | Create image assets | `/v1/vision` | “New File” upload | Image block with ALT text |
+| 4 | Create image [asset](/posts/ai-generated-3d-asset-tools-2026)s | `/v1/vision` | “New File” upload | Image block with ALT text |
 | 5 | Publish to WordPress | N/A (Zapier action) | “Page Created” | External URL logged in Notion |
 
 **Key metrics:** The Notion‑Zapier bridge adds an average **0.9 seconds** per step, which is negligible compared to the **7‑second** total processing time. The workflow [scal](/posts/jasper-for-youtube)es to **150 concurrent drafts** without hitting Gemini’s rate [limits](/posts/chatgpt-api-cost-comparison-2026) when the Enterprise tier’s **1.2 M tokens/day** ceiling is respected.
