@@ -9,11 +9,23 @@
  *
  * Intended to be fired by a cron job. Output is the doctor report (for delivery).
  */
-import { execSync } from 'node:child_process';
+import { execSync, execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 
 const ROOT = process.cwd();
 const run = (cmd) => execSync(cmd, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+
+// execSync goes through the OS shell. On Windows that is cmd.exe, which does NOT
+// honour the POSIX backslash-quote escape: `-c user.email=\"x\"` arrives at git
+// with the backslashes still attached, git parses it as an empty value, and the
+// commit aborts -- so the autodoctor never committed anything. execFileSync
+// passes argv straight to git with no shell, which is correct on every host.
+const runGit = (args) =>
+  execFileSync('git', ['-c', 'user.email=ansy0@autopilot.local', '-c', 'user.name=Ansy Autopilot', ...args], {
+    cwd: ROOT,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
 
 function main() {
   // 1) check
@@ -47,8 +59,8 @@ function main() {
   try {
     run('git add -A');
     const note = apply.adsenseWarning ? ' | WARNING: AdSense placeholder client still set' : '';
-    run('git -c user.email="ansy0@autopilot.local" -c user.name="Ansy Autopilot" commit -q -m "chore: ai-blog-doctor auto-fix (' +
-      `corrupt:${apply.fixed.corrupt} links:${apply.fixed.links} claims:${apply.fixed.claims} crlf:${apply.fixed.crlf})` + note + '"');
+    runGit(['commit', '-q', '-m', 'chore: ai-blog-doctor auto-fix (' +
+      `corrupt:${apply.fixed.corrupt} links:${apply.fixed.links} claims:${apply.fixed.claims} crlf:${apply.fixed.crlf})` + note]);
     run('git push origin main');
   } catch (e) {
     return { ok: false, stage: 'push', error: String(e), report: apply };

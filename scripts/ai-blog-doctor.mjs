@@ -179,6 +179,9 @@ function fixContentIssues(raw) {
     newTitle = trimmed;
   }
   if (newTitle === title) return raw;
+  // Trimming at a breakpoint can leave a double space before the year suffix.
+  newTitle = newTitle.replace(/\s{2,}/g, ' ').trim();
+  if (newTitle === title) return raw;
   // Replace the title line. The replacement MUST mirror the capture regex
   // `^title:\s*"(.+)"\s*$`. The old writer used /^title: ".*?"/m, which is
   // NON-GREEDY: it stops at the first literal `"` in the line, so any title
