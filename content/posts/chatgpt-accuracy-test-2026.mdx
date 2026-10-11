@@ -132,13 +132,13 @@ Math & Logic Accuracy by Problem Tier
 └──────────────────────┴───────────┴───────────┴──────────────┘
 ```
 
-Standard GPT-4o models predict tokens sequentially based on probability distributions, which often ca[uses](/posts/copilot-workflow-examples-2026) subtle calculation errors in multi-step mathematics. For instance, when tasked with evaluating complex conditional probabilities (e.g., three-door Monty Hall variants involving asymmetrical prize distributions), GPT-4o occasionally slipped into canned explanations that fit the traditional puzzle rather than recalculating the modified mechanics.
+Standard GPT-4o models predict tokens sequentially based on probability [distribution](/posts/best-ai-tools-webinar-summaries-distribution-2026)s, which often ca[uses](/posts/copilot-workflow-examples-2026) subtle calculation errors in multi-step mathematics. For instance, when tasked with evaluating complex conditional probabilities (e.g., three-door Monty Hall variants involving asymmetrical prize distributions), GPT-4o occasionally slipped into canned explanations that fit the traditional puzzle rather than recalculating the modified mechanics.
 
 Conversely, switching ChatGPT to o3-mini completely altered the outcome. By dedicating test-time compute to "[think](/posts/chatgpt-reddit-reviews)" before [generating](/posts/ai-for-seo-optimized-product-description-variations-2026) a response, o3-mini explicitly traces edge cases, writes internal scratchpads, and verifies inter[media](/posts/ai-automated-social-media-content-calendar-non-profit)te steps. On our 150-problem math suite, o3-mini solved 141 problems with mathematical rigor, achieving a class-leading 94.0% accuracy score.
 
 In one notable test, we asked the models to solve an intricate spatial-reasoning geometry problem involving intersecting non-standard prisms:
 - **GPT-4o**: Hallucinated a non-existent [right](/posts/qa-what-is-actually-the-best-ai-writing-tool-right-now) triangle halfway through step four, producing an incorrect volume metric.
-- **Gemini 2.0 Pro**: Correctly structured the algebraic formula, but committed an arithmetic error in the final simplification.
+- **Gemini 2.0 Pro**: Correctly [structured](/posts/ai-for-generating-schema-markup-for-seo-2026-tutorial) the algebraic formula, but committed an arithmetic error in the final simplification.
 - **ChatGPT (o3-mini)**: Successfully derived the cross-sectional area, systematically evaluated the double [integra](/posts/writesonic-api-guide)l, and yielded the exact fractional [value](/posts/chatgpt-pricing-breakdown-2026) on its initial attempt.
 
 ## Web Search Grounding and Real-Time Information

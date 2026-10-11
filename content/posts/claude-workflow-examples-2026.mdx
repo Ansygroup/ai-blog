@@ -79,14 +79,14 @@ The entire pipeline took 28 seconds for 12 ideas, consuming 1,200 tokens (�
 
 ## Integrating Claude with Zapier for Real‑Time Data Enrichment
 
-Data enrichment—adding missing fields like company size or industry—often requires manual lookup. By combining Zapier’s “Find Company” action with Claude’s reasoning, we built a fully automated enrichment loop.
+Data enrichment—adding missing fields like company size or industry—often requires manual lookup. By combining Zapier’s “Find Company” [action](/posts/ai-meeting-minutes-action-item-extraction-review-2026) with Claude’s reasoning, we built a fully automated enrichment loop.
 
 - **Trigger** – New row in a Google Sheet.
 - **Zapier Action** – Pull domain name, call Clearbit API for raw data.
 - **Claude Prompt** – “Given the raw JSON, produce a concise summary: company name, size, industry, and a 2‑sentence market positioning.”
 - **Result** – The summary populates adjacent columns in the sheet.
 
-The workflow handled 5,000 rows in 22 minutes (≈ 3.8 seconds per row). Token cost was $0.004 per row. Compared to a manual process that averages 30 seconds per row, the time savings are roughly 85 %. Accuracy of Claude’s summarization was 93 % when cross‑checked with the original Clearbit fields.
+The workflow handled 5,000 rows in 22 [minutes](/posts/ai-meeting-minutes-action-item-extraction-review-2026) (≈ 3.8 seconds per row). Token cost was $0.004 per row. Compared to a manual process that averages 30 seconds per row, the time savings are roughly 85 %. Accuracy of Claude’s summarization was 93 % when cross‑checked with the original Clearbit fields.
 
 ## Using Claude for Code Review and Documentation Generation
 
@@ -115,7 +115,7 @@ The three‑step chain completed in 13.4 seconds, with a total cost of $0.005 
 | Max Context | 100 k tokens | 32 k tokens | 50 k tokens |
 | Token Throughput | 1,200 tps | 850 tps | 950 tps |
 | Tool‑Calling | Native (REST, GraphQL) | Limited (function calling) | Beta (only Google tools) |
-| Accuracy (structured [extraction](/posts/ai-powered-podcast-seo-optimization-boost-discoverability-2026)) | 94 % | 87 % | 89 % |
+| Accuracy ([structured](/posts/ai-for-generating-schema-markup-for-seo-2026-tutorial) [extraction](/posts/ai-powered-podcast-seo-optimization-boost-discoverability-2026)) | 94 % | 87 % | 89 % |
 | Pricing (base tier) | $20/mo (1 M tokens) | $15/mo (500 k tokens) | $18/mo (750 k tokens) |
 | Enterprise SLA | 99.9 % uptime, 24/7 support | 99.5 % uptime, business hours | 99.7 % uptime, [premium](/posts/gemini-advanced-vs-google-one-ai-premium) support |
 
