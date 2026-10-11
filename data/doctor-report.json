@@ -1,19 +1,26 @@
 {
-  "ranAt": "2026-10-10T02:04:45.800Z",
-  "apply": true,
+  "ranAt": "2026-10-11T01:13:41.472Z",
+  "apply": false,
   "fixed": {
     "corrupt": 0,
     "links": 0,
     "claims": 0,
     "crlf": 0,
-    "content": 0,
+    "content": 6,
     "covers": 0,
     "dates": 0,
     "excerpts": 0,
     "long": 0,
     "old": 0
   },
-  "details": [],
+  "details": [
+    "content: ai-driven-dynamic-pricing-engines-for-e-commerce-2026-comparison.mdx",
+    "content: ai-driven-seo-serp-feature-prediction-optimization-2026.mdx",
+    "content: ai-for-generating-personalized-product-packaging-designs-2026-guide.mdx",
+    "content: ai-generated-personalized-video-email-signatures-tools-how-to-2026.mdx",
+    "content: copy-ai-vs-jasper-2026.mdx",
+    "content: fixing-undefined-best-ai-tools-to-debug-code.mdx"
+  ],
   "corruptRemaining": 0,
   "adsense": {
     "placeholderClient": "ca-pub-3423159322001021",

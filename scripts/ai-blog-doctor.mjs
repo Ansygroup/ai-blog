@@ -179,7 +179,14 @@ function fixContentIssues(raw) {
     newTitle = trimmed;
   }
   if (newTitle === title) return raw;
-  // Replace title line
+  // Replace the title line. The replacement MUST mirror the capture regex
+  // `^title:\s*"(.+)"\s*$`. The old writer used /^title: ".*?"/m, which is
+  // NON-GREEDY: it stops at the first literal `"` in the line, so any title
+  // containing an escaped quote (\") got the new title injected mid-line and the
+  // original tail re-appended verbatim -- corrupting the title, e.g.
+  //   'Fixing \ (2026 Guide)"undefined": Best AI Tools to Debug Code in 2026'
+  //   -> 'Fixing \ (2026 Guide)"undefined""undefined": Best AI Tools to"undefined""...'
+  // Use the full-line anchored form so exactly one complete line is rewritten.
   const newRaw = raw.replace(/^title: ".*?"/m, `title: "${newTitle}"`);
   return newRaw;
 }
@@ -314,7 +321,9 @@ function fixLongTitles(raw) {
   const lastSpace = newTitle.lastIndexOf(' ');
   if (lastSpace > 60) newTitle = newTitle.substring(0, lastSpace);
   newTitle = newTitle.trim();
-  // Replace title line
+  // Replace the title line. See fixContentIssues(): the writer must mirror the
+  // capture regex (/^title:\s*"(.+)"\s*$/m). The old /^title: ".*?"/m writer was
+  // non-greedy and corrupted titles containing escaped quotes.
   const newRaw = raw.replace(/^title: ".*?"/m, `title: "${newTitle}"`);
   return newRaw;
 }
