@@ -96,7 +96,7 @@ Locating this bug manually requires setting conditional breakpoints across sever
 When upstream backend teams modify API payloads—such as renaming `user_id` to `userId` or changing an array to an object—frontend systems consuming the endpoint fail silently until an accessor returns an invalid empty value. Without automated runtime schema validation tools like Zod or ArkType, this drift inevitably causes production outages.
 
 ```typescript
-// Incoming API payload: { profile: { dis[play](/posts/elevenlabs-vs-play-ht-vs-murf-2026)Name: "Alex" } }
+// Incoming API payload: { [profile](/posts/ai-powered-linkedin-profile-optimization-tutorial-2026): { dis[play](/posts/elevenlabs-vs-play-ht-vs-murf-2026)Name: "Alex" } }
 // Frontend code expecting:
 const username = response.user.profile.name; // Crashes on "response.user"
 ```
