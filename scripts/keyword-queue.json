@@ -1,16 +1,5 @@
 [
   {
-    "topic": "Tutorial: Using AI for Automated Podcast Show Notes Generation 2026",
-    "category": "Tutorial",
-    "keywords": [
-      "AI podcast show notes",
-      "auto transcript summary",
-      "podcast AI editor",
-      "show notes generator AI",
-      "audio summarization AI"
-    ]
-  },
-  {
     "topic": "AI‑Powered Resume Tailoring for ATS Optimization 2026",
     "category": "Tutorial",
     "keywords": [
@@ -431,6 +420,138 @@
       "freelance ai",
       "productivity ai",
       "ai for freelancers"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Code Refactoring Tools for Java and Python",
+    "category": "Comparisons",
+    "keywords": [
+      "AI code refactoring",
+      "Java refactor AI",
+      "Python refactor tool",
+      "automated code improvement",
+      "AI refactoring comparison"
+    ]
+  },
+  {
+    "topic": "Tutorial: Using AI to Create Interactive Quiz Funnels for Lead Generation",
+    "category": "Tutorials",
+    "keywords": [
+      "AI quiz builder",
+      "lead generation quiz AI",
+      "interactive quiz AI",
+      "conversion funnel quiz",
+      "AI generated quizzes"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Generating Microcopy (Button Text, Error Messages) for UX",
+    "category": "Best Of",
+    "keywords": [
+      "AI microcopy generator",
+      "UI copy AI",
+      "button text AI",
+      "UX microcopy tool",
+      "error message AI"
+    ]
+  },
+  {
+    "topic": "Review: Top AI-Powered Brand Voice Consistency Checkers (2026)",
+    "category": "Reviews",
+    "keywords": [
+      "brand voice AI",
+      "tone consistency tool",
+      "AI style guide",
+      "brand voice checker",
+      "content tone AI"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Driven Competitor Ad Copy Analysis Platforms",
+    "category": "Comparisons",
+    "keywords": [
+      "AI ad copy analysis",
+      "competitor ad AI",
+      "ad creative intelligence",
+      "competitive advertising AI",
+      "ad copy competitor tools"
+    ]
+  },
+  {
+    "topic": "Tutorial: Using AI to Generate Structured Data for Product Review Schema (Rich Snippets)",
+    "category": "Tutorials",
+    "keywords": [
+      "AI review schema generator",
+      "product review markup AI",
+      "rich snippet AI",
+      "structured data AI",
+      "review schema automation"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Automated Meeting Agenda Creation from Calendar Invites",
+    "category": "Best Of",
+    "keywords": [
+      "AI meeting agenda",
+      "calendar AI agenda",
+      "automated meeting planning",
+      "agenda generator AI",
+      "meeting prep AI"
+    ]
+  },
+  {
+    "topic": "Review: AI-Powered Video Personalization Platforms for Email Marketing",
+    "category": "Reviews",
+    "keywords": [
+      "AI video personalization",
+      "email video AI",
+      "personalized video email tools",
+      "dynamic video AI",
+      "video email marketing AI"
+    ]
+  },
+  {
+    "topic": "Comparison of AI-Powered Plagiarism Detection Tools for Academic Writing",
+    "category": "Comparisons",
+    "keywords": [
+      "AI plagiarism checker",
+      "academic writing AI detection",
+      "content originality AI",
+      "plagiarism AI tools",
+      "research paper plagiarism AI"
+    ]
+  },
+  {
+    "topic": "Tutorial: Using AI to Generate Dynamic Product Recommendation Emails Based on Purchase History",
+    "category": "Tutorials",
+    "keywords": [
+      "AI product recommendation email",
+      "dynamic email AI",
+      "purchase history AI",
+      "email personalization AI",
+      "recommendation engine email"
+    ]
+  },
+  {
+    "topic": "Best AI Tools for Real-Time Social Proof Generation from Customer Reviews",
+    "category": "Best Of",
+    "keywords": [
+      "AI social proof",
+      "real-time testimonial AI",
+      "review aggregation AI",
+      "social proof generator",
+      "customer review AI"
+    ]
+  },
+  {
+    "topic": "Review: AI-Powered Voiceover Generation for E-Learning Courses",
+    "category": "Reviews",
+    "keywords": [
+      "AI e-learning voiceover",
+      "educational voice AI",
+      "AI narration e-learning",
+      "course voiceover AI",
+      "online course voice generation"
     ]
   }
 ]
