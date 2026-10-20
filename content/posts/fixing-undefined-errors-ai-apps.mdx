@@ -149,7 +149,7 @@ Selecting the [right](/posts/qa-what-is-actually-the-best-ai-writing-tool-right-
 | **TypeChat** | TypeScript | 96.2% | 30–60 ms | Type-driven UI state generation |
 
 ### Instructor vs. LangChain OutputParsers
-In our real-world testing, **Instructor** dramatically outperformed standard **LangChain** Output Parsers. LangChain traditionally relies on injecting few-shot prompts and instructions like *"You must respond with valid JSON matching this schema..."*, which leaves open the possibility of a subtle hallucination yielding missing attributes. 
+In our real-world testing, **Instructor** dramatically outperformed standard **LangChain** Output Parsers. LangChain traditionally relies on injecting few-shot prompts and instructions like *"You must respond with valid JSON [matching](/posts/best-ai-powered-resume-tailoring-ats-optimization-2026) this schema..."*, which leaves open the possibility of a subtle hallucination yielding missing attributes. 
 
 Instructor, by contrast, hooks directly into function calling and structured output APIs. If an extraction misses a key or returns an invalid data type, Instructor intercepts the failure, executes a surgical re-prompt containing only the validation diff, and resolves the issue before your core application logic ever executes.
 
