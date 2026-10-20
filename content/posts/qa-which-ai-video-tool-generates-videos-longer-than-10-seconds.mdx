@@ -13,7 +13,6 @@ description: >-
   practical, task-based recommendations and links to in-depth comparisons.
 draft: false
 ---
-
 ## Which AI [video](/posts/ai-tools-for-generating-tiktok-ad-creatives-2026-guide) tool generates videos longer than 10 seconds?
 
 Kling AI (up to 2 min), [Runway](/posts/runway-gen-4-vs-google-veo-3-vs-kling-ai-2026) (extendable), and Sora 2 handle longer clips; most free tiers cap at 5-10s. Our length-limits guide breaks down each tool. [AI video generators — length limits 2026](/posts/ai-video-generators-compared).
@@ -47,6 +46,32 @@ Rule of thumb: one tool per job. Writing → ChatGPT/Claude, [image](/posts/best
 **About the author:** This article was [research](/posts/how-to-use-ai-for-keyword-research-2026)ed and edited by the AI Pulse editorial [team](/posts/claude-pro-vs-claude-team). We disclose all [affiliate](/posts/ai-for-affiliate-marketing) relationships. [Read our disclosure](disclosure).
 
 ![FAQ](/images/illustrations/qa-which-ai-video-tool-generates-videos-longer-than-10-seconds-illo1.svg)
+
+## Step‑by‑step: Getting a 30‑second video out of Kling AI  
+
+1. **Create a project and pick a “Long‑Form” template** – In the dashboard, select *Create New* → *Video* → *Long‑Form (up to 2 min)*. The template presets the timeline for 30‑second slots, which prevents the default 5‑second cut‑off.  
+2. **Write a concise script** – Aim for 75‑90 words. Kling AI allocates roughly 0.8 seconds per word; exceeding this will trigger an automatic trim.  
+3. **Upload visual assets** – Drag‑and‑drop up to 10 images or short clips (max 5 s each). The platform will stitch them together in the order they appear on the timeline.  
+4. **Set the “Extend” flag** – In the *Advanced* tab, toggle *Enable Length Extension* and type “30s”. This tells the model to stretch the generated narration and transitions to fill the exact duration.  
+5. **Preview and fine‑tune** – Use the built‑in scrubber to check pacing. If the voiceover sounds rushed, add a “pause” token (`[pause:1s]`) in the script; Kling AI respects explicit timing markers.  
+6. **Export in the desired codec** – Choose MP4 H.264 for universal compatibility or WebM VP9 for lower file size. The free tier caps at 10 seconds, so you’ll need a paid plan or a 7‑day trial to download the full 30‑second output.  
+
+**Common pitfalls**  
+- Uploading assets larger than 2 MB each triggers automatic down‑sampling, which can blur text. Resize to ≤1080 p before upload.  
+- Leaving the *Extend* flag off defaults to the platform’s internal 10‑second limit, even if your script is longer.  
+
+---
+
+## Looking ahead: How AI video length limits may evolve after 2026  
+
+The current ceiling—Kling AI’s 2‑minute maximum, Runway’s “extendable” mode, and Sora 2’s flexible clips—stems from two constraints: model context windows and GPU memory budgets. By late‑2026 several providers are already testing 32‑GB VRAM instances that can hold up to 10 minutes of tokenized video‑audio data. When those hardware upgrades become mainstream, we can expect:
+
+- **Dynamic stitching**: Tools will automatically splice together multiple 2‑minute generations into a seamless longer narrative, eliminating the need for manual timeline assembly.  
+- **Fine‑grained control over pacing**: Instead of a single “extend” toggle, users will be able to assign per‑segment duration percentages, letting a 30‑second intro flow into a 2‑minute body without abrupt tempo shifts.  
+- **Licensing‑aware length scaling**: As copyright‑safe‑generation APIs mature, platforms will expose a “max‑allowed length” based on the source material’s license, preventing inadvertent over‑use of protected footage.  
+
+Early adopters should watch for announcements from Runway 3 (beta slated for Q2 2027) and Sora 3, both promising “unlimited clip” modes that rely on distributed inference across cloud GPUs. Keeping an eye on these roadmaps will help you future‑proof your workflow before the next generation of AI video generators removes today’s 10‑second ceiling entirely.
+
 ## FAQ
 
 ### Which AI video tool generates videos longer than 10 seconds?
