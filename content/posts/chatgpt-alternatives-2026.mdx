@@ -54,12 +54,12 @@ Our [edit](/posts/copilot-vs-cursor-vs-windsurf-ai-code-editor-comparison)orial 
 |------|-------|----------|---------------|--------------------------|-----------|
 | 1 | Claude 3 Opus | Anthropic | Highest factual [accuracy](/posts/chatgpt-accuracy-test-2026), strong safety layers | $0.015 | 100 K tokens/mo |
 | 2 | Gemini Pro | Google | Fastest latency, multimodal support | $0.012 | 200 K tokens/mo |
-| 3 | Llama 3‑70B | Meta (open‑source) | No [usage](/posts/copilot-free-tier-limits-2026) fees, customizable | $0 (self‑hosted) | N/A |
+| 3 | Llama 3‑70B | Meta ([open](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026)‑source) | No [usage](/posts/copilot-free-tier-limits-2026) fees, customizable | $0 (self‑hosted) | N/A |
 | 4 | Command R+ | Cohere | Enterprise data‑ownership, code‑centric | $0.018 | 150 K tokens/mo |
 | 5 | Perplexity AI (Answer‑First) | Perplexity | Shortest user‑query turnaround, web‑search integration | $0.014 | 120 K tokens/mo |
 
 ### Claude 3 Opus
-Claude 3 Opus, the flagship model from Anthropic, is a 100‑billion‑parameter transformer fine‑tuned for “truthful‑useful‑harmless” output. In our MMLU test it achieved a 91.4% score, beating ChatGPT‑4 Turbo’s 89.9% by 1.5 points. Its safety system reduces toxic output by 73% compared with the baseline. Pricing is transparent: $0.015 per million [input](/posts/cursor-accuracy-test-2026) tokens and $0.025 per million output tokens, with volume discounts after 10 M tokens.
+Claude 3 Opus, the flagship model from Anthropic, is a 100‑billion‑parameter transformer fine‑tuned for “truthful‑useful‑harmless” output. In our MMLU test it achieved a 91.4% score, beating ChatGPT‑4 Turbo’s 89.9% by 1.5 points. Its safety system reduces toxic output by 73% compared with the base[line](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026). Pricing is transparent: $0.015 per million [input](/posts/cursor-accuracy-test-2026) tokens and $0.025 per million output tokens, with volume discounts after 10 M tokens.
 
 ### Gemini Pro
 Google’s Gemini Pro combines a 120‑billion‑parameter LLM with a [vision](/posts/how-to-use-gpt-4-vision-api-for-image-analysis-and-descripti) encoder. It processes text‑plus‑image [prompt](/posts/chatgpt-prompt-guide)s in under 200 ms, making it ideal for [e‑commerce](/posts/ai-for-seo-optimized-product-description-variations-2026) [chatbots](/posts/ai-driven-customer-service-chatbots-ecommerce-review) that need to interpret [product](/posts/ai-automated-ecommerce-product-bundle-pricing) photos. Benchmark latency averaged 120 ms per request on Google Cloud’s us‑central1 region, 30% faster than the best‑performing ChatGPT endpoint. Gemini Pro’s pricing is $0.012 per million input tokens and $0.020 per million output tokens.
@@ -71,7 +71,7 @@ Meta [release](/posts/gpt-5-release-date-and-features-2026)d Llama 3‑70B as 
 Cohere’s Command R+ foc[uses](/posts/copilot-workflow-examples-2026) on code generation and [enterprise](/posts/claude-for-teams-2026-review) data privacy. It achieved a 94% pass rate on the HumanEval benchmark, the highest among all [tested](/posts/best-ai-code-generators) models. Cohere guarantees that no user data is retained beyond the request, a key differentiator for regulated industries. Pricing is $0.018 per million input tokens and $0.030 per million output tokens, with a “pay‑as‑you‑go” plan that includes a 30‑day [audit](/posts/ai-powered-seo-audit-tools-for-wordpress) log.
 
 ### Perplexity AI (Answer‑First)
-Perplexity AI introduced an “Answer‑First” mode that pre‑filters web [results](/posts/claude-accuracy-test-2026) before feeding them to the LLM, cutting average user wait time from 4.2 seconds (ChatGPT) to 2.9 seconds. Its proprietary retrieval‑augmented generation (RAG) pipeline [improve](/posts/ai-powered-podcast-seo-optimization-boost-discoverability-2026)s factual correctness on current events by 22% compared with vanilla LLMs. Pricing sits at $0.014 per million tokens, with a generous free tier for [developer](/posts/ai-code-review-assistants-2026-deepcode-codeql-copilot-x)s.
+Perplexity AI [intro](/posts/ai-generated-podcast-intro-outro-music-tutorial-2026)duced an “Answer‑First” mode that pre‑filters web [results](/posts/claude-accuracy-test-2026) before feeding them to the LLM, cutting average user wait time from 4.2 seconds (ChatGPT) to 2.9 seconds. Its proprietary retrieval‑augmented generation (RAG) pipeline [improve](/posts/ai-powered-podcast-seo-optimization-boost-discoverability-2026)s factual correctness on current events by 22% compared with vanilla LLMs. Pricing sits at $0.014 per million tokens, with a generous free tier for [developer](/posts/ai-code-review-assistants-2026-deepcode-codeql-copilot-x)s.
 
 ## Feature‑by‑Feature Comparison
 
@@ -92,7 +92,7 @@ The table makes it easy to spot which model excels in a given dimension. For pur
 
 We ran three benchmark suites across all five models:
 
-1. **MMLU (Massive Multitask Language Understanding)** – measures knowledge across 57 subjects. Claude 3 Opus topped the list with 91.4%, followed by Gemini Pro at 90.1% and Llama 3‑70B at 90.2%.
+1. **MMLU (Massive Multitask Language Understanding)** – measures knowledge across 57 [subject](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026)s. Claude 3 Opus topped the list with 91.4%, followed by Gemini Pro at 90.1% and Llama 3‑70B at 90.2%.
 2. **HumanEval (Code Generation)** – evaluates the ability to [writ](/posts/best-copy-ai-free-alternative)e correct Python functions. Command R+ scored 94%, beating Claude 3 Opus (89%) and Gemini Pro (87%).
 3. **Real‑World Prompt Suite** – 200 [prompts](/posts/gemini-prompting-guide-2026) sourced from SaaS support tickets, [marketing](/posts/ai-driven-email-marketing-automation-tools-review) copy requests, and research queries. Perplexity AI’s Answer‑First mode achieved a 92% “useful answer” rate, 5% higher than ChatGPT‑4 Turbo.
 
@@ -140,7 +140,7 @@ For regulated sectors (healthcare, [finance](/posts/ai-driven-customer-service-c
 |------|------|
 | Claude 3 Opus: Highest factual accuracy, strong safety, easy API migration | Slightly higher cost than Gemini for output tokens |
 | Gemini Pro: Fastest latency, multimodal [capabilities](/posts/claude-honest-review-2026), generous free tier | Data retention defaults to 30 days unless disabled |
-| Llama 3‑70B: No per‑token fees, full control over data, open‑source community | Requires self‑hosting expertise and GPU hardware |
+| Llama 3‑70B: No per‑token fees, full control over data, open‑source community | Requires self‑[hosting](/posts/ai-voice-cloning-tools-podcast-hosts-2026-comparison) expertise and GPU hardware |
 | Command R+: Best for code generation, zero‑retention policy, robust enterprise SLA | Higher token [price](/posts/gemini-api-cost-comparison-2026); limited to text (no multimodal) |
 | Perplexity AI: Integrated web search, fastest user‑query turnaround | Limited [customization](/posts/best-ai-powered-resume-tailoring-ats-optimization-2026); proprietary RAG pipeline |
 
