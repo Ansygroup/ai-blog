@@ -1,16 +1,5 @@
 [
   {
-    "topic": "Review: Top AI-Powered Brand Voice Consistency Checkers (2026)",
-    "category": "Reviews",
-    "keywords": [
-      "brand voice AI",
-      "tone consistency tool",
-      "AI style guide",
-      "brand voice checker",
-      "content tone AI"
-    ]
-  },
-  {
     "topic": "Comparison of AI-Driven Competitor Ad Copy Analysis Platforms",
     "category": "Comparisons",
     "keywords": [
@@ -96,6 +85,106 @@
       "AI narration e-learning",
       "course voiceover AI",
       "online course voice generation"
+    ]
+  },
+  {
+    "topic": "Tutorial: Using AI to Auto-Generate Webinar Slide Decks from an Outline",
+    "category": "Tutorial",
+    "keywords": [
+      "AI webinar slides",
+      "auto slide generation",
+      "AI presentation builder",
+      "webinar deck AI"
+    ]
+  },
+  {
+    "topic": "Comparison: AI-Powered Landing Page A/B Testing and CRO Tools",
+    "category": "Comparison",
+    "keywords": [
+      "AI landing page testing",
+      "AI A/B test tools",
+      "AI CRO platforms",
+      "landing page optimization AI"
+    ]
+  },
+  {
+    "topic": "Review: Top AI-Driven Podcast Show Notes Generators (2026)",
+    "category": "Review",
+    "keywords": [
+      "AI podcast show notes",
+      "AI episode summarizer",
+      "podcast notes AI",
+      "AI transcription summary"
+    ]
+  },
+  {
+    "topic": "Best Of: Best AI Tools for Real-Time Sentiment Analysis in Live Chat Support",
+    "category": "Best Of",
+    "keywords": [
+      "AI live chat sentiment",
+      "real-time sentiment AI",
+      "chat support AI analysis",
+      "AI customer sentiment"
+    ]
+  },
+  {
+    "topic": "Tutorial: Using AI to Create Dynamic QR Codes Linked to Personalized Landing Pages",
+    "category": "Tutorial",
+    "keywords": [
+      "AI dynamic QR code",
+      "personalized QR AI",
+      "AI QR code generator",
+      "AI marketing QR"
+    ]
+  },
+  {
+    "topic": "Comparison: AI-Powered Compliance Checkers for Advertising Copy (FTC, GDPR, etc.)",
+    "category": "Comparison",
+    "keywords": [
+      "AI ad compliance",
+      "advertising regulation AI",
+      "AI copy legal check",
+      "compliance AI tools"
+    ]
+  },
+  {
+    "topic": "Review: AI Tools for Generating Microcopy (Button Text, Error Messages, Tooltips)",
+    "category": "Review",
+    "keywords": [
+      "AI microcopy generator",
+      "UI copy AI",
+      "AI button text",
+      "AI error message generator"
+    ]
+  },
+  {
+    "topic": "Best Of: Top AI Platforms for Automated Data Visualization and Chart Creation",
+    "category": "Best Of",
+    "keywords": [
+      "AI data visualization",
+      "AI chart generator",
+      "automatic infographic AI",
+      "AI dashboard creator"
+    ]
+  },
+  {
+    "topic": "Tutorial: Using AI to Write Explainer Video Scripts with Storyboarding",
+    "category": "Tutorial",
+    "keywords": [
+      "AI explainer video script",
+      "AI video storyboard",
+      "AI script generator",
+      "explainer video AI"
+    ]
+  },
+  {
+    "topic": "Comparison: AI-Driven Influencer Contract & Payment Automation Solutions",
+    "category": "Comparison",
+    "keywords": [
+      "AI influencer contracts",
+      "AI influencer payment",
+      "influencer management AI",
+      "AI contract automation"
     ]
   }
 ]

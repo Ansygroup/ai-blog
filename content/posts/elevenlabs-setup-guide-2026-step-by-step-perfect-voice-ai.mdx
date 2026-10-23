@@ -74,7 +74,7 @@ ElevenLabs provides granular [control](/posts/shopify-conversational-big-picture
 | **Stability** | 0.0 – 1.0 | Higher [value](/posts/chatgpt-pricing-breakdown-2026)s produce smoother, less expressive speech; lower values add natural variance. |
 | **Similarity Boost** | 0.0 – 1.0 | For cloned voices only; raises likeness to the source speaker. |
 | **Speed** | 0.5 – 2.0× | Adjusts speaking rate without affecting [pitch](/posts/best-ai-powered-influencer-outreach-email-templates-2026). |
-| **Pitch** | –5 – +5 semitones | Shifts tone up or down. |
+| **Pitch** | –5 – +5 semi[tone](/posts/review-best-ai-powered-brand-voice-checkers-2026)s | Shifts tone up or down. |
 | **Emotion** | “neutral”, “joyful”, “sad”, “angry” | Adds affective cues; currently supported for 12 premium voices. |
 
 To apply these [settings](/posts/chatgpt-best-settings) via the API, embed them in the JSON payload:
@@ -92,7 +92,7 @@ To apply these [settings](/posts/chatgpt-best-settings) via the API, embed them 
 }
 ```
 
-The web UI mirrors these sliders, allowing you to preview [changes](/posts/chatgpt-free-tier-limits-2026) in real time.
+The web UI mirrors these sliders, allowing you to [preview](/posts/best-ai-ar-product-preview-generators-2026) [changes](/posts/chatgpt-free-tier-limits-2026) in real time.
 
 ## Integrating with Popular Platforms
 
@@ -127,7 +127,7 @@ public class ElevenLabsTTS : MonoBehaviour {
     public async Task<AudioClip> GenerateSpeech(string text) {
         var payload = new {
             text = text
-            voice_id = "eleven_multilingual_v2"
+            voice_id = "eleven_[multilingual](/posts/tutorial-real-time-ai-translation-webinar-qa-2026)_v2"
             model_id = "eleven_prime_v2"
         };
         var json = JsonUtility.ToJson(payload);
@@ -156,7 +156,7 @@ ElevenLabs’ **Voice Cloning** workflow is [the most](/posts/chatgpt-alternativ
 
 ### Fine‑Tuning with Style Prompts
 
-Beyond cloning, ElevenLabs introduced **Style Prompts** that let you bias the model toward specific speaking styles (e.g., “news anchor”, “[conversational](/posts/shopify-conversational-big-picture-design-control-2026-guide)”). To use them, add a `style_[prompt](/posts/chatgpt-prompt-guide)` field:
+Beyond cloning, ElevenLabs introduced **Style Prompts** that let you bias the model toward specific speaking [style](/posts/review-best-ai-powered-brand-voice-checkers-2026)s (e.g., “news anchor”, “[conversational](/posts/shopify-conversational-big-picture-design-control-2026-guide)”). To use them, add a `style_[prompt](/posts/chatgpt-prompt-guide)` field:
 
 ```json
 {
