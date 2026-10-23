@@ -1,0 +1,66 @@
+name: FAQ Agent — Add FAQ sections for GEO
+
+# The audit flags posts without an "## FAQ" section as a lost GEO opportunity.
+# scripts/seo-optimizer.js --ai-fix generates those sections with Groq, but no
+# workflow invoked it, so the 50+ flagged posts never got an FAQ. This workflow
+# runs it on a timer + manually and ships the result via PR.
+
+on:
+  schedule:
+    - cron: '0 4 * * *'   # daily 04:00 UTC
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: 'Max posts to process'
+        required: false
+        default: '25'
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  faq:
+    name: Generate FAQ sections
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+
+      - name: Add FAQ sections (AI)
+        run: node scripts/seo-optimizer.js --ai-fix 2>&1 || true
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          AI_PROVIDER: gemini
+          GEMINI_MODEL: gemini-3.6-flash
+
+      - name: Commit + PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          BRANCH="auto/faq-$(date +%s)"
+          git checkout -b "$BRANCH"
+          git config user.email "bot@aipulsedaily.com"
+          git config user.name "FAQ Agent"
+          git add content/posts/
+          git commit -m "auto: add FAQ sections $(date +%Y-%m-%d)"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "auto: add FAQ sections $(date +%Y-%m-%d)" \
+            --body "AI-generated FAQ sections for posts flagged by the SEO audit." \
+            --base main --head "$BRANCH" --label auto-generated | tee pr-url.txt
+          PR_NUMBER=$(grep -oP '/pull/\K[0-9]+' pr-url.txt)
+          gh pr merge --squash "$PR_NUMBER" 2>/dev/null || true

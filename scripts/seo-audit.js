@@ -36,7 +36,9 @@ for (const file of files) {
   const issues = [];
 
   const title = data.title || '';
-  const excerpt = data.excerpt || '';
+  // A post may carry its summary in `excerpt:` OR `description:` (the post
+  // page already falls back to `description`), so accept either here.
+  const summary = data.excerpt || data.description || '';
   const date = data.date || '';
   const tags = Array.isArray(data.tags) ? data.tags : (data.tags ? [data.tags] : []);
 
@@ -44,9 +46,9 @@ for (const file of files) {
   else if (title.length < 30) issues.push(`title too short (${title.length} chars)`);
   else if (title.length > 60) issues.push(`title too long (${title.length} chars)`);
 
-  if (!excerpt) issues.push('missing excerpt');
-  else if (excerpt.length < 120) issues.push(`excerpt too short (${excerpt.length} chars)`);
-  else if (excerpt.length > 165) issues.push(`excerpt too long (${excerpt.length} chars)`);
+  if (!summary) issues.push('missing excerpt');
+  else if (summary.length < 120) issues.push(`excerpt too short (${summary.length} chars)`);
+  else if (summary.length > 165) issues.push(`excerpt too long (${summary.length} chars)`);
 
   if (!date) issues.push('missing date');
   if (tags.length === 0) issues.push('no tags');
