@@ -57,6 +57,13 @@ jobs:
           GEMINI_MODEL: gemini-3.6-flash
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 
+      - name: Normalise titles/excerpts (deterministic)
+        # The model frequently emits over-long or `...`-truncated titles and
+        # missing/short excerpts. seo-audit-fixer.cjs repairs them without AI
+        # so the audit stays green on every generated post.
+        if: inputs.skip_optimization != 'true'
+        run: node scripts/seo-audit-fixer.cjs --fix 2>&1 || true
+
       - name: Refresh stale content
         if: inputs.skip_optimization != 'true'
         run: |
