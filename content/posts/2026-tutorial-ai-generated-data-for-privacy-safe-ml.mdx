@@ -89,7 +89,7 @@ Synthetic data generators fall into three architectural families:
 
 ## Step‑by‑Step Workflow: From Real Dataset to Synthetic Counterpart
 
-Below is a reproducible pipeline that works across the major platforms. Adjust the code snippets to match your chosen tool.
+Below is a reproducible pipeline that works across the major platforms. Adjust [the code](/posts/claude-vs-gpt-4-for-coding-2026-who-wins-the-code-battle) snippets to match your chosen tool.
 
 ### 1. Data Profiling & Risk Assessment
 
@@ -191,7 +191,7 @@ auc_syn = roc_auc_score(synthetic_df['target'], pred_syn)
 print(f"Real AUC: {auc_real:.3f}, Synthetic AUC: {auc_syn:.3f}")
 ```
 
-In our tests, the synthetic model retained **92%** of the real‑data AUC on the credit dataset (0.86 vs 0.94), confirming the workflow’s efficacy.
+In our tests, the synthetic model retained **92%** of the real‑data AUC on the credit dataset (0.86 vs 0.94), confirming the [workflow](/posts/elevenlabs-workflow-examples-2026)’s efficacy.
 
 ## Evaluating Fidelity and Privacy: Metrics and Benchmarks
 
