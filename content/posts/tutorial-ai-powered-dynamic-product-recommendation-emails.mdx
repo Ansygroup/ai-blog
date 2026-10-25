@@ -29,7 +29,7 @@ draft: false
 ## Key Takeaways
 
 - Tutorial: Using AI to Generate Dynamic Product Recommendation Emails Based on Purchase History: our hands-on review of what matters most for readers.
-- We compare real performance, pricing, and top alternatives.
+- We compare real performance, pricing, and top [alternatives](/posts/best-runway-alternatives-2026-top-ai-video-tools-compared).
 - Read the [full](/posts/copilot-free-tier-limits-2026) [analysis](/posts/ai-powered-content-gap-analysis-niche-blog-topics-2026) below for detailed recommendations.
 
 </div>
@@ -54,7 +54,7 @@ When executed correctly, you’ll see higher [open](/posts/tutorial-ai-driven-ab
 
 ## How We Tested
 
-Our team spent **120 hours** (four work weeks) building three end‑to‑end pipelines: (1) OpenAI GPT‑4 → Klaviyo, (2) Anthropic Claude 3 → Mailchimp, and (3) Cohere Command → Sendinblue. We used a mid‑size fashion retailer with **45,000** active subscribers and **$1.2 M** monthly revenue. Each pipeline was run for **four weeks**, sending 2,000 emails per week. Success metrics included click‑through rate (CTR), con[version](/posts/copy-ai-vs-free-version) rate (CR), revenue per email (RPE), and total AI‑related [cost](/posts/copilot-api-cost-comparison-2026). The methodology follows E‑E‑A‑T guidelines: we consulted data engineers, [copy](/posts/comparison-ai-compliance-checkers-for-ad-copy-ftc-gdpr)writers, and [compliance](/posts/best-ai-tools-automated-privacy-policy-generation-2026) officers, and we documented every API call, prompt version, and ESP configuration.
+Our [team](/posts/elevenlabs-for-teams-2026-review-pricing-alternatives) spent **120 hours** (four work weeks) building three end‑to‑end pipelines: (1) OpenAI GPT‑4 → Klaviyo, (2) Anthropic Claude 3 → Mailchimp, and (3) Cohere Command → Sendinblue. We used a mid‑size fashion retailer with **45,000** active subscribers and **$1.2 M** monthly revenue. Each pipeline was run for **four weeks**, sending 2,000 emails per week. Success metrics included click‑through rate (CTR), con[version](/posts/copy-ai-vs-free-version) rate (CR), revenue per email (RPE), and total AI‑related [cost](/posts/copilot-api-cost-comparison-2026). The methodology follows E‑E‑A‑T guidelines: we consulted data engineers, [copy](/posts/comparison-ai-compliance-checkers-for-ad-copy-ftc-gdpr)writers, and [compliance](/posts/best-ai-tools-automated-privacy-policy-generation-2026) officers, and we documented every API call, prompt version, and ESP configuration.
 
 ## Setting Up the Data Pipeline: Exporting Purchase History
 
@@ -104,7 +104,7 @@ Key techniques we employed:
 
 * **System role** – telling the model it’s a merchandiser steers it toward business‑focused language.  
 * **JSON output** – forces [structured](/posts/ai-for-generating-schema-markup-for-seo-2026-tutorial) data that can be parsed directly into ESP dynamic blocks.  
-* **Few‑shot examples** – we prepend two example histories with correct JSON to reduce hallucination.  
+* **Few‑shot [examples](/posts/elevenlabs-workflow-examples-2026)** – we prepend two example histories with correct JSON to reduce hallucination.  
 
 Testing showed that adding the “short_reason” field increased click‑throughs by **7 %** because the email could surface a concise “Why you’ll love this” tagline next to each product.
 
@@ -181,7 +181,7 @@ By documenting these steps, the tutorial satisfies both [legal](/posts/best-ai-p
 
 | Pros | Cons |
 |------|------|
-| Significant CTR and revenue lift (up to 42 %) | Requires technical setup (API keys, scripting) |
+| Significant CTR and revenue lift (up to 42 %) | Requires technical [setup](/posts/elevenlabs-setup-guide-2026) (API keys, scripting) |
 | Scalable to millions of contacts | AI hallucinations can produce irrelevant items if prompts are weak |
 | Works with any ESP that supports JSON or merge tags | Ongoing maintenance (prompt tuning, model [updates](/posts/shopify-conversational-big-picture-design-control-2026-guide)) |
 | Low per‑email cost (< $0.02) when using GPT‑4 | Data [privacy](/posts/best-ai-tools-automated-privacy-policy-generation-2026) compliance adds extra steps |
@@ -202,11 +202,11 @@ By documenting these steps, the tutorial satisfies both [legal](/posts/best-ai-p
 
 1. **Mid‑size e‑commerce [brand](/posts/review-best-ai-powered-brand-voice-checkers-2026)s (20k‑100k contacts)** – Need a cost‑effective way to boost AOV without hiring a full‑time data scientist.  
 2. **B2B SaaS companies with product add‑ons** – Can recommend complementary modules based on prior purchases.  
-3. **Digital marketers who already use Klaviyo or Mailchimp** – The integration steps fit naturally into existing workflows.
+3. **Digital marketers who already use Klaviyo or Mailchimp** – The integration steps fit naturally into existing [workflow](/posts/elevenlabs-workflow-examples-2026)s.
 
 ## Who Should Skip This?
 
-If you run a **tiny store (<5k contacts)** or lack any developer resources, the ROI may not justify the engineering effort. In that case, consider a **no‑[code](/posts/ai-code-doc-generators-python-javascript-2026) recommendation widget** like **Listrak** or **Dynamic Yield**, which handle data ingestion and AI generation for a flat monthly fee (starting at $250). These platforms also provide built‑in compliance dashboards, saving you time.
+If you run a **tiny store (<5k contacts)** or lack any [developer](/posts/claude-vs-gpt-4-for-coding-2026-who-wins-the-code-battle) resources, the ROI may not justify the engineering effort. In that case, consider a **no‑[code](/posts/ai-code-doc-generators-python-javascript-2026) recommendation widget** like **Listrak** or **Dynamic Yield**, which handle data ingestion and AI generation for a flat monthly fee (starting at $250). These platforms also provide built‑in compliance dashboards, saving you time.
 
 ## FAQ
 
