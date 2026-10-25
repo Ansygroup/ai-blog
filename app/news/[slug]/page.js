@@ -130,7 +130,7 @@ export default async function NewsArticlePage({ params }) {
             {post.tags?.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-8 pt-6 border-t border-slate-200 dark:border-dark-border">
                 {post.tags.map(t => (
-                  <Link key={t} href={`/tag/${t.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} className="text-sm bg-slate-100 dark:bg-dark-card px-3 py-1 rounded-full hover:bg-blue-100 transition">{t}</Link>
+                  <Link key={t} href={`/tag/${String(t).toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} className="text-sm bg-slate-100 dark:bg-dark-card px-3 py-1 rounded-full hover:bg-blue-100 transition">{t}</Link>
                 ))}
               </div>
             )}

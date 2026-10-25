@@ -68,7 +68,7 @@ export default function ProductPage({ params }) {
   const allPosts = getAllPosts();
   const productTags = [product.categorySlug, product.name.split(' ').slice(0, 3).join(' ').toLowerCase()];
   const relatedArticles = allPosts.filter((p) => {
-    const tags = (p.tags || []).map(t => t.toLowerCase());
+    const tags = (p.tags || []).map(t => String(t).toLowerCase());
     const cat = (p.category || '').toLowerCase();
     return tags.some(t => productTags.some(pt => t.includes(pt) || pt.includes(t))) || productTags.some(pt => cat.includes(pt));
   }).slice(0, 3);

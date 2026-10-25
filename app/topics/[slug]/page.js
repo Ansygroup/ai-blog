@@ -38,7 +38,7 @@ export default function TopicPage({ params }) {
   if (!topic) notFound();
 
   const allPosts = getAllPosts();
-  const lowerTags = topic.tags.map(t => t.toLowerCase());
+  const lowerTags = topic.tags.map(t => String(t).toLowerCase());
   const stopWords = new Set(['ai', 'the', 'a', 'an', 'for', 'and', 'or', 'with', 'in', 'on', 'to', 'of', 'vs', 'is', 'it', 'at', 'by', '2026']);
   const relatedPosts = allPosts.filter(p => {
     const postCat = (p.category || '').toLowerCase();

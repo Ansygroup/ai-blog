@@ -14,7 +14,7 @@ export function generateMetadata({ params }) {
 
 export default function TagPage({ params }) {
   const tag = params.slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
-  const posts = getAllPosts().filter((p) => (p.tags || []).map((t) => t.toLowerCase()).includes(tag.toLowerCase()));
+  const posts = getAllPosts().filter((p) => (p.tags || []).map((t) => String(t).toLowerCase()).includes(tag.toLowerCase()));
   if (!posts.length) notFound();
   return (
     <>
