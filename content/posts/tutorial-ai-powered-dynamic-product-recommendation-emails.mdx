@@ -128,7 +128,7 @@ Once the AI returns a JSON list, the next challenge is feeding it into an ESP th
 ### Mailchimp
 Mailchimp lacks native JSON looping, so we used **Merge Tags** combined with **Conditional Content**:
 1. Upload the JSON to a **Custom Audience Field** called `AI_RECS`.  
-2. Use the *Mailchimp Content Builder*’s *Dynamic Content* blocks with `*|IF:AI_RECS|*` statements that parse the JSON via a **Handlebars** helper (added through Mailchimp’s *Custom Code* feature).  
+2. Use the *Mailchimp Content Builder*’s *Dynamic Content* blocks with `*|IF:AI_RECS|*` statements that parse the JSON via a **Handlebars** helper (added through Mailchimp’s *Custom Code* [feature](/posts/jasper-vs-zapier-2026)).  
 3. This approach adds ~2 [minutes](/posts/ai-meeting-minutes-action-item-extraction-review-2026) of processing per email but works for lists under 10,000.
 
 ### Sendinblue
@@ -202,7 +202,7 @@ By documenting these steps, the tutorial satisfies both [legal](/posts/best-ai-p
 
 1. **Mid‑size e‑commerce [brand](/posts/review-best-ai-powered-brand-voice-checkers-2026)s (20k‑100k contacts)** – Need a cost‑effective way to boost AOV without hiring a full‑time data scientist.  
 2. **B2B SaaS companies with product add‑ons** – Can recommend complementary modules based on prior purchases.  
-3. **Digital marketers who already use Klaviyo or Mailchimp** – The integration steps fit naturally into existing [workflow](/posts/elevenlabs-workflow-examples-2026)s.
+3. **Digital marketers who already use Klaviyo or Mailchimp** – The [integration](/posts/runway-vs-zapier-2026) steps fit naturally into existing [workflow](/posts/elevenlabs-workflow-examples-2026)s.
 
 ## Who Should Skip This?
 
@@ -213,8 +213,8 @@ If you run a **tiny store (<5k contacts)** or lack any [developer](/posts/claude
 ### How does AI improve product recommendation emails compared to rule‑based engines?
 AI can infer cross‑category relationships (e.g., “camera → lens + tripod”) that rule‑based systems miss unless manually coded. In our tests, AI‑generated lists outperformed a traditional collaborative‑filtering engine by 18 % in click‑through rate.
 
-### Do I need a data scientist to implement this tutorial?
-No. The workflow relies on pre‑built LLM APIs and low‑code scripting (Node.js or Python). A marketer with basic JavaScript knowledge can follow the steps, while a developer can handle the API authentication and S3 storage.
+### Do I [need](/posts/jasper-free-tier-limits-2026) a data scientist to implement this tutorial?
+No. The workflow relies on pre‑built LLM APIs and low‑code scripting (Node.js or Python). A marketer with basic JavaScript [know](/posts/jasper-free-tier-limits-2026)ledge can follow the steps, while a developer can handle the API authentication and S3 storage.
 
 ### What is the latency [for generating](/posts/ai-for-generating-schema-markup-for-seo-2026-tutorial) recommendations in real time?
 When using GPT‑4 with an 8k context, the average inference time is **≈

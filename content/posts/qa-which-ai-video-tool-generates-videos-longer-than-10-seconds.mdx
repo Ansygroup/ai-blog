@@ -54,16 +54,16 @@ Rule of thumb: one tool per job. Writing → ChatGPT/Claude, [image](/posts/best
 If you’re stuck at the 5‑10 second ceiling of most free tiers, Kling AI’s [paid](/posts/copy-ai-vs-free-version) plan lets you [push](/posts/best-ai-powered-push-notification-ab-testing-platforms-2026) a single prompt up to 2 [minutes](/posts/ai-meeting-minutes-action-item-extraction-review-2026). Here’s a quick workflow that keeps the output crisp and avoids the “blur‑out” artifact many users report when the model stretches a scene too far.
 
 1. **Plan the narrative in 10‑second beats** – Draft a storyboard of 12‑15 beats (≈10 s each). This mirrors Kling’s internal chunk size and prevents the model from “hallucinating” filler between beats.  
-2. **Create a master prompt** – Combine the beats into one prompt, using the format `Beat 1: …; Beat 2: …; …`. Kling parses semicolons as separate temporal sections, which it then stitches together.  
+2. **Create a [master](/posts/notion-ai-prompting-guide-2026) prompt** – Combine the beats into one prompt, using the format `Beat 1: …; Beat 2: …; …`. Kling parses semicolons as separate temporal sections, which it then stitches together.  
 3. **Set the length flag** – In the UI, toggle **“Custom duration”** and type `120s`. The platform will allocate roughly 8 s per beat, [automatic](/posts/top-ai-tools-gdpr-checklist-2026)ally trimming excess.  
 4. **Upload reference [asset](/posts/ai-generated-3d-asset-tools-2026)s** – If you have a brand palette or a short reference clip, attach it in the “Guidance” tab. Kling uses these cues to maintain visual consistency across beats.  
 5. **Run a low‑resolution [preview](/posts/best-ai-ar-product-preview-generators-2026)** – Choose the 480p preview option first; it renders in under a minute and lets you spot pacing issues without burning credits.  
 6. **Iterate on problematic beats** – Use the “Regenerate beat” button to tweak only the sections that look off, preserving the rest of the video.  
-7. **Export in 1080p** – Once all beats pass inspection, hit **Export** and select the 1080p preset. Kling will upscale the final 2‑minute file while preserving the original frame rate.
+7. **Export in 1080p** – Once all beats pass [inspection](/posts/runway-accuracy-test-2026-best-inspection-tools-reviewed), hit **Export** and select the 1080p preset. Kling will upscale the final 2‑minute file while preserving the original frame rate.
 
 **Common pitfalls**  
 - *Over‑loading a single beat*: cramming too much [description](/posts/best-ai-powered-resume-tailoring-ats-optimization-2026) into one 10‑second segment leads to rapid cuts and visual noise.  
-- *Ignoring the preview*: skipping the low‑res check often results in wasted credits on a video that needs a [full](/posts/copilot-free-tier-limits-2026) redo.  
+- *Ignoring the preview*: skipping the low‑res check often results in wasted credits on a video that [need](/posts/jasper-free-tier-limits-2026)s a [full](/posts/copilot-free-tier-limits-2026) redo.  
 
 Following this step‑by‑step routine lets you get the most out of Kling AI’s extended length capability without hitting the typical free‑[tier limits](/posts/copilot-free-tier-limits-2026) highlighted in our [AI video generators — length limits 2026](/posts/ai-video-generators-compared) guide.
 

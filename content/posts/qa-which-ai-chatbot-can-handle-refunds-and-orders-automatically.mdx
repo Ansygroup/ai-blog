@@ -61,7 +61,7 @@ It depends on the job: ChatGPT and Claude [lead](/posts/ai-linkedin-lead-generat
    - For **Ada**, attach a second webhook that hits your payment gateway (Stripe, PayPal, etc.) with the `refundAmount`.  
    - For **Zendesk AI**, use the built‑in *Action* block to send a “Refund Processed” email once the gateway confirms success.  
 
-5. **Test with edge cases** – Simulate a partially shipped order, a duplicate refund request, and a cancelled order that later re‑[open](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026)s. Record the bot’s responses and adjust the intent confidence threshold (usually 0.85) to avoid false positives.  
+5. **Test with edge [cases](/posts/notion-ai-vs-zapier-2026)** – Simulate a partially shipped order, a duplicate refund request, and a cancelled order that later re‑[open](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026)s. Record the bot’s responses and adjust the intent confidence threshold (usually 0.85) to avoid false positives.  
 
 6. **Monitor and iterate** – Enable real‑time analytics in both platforms. Look for spikes in “fallback” or “hand‑off” events; they usually signal a missing scenario in your flow.  
 
