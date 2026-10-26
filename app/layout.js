@@ -118,6 +118,15 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
+        {/* PropellerAds — Display Ads (zone 302312) */}
+        <Script
+          src="https://quge5.com/88/tag.min.js"
+          data-zone="302312"
+          async
+          data-cfasync="false"
+          strategy="afterInteractive"
+        />
+
         {/* Ezoic — higher RPM than AdSense (enable: set NEXT_PUBLIC_EZOIC_ID) */}
         {process.env.NEXT_PUBLIC_EZOIC_ID && (
           <Script

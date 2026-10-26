@@ -117,6 +117,8 @@ export default async function PostPage({ params }) {
 
           <AuthorBio author={post.author} />
 
+          <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_SIDE} />
+
           {/* Tags */}
           {post.tags && post.tags.length > 0 && (
             <div className="mt-10 pt-6 border-t border-slate-200">
