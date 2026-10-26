@@ -207,7 +207,7 @@ Run the test **after each bulk upload**. If more than 5 % of [pages](/posts/to
 
 ## Deploying Structured Data at Scale with CI/CD Pipe[lines](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026)
 
-For enterprises managing thousands of product pages, manual uploads become a bottleneck. Integrate AI markup into a continuous integration workflow:
+For enterprises managing thousands of product pages, manual uploads become a bottleneck. Integrate AI markup into a continuous [integration](/posts/runway-vs-zapier-2026) workflow:
 
 1. **Source of truth** – Store product data and raw reviews in a Git‑tracked CSV or JSON file.  
 2. **GitHub Action** – Trigger a Python script (the one from the “OpenAI” section) on every push. The script reads new rows, calls GPT‑4, and writes JSON‑LD files to a `structured-data/` folder.  

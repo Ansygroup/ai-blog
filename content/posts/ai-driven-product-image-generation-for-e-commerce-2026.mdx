@@ -104,7 +104,7 @@ Shopify stores rely on Liquid templates. To inject dynamic images, add a [custom
 <img src="{{ image_url }}" alt="{{ product.title }}" loading="lazy" width="800" height="800">
 ```
 
-**Key integration steps:**
+**Key [integration](/posts/runway-vs-zapier-2026) steps:**
 
 1. **Create a private app** in Shopify Admin → “Apps” → “Develop [apps](/posts/fixing-undefined-errors-ai-apps)”. Grant `write_products` and `read_themes` scopes.
 2. **Add a webhook** for `products/create` and `products/update` that pre‑generates images for new SKUs, storing the URLs in a metafield (`namespace: ai_images, key: dynamic_url`).
