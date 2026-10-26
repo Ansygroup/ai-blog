@@ -1,1 +1,3 @@
 google.com, pub-7002931469499133, DIRECT, f08c47fec0942fa0
+# Ezoic (enable: set NEXT_PUBLIC_EZOIC_ID env var)
+# ezoic.com, [EZOID_ID], DIRECT

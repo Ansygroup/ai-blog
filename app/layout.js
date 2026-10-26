@@ -118,6 +118,21 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
+        {/* Ezoic — higher RPM than AdSense (enable: set NEXT_PUBLIC_EZOIC_ID) */}
+        {process.env.NEXT_PUBLIC_EZOIC_ID && (
+          <Script
+            id="ezoic"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{ __html: `
+              var ezoicId = '${process.env.NEXT_PUBLIC_EZOIC_ID}';
+              var script = document.createElement('script');
+              script.src = 'https://go.ezoic.net/detroitchicago/' + ezoicId + '/script.js';
+              script.async = true;
+              document.head.appendChild(script);
+            `}}
+          />
+        )}
+
         {/* Plausible Analytics — privacy-first, no cookie banner */}
         {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
           <Script defer data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js" strategy="afterInteractive" />
