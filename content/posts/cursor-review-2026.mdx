@@ -34,7 +34,7 @@ This is where Cursor feels fastest. Small edits that would normally require seve
 
 Select a block of code, press the inline edit shortcut, and describe the change. This is ideal for scoped work: extract a helper, add error handling, simplify a conditional, or convert a class component into a hook.
 
-The key is a tight selection. If you select half a file and ask for a broad rewrite, you will get a broad diff that takes longer to review than to write yourself. Small, precise selections produce better results.
+The key is a tight selection. If you select half a file and ask for a broad rewrite, you will get a broad diff that takes longer to review than to write yourself. Small, precise selections produce better [results](/posts/copy-ai-accuracy-test-2026).
 
 ### Chat with real codebase context
 
@@ -63,7 +63,7 @@ Imagine adding saved [search](/posts/ai-voice-search-seo-keyword-clustering-boos
 3. Ask for a plan first, without editing anything.
 4. Review the plan for missing migrations, permissions, and tests.
 5. Let the agent implement one slice at a time.
-6. Run the test suite and linter yourself.
+6. Run the test [suite](/posts/writesonic-for-teams-2026-review) and linter yourself.
 7. Review the diff file by file before accepting.
 
 That last step is non-negotiable. Cursor is good at producing plausible code. Plausible is not the same as correct.
@@ -74,7 +74,7 @@ Other habits that pay off:
 
 - **Keep tasks small.** One feature slice, one refactor, one bug.
 - **Use git deliberately.** Commit before large agent runs so you can compare and revert cleanly.
-- **Review every terminal command.** Agent mode can run commands, and permission prompts exist for a reason.
+- **Review every terminal command.** Agent mode can run commands, and permission [prompts](/posts/copy-ai-prompting-guide-2026) exist for a reason.
 - **Never paste secrets.** Use environment variables and check your [privacy](/posts/best-ai-tools-automated-privacy-policy-generation-2026) settings.
 - **Measure net time.** A change that takes two minutes to generate and twenty minutes to review is not a win.
 
