@@ -100,7 +100,7 @@ export default async function PostPage({ params }) {
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold">{post.author?.[0] || 'A'}</div>
               <div>
                 <div className="font-semibold text-slate-900">{post.author || siteConfig.author}</div>
-                {post.lastUpdated && <div className="text-xs text-slate-500">Updated {new Date(post.lastUpdated).toLocaleDateString()}</div>}
+                <div className="text-xs text-slate-500">Last reviewed: {new Date(post.lastUpdated || post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
               </div>
             </div>
           </header>

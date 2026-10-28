@@ -8,7 +8,6 @@ export async function GET() {
 Allow: /
 Disallow: /admin/
 Disallow: /api/
-Disallow: /tag/
 Disallow: /_next/
 Disallow: /search?
 
