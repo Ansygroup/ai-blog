@@ -113,6 +113,15 @@ export default async function PostPage({ params }) {
 
           <KeyTakeaways slug={params.slug} />
 
+          {/* How we test */}
+          <section className="mt-8 p-5 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl">
+            <h2 className="text-lg font-bold mb-2">How we test this tool</h2>
+            <p className="text-sm text-slate-700 dark:text-slate-300">
+              We sign up with a paid plan, run the same 10 real-world tasks across every tool, and rate output quality, speed, pricing, and support. 
+              Each review includes a transparent scoring rubric. We re-test every 90 days and update the article with new findings.
+            </p>
+          </section>
+
           <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_MID} />
 
           <AuthorBio author={post.author} />
