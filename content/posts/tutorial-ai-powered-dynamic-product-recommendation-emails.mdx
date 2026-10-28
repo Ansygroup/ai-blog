@@ -29,7 +29,7 @@ draft: false
 ## Key Takeaways
 
 - Tutorial: Using AI to Generate Dynamic Product Recommendation Emails Based on Purchase History: our hands-on review of what matters most for readers.
-- We compare real performance, pricing, and top [alternatives](/posts/best-runway-alternatives-2026-top-ai-video-tools-compared).
+- We compare real [performance](/posts/suno-vs-chatgpt-2026), pricing, and top [alternatives](/posts/best-runway-alternatives-2026-top-ai-video-tools-compared).
 - Read the [full](/posts/copilot-free-tier-limits-2026) [analysis](/posts/ai-powered-content-gap-analysis-niche-blog-topics-2026) below for detailed recommendations.
 
 </div>
@@ -66,7 +66,7 @@ The first step is to get clean, queryable purchase data. Most modern [platforms]
 | product_id | 9876 |
 | product_name | “Vintage Leather Jacket” |
 | category | “Outerwear” |
-| price | 149.99 |
+| [price](/posts/suno-vs-chatgpt-2026) | 149.99 |
 | purchase_[date](/posts/mike-flanagans-carrie-release-date-2026-full-guide) | 2024‑11‑02 |
 
 **Why 90 days?** Research from Dynamic Yield shows that purchase‑history relevance decays sharply after three months, dropping recommendation CTR by roughly 18 %. After the CSV is ready, we store it in an S3 bucket (or Google Cloud Storage) with server‑side encryption (AES‑256) to meet GDPR and CCPA requirements.
@@ -75,7 +75,7 @@ For automation, we scheduled the script with **AWS EventBridge** to run nightly.
 
 ## Choosing the Right AI Model for Recommendation Generation
 
-Not all LLMs are created equal for product recommendation. We evaluated three leading models on three criteria: **relevance**, **cost per 1,000 tokens**, and **latency**.
+Not all LLMs are created equal for product recommendation. We evaluated three leading [models](/posts/suno-vs-chatgpt-2026) on three criteria: **relevance**, **cost per 1,000 tokens**, and **latency**.
 
 | Model | Relevance Score (0‑100) | Cost / 1k tokens | Avg. Latency |
 |-------|------------------------|------------------|--------------|
@@ -110,7 +110,7 @@ Testing showed that adding the “short_reason” field increased click‑throug
 
 ## Integrating AI Output with Email Platforms (Klaviyo, Mailchimp, Sendinblue)
 
-Once the AI returns a JSON list, the next challenge is feeding it into an ESP that supports per‑recipient dynamic content. Here’s how we did it for the three platforms we tested:
+Once the AI returns a JSON list, the next challenge is feeding it into an ESP that supports per‑recipient dynamic content. Here’s how we did it for the three platforms we [tested](/posts/suno-review-2026-ai-music-generator-tested-compared):
 
 ### Klaviyo
 1. **Data Import** – Use Klaviyo’s **Bulk Import API** to upload a CSV containing `customer_id` and a JSON string column named `ai_recs`.  
