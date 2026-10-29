@@ -1,0 +1,26 @@
+name: Fix Missing Frontmatter Tags (one-shot)
+on:
+  workflow_dispatch:
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Insert tags into posts missing them
+        run: |
+          python3 - <<'EOF'
+          import glob
+          for f in glob.glob('content/posts/*.mdx'):
+              s = open(f).read()
+              head = s[:1200]
+              if '\ntags:' not in head and not head.startswith('tags:'):
+                  s = s.replace('---\n', '---\ntags:\n  - ai\n  - guide\n', 1)
+                  open(f, 'w').write(s)
+                  print('fixed:', f)
+          EOF
+      - name: Commit fixes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "fix: add missing tags frontmatter to posts"
