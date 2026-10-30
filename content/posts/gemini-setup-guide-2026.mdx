@@ -155,7 +155,7 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 # Initialize the flagship 1.5 Pro model
 model = genai.GenerativeModel("gemini-1.5-pro-latest")
 
-response = model.generate_content("Provide a 3-bullet executive summary](https://ai-blog-ten-steel.vercel.app/posts/comparison-of-ai-video-[summarization](/posts/comparison-of-ai-video-summarization-platforms-2026)-[platforms](/posts/ai-marketing-automation-platforms-b2b-comparison)-2026) on why multimodal context windows matter.")
+response = model.generate_content("Provide a 3-bullet executive summary](https://ai-blog-ten-steel.vercel.app/posts/comparison-of-[ai-video](/posts/heygen-prompting-guide-2026)-[summarization](/posts/comparison-of-ai-video-summarization-platforms-2026)-[platforms](/posts/ai-marketing-automation-platforms-b2b-comparison)-2026) on why multimodal context windows matter.")
 print(response.text)
 ```
 

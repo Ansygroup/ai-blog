@@ -90,7 +90,7 @@ In a side‑by‑side test, [generating](/posts/ai-for-generating-schema-markup-
 
 Many developers focus solely on the per‑minute rate, but Suno’s pricing includes a few hidden variables:
 
-1. **Data Egress** – $0.004/GB when moving audio out of the Suno‑hosted region. For a 3‑minute MP3 (≈ 10 MB), this translates to $0.00004 per file, negligible at low scale but noticeable at 10 M+ minutes.
+1. **Data Egress** – $0.004/GB when moving audio out of the Suno‑hosted region. For a 3‑minute MP3 (≈ 10 MB), this translates to $0.00004 per file, negligible at low [scale](/posts/synthesia-for-teams-2026-review) but noticeable at 10 M+ minutes.
 2. **Premium Model Access** – Suno offers “Ultra‑HD” voice [model](/posts/auto-ml-tutorial)s that add $0.002/minute. These models improve fidelity by 15 % in MOS (Mean Opinion Score) tests.
 3. **Latency Surcharges** – For sub‑150 ms “instant‑preview” requests, Suno adds $0.001/minute. Most production pipe[lines](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026) stay within the 250‑ms window, avoiding this fee.
 4. **Support Packages** – Optional 24/7 priority support [costs](/posts/copy-ai-pricing-breakdown-2026) $250/month for Starter and $750/month for Pro. While not a per‑minute charge, it influences total cost of ownership for mission‑critical applications.
@@ -195,7 +195,7 @@ Below is a quick‑reference table for the three major providers, focusing on th
 
 ## Who Should Skip This?
 
-- **Transcription‑Heavy Workloads** – If you need speech‑to‑text more than generation, Google’s integrated transcription pipeline or Whisper’s native transcription may be cheaper.
+- **Transcription‑Heavy Workloads** – If you need speech‑to‑[text](/posts/heygen-vs-chatgpt-2026-detailed-ai-video-vs-text-review) more than generation, Google’s integrated transcription pipeline or Whisper’s native transcription may be cheaper.
 - **Ultra‑Low‑Latency Real‑Time Voice Chat** – Suno’s 210 ms latency is fast, but dedicated real‑time voice APIs (e.g., Agora) can deliver sub‑50 ms performance.
 - **Global CDN Distribution** – Organizations that must stream audio worldwide will incur higher egress fees with Suno; a provider with built‑in CDN (like Google) may be more cost‑effective.
 
