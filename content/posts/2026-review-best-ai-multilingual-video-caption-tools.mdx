@@ -97,7 +97,7 @@ SubtitleBee is a newcomer that leverages **Meta’s Whisper‑large** model and 
 
 ## Accuracy & Language Support Analysis
 
-When we measured **speech‑to‑text accuracy** across three source languages (English, Spanish, Mandarin), Deepgram consistently outperformed the competition on English (0.7 % WER) but fell behind on Mandarin (6.2 % WER) where Papergup’s Whisper‑based backend recorded **4.9 % WER**. For **translation fidelity**, Papergup’s custom NMT shone in European language pairs, achieving a **BLEU of 41.2** for English→Spanish, while Veed.io’s OpenAI‑driven translation lagged at **33** for the same pair.
+When we measured **speech‑to‑[text](/posts/heygen-vs-chatgpt-2026-detailed-ai-video-vs-text-review) accuracy** across three source languages (English, Spanish, Mandarin), Deepgram consistently outperformed the competition on English (0.7 % WER) but fell behind on Mandarin (6.2 % WER) where Papergup’s Whisper‑based backend recorded **4.9 % WER**. For **translation fidelity**, Papergup’s custom NMT shone in European language pairs, achieving a **BLEU of 41.2** for English→Spanish, while Veed.io’s OpenAI‑driven translation lagged at **33** for the same pair.
 
 **Latency** matters for live streaming. Deepgram’s streaming API delivered captions within **300 ms**, making it suitable [for webinar](/posts/tutorial-real-time-ai-translation-webinar-qa-2026)s. Sonix, optimized for batch, took **1.2 seconds per minute**, acceptable for pre‑recorded content but not live events.
 

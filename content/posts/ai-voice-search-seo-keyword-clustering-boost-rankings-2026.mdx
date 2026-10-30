@@ -74,7 +74,7 @@ Below is a repeatable 7‑step [work](/posts/top-ai-tools-freelancers-2026)flow 
 
 1. **Collect Voice Queries** – Use Google Search Console “Performance > Queries” filtered for “Average Position > 5” and add data from AnswerThePublic’s voice‑search filter. We gathered 4,200 queries in 15 [minutes](/posts/ai-meeting-minutes-action-item-extraction-review-2026).  
 2. **Clean & De‑duplicate** – Remove stop words and merge plurals using Python’s `spaCy` library (runtime ~30 seconds for 4k rows).  
-3. **Feed Into AI Clustering Engine** – Upload the cleaned list to MarketMuse (or Phrase.io) via API. The platform returns 112 clusters with an average semantic similarity score of 0.84 (scale 0‑1).  
+3. **Feed Into AI Clustering Engine** – Upload the cleaned list to MarketMuse (or Phrase.io) via API. The platform returns 112 clusters with an average semantic similarity score of 0.84 ([scale](/posts/synthesia-for-teams-2026-review) 0‑1).  
 4. **Vali[date](/posts/mike-flanagans-carrie-release-date-2026-full-guide) Clusters Manually** – Spot‑check the top 5 clusters; we found a 3 % false‑positive rate, which we corrected by adding a [custom](/posts/auto-ml-tutorial) “exclude” list.  
 5. **Map Clusters to Content Types** – Assign each cluster to a page format: FAQ, How‑To guide, or Listicle. For voice, we prioritize “FAQ” and “How‑To” because they map directly to Rich Results.  
 6. **Generate Structured Data** – Use MarketMuse’s auto‑schema to create JSON‑LD blocks for each FAQ. Validation with Google’s Rich Results Test [show](/posts/tutorial-using-ai-podcast-show-notes-generation-2026)s 98 % pass rate.  
