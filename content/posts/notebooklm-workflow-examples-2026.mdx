@@ -96,7 +96,7 @@ Our [team](/posts/elevenlabs-for-teams-2026-review-pricing-alternatives) spent *
 **Scenario:** A SaaS startup wants to auto‑populate its support KB from the past 6 months of ticket logs.
 
 1. **Log Extr[action](/posts/ai-meeting-minutes-action-item-extraction-review-2026)** – Ticket CSV (350 k rows) is stored in BigQuery. NotebookLM runs a query: `SELECT * FROM tickets WHERE created_at > DATE_SUB(CURRENT_DATE(), INTERVAL 180 DAY)`.
-2. **Topic Clustering** – Using the **Zero‑Shot Topic Model** inside NotebookLM, tickets are grouped into 12 common issues (e.g., “password reset”, “API rate limit”). Clustering accuracy: **92 %** versus manual tagging.
+2. **Topic Clustering** – Using the **Zero‑Shot Topic Model** inside NotebookLM, tickets are grouped into 12 common [issues](/posts/otter-limitations-2026-key-issues-workarounds) (e.g., “password reset”, “API rate limit”). Clustering accuracy: **92 %** versus manual tagging.
 3. **Answer Drafting** – For each cluster, a prompt generates a KB article: “Write a concise troubleshooting guide for ‘API rate limit’ tickets, include code snippets in Python.” The model produces a 600‑word article with a code block in **15 seconds** per article.
 4. **Review Loop** – A senior support engineer [reviews](/posts/2026-review-best-ai-multilingual-video-caption-tools) the draft; NotebookLM incorporates feedback instantly via a “revise” prompt, cutting iteration time by **70 %**.
 5. **Publishing** – The final articles are [push](/posts/best-ai-powered-push-notification-ab-testing-platforms-2026)ed to Zendesk via the **Zendesk API integration** (free for up to 100 articles/month).
