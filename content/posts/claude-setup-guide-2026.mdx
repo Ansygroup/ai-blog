@@ -72,7 +72,7 @@ For a deeper [dive](/posts/midjourney-vs-zapier-2026-deep-dive-comparison) into 
 Once your workspace is set, click **“API Keys” → “Create New Key.”** You’ll be prompted to:
 
 - **Name the key** (e.g., “dev‑claude‑key”).  
-- **Set permissions** – “Read‑only”, “Write”, or “Full Access”. For most applications, “Full Access” is required, but you can limit scope for CI pipelines.  
+- **Set permissions** – “Read‑only”, “Write”, or “Full Access”. For most applications, “Full Access” is required, but [you can](/posts/n8n-free-tier-limits-2026) limit scope for CI pipelines.  
 - **Define [usage](/posts/copilot-free-tier-limits-2026) [limits](/posts/chatgpt-api-cost-comparison-2026)** – a daily cap (e.g., $200) and a per‑request token ceiling (e.g., 32k tokens).  
 
 Anthropic now masks the key after creation, [show](/posts/jasper-vs-writesonic)ing it only once. Store it in a secret manager (AWS Secrets Manager, HashiCorp Vault, or GitHub Secrets). In our tests, using **AWS Secrets Manager** reduced accidental exposure incidents by 94 % compared with hard‑coded keys.

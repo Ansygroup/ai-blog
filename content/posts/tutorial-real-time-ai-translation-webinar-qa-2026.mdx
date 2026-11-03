@@ -62,7 +62,7 @@ The first step is feeding clean audio into the STT engine. Poor audio quality in
 In practice, we connected Zoom’s audio bridge to an Azure Speech endpoint using a simple webhook. The Azure STT returned a JSON payload within 300 ms on average. Adding a hardware mixer (e.g., Yamaha MG10XU) reduced background noise by 22 % and improved the Word Error Rate (WER) from 13.4 % to 9.1 %.
 
 ### Pro Tip
-Enable “dual‑channel” mode in Zoom (separate tracks for host and participants) so you can route only the Q&A audio to the STT service, avoiding the presenter’s speech which you may already have a transcript for.
+Enable “dual‑channel” mode in Zoom (separate tracks for host and participants) so [you can](/posts/n8n-free-tier-limits-2026) route only the Q&A audio to the STT service, avoiding the presenter’s speech which you may already have a transcript for.
 
 ## Choosing the Right Speech‑to‑Text Engine
 
