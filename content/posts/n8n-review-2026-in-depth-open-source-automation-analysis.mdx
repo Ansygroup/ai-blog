@@ -75,7 +75,7 @@ While Zapier still leads in sheer quantity of pre‑built SaaS connectors, n8n m
 
 During load testing we simulated **5,000 workflow runs per hour** across three distinct workflows ([email](/posts/ai-driven-email-marketing-automation-tools-review) parsing, data enrichment, and CRM sync). The self‑hosted n8n instance maintained an **average execution time of 180 ms**, with a **99.96 % success rate**. By contrast, Zapier’s cloud platform recorded 250 ms average latency under the same load, while Make showed occasional throttling spikes up to 600 ms during peak minutes.
 
-Reliability is bolstered by **Docker‑Compose** orchestration and optional **Kubernetes Helm charts**. The platform supports **horizontal scaling**—adding extra worker pods instantly doubles throughput. In a production environment, the **built‑in health checks** restart failed containers automatically, a feature missing from the [free tier](/posts/copilot-free-tier-limits-2026) of n8n.cloud but present in the paid plans.
+Reliability is bolstered by **Docker‑Compose** [orchestration](/posts/langchain-pricing-breakdown-2026) and optional **Kubernetes Helm charts**. The platform supports **horizontal scaling**—adding extra worker pods instantly doubles throughput. In a production environment, the **built‑in health checks** restart failed containers automatically, a feature missing from the [free tier](/posts/copilot-free-tier-limits-2026) of n8n.cloud but present in the paid plans.
 
 Backup and disaster recovery are straightforward: you can export all workflows as JSON or enable **automatic daily snapshots** to an S3 bucket for $0.02 per GB. Zapier offers version history for paid tiers only, while Make provides daily backups but at an additional $10/month per workspace.
 

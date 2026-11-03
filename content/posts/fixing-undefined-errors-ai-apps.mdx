@@ -72,7 +72,7 @@ Understanding why an AI service returns an **undefined** response requires audit
 ```
 
 ### 1. Token Truncation and Buffer Overflow
-When an LLM hits its `max_tokens` limit mid-response, the JSON string terminates abruptly. A closing bracket is never emitted, leaving nested child objects uninstantiated. When your backend attempts to access `result.choices[0].message.content.metadata.author`, the runtime halts with a fatal exception because `metadata` is truncated and evaluates to **undefined**.
+When an LLM hits its `max_tokens` limit mid-response, the JSON string terminates abruptly. A closing bracket is never emitted, leaving nested child objects uninstantiated. When your backend attempts to access `result.[choice](/posts/n8n-vs-zapier-2026)s[0].message.content.metadata.author`, the runtime halts with a fatal exception because `metadata` is truncated and evaluates to **undefined**.
 
 ### 2. Semantic Key Hallucination
 Even when explicitly prompted to adhere to a schema, models frequently substitute synonymous keys. A prompt demanding `{ "userAge": 32 }` might yield `{ "age": 32 }` or `{ "user_age": 32 }`. If your application logic specifically indexes `data.userAge`, the value retrieved is mathematically missing.
@@ -94,7 +94,7 @@ Instead of allowing the LLM to choose tokens freely across its entire vocabulary
 - **Out[lines](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026) / SGLang**: Open-source libraries that compile Pydantic schemas into finite-state [machine](/posts/2026-tutorial-ai-generated-data-for-privacy-safe-ml)s (FSMs), guaranteeing mathematically valid JSON structures from local models like Llama 3.
 
 ### Method 2: Schema Validation at the Application Boundary
-If you cannot use constrained decoding (for instance, when using legacy models or third-party wrappers), validate every payload immediately upon receipt using strict typing validators.
+If [you can](/posts/n8n-free-tier-limits-2026)not use constrained decoding (for instance, when using legacy models or third-party wrappers), validate every payload immediately upon receipt using strict typing validators.
 
 In TypeScript environments, Zod provides [complete](/posts/ai-agents-aggressively-hack-us-canada-2026-guide) runtime type safety:
 

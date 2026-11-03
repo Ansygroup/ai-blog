@@ -69,7 +69,7 @@ OpenAI mitigates some errors with a “groundedness” flag that warns users whe
 
 ## Context Window and Token Limits
 
-ChatGPT’s context window in 2026 is capped at **128 k tokens** (roughly 96 KB of plain text). This is a significant [upgrade](/posts/copy-ai-vs-free-version) from the 8 k tokens of GPT‑3.5, yet it still lags behind competitors. Gemini 1.5 Pro offers a **256 k token** window, and Claude 3.5 Sonnet supports **200 k tokens**. For developers [build](/posts/claude-workflow-examples-2026)ing long‑form summarization tools, this limitation forces document chunking, which introduces latency and can break narrative flow.
+ChatGPT’s context window in 2026 is capped at **128 k tokens** (roughly 96 KB of plain text). This is a signifi[cant](/posts/n8n-free-tier-limits-2026) [upgrade](/posts/copy-ai-vs-free-version) from the 8 k tokens of GPT‑3.5, yet it still lags behind competitors. Gemini 1.5 Pro offers a **256 k token** window, and Claude 3.5 Sonnet supports **200 k tokens**. For developers [build](/posts/claude-workflow-examples-2026)ing long‑form summarization tools, this limitation forces document chunking, which introduces latency and can break narrative flow.
 
 We measured the impact on a 300‑[page](/posts/best-ai-driven-landing-page-ab-testing-tools-2026) legal contract (≈ 1.2 M tokens). ChatGPT required **10** API calls to process the full text, incurring an average latency of **210 ms** per call and a total cost of **$0.24** (based on the $20/mo Plus plan’s $0.02 per 1 k tokens). Gemini’s larger window reduced calls to **5**, halving latency and cutting cost by 12 %. The extra tokens also allowed the model to retain cross‑section references, improving summary coherence by 18 % in a blind evaluator test.
 

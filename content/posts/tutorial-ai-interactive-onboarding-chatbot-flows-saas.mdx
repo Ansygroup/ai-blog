@@ -61,7 +61,7 @@ That combination is what separates a demo chatbot from an onboarding [system](/p
 
 The reference flow in this guide was implemented twice: once in Voiceflow's [no-code](/posts/best-zapier-tools-2026-top-automation-platforms-compared) canvas and once as a Next.js route using the Vercel AI SDK, with a shared flow spec and the same demo SaaS app (project [creation](/posts/2026-ai-powered-podcast-ad-creation-placement-tutorial), CSV import, team invites). Benchmarks and pricing in this article come from vendor documentation and published customer case studies, not a controlled lab test. Prices are list prices at the time of writing and change often, so validate them before you commit to a plan.
 
-Every code block below is deliberately small. The goal is a flow you can paste into a real repository and extend, not a framework you have to maintain.
+Every code block below is deliberately small. The goal is a flow [you can](/posts/n8n-free-tier-limits-2026) paste into a real repository and extend, not a [framework](/posts/langchain-review-2026-complete-ai-framework-analysis) you have to maintain.
 
 ## Step 1: Define the Activation Event Before You Write a Prompt
 
@@ -115,7 +115,7 @@ The most common failure in AI onboarding is a bot that free-forms until it gets 
   "states": {
     "goal": {
       "[prompt](/posts/fixing-undefined-errors-ai-apps)": "What are you hoping to get done first?",
-      "options": ["Manage a project", "Import existing data", "Explore on my own"],
+      "[options](/posts/langchain-pricing-breakdown-2026)": ["Manage a project", "Import existing data", "Explore on my own"],
       "transitions": {
         "Manage a project": "template",
         "Import existing data": "import",
@@ -206,7 +206,7 @@ async function answerWithDocs(question, account) {
 }
 ```
 
-Two guardrails matter more than the model choice:
+Two guardrails matter more than the model [choice](/posts/n8n-vs-zapier-2026):
 
 - **Refuse when retrieval is empty.** A confident [wrong](/posts/jasper-limitations-2026-what-ai-writers-get-wrong) answer about pricing or permissions is worse than an escalation.
 - **Version your knowledge base.** Tag chunks with the release they describe, or the bot will confidently explain a UI you removed last quarter.
@@ -291,7 +291,7 @@ You cannot improve onboarding without per-step data. Track these five metrics fr
 | **Time to value** | Median minutes from signup to activation event | Under 10 minutes |
 | **Flow completion** | % of users finishing the chat flow | Above 65% |
 | **Escalation rate** | % of conversations handed to a human | 5–15% |
-| **30-day retention lift** | Retention of chat cohort vs control | Positive and significant |
+| **30-day retention lift** | Retention of chat cohort vs control | Positive and signifi[cant](/posts/n8n-free-tier-limits-2026) |
 
 Run the chatbot as an A/B test against your current onboarding for at least two full weeks. Segment by signup source and plan, because self-serve users and [sales](/posts/best-of-top-ai-platforms-for-generating-personalized-sales-proposals)-assisted users respond very differently to the same script. A flow that wins overall can still lose badly for enterprise trials.
 
