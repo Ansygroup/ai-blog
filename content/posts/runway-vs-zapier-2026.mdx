@@ -85,7 +85,7 @@ We measured latency across 1,000 runs of a standard “new row → AI video → 
 - **Zapier task execution**: 1.8 seconds per step, with a total of 5 steps averaging 9 seconds.
 - **Error rate**: Runway experienced a 1.2% failure rate due to render queue spikes; Zapier’s failure rate was 0.4% (mostly API throttling).
 
-Both services offer **SLA guarantees**: Runway promises **99.5% uptime** for its rendering pipeline, while Zapier guarantees **99.9% uptime** for task execution. In practice, Zapier’s larger infrastructure and multi‑region deployment give it a slight edge in [consistency](/posts/review-best-ai-powered-brand-voice-checkers-2026), especially during peak traffic.
+Both services offer **SLA guarantees**: Runway promises **99.5% uptime** for its rendering pipeline, while Zapier guarantees **99.9% uptime** for task execution. In practice, Zapier’s larger [infrastructure](/posts/pinecone-review-2026-in-depth-vector-db-benchmark-pricing) and multi‑region deployment give it a slight edge in [consistency](/posts/review-best-ai-powered-brand-voice-checkers-2026), especially during peak traffic.
 
 ## Customer Support & Community
 
@@ -124,7 +124,7 @@ Runway’s pricing is **usage‑driven** (pay for render credits), making it cos
 
 ## Who Should Skip This?
 
-If your primary workflow revolves around **heavy data transformation** (e.g., ETL pipelines, large‑scale database syncing), you’ll likely find **Make (formerly Integromat)** or **Microsoft Power Automate** more suitable due to their deeper data‑processing capabilities. Likewise, teams that need **high‑resolution 4K video rendering** at scale may outgrow Runway’s current limits and should consider dedicated video‑render farms or Adobe Media Encoder.
+If your primary workflow revolves around **heavy data transformation** (e.g., ETL pipelines, large‑scale [database](/posts/best-pinecone-tools-2026) syncing), you’ll likely find **Make (formerly Integromat)** or **Microsoft Power Automate** more suitable due to their deeper data‑processing capabilities. Likewise, teams that need **high‑resolution 4K video rendering** at scale may outgrow Runway’s current limits and should consider dedicated video‑render farms or Adobe Media Encoder.
 
 ## FAQ
 

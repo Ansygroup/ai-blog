@@ -59,7 +59,7 @@ LangChain’s architecture is built around **Composable Modules** that can be sw
 | **Memory** | Persists conversation state | Multi‑turn chat | Window size, token limit |
 | **Callbacks** | Observability hooks | Logging via LangSmith | on_start, on_end, on_error |
 
-The modularity enables developers to replace, for instance, a **FAISS** vector store with **Pinecone** by swapping a single [line](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026) of code. This plug‑and‑play approach is a key differentiator from competitors, where the architecture is more monolithic (e.g., Semantic Kernel’s “Kernel” class bundles many responsibilities).
+The modularity enables developers to replace, for instance, a **FAISS** [vector](/posts/best-pinecone-alternatives-2026) store with **Pinecone** by swapping a single [line](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026) of code. This plug‑and‑play approach is a key differentiator from competitors, where the architecture is more monolithic (e.g., Semantic Kernel’s “Kernel” class bundles many responsibilities).
 
 ### Real‑World Example
 
@@ -227,7 +227,7 @@ Yes. While the core library is Python‑first, LangChain 0.2.3 introduced offici
 LangSmith offers a [free tier](/posts/copilot-free-tier-limits-2026) with 500 K token logs per month. Paid tiers are token‑based: $0.018 per 1 K tokens for the Professional tier, with a flat $499/month minimum for Enterprise (including 1 M token bundle). Additional tokens are billed at $0.015 per 1 K.
 
 ### Can LangChain be run on‑prem for data‑privacy?
-Absolutely. The core library is open‑source and can be deployed on any infrastructure. LangSmith also offers an on‑prem version (Enterprise tier) that stores logs behind your firewall, satisfying GDPR, HIPAA, and other compliance frameworks.
+Absolutely. The core library is open‑source and can be deployed on any [infrastructure](/posts/pinecone-review-2026-in-depth-vector-db-benchmark-pricing). LangSmith also offers an on‑prem version (Enterprise tier) that stores logs behind your firewall, satisfying GDPR, HIPAA, and other compliance frameworks.
 
 ### Is LangChain compatible with Azure OpenAI?
 Yes. LangChain includes a dedicated **AzureOpenAI** wrapper that handles deployment IDs, API versions, and Azure

@@ -189,7 +189,7 @@ A minimal retrieval pipeline has four parts:
 ```js
 async function answerWithDocs(question, account) {
   const embedding = await embed(question);
-  const chunks = await vectorStore.search(embedding, {
+  const chunks = await [vector](/posts/best-pinecone-alternatives-2026)Store.search(embedding, {
     topK: 5,
     filter: { plan: account.plan, archived: false },
   });
