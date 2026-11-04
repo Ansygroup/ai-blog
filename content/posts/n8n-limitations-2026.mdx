@@ -39,7 +39,7 @@ Our team spent 120 hours over three months [benchmarking](/posts/gamma-accurac
 
 ## n8n's Self‑Hosted Scaling Limits
 
-When you run n8n on your own infrastructure, you gain full [control](/posts/shopify-conversational-big-picture-design-control-2026-guide) but also inherit the responsibility of scaling. In our tests, a single instance on a 16 vCPU VM could handle **up to 1,200 concurrent workflow executions** before CPU usage hit 85 % and latency spiked from an average 150 ms to 620 ms per node. Adding more workers via Docker Swarm or Kubernetes mitigated the issue, but required manual [config](/posts/chatgpt-best-settings)uration and added operational overhead.
+When you run n8n on your own [infrastructure](/posts/pinecone-review-2026-in-depth-vector-db-benchmark-pricing), you gain full [control](/posts/shopify-conversational-big-picture-design-control-2026-guide) but also inherit the responsibility of scaling. In our tests, a single instance on a 16 vCPU VM could handle **up to 1,200 concurrent workflow executions** before CPU usage hit 85 % and latency spiked from an average 150 ms to 620 ms per node. Adding more workers via Docker Swarm or Kubernetes mitigated the issue, but required manual [config](/posts/chatgpt-best-settings)uration and added operational overhead.
 
 | Instance Size | Max Concurrent Execs* | Avg Latency (ms) | Cost (monthly) |
 |---------------|----------------------|------------------|----------------|
@@ -48,7 +48,7 @@ When you run n8n on your own infrastructure, you gain full [control](/posts/shop
 | 16 vCPU / 32 GB| 1,200 | 620 | $180 (AWS) |
 | n8n Cloud Pro| 2,500 (managed) | 120 | $199 |
 
-\*Measured at 70 % CPU threshold. The cloud offering [automatic](/posts/2026-review-best-ai-multilingual-video-caption-tools)ally scales, but the price jumps sharply after the free tier. For teams that expect more than 1,000 daily executions, the self‑hosted ceiling becomes a real blocker, especially when you factor in the need for load balancers, backup, and security hardening.
+\*Measured at 70 % CPU threshold. The [cloud](/posts/pinecone-setup-guide-2026) offering [automatic](/posts/2026-review-best-ai-multilingual-video-caption-tools)ally scales, but the price jumps sharply after the free tier. For teams that expect more than 1,000 daily executions, the self‑hosted ceiling becomes a real blocker, especially when you factor in the need for load balancers, backup, and security hardening.
 
 ## UI/UX Constraints That Slow Down Developers
 
