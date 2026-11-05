@@ -55,7 +55,7 @@ Pinecone automatic[ally](/posts/copy-ai-vs-zapier-2026) compresses vectors using
 
 Pinecone’s free tier enforces a **hard cap of 10 QPS** per project. When you exceed this limit, the service returns a `429 Too Many Requests` response with a `Retry-After` header. In our latency tests (average of 150 ms for a 10‑dim cosine similarity query), the service remained stable up to 9 QPS, but at 11 QPS the error rate spiked to **38 %**.
 
-Write operations (upserts) are limited to **1 000 per day**. This is sufficient for batch loading once a week but problematic for continuous learning pipe[lines](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026) that ingest new embeddings in near‑real‑time. Each upsert call can batch up to **10 k vectors**, so you could technically write the entire free‑tier capacity in a single day, but you must stay within the daily count.
+Write operations (upserts) are limited to **1 000 per day**. This is sufficient for batch loading once a week but problematic for continuous [learning](/posts/hugging-face-review-2026) pipe[lines](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026) that ingest new embeddings in near‑real‑time. Each upsert call can batch up to **10 k vectors**, so you could technically write the entire free‑tier capacity in a single day, but you must stay within the daily count.
 
 The free tier also caps **outbound data transfer** at **1 GB/month**. A typical query returns a vector ID and a similarity score (≈ 20 bytes). Even at the max 10 QPS, you’d only use about **5 MB/month**, far below the limit. However, if you enable **metadata retrieval** (e.g., returning full JSON payloads), the egress can jump to 200 KB per response, quickly consuming the free bandwidth.
 
@@ -112,7 +112,7 @@ In each scenario, the key is **batching writes** and **caching [results](/posts/
 
 ## Hidden Costs and Upgrade Triggers in Pinecone
 
-While the free tier is advertised as “unlimited,” Pinecone enforces **soft limits** that can trigger automatic throttling or, in rare cases, a temporary suspension if you repeatedly exceed quotas. The platform sends [email](/posts/ai-driven-email-marketing-automation-tools-review) alerts when you reach **80 %** of any limit. If you ignore the alerts, Pinecone may **pause writes** until the next 24‑hour window.
+While the free tier is advertised as “unlimited,” Pinecone enforces **soft limits** that can trigger automatic throttling or, in rare cases, a temporary suspension if you repeatedly exceed quotas. The [platform](/posts/hugging-face-review-2026) sends [email](/posts/ai-driven-email-marketing-automation-tools-review) alerts when you reach **80 %** of any limit. If you ignore the alerts, Pinecone may **pause writes** until the next 24‑hour window.
 
 If you need to exceed any free‑tier cap, Pinecone offers three [paid](/posts/copy-ai-vs-free-version) tiers:
 
