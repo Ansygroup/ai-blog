@@ -56,7 +56,7 @@ The table [highlight](/posts/best-ai-video-summarization-tools-2026)s why Weavia
 
 ## Performance Benchmarks: Latency, Throughput, and Scale
 
-We measured latency using a mixed workload of 1‑to‑10‑nearest‑neighbor (k‑NN) queries across three data sizes: **1 M**, **10 M**, and **100 M** vectors. Weaviate consistently delivered sub‑millisecond 99th‑percentile latency up to 10 M vectors, with a modest increase to 1.3 ms at 100 M—still faster than Pinecone’s 1.6 ms at the same scale. Milvus excelled in bulk‑insert throughput, ingesting **1.2 B** vectors per hour on a single GPU node, whereas Pinecone capped at **800 M** vectors/hour under identical hardware.
+We measured latency using a mixed workload of 1‑to‑10‑nearest‑neighbor (k‑NN) queries across three data sizes: **1 M**, **10 M**, and **100 M** vectors. Weaviate consistently delivered sub‑millisecond 99th‑percentile latency up to 10 M vectors, with a modest increase to 1.3 ms at 100 M—still [faster](/posts/best-ollama-tools-2026) than Pinecone’s 1.6 ms at the same scale. Milvus excelled in bulk‑insert throughput, ingesting **1.2 B** vectors per hour on a single GPU node, whereas Pinecone capped at **800 M** vectors/hour under identical hardware.
 
 Hybrid search tests (vector similarity + a numeric filter) [show](/posts/review-top-ai-driven-podcast-show-notes-generators-2026)ed Qdrant’s deterministic sharding delivering **0.95 ms** average latency for 5 M‑vector datasets, outperforming Pinecone’s 1.2 ms. All three alternatives maintained linear scalability when adding shards, a critical factor for [enterprise](/posts/langchain-pricing-breakdown-2026)s [plan](/posts/cursor-pricing-breakdown-2026)ning to exceed the 500 M vector mark.
 

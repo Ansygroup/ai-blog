@@ -191,7 +191,7 @@ Let’s automate a common [sales](/posts/best-of-top-ai-platforms-for-generating
 Even with a solid deployment, [performance](/posts/suno-vs-chatgpt-2026) can degrade under heavy load. Follow these best practices:
 
 1. **Enable Redis Cache** – Set `N8N_REDIS_HOST` to a managed Redis instance. This reduces database round‑trips for workflow state, cutting latency by ~ 15 %.  
-2. **Increase Worker Concurrency** – In the `n8n` config (`EXECUTIONS_PROCESS=main`), raise `EXECUTIONS_TIMEOUT_MAX=600000` (10 min) for long‑running tasks, and adjust `EXECUTIONS_WORKER_COUNT=4` on multi‑core machines.  
+2. **Increase Worker Concurrency** – In the `n8n` config (`EXECUTIONS_PROCESS=main`), raise `EXECUTIONS_TIMEOUT_MAX=600000` (10 min) for long‑running tasks, and adjust `EXECUTIONS_WORKER_COUNT=4` on multi‑core [machine](/posts/hugging-face-review-2026)s.  
 3. **Prometheus Metrics** – Expose `/metrics` and import into Grafana. Track `n8n_executions_total`, `n8n_execution_time_seconds`, and `n8n_[errors](/posts/fixing-undefined-errors-ai-apps)_total`. Set alerts for > 5 % error rate.  
 4. **Log Rotation** – Use `logrotate` on the host or configure Docker’s `max-size` and `max-file` options to avoid disk exhaustion.  
 5. **Health Checks** – Implement a `/healthz` endpoint that verifies DB connectivity, Redis ping, and node‑process health. Kubernetes will automatically restart unhealthy pods.
@@ -214,7 +214,7 @@ Even with a solid deployment, [performance](/posts/suno-vs-chatgpt-2026) can deg
 
 ### Azure
 
-- **Azure Container Apps**: Offers built‑in Dapr for pub/sub, useful for event‑driven workflows.  
+- **Azure Container Apps**: Offers built‑in Dapr for pub/sub, useful for event‑driven [workflows](/posts/best-ollama-tools-2026).  
 - **Azure Database for PostgreSQL – Flexible Server**: Provides zone‑redundant storage for HA.  
 - **Key Vault**: Centralized secret [management](/posts/zapier-for-teams-2026-review); bind directly to container app environment.
 
