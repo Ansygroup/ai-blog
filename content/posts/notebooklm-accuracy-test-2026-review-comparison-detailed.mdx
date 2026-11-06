@@ -71,7 +71,7 @@ NotebookLM also supports “cell‑level continuation”: given a partially writ
 
 Modern notebooks embed charts, tables, and even annotated images. We built a 150‑item test set where each prompt required the model to read a table image, interpret the data, and answer a query. NotebookLM correctly answered **78%** of questions, beating Claude 2’s **71%** and Copilot’s **65%**.
 
-For example, a screenshot of a confusion matrix from a Kaggle competition was fed to NotebookLM. The model identified the true‑positive rate (0.84) and suggested an F1‑score of **0.81**, matching the ground‑truth calculation. Copilot misread the axis labels and produced an incorrect [value](/posts/copy-ai-pricing-breakdown-2026).
+For example, a screenshot of a confusion matrix from a Kaggle [competition](/posts/kaggle-review-2026-top-data-science-competition-platform) was fed to NotebookLM. The model identified the true‑positive rate (0.84) and suggested an F1‑score of **0.81**, matching the ground‑truth calculation. Copilot misread the axis labels and produced an incorrect [value](/posts/copy-ai-pricing-breakdown-2026).
 
 The multimodal edge comes from Gemini’s [vision](/posts/how-to-use-gpt-4-vision-api-for-image-analysis-and-descripti)‑language encoder, which Google has fine‑tuned on academic figures. Notion AI currently lacks native image‑understanding, limiting it to text‑only tasks.
 
