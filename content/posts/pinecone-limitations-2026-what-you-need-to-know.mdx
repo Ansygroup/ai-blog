@@ -198,4 +198,4 @@ Pinecone’s API allows upserts at up to 1 k vectors per second, but real‑ti
 Yes. Pinecone supports vectors from 8 to 2 048 dimensions. Vectors larger than 2 048 must be reduced via dimensionality‑reduction techniques (e.g., PCA or UMAP) before indexing, otherwise the request will be rejected.
 
 ### What are the cost implications of Pinecone’s storage and query limits?
-Pinecone charges per GB of stored vectors and per million queries. The 10 billion‑vector cap translates to roughly $0.12 per GB per month, while query pricing starts at $0.25 per million queries and rises with higher QPS tiers. Exceeding the free tier or default limits incurs additional over‑age fees.
+Pinecone charges per GB of stored vectors and per million queries. The 10 billion‑vector cap translates to roughly $0.12 per GB per month, while query pricing starts at $0.25 per million queries and rises with higher QPS tiers. Exceeding the free tier or default limits incurs additional over‑age [fees](/posts/kaggle-api-cost-comparison-2026).
