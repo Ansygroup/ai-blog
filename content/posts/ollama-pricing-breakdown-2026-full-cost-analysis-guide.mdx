@@ -111,7 +111,7 @@ Even with transparent pricing, hidden [costs](/posts/copy-ai-pricing-breakdown-2
 1. **Outbound Bandwidth** – Streaming large responses (e.g., 4 KB per token) can add $0.01 per GB. Compress responses with gzip or use binary protocols to cut bandwidth by up to 40 %.
 2. **Model Version Bloat** – Each new fine‑tuned model version stores a metadata snapshot. Periodically prune unused versions; Ollama’s CLI includes `ollama prune --versions`.
 3. **Cold‑Start Latency** – When scaling across edge nodes, the first request incurs a “cold‑start” cost of roughly 0.5 seconds, which can translate into extra token usage if your application retries. Warm‑up your nodes during off‑peak hours.
-4. **Token Mis‑counting** – Ollama counts both prompt and completion tokens. Developers sometimes overlook the completion side, leading to unexpected over‑age charges. Use the provided token‑estimator tool to simulate usage before deployment.
+4. **Token Mis‑counting** – Ollama counts both prompt and completion tokens. Developers sometimes overlook the completion side, [lead](/posts/best-ai-tools-chatgpt-for-real-estate-agents-2026)ing to unexpected over‑age charges. Use the provided token‑estimator tool to simulate usage before deployment.
 
 By adopting these practices, you can shave 5‑10 % off the projected monthly bill without sacrificing performance.
 
@@ -170,7 +170,7 @@ For inference on the 7‑B Mistral model, a single NVIDIA A100 (40 GB) or an A
 ### How does Ollama handle data [privacy](/posts/best-ai-tools-automated-privacy-policy-generation-2026)?
 All data processed on self‑hosted nodes never leaves your [network](/posts/ai-linkedin-connection-outreach-automation-tutorial-2026). For managed edge nodes, Ollama encrypts traffic with TLS 1.3 and offers an optional “no‑log” flag that disables persistent storage of request payloads.
 
-### Are there discounts for non‑profits or education?
+### Are there discounts for non‑profits or [education](/posts/best-ai-tools-chatgpt-for-students-2026)?
 Yes. Ollama provides a 25 % discount on Enterprise subscriptions for verified non‑profit and accredited educational institutions. Contact [sales](/posts/best-of-top-ai-platforms-for-generating-personalized-sales-proposals) with proof of status to receive a custom coupon code.
 
 ## Final Verdict
