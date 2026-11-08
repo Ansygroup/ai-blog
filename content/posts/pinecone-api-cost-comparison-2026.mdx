@@ -91,7 +91,7 @@ Pinecone’s billing engine tracks three metrics in real time:
 2. **Read Queries** – each similarity search counts as one query, regardless of k‑nearest‑neighbors (k‑NN) size. Batch queries are still billed per request, not per vector.
 3. **Write Operations** – each upsert (insert or up[date](/posts/mike-flanagans-carrie-release-date-2026-full-guide)) is a write. Bulk upserts are broken into 1 K‑item batches intern[ally](/posts/copy-ai-vs-zapier-2026), so a 10 K upsert counts as 10 writes.
 
-Pinecone also imposes **data egress fees** for cross‑region traffic: $0.09 / GB for outbound data beyond the first 10 GB. For analytics pipe[lines](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026) that pull large result sets, this can add $3‑$5 per month on a 50 GB egress volume.
+Pinecone also imposes **data egress fees** for cross‑region traffic: $0.09 / GB for outbound data beyond the first 10 GB. For [analytics](/posts/best-ai-tools-claude-for-marketing-teams-2026) pipe[lines](/posts/tutorial-ai-driven-ab-testing-email-subject-lines-2026) that pull large result sets, this can add $3‑$5 per month on a 50 GB egress volume.
 
 ## Comparing Pinecone to Weaviate: Cost per Million Vectors
 
