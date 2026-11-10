@@ -217,7 +217,7 @@ The model supports up to **32 K tokens** per request (input + output). Exc
 
 Yes. Using the **Parameter Efficient Fine‑Tuning (PEFT)** library, [you can](/posts/n8n-free-tier-limits-2026) add LoRA adapters to Llama 3‑8B‑Chat. In our tests, a 2‑epoch LoRA fine‑tune on a domain‑specific QA set improved factual accuracy by 9 % without changing inference latency.
 
-### How does batch‑prompting affect token accounting?
+### How does batch‑prompting affect token [accounting](/posts/best-ai-copilot-tools-for-accountants-2026-top-7-picks)?
 
 When you send a batch of 32 prompts, Hugging Face counts **input tokens** for each prompt individually, but **output tokens** are summed across the batch. This is why per‑token cost drops: the overhead of the HTTP request is amortized over many queries.
 
