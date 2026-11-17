@@ -233,7 +233,7 @@ Even with a solid deployment, [performance](/posts/suno-vs-chatgpt-2026) can deg
 2. **Workflow Export** – n8n provides a JSON export of each workflow. Schedule a cron job (`n8n export:workflow`) to [push](/posts/best-ai-powered-push-notification-ab-testing-platforms-2026) the JSON to an S3 bucket or GCS bucket.  
 3. **Container Image Versioning** – Tag Docker images with the n8n [version](/posts/copy-ai-vs-free-version) (`n8nio/n8n:1.45.0`) and store them in a private registry. This ensures you can roll back to a [know](/posts/copy-ai-free-tier-limits-2026)n‑good state.  
 4. **Failover** – Deploy a standby PostgreSQL replica in another region. Configure the n8n instance to read `DATABASE_URL` from a DNS CNAME that points to the primary, with automatic TTL‑based failover.  
-5. **Testing** – Quarterly fire‑drill: restore the DB from a snapshot to a fresh VM, redeploy n8n, and run a smoke test workflow to confirm end‑to‑end functionality.
+5. **Testing** – Quarterly fire‑drill: restore the DB from a snapshot to a fresh VM, redeploy n8n, and run a smoke test workflow to con[firm](/posts/best-ai-tools-jasper-for-lawyers-2026) end‑to‑end functionality.
 
 ## Pros and Cons
 
