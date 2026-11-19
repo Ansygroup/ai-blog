@@ -78,7 +78,7 @@ Pinecone supports three primary query [style](/posts/review-best-ai-powered-bran
 Performance can be tuned by:
 
 - **Pod Size** – Move from `p1.x1` (1 CPU, 4 GB) to `p1.x4` for a 2.3× latency reduction.  
-- **Metadata Indexing** – Enable `metadata-config` to index fields like `category` or `[timestamp](/posts/ai-youtube-chapter-timestamp-generators-2026)`.  
+- **Metadata Indexing** – Enable `metadata-config` to index fields [like](/posts/best-ai-tools-writesonic-for-small-business-owners-2026) `category` or `[timestamp](/posts/ai-youtube-chapter-timestamp-generators-2026)`.  
 - **Replica Count** – Set `replicas: 2` for high availability; latency increases by < 1 ms.  
 
 In a head‑to‑head test, Pinecone’s 4‑pod `p1.x4` cluster [service](/posts/best-ai-tools-automated-privacy-policy-generation-2026)d **1 M QPS** with a [media](/posts/ai-automated-social-media-content-calendar-non-profit)n latency of **2.1 ms**, while Weaviate on a comparable GKE node pool logged **3.6 ms** and Milvus on a self‑managed VM recorded **4.8 ms**.
