@@ -2,12 +2,17 @@ export const dynamic = 'force-dynamic';
 
 const VERCEL_TOKEN = process.env.VERCEL_API_TOKEN;
 const TEAM_ID = 'team_jsDd0T7iHZ26E6GhomgOxE4T';
-const PROJECT_ID = 'prj_rsovAri2OEbo6Q3FSWHyk3Jzjtx2';
+// 2026-11-24: the previously hardcoded id returns 404 "Project not found"
+// for the current token. Fail loudly if the real id is not configured.
+const PROJECT_ID = process.env.VERCEL_PROJECT_ID;
 
 export async function GET() {
   try {
     if (!VERCEL_TOKEN) {
       return Response.json({ error: 'Vercel API token not configured' }, { status: 400 });
+    }
+    if (!PROJECT_ID) {
+      return Response.json({ error: 'VERCEL_PROJECT_ID not configured (stale id removed)' }, { status: 400 });
     }
 
     const res = await fetch(
@@ -39,6 +44,9 @@ export async function POST() {
   try {
     if (!VERCEL_TOKEN) {
       return Response.json({ error: 'Vercel API token not configured' }, { status: 400 });
+    }
+    if (!PROJECT_ID) {
+      return Response.json({ error: 'VERCEL_PROJECT_ID not configured (stale id removed)' }, { status: 400 });
     }
 
     const res = await fetch(
