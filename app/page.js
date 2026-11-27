@@ -43,13 +43,14 @@ export default function HomePage() {
     return picks;
   };
 
+  const heroNews = posts.filter((p) => p.category === 'AI News' && !p.noindex).slice(0, 4);
   const newsTop = byCat(NEWS, 1);
   const featured = newsTop[0] || posts.find((p) => !p.noindex && !used.has(p.slug));
   if (featured) used.add(featured.slug);
 
-  const secondary = [...byCat(CMP, 1), ...byCat(TUT, 1), ...byCat(REV, 1)];
+  const secondary = [...byCat(CMP, 1), ...byCat(REV, 1)];
   for (const p of posts) {
-    if (secondary.length >= 3) break;
+    if (secondary.length >= 2) break;
     if (!used.has(p.slug)) { secondary.push(p); used.add(p.slug); }
   }
 
@@ -73,7 +74,7 @@ export default function HomePage() {
 
       {/* HERO */}
       <section className="border-b border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20 grid lg:grid-cols-12 gap-10 items-end">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20 grid lg:grid-cols-12 gap-10 items-start">
           <div className="lg:col-span-8 hero-in">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold tracking-tight leading-[1.05] text-slate-900 dark:text-dark-text">{siteConfig.tagline}</h1>
             <p className="mt-5 text-lg md:text-xl text-slate-600 dark:text-dark-muted max-w-2xl leading-relaxed">
@@ -84,11 +85,22 @@ export default function HomePage() {
               <Link href="/news" className="border border-slate-300 dark:border-dark-border hover:border-slate-900 dark:hover:border-dark-text text-slate-900 dark:text-dark-text font-semibold px-6 py-3 rounded-lg transition">Latest AI news</Link>
             </div>
           </div>
-          <dl className="hero-in hero-in-2 lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-6 lg:gap-5 lg:border-l lg:border-slate-200 dark:lg:border-dark-border lg:pl-8">
-            <div><dt className="text-sm text-slate-500 dark:text-dark-muted">Articles</dt><dd className="text-3xl font-heading font-bold text-slate-900 dark:text-dark-text">{posts.length.toLocaleString('en-US')}</dd></div>
-            <div><dt className="text-sm text-slate-500 dark:text-dark-muted">Categories</dt><dd className="text-3xl font-heading font-bold text-slate-900 dark:text-dark-text">{categories.length}</dd></div>
-            <div><dt className="text-sm text-slate-500 dark:text-dark-muted">Prices checked</dt><dd className="text-3xl font-heading font-bold text-slate-900 dark:text-dark-text">Live</dd></div>
-          </dl>
+          <aside aria-label="Latest AI news" className="hero-in hero-in-2 lg:col-span-4 lg:border-l lg:border-slate-200 dark:lg:border-dark-border lg:pl-8">
+            <div className="flex items-baseline justify-between mb-3">
+              <h2 className="text-base font-heading font-bold text-slate-900 dark:text-dark-text">Latest AI news</h2>
+              <Link href="/news" className="text-sm text-brand-600 dark:text-brand-400 font-medium hover:underline">All news</Link>
+            </div>
+            <ul className="divide-y divide-slate-200 dark:divide-dark-border">
+              {heroNews.map((n) => (
+                <li key={n.slug} className="py-3">
+                  <Link href={`/news/${n.slug}`} className="block group">
+                    <span className="block text-[0.95rem] leading-snug font-medium text-slate-900 dark:text-dark-text group-hover:text-brand-600 dark:group-hover:text-brand-400">{n.title}</span>
+                    <time dateTime={n.date} className="text-xs text-slate-500 dark:text-dark-muted">{new Date(n.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</time>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </aside>
         </div>
       </section>
 
