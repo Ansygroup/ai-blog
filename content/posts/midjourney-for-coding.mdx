@@ -31,7 +31,7 @@ Can a world-class AI [image generator actually help you write better](/posts/cha
 
 - **Midjourney does](/posts/brain-fm-review-2026) not write raw code**; instead, it generates flat raster images (PNG/JPG) of [user interfaces, websites, and dashboard designs.
 - **The modern visual-to-code](/posts/best-ai-code-assistants-2026) pipeline** involves generating UI layouts in Midjourney v6, feeding those images into vision-capable LLMs like Claude 3.5 [Sonnet or GPT-4o, and generating clean](/posts/elevenlabs-voice-isolator-review-2026) React, HTML, or Tailwind CSS.
-- **Dedicated AI code [generators** like v0 by Vercel, Bolt.new, and Cursor](/posts/best-ai-coding-tools-2026-cursor-windsurf-claude-code-codex) act as the true "Midjourney equivalents" for direct, interactive code generation.
+- **Dedicated AI code [generators** like v0 by Vercel, Bolt.new, and Cursor](/news/best-ai-coding-tools-2026-cursor-windsurf-claude-code-codex) act as the true "Midjourney equivalents" for direct, interactive code generation.
 - **[Prompt engineering for UI/UX** requires specific parameters (e.g., `--style raw`, `--ar 16:9`, and flat-design](/posts/best-monitors-programming-design-2026) keywords) to prevent Midjourney from adding unusable 3D distortions or realistic shadows to interfaces.
 
 </div>
@@ -41,7 +41,7 @@ Can a world-class AI [image generator actually help you write better](/posts/cha
 !Quick Answer](/images/illustrations/midjourney-for-coding-illo3.svg)
 ## Quick Answer
 
-To [use Midjourney for coding, generate high-fidelity UI layouts in Midjourney, then upload those images directly into **Claude](/posts/best-ai-coding-tools-2026-cursor-windsurf-claude-code-codex) 3.5 [Sonnet** or **v0.dev** to convert the visual layout into clean](/posts/elevenlabs-voice-isolator-review-2026) Tailwind CSS or React code. For direct, text-to-code generation without an intermediate image step, **v0 by Vercel** is our top recommended "Midjourney for [code" tool.
+To [use Midjourney for coding, generate high-fidelity UI layouts in Midjourney, then upload those images directly into **Claude](/news/best-ai-coding-tools-2026-cursor-windsurf-claude-code-codex) 3.5 [Sonnet** or **v0.dev** to convert the visual layout into clean](/posts/elevenlabs-voice-isolator-review-2026) Tailwind CSS or React code. For direct, text-to-code generation without an intermediate image step, **v0 by Vercel** is our top recommended "Midjourney for [code" tool.
 
 </div>
 
@@ -54,7 +54,7 @@ Instead, "Midjourney for coding" refers to a highly [effective, modern design](/
 
 Developers then use one of two main pathways to turn these flat images into working code](/posts/best-ai-code-assistants-2026):
 
-1. **The Vision-LLM Bridge:** Uploading the Midjourney-[generated mockup into a vision-capable AI model (such as Anthropic](/posts/claude-mythos-2026-anthropic-most-capable-model-review)’s Claude 3.5 Sonnet or [OpenAI’s GPT-4o) and prompting it to write clean, responsive HTML, CSS, or React code](/posts/best-ai-code-assistants-2026) based on the image.
+1. **The Vision-LLM Bridge:** Uploading the Midjourney-[generated mockup into a vision-capable AI model (such as Anthropic](/news/claude-mythos-2026-anthropic-most-capable-model-review)’s Claude 3.5 Sonnet or [OpenAI’s GPT-4o) and prompting it to write clean, responsive HTML, CSS, or React code](/posts/best-ai-code-assistants-2026) based on the image.
 2. **The Direct Visual Competitor:** Using tools designed specifically to be the "Midjourney of code"—[platforms like v0.dev, which take text prompts and directly generate interactive, component-based user](/posts/chatgpt-reddit-reviews-2026) interfaces that you can copy and paste into your codebase.
 
 By incorporating Midjourney into your early-stage [development process, you bypass the traditional, time-consuming phase of manual wireframing and design brainstorming. It allows developers who may lack formal graphic design training to build](/posts/build-ai-saas-weekend-2026) stunning, modern interfaces that look like they were crafted by a [premium design agency.
@@ -65,7 +65,7 @@ By incorporating Midjourney into your early-stage [development process, you bypa
 
 To establish a reliable, E-E-A-T-compliant methodology for this guide, our editorial team](/posts/claude-pro-vs-claude-team) spent over **40 hours** [testing various design-to-code pipelines. We generated more than **120 unique UI mockups** in Midjourney v6, ranging from minimalist SaaS](/posts/build-ai-saas-weekend-2026) dashboards to complex e-commerce landing pages. 
 
-We then [tested these visual assets across five different vision-capable](/posts/claude-mythos-2026-anthropic-most-capable-model-review) LLMs and dedicated AI coding engines to evaluate:
+We then [tested these visual assets across five different vision-capable](/news/claude-mythos-2026-anthropic-most-capable-model-review) LLMs and dedicated AI coding engines to evaluate:
 - **Visual Accuracy:** How closely the generated [code matched Midjourney's original design aesthetic.
 - **Code Cleanliness:** Whether the output used modern best practices](/posts/cursor-prompting-guide-2026) (e.g., semantic HTML, responsive Tailwind utility classes, [clean React components).
 - **Time-to-Value:** The total time required to go from a blank Midjourney canvas to a fully interactive, locally running web page](/posts/ai-for-landing-pages-2026).
@@ -80,7 +80,7 @@ If you want to use Midjourney to design your next application and then write the
 ### Step 1: Generating the UI Mockup in Midjourney
 The foundation of this workflow is a [clean, flat, and highly structured image. Standard Midjourney prompts often generate highly stylized, cinematic images with dramatic lighting and angled perspectives—which are completely useless for a front-end developer trying to write a CSS grid.
 
-You must write prompts that force Midjourney](/posts/flux-vs-midjourney-2026-photorealism-comparison) to output flat, front-facing, high-fidelity UI designs. 
+You must write prompts that force Midjourney](/news/flux-vs-midjourney-2026-photorealism-comparison) to output flat, front-facing, high-fidelity UI designs. 
 
 ```text
 /imagine prompt: A high-fidelity UI/UX design of a modern SaaS [analytics dashboard, dark mode, minimalist aesthetic, clean layout, neon blue and purple accents, flat vector design, user interface, web design](/posts/best-monitors-programming-design-2026), Figma style, --ar 16:9 --style raw --v 6.0
@@ -94,7 +94,7 @@ Once Midjourney generates your design, select the best](/posts/the-best-ai-tools
 If your design contains custom icons, complex illustrations, or specific brand](/posts/review-best-ai-powered-brand-voice-checkers-2026) logos generated by Midjourney, use an image [editor to crop and save those individual assets as transparent PNGs. You will host these locally or via a CDN to reference in your final code](/posts/best-ai-code-assistants-2026).
 
 ### Step 3: Feeding the Design to a Vision LLM
-This is where the magic happens. Open a vision-[capable AI tool—**Claude](/posts/best-ai-coding-tools-2026-cursor-windsurf-claude-code-codex) 3.5 [Sonnet** is currently our top recommendation for this task due to its superior spatial reasoning and code generation capabilities](/posts/claude-honest-review-2026). 
+This is where the magic happens. Open a vision-[capable AI tool—**Claude](/news/best-ai-coding-tools-2026-cursor-windsurf-claude-code-codex) 3.5 [Sonnet** is currently our top recommendation for this task due to its superior spatial reasoning and code generation capabilities](/posts/claude-honest-review-2026). 
 
 Upload your upscaled Midjourney mockup and use the following prompt:
 

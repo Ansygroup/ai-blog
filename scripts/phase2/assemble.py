@@ -37,9 +37,22 @@ def validate(body, slugs):
             problems.append(f'dead internal link: /posts/{m.group(1)}')
     return wc, problems
 
+def fix_routes(body):
+    """Rewrite internal links to the correct route (AI News posts live under /news/)."""
+    routes_file = pathlib.Path(__file__).parent / 'slug-routes.json'
+    if not routes_file.exists():
+        return body
+    route = json.loads(routes_file.read_text())
+    def repl(m):
+        pref, slug = m.groups()
+        want = route.get(slug)
+        return '](' + want + slug + ')' if want and pref != want else m.group(0)
+    return re.sub(r'\]\((/posts/|/news/)([a-z0-9-]+)\)', repl, body)
+
 def main(spec_path, body_path):
     spec = json.loads(pathlib.Path(spec_path).read_text(encoding='utf-8'))
     body = pathlib.Path(body_path).read_text(encoding='utf-8').strip()
+    body = fix_routes(body)
     slug = spec['slug']
     assert re.fullmatch(r'[a-z0-9-]+', slug), 'bad slug'
     assert not (POSTS / f'{slug}.mdx').exists(), f'{slug} already exists'
