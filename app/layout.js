@@ -126,7 +126,8 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* Monetag — In-Page Push (aiblogger.us.ci zone 12362073). Delayed injection: fires 3s after window load or on first scroll/tap, whichever first, so the unit never covers the header on arrival. */}
+        {/* Monetag — In-Page Push (aiblogger.us.ci zone 12362073). PAUSED 2026-11-27: GSC flagged "Harmful downloads"; Monetag serves deceptive "Download is ready" creatives (screenshot evidence) and offers no publisher-side creative blocklist. Re-enable only after Monetag support confirms download/software creatives are blocked on zone 12362073. To re-enable, set NEXT_PUBLIC_MONETAG_ENABLED=1 in the build environment. */}
+        {process.env.NEXT_PUBLIC_MONETAG_ENABLED === '1' && (
         <Script
           id="monetag-ipp"
           strategy="afterInteractive"
@@ -148,6 +149,7 @@ export default function RootLayout({ children }) {
             })();
           `}}
         />
+        )}
 
         {/* Ezoic — higher RPM than AdSense (enable: set NEXT_PUBLIC_EZOIC_ID) */}
         {process.env.NEXT_PUBLIC_EZOIC_ID && (
