@@ -128,13 +128,27 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* Monetag — In-Page Push (aiblogger.us.ci zone 12362073) */}
+        {/* Monetag — In-Page Push (aiblogger.us.ci zone 12362073). Delayed injection: fires 3s after window load or on first scroll/tap, whichever first, so the unit never covers the header on arrival. */}
         <Script
-          src="https://nap5k.com/tag.min.js"
-          data-zone="12362073"
-          async
-          data-cfasync="false"
+          id="monetag-ipp"
           strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: `
+            (function(){
+              var done=false;
+              function load(){
+                if(done) return; done=true;
+                var s=document.createElement('script');
+                s.src='https://nap5k.com/tag.min.js';
+                s.setAttribute('data-zone','12362073');
+                s.async=true;
+                document.head.appendChild(s);
+              }
+              var t=setTimeout(load,3000);
+              ['scroll','pointerdown','touchstart'].forEach(function(ev){
+                window.addEventListener(ev,function(){clearTimeout(t);load();},{once:true,passive:true});
+              });
+            })();
+          `}}
         />
 
         {/* Ezoic — higher RPM than AdSense (enable: set NEXT_PUBLIC_EZOIC_ID) */}
