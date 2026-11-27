@@ -120,6 +120,14 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
+        {/* Cloudflare Web Analytics (cookieless) */}
+        <Script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "cb93f64eab5142f182b903c5e83df5ff"}'
+          strategy="afterInteractive"
+        />
+
         {/* PropellerAds — Display Ads (zone 302312) */}
         <Script
           src="https://quge5.com/88/tag.min.js"
