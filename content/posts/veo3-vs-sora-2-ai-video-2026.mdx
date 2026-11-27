@@ -1,0 +1,99 @@
+---
+title: "Veo 3 vs Sora 2: Both Are Gone, Here Is What Replaced Them (November 2026)"
+slug: veo3-vs-sora-2-ai-video-2026
+excerpt: "Sora was discontinued in April and its API in September 2026. Veo 3.1 Preview shut down in October. The live choice is Gemini Omni 1.2 Flash."
+description: "Veo 3 vs Sora 2 in November 2026: Sora's shutdown dates, Veo 3.1 Preview's end, Gemini Omni 1.2 Flash prices and what to do with old clips."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: Comparisons
+tags:
+  - veo
+  - sora
+  - gemini omni
+  - ai video
+  - video generation
+cover: "/images/veo3-vs-sora-2-ai-video-2026.jpg"
+draft: false
+---
+
+You cannot use Sora 2 today. OpenAI's help center says the Sora web and app experiences were discontinued on 26 April 2026, and the Sora API followed on 24 September 2026. If you came here to pick between Veo 3 and Sora 2, one of them is no longer a product you can buy, and the other has been renamed out from under its old model strings. As of 27 November 2026 this is a comparison between a shutdown notice and a migration notice.
+
+That sounds like a joke, but it matters for anyone with a workflow, a budget line or a client promise built on either name. The useful question is now: what do you do with the video work you planned around them?
+
+## The verdict first
+
+| Scenario | Winner | Why |
+| --- | --- | --- |
+| Generating new clips through an API today | Google | Gemini Omni 1.2 Flash is live and priced; Sora's API has been off since 24 September 2026 |
+| Getting your old Sora clips out | OpenAI | An export page exists at sora.chatgpt.com/sunset, but data is permanently deleted after the export window |
+| Native audio with the video | Google | Omni 1.2 Flash generates 3 to 15 second videos with native audio |
+| Real-time interactive scenes | Google | Genie 4 streams 24 fps video with synced 48 kHz stereo audio, paid tier only |
+| Anything you must still run on Veo 3.1 Preview | Neither | Google shut it down on 22 October 2026 and points users to Omni Flash |
+| Refund questions for unused Sora credits | OpenAI | Credits bought for Sora can still be used for Codex |
+
+## What happened to Sora
+
+OpenAI's discontinuation page gives two dates. The Sora web and app experiences ended on 26 April 2026. The Sora API ended on 24 September 2026. OpenAI says you can export your content from sora.chatgpt.com/sunset, and that it will email you before any final export window begins. It adds that once discontinuation and any export window have passed, it will permanently delete data associated with your use of Sora.
+
+Refunds are handled through OpenAI's ChatGPT subscription refund process. The one detail with real money attached: purchased ChatGPT and Sora credits can still be used for Codex if you choose. If you bought credits for Sora and never spent them, that is where they go.
+
+The practical advice is blunt. If you still have anything in Sora that you want, export it. Do not wait for another reminder, because the page itself says an export window is offered only if OpenAI is able to offer one.
+
+## What happened to Veo
+
+Google's video documentation says the Veo 3.1 Preview models in the Gemini API were shut down on 22 October 2026. That covers `veo-3.1-generate-preview`, `veo-3.1-fast-generate-preview` and `veo-3.1-lite-generate-preview`. Google tells developers to migrate to Gemini Omni Flash, `gemini-omni-1.2-flash`, or to the generally available models on the Gemini Enterprise Agent Platform.
+
+So "Veo 3" is also a name you should stop searching for. The live model is Omni, and Google's own page describes it as a fast multimodal model for video generation and conversational video editing. It turns text prompts and reference images into 3 to 15 second videos with native audio, and lets you refine or extend results across multiple turns.
+
+There is a second timing trap. An earlier model, `gemini-omni-1.1-flash`, will be routed automatically to `gemini-omni-1.2-flash` from 3 December 2026, and billed at the 1.2 rates. If you pinned the old string, your bill changes on that date without any code change.
+
+## What video costs on Google now
+
+Google prices video by output tokens, then converts to seconds on the same page. For Gemini Omni 1.2 Flash the paid tier lists $1.50 per million input tokens and $12.00 per million video output tokens. The page works that out for you.
+
+| Output | Effective price |
+| --- | --- |
+| 360p | about $0.023 per second |
+| 720p | about $0.07 per second |
+| 1080p with upsampling | about $0.104 per second |
+| 4K with upsampling | about $0.209 per second |
+| 10 second clip at 720p | about $0.70 |
+| 15 second clip at 720p | about $1.04 |
+
+Genie 4 is priced separately at $17.50 per million video output tokens, which Google puts at about $0.10 per second, or roughly $6.05 per minute, and says to always call `complete()` to end a session and stop billing. That last instruction is the detail that will cost someone money: a session left open keeps billing.
+
+The Gemini API free tier does not cover paid video use, and Google notes the free tier data may be used to improve its products.
+
+## Where each one fails
+
+Sora fails by not existing. There is nothing to evaluate beyond the export and refund process, and the clock on data deletion is the real risk.
+
+Google fails on churn. The same job moved from Veo 3.1 Preview to Omni after a shutdown date, and an older Omni model reroutes automatically on 3 December. A team that pins a model string without reading the docs page will find out on the invoice or in an error.
+
+## Who should skip which
+
+Skip any plan built on Sora, because there is no Sora to plan around. Skip Google's Genie 4 if you need a finished clip rather than a live session, since it streams video in real time and bills for the time the session runs. If you are comparing the tools that remain, [our Runway guide for designers](/posts/best-ai-runway-tools-for-designers-2026-top-picks) covers a model-agnostic option, and the [November pricing changes roundup](/posts/ai-model-pricing-changes-november-2026) tracks the other moves this month.
+
+## Which should you pick
+
+If you need API video today, pick Gemini Omni 1.2 Flash and budget from the per-second table above. If you have Sora content, export it this week. If you were about to sign a client to a Sora or Veo 3 workflow, rewrite the statement of work around whatever model is live on the day you deliver, and put the model name in a variable you can change.
+
+## Frequently Asked Questions
+
+### Is Sora 2 still available?
+
+No. OpenAI says the Sora web and app experiences were discontinued on 26 April 2026 and the Sora API on 24 September 2026.
+
+### Can I still export my Sora videos?
+
+OpenAI says you can export content from sora.chatgpt.com/sunset. It notes that data will be permanently deleted after discontinuation and any final export window, so export as soon as possible.
+
+### What replaced Veo 3 in the Gemini API?
+
+Google shut down the Veo 3.1 Preview models on 22 October 2026 and tells developers to migrate to Gemini Omni Flash, gemini-omni-1.2-flash, or to generally available models on the Gemini Enterprise Agent Platform.
+
+### How much does Gemini Omni video cost?
+
+Google lists $12.00 per million video output tokens, which it works out to about $0.07 per second at 720p, or about $0.70 for a 10 second clip and $1.04 for a 15 second clip.
+
