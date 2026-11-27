@@ -9,11 +9,12 @@ import PostCard from '../components/PostCard';
 import AdSlot from '../components/AdSlot';
 import Badge from '../components/ui/Badge';
 import { Plus, Star, ArrowRight } from 'lucide-react';
+import { BEST_PICKS, BEST_UPDATED_LABEL } from '../lib/bestGuide';
 
 export const dynamic = 'force-static';
 
 export const metadata = {
-  title: 'AI Pulse Daily — AI Tool Reviews, Comparisons & News',
+  title: 'AI Pulse Daily: AI News, Tool Reviews and Price-Checked Comparisons',
   description: siteConfig.description,
   alternates: { canonical: siteConfig.url },
   openGraph: {
@@ -101,6 +102,23 @@ export default function HomePage() {
               ))}
             </ul>
           </aside>
+        </div>
+      </section>
+      <section aria-labelledby="home-picks" className="border-b border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-card">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex items-baseline justify-between mb-5 flex-wrap gap-2">
+            <h2 id="home-picks" className="text-2xl font-heading font-bold tracking-tight">Which AI tool fits your job?</h2>
+            <Link href="/best" className="text-sm font-semibold text-brand-600 hover:underline">Full list with prices, checked {BEST_UPDATED_LABEL}</Link>
+          </div>
+          <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {BEST_PICKS.slice(0, 4).map((t) => (
+              <li key={t.pick} className="rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg p-4">
+                <p className="text-xs uppercase tracking-wider text-slate-500 dark:text-dark-muted">{t.need}</p>
+                <p className="font-heading font-bold text-lg mt-1">{t.pick}</p>
+                <p className="text-sm text-slate-600 dark:text-dark-muted mt-2">{t.price}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
