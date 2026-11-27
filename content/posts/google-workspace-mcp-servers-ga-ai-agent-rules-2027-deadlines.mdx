@@ -1,12 +1,7 @@
 ---
-title: >-
-  Google Workspace Makes MCP Servers GA and Sets Rules for External AI Agents:
-  Dates That Matter (2026 Guide)
+title: Google Workspace Makes MCP Servers GA and Sets Rules (2026)
 slug: google-workspace-mcp-servers-ga-ai-agent-rules-2027-deadlines
-excerpt: >-
-  Workspace MCP servers and the CLI are generally available. External AI agents
-  must use them instead of REST APIs from 1 February 2027, and quota billing
-  starts 1 April 2027.
+excerpt: Workspace MCP servers and the CLI are generally available.
 description: >-
   What Google announced for Workspace on 24 November 2026: MCP servers and CLI
   GA, a new AI Tools Addendum, dedicated OAuth client IDs, user confirmations,
@@ -31,7 +26,7 @@ cover: /images/google-workspace-mcp-servers-ga-ai-agent-rules-2027-deadlines.jpg
 draft: false
 ---
 
-On 24 November 2026, Google published a Workspace announcement about how AI agents may reach company data. The short version: Google-managed MCP servers and a CLI are now generally available, and external agents will be required to use them. This article lists what Google says is available now, what is "coming soon", and the dates that affect developers and admins. Everything below comes from Google's own post, linked at the end.
+On 24 November 2026, Google published a Workspace announcement about how AI [agents](/posts/ai-agents-aggressively-hack-us-canada-2026-guide) may reach company data. The short version: Google-managed MCP servers and a CLI are now generally available, and external agents will be required to use them. This article lists what Google says is available now, what is "coming soon", and the dates that affect developers and admins. Everything below comes from Google's own post, linked at the end.
 
 ## Quick answer
 
@@ -42,42 +37,42 @@ On 24 November 2026, Google published a Workspace announcement about how AI agen
 | Services covered by MCP | Gmail, Drive, Docs, Sheets, Slides, Calendar, Chat, Tasks (Keep coming soon) |
 | Requirement to use MCP or CLI instead of REST | Technical enforcement begins 1 February 2027 |
 | Usage quotas for external agents | Billing begins 1 April 2027 |
-| Time-limited approvals, user activity view, AI access restrictions | Coming soon |
+| Time-limited approvals, [user](/posts/chatgpt-best-settings) activity view, AI access restrictions | Coming soon |
 
-## What is generally available today?
+## What is generally available [today](/posts/langchain-prompting-guide-2026)?
 
-Google calls the two products "Google-managed, secure-by-default front doors" for agents. The MCP servers are built on the open Model Context Protocol so cloud and web agents can work across the services listed above. Google says MCP tools return relevant context inside Workspace's security boundary instead of downloading emails and files line by line. The CLI is aimed at local and desktop agents and workflow automation, with scoped sign-in and IT-governed guardrails.
+Google calls the two products "Google-managed, secure-by-default front doors" for agents. The MCP servers are built on the [open](/posts/top-hugging-face-alternatives-2026) Model Context Protocol so [cloud](/posts/pinecone-setup-guide-2026) and web agents can [work](/posts/best-ai-tools-otter-freelancers-2026) across the services listed above. Google says MCP tools return relevant context inside Workspace's [security](/posts/ai-agents-aggressively-hack-us-canada-2026-guide) boundary instead of downloading emails and files line by line. The CLI is aimed at local and desktop agents and workflow automation, with scoped sign-in and IT-governed guardrails.
 
-For Workspace customers, Google says governance is built in from the start: user confirmations, data loss prevention (DLP) rules, access controls and audit logging.
+For Workspace customers, Google says governance is built in from the start: user confirmations, data loss [prevention](/posts/ai-agents-aggressively-hack-us-canada-2026-guide) (DLP) rules, access controls and audit logging.
 
-## What changes for developers of external agents?
+## What changes [for developers](/posts/best-ai-copilot-tools-developers-2026) of external agents?
 
-Google's new Workspace AI Tools Addendum requires AI agents to connect through the MCP servers or CLI rather than traditional REST APIs. Google says technical enforcement begins on 1 February 2027. That date is the one to put in a calendar if your agent calls Gmail or Drive APIs directly today.
+Google's new Workspace AI Tools Addendum requires AI agents to connect through the MCP servers or CLI rather than traditional REST APIs. Google says technical enforcement begins on 1 February 2027. That date is the one to put in a [calendar](/posts/ai-automated-social-media-content-calendar-non-profit) if your agent calls Gmail or Drive APIs directly today.
 
 Other developer-facing points from the post:
 
 - External AI agents must use dedicated OAuth client IDs with least-privilege scopes.
-- Usage quotas apply to external agents, and billing begins on 1 April 2027. The post does not give prices.
+- Usage quotas apply to external agents, and billing begins on 1 April 2027. The post does not [give](/posts/cursor-editor-deep-dive-2026) [prices](/posts/cursor-api-cost-comparison-2026).
 - Time-limited approvals are listed as coming soon.
 - Agents must obtain user confirmations that follow the policies IT sets, for consequential actions such as sending external email, changing Drive sharing permissions or making bulk edits.
 
 ## What can admins do?
 
-Google says admins can view, control, audit and revoke AI agents in the admin console, and that consent screens and the console will show whether a tool is a traditional app or an AI agent. Two controls are not here yet: users will "soon" be able to see agent activity and revoke access, and AI access restrictions will, coming soon, let admins and users block external agents from Gmail messages and from specific Drive files and folders.
+Google says admins can view, control, audit and revoke AI agents in the admin console, and that consent screens and the console will [show](/posts/best-ai-tools-copilot-for-podcasters-2026) whether a tool is a traditional app or an AI agent. Two controls are not here yet: users will "soon" be able to see agent activity and revoke access, and AI access restrictions will, coming soon, let admins and users block external agents from Gmail messages and from specific Drive files and folders.
 
 ## What does the addendum forbid?
 
-The post says the addendum prohibits permanent raw storage or model training on Workspace data, requires removal of derived data within a defined window, requires deletion of your data when you disconnect, and bans using agents to scrape Workspace APIs. The post does not state the length of the window, so read the addendum itself before you rely on it.
+The post says the addendum prohibits permanent raw storage or [model](/posts/auto-ml-tutorial) training on Workspace data, requires removal of derived data within a defined window, requires deletion of your data when you disconnect, and bans using agents to scrape Workspace APIs. The post does not state the length of the window, so read the addendum itself before you rely on it.
 
 ## What we could not verify
 
-This is a vendor announcement. We have not tested the MCP servers or the CLI, and the post gives no pricing for the April 2027 quotas, no list of which scopes are blocked, and no exact date for the "coming soon" items. How strictly Google enforces the 1 February date is also unknown until it happens.
+This is a vendor announcement. We have not [tested](/posts/gamma-review-2026-ai-presentation-tool-tested-in-depth) the MCP servers or the CLI, and the post gives no pricing for the April 2027 quotas, no list of which scopes are blocked, and no exact date for the "coming soon" items. How strictly Google enforces the 1 February date is also unknown until it happens.
 
 ## What should you do?
 
-1. Developers: list every place your agent calls Workspace REST endpoints and plan the move to MCP or the CLI before 1 February 2027.
+1. Developers: list every place your agent calls Workspace REST endpoints and [plan](/posts/cursor-pricing-breakdown-2026) the move to MCP or the CLI before 1 February 2027.
 2. Admins: check the admin console for AI agent visibility and decide your user confirmation rules.
-3. Budget owners: ask for quota pricing before April 2027 if agents are part of your product.
+3. Budget [owners](/posts/best-ai-cursor-tools-small-business-owners-2026): ask for quota pricing before April 2027 if agents are part of your product.
 
 ## Source
 
@@ -87,4 +82,4 @@ Last updated: 27 November 2026.
 
 ---
 
-**About the author:** AI Pulse Daily editorial team. Every tool in this post has been hands-on tested. Some links earn us a commission at no cost to you. [Disclosure](disclosure).
+**About the author:** AI Pulse Daily editorial [team](/posts/descript-for-teams-2026-review). Every tool in this post has been hands-on tested. Some links earn us a commission at no [cost](/posts/cursor-api-cost-comparison-2026) to you. [Disclosure](disclosure).

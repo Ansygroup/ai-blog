@@ -28,25 +28,25 @@ draft: false
 
 Clients do not churn because the numbers were bad. They churn because nobody explained the numbers. A report that arrives on the fifth of the month with twelve charts and no sentence saying what changed and why is a reminder that they are paying you, not evidence that it is working.
 
-That is the part AI can now carry: the explanation layer. The data pull, the chart and the delivery still need to be identical every month, or the explanation is built on sand.
+That is the part AI can now carry: the explanation layer. The [data](/posts/ai-for-generating-schema-markup-for-seo-2026-tutorial) pull, the chart and the delivery still need to be identical every month, or the explanation is built on sand.
 
-This is the reporting stack we build for small agencies: one fixed data pull, one template, one prompt that writes the narrative from the numbers, one human QA pass. About 90 minutes of setup, then 20 minutes per client per month.
+This is the reporting stack we build for [small](/posts/best-ai-cursor-tools-small-business-owners-2026) agencies: one fixed data pull, one template, one prompt that writes the narrative from the numbers, one human QA pass. About 90 [minutes](/posts/ai-meeting-minutes-action-item-extraction-review-2026) of setup, then 20 minutes per client per month.
 
-*Last tested: November 2026.*
+*Last [tested](/posts/gamma-review-2026-ai-presentation-tool-tested-in-depth): November 2026.*
 
-## Step 1: Agree on five numbers, in writing
+## Step 1: Agree on five numbers, in [writing](/posts/best-ai-tools-claude-for-journalists-2026)
 
-Open the contract or the last three months of email threads and find the five numbers the client actually cares about. Not the twelve your dashboard has. For most retainers that set is: leads, cost per lead, conversion rate, revenue or pipeline value, and one quality measure such as qualified-lead ratio.
+Open the [contract](/posts/best-ai-powered-legal-contract-drafting-tools-2026) or the last three months of [email](/posts/best-ai-powered-influencer-outreach-email-templates-2026) threads and find the five numbers the client actually cares about. Not the twelve your dashboard has. For most retainers that set is: leads, cost per lead, conversion rate, revenue or pipeline value, and one [quality](/posts/ai-code-doc-generators-python-javascript-2026) measure such as qualified-lead ratio.
 
-Write them into the report template as the first section, above everything else. If the client cannot name their five, that conversation is more valuable than any automation.
+Write them into the report template as the first section, above everything else. If the client cannot name their five, that conversation is more valuable than any [automation](/posts/ai-linkedin-connection-outreach-automation-tutorial-2026).
 
 ## Step 2: Freeze the data pull
 
-Every reporting failure I have seen traces back to a moving date range. One month uses the first to the thirty-first, the next uses the twenty-eighth to the twenty-seventh, and the trend line is nonsense.
+Every reporting failure I have seen traces [back](/posts/cursor-editor-deep-dive-2026) to a moving date range. One month uses the first to the thirty-first, the next uses the twenty-eighth to the twenty-seventh, and the trend line is nonsense.
 
 Fix three things in the connector: the date range, the timezone, and the attribution window. Then leave them alone. Put the exact range at the top of every report so a reader can check it.
 
-If you use a reporting connector on top of ad and analytics platforms, connect it once per client and reuse the same queries. Rebuilding a query each month is how numbers drift.
+If you use a reporting connector on top of ad and [analytics](/posts/best-ai-tools-claude-for-marketing-teams-2026) [platforms](/posts/best-ai-powered-push-notification-ab-testing-platforms-2026), connect it once per client and reuse the same queries. Rebuilding a query each month is how numbers drift.
 
 ## Step 3: Build the template as sections, not slides
 
@@ -55,14 +55,14 @@ If you use a reporting connector on top of ad and analytics platforms, connect i
 | Headline | The one number that changed most, in a sentence | Owner or founder |
 | The five | Table with this month, last month, same month last year | Owner |
 | What we did | Three bullets, one per workstream | Marketing manager |
-| What happened | Chart plus two sentences of cause | Marketing manager |
-| What is next | Two decisions you need from them | Both |
+| What happened | Chart [plus](/posts/chatgpt-plus-vs-free-what-you-get-2026) two sentences of cause | Marketing manager |
+| What is next | Two decisions [you need](/posts/copy-ai-free-tier-limits-2026) from them | Both |
 
 The last row is the one most agencies skip. A report with no ask trains the client to treat you as a vendor.
 
 ## Step 4: Write the narrative with a strict prompt
 
-Feed the model the table, not the charts. Numbers in, sentences out.
+Feed the [model](/posts/auto-ml-tutorial) the table, not the charts. Numbers in, sentences out.
 
 ```
 Here is this month's data for [client], with last month and the same
@@ -70,12 +70,12 @@ month last year: [paste table]
 Here is what we did: [three bullets]
 
 Write the "what happened" section in 90 words.
-Rules: state only what the numbers show. If a change is under 5 percent,
+Rules: state only what the numbers [show](/posts/best-ai-tools-copilot-for-podcasters-2026). If a change is under 5 percent,
 call it flat. Do not claim causation. If a number moved and the data does
 not explain it, write that it is unexplained. No adjectives about our work.
 ```
 
-The "if a change is under 5 percent, call it flat" rule kills the most common agency habit: dressing a rounding error as a win. Clients who catch you doing that once stop trusting the whole document.
+The "if a change is under 5 percent, call it flat" rule kills the most common [agency](/posts/best-ai-tools-grammarly-for-agencies-2026) habit: dressing a rounding error as a win. Clients who catch you doing that once stop trusting the whole document.
 
 ## Step 5: QA the numbers against the source
 
@@ -85,23 +85,23 @@ One pass, three checks:
 2. Does every sentence in the narrative refer to a number in the table?
 3. Is there any claim the client could disprove from their own CRM?
 
-That third check is where AI-generated narratives fail. The model will happily write "leads improved in the second half of the month" when the data is flat, because it is trying to be useful.
+That third check is where AI-generated narratives fail. The model will happily write "leads improved in the second half of the month" when the data is flat, because it is [trying](/posts/new-ai-tools-worth-trying-december-2026) to be useful.
 
 ## Step 6: Deliver in the format the client actually opens
 
-Ask once, then never again. Some clients read a PDF, some open a shared dashboard, some will only watch a two-minute video. The narrative you generated works in all three: paste it into the document, pin it to the dashboard, or read it over a screen recording.
+Ask once, then never again. Some clients read a PDF, some open a shared dashboard, some will only [watch](/posts/watch-mayday-air-disasters-on-tubi-its-free-2026-guide) a two-minute [video](/posts/2026-review-best-ai-multilingual-video-caption-tools). The narrative you generated works in all three: paste it into the document, pin it to the dashboard, or read it over a screen recording.
 
-The two-minute video version has the highest engagement in practice, because it carries tone. A calm voice saying "this month was flat and here is why" lands better than the same sentence in a chart caption.
+The two-minute video version has the highest [engagement](/posts/best-ai-powered-push-notification-ab-testing-platforms-2026) in practice, because it carries tone. A calm [voice](/posts/ai-voice-search-seo-keyword-clustering-boost-rankings-2026) saying "this month was flat and here is why" lands better than the same sentence in a chart caption.
 
 ## Step 7: Archive and reuse
 
-Keep every month's report and narrative in one folder per client. Two uses: the same-month-last-year comparison, and the quarterly review, where you paste three narratives into a model and ask for the pattern.
+Keep every month's report and narrative in one folder per client. Two uses: the same-month-last-year [comparison](/posts/ai-youtube-chapter-timestamp-generators-2026), and the quarterly review, where you paste three narratives into a model and ask for the pattern.
 
-That quarterly pass is where the automation pays for itself. Reading twelve months of your own explanations at once surfaces the argument you should be making about next year's budget.
+That quarterly pass is where [the automation](/posts/zapier-review-2026) pays for itself. Reading twelve months of your own explanations at once surfaces the argument you should be making about next year's budget.
 
-## What can go wrong
+## What can go [wrong](/posts/jasper-limitations-2026-what-ai-writers-get-wrong)
 
-**Platform data revisions.** Ad platforms restate numbers for days after the fact. Pull on a fixed date and note it, rather than re-pulling and silently changing history.
+**Platform data revisions.** Ad platforms restate numbers for days after the fact. Pull on a fixed date and [note](/posts/top-notebooklm-alternatives-2026-best-ai-note-taking-tools) it, rather than re-pulling and silently changing history.
 
 **Attribution changes.** When a platform changes its attribution model, the trend breaks. Say so in the report instead of letting the client discover it.
 
@@ -109,13 +109,13 @@ That quarterly pass is where the automation pays for itself. Reading twelve mont
 
 **Reports that read the same every month.** If the narrative could be swapped between clients, it is not a narrative. The "what we did" bullets have to be specific enough to prevent that.
 
-**No ask.** A report with no decision request is a status update. Status updates get cut first when budgets tighten.
+**No ask.** A report with no decision request is a status [update](/posts/ai-regulation-update-creators-november-2026). Status updates get cut first when budgets tighten.
 
 For the analytics side, our guide to [predictive analytics for marketing](/posts/ai-predictive-analytics-marketing-tutorial) covers the forecasting layer above this, and [SEO tools for agencies](/posts/ai-tools-for-seo-agencies-2026) covers the channel-specific reporting most retainers need. Agencies running paid social should also read the [social analytics tool comparison](/posts/best-ai-tools-for-social-media-analytics).
 
 ## The judgment call
 
-Automate the writing, never the judgment about what matters. The reason clients keep an agency is that someone notices the thing the dashboard does not show: the campaign that is technically fine and strategically wrong. AI will write a clean report about it. Only you can decide to kill it.
+Automate the writing, never the judgment about what matters. The reason clients keep an agency is that someone notices the thing the dashboard does not show: the campaign that is technically fine and strategically wrong. AI will write a clean report about it. Only [you can](/posts/n8n-free-tier-limits-2026) decide to kill it.
 
 ## Frequently Asked Questions
 
@@ -123,7 +123,7 @@ Automate the writing, never the judgment about what matters. The reason clients 
 
 The five numbers the client actually cares about, agreed in writing, followed by one sentence naming the biggest change. Charts come after the explanation, not before it.
 
-### How do I stop AI from inventing trends in reports?
+### How do I stop AI from inventing [trends](/posts/ai-voice-search-seo-keyword-clustering-boost-rankings-2026) in reports?
 
 Feed it the table rather than the charts, require three months of data before the word trend is allowed, and instruct it to label changes under five percent as flat.
 

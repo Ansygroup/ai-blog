@@ -25,46 +25,46 @@ cover: /images/turn-zoom-meetings-into-action-items-ai-2026.jpg
 draft: false
 ---
 
-Most meeting AI solves the easy half of the problem. It writes the summary. The hard half is the handoff, where a line like "someone should check the pricing page" has to become a task with a name, a date and a place to live.
+Most [meeting](/posts/ai-meeting-minutes-action-item-extraction-review-2026) AI solves the easy half of the problem. It writes the summary. The hard half is the handoff, where a line like "someone should check the pricing page" has to become a task with a name, a date and a place to live.
 
-Zoom will happily produce the summary. On the free plan you get meeting summaries for three hosted meetings a month, and the paid plans lift that. What Zoom does not do is decide who owns each item. That last step is where teams quietly lose the value of an hour-long call.
+Zoom will happily produce the summary. On the free [plan](/posts/cursor-pricing-breakdown-2026) you get meeting summaries for three hosted meetings a month, and [the paid](/posts/copy-ai-vs-free-version) [plans](/posts/copy-ai-pricing-breakdown-2026) lift that. What Zoom does not do is decide who owns each item. That last step is where [teams](/posts/best-ai-copilot-tools-marketing-teams-2026) quietly lose the value of an hour-long call.
 
-This workflow closes that gap with four pieces: Zoom's recorder and AI Companion, a transcript, one structured prompt, and a task board. Setup takes about 30 minutes. Each meeting after that takes roughly 4 minutes of human time, most of it spent arguing about owners, which is the part you want humans doing anyway.
+This [workflow](/posts/best-ai-copy-tools-for-translators-2026) closes that gap with four pieces: Zoom's recorder and AI Companion, a transcript, one [structured](/posts/ai-for-generating-schema-markup-for-seo-2026-tutorial) prompt, and a task board. Setup takes about 30 minutes. Each meeting after that takes roughly 4 minutes of human time, most of it spent arguing about owners, which is the part you want humans doing anyway.
 
-*Last tested: November 2026, on a Zoom Pro account with AI Companion enabled.*
+*Last [tested](/posts/gamma-review-2026-ai-presentation-tool-tested-in-depth): November 2026, on a Zoom Pro account with AI Companion enabled.*
 
-## What you need before step one
+## What [you need](/posts/copy-ai-free-tier-limits-2026) before step one
 
-- A Zoom account you host or co-host meetings on. Basic is free, capped at 40 minutes per meeting, and includes meeting summaries for 3 hosted meetings per month, 20 AI queries per month and 3 note-taking uses per month. Pro runs $16.99 per user per month billed monthly, or $14.16 billed annually. Business runs $21.99 monthly or $18.33 annually, per Zoom's pricing page checked in November 2026.
+- A Zoom account you host or co-host meetings on. Basic is free, capped at 40 minutes per meeting, and includes meeting summaries for 3 hosted meetings per month, 20 AI queries per month and 3 [note-taking](/posts/best-notebooklm-tools-2026) uses per month. Pro runs $16.99 per user per month billed monthly, or $14.16 billed annually. Business runs $21.99 monthly or $18.33 annually, per Zoom's pricing page checked in November 2026.
 - A place for tasks. Notion, Asana, Linear, Todoist, or a single shared document with a checkbox column. The workflow does not care which, only that items have an owner field.
-- One general-purpose model you already pay for: ChatGPT, Claude or Gemini. Zoom's summary is the input, not the final word.
-- A rule about recording. Some jurisdictions require all-party consent for recorded calls. Decide this once, put it in the invite text, and stop thinking about it.
+- One general-purpose [model](/posts/auto-ml-tutorial) you already pay for: ChatGPT, Claude or Gemini. Zoom's summary is the input, not the final word.
+- A rule about recording. Some jurisdictions require all-party consent for recorded calls. Decide this once, put it in the invite [text](/posts/heygen-vs-chatgpt-2026-detailed-ai-video-vs-text-review), and stop thinking about it.
 
-## Step 1: Check what your plan actually includes
+## Step 1: Check what your plan [actually](/posts/chatgpt-plus-vs-free-what-you-get-2026) includes
 
-The most common failure is not technical. It is a host who assumes summaries are unlimited, then discovers mid-quarter that the feature stopped working on the fourth meeting of the month.
+The most common failure is not technical. It is a host who assumes summaries are unlimited, then discovers mid-quarter that the [feature](/posts/copy-ai-vs-chatgpt-2026) stopped working on the fourth meeting of the month.
 
 | Plan | Price (per user, per month) | What matters for this workflow |
 | --- | --- | --- |
 | Basic | Free | 40-minute meeting cap, summaries for 3 hosted meetings per month |
 | Pro | $16.99 monthly, $14.16 annual | Full meeting summaries and AI queries for daily use |
-| Business | $21.99 monthly, $18.33 annual | Custom meeting summary templates, listed at 8 per month |
+| Business | $21.99 monthly, $18.33 annual | Custom meeting summary [templates](/posts/best-ai-powered-influencer-outreach-email-templates-2026), listed at 8 per month |
 
-If you host more than three meetings a month that need follow-up, Basic is not a plan problem you can work around. Upgrade the one or two people who run the meetings rather than the whole team.
+If you host more than three meetings a month that need follow-up, Basic is not a plan problem [you can](/posts/n8n-free-tier-limits-2026) work around. Upgrade the one or two people who run the meetings rather than the whole team.
 
 ## Step 2: Turn on recording and the summary in every call
 
-Open the meeting, start the recorder, and open the AI Companion panel from the meeting toolbar. Ask it for a summary near the end of the call rather than after, so attendees can correct it while the context is fresh. Correcting a summary in the room takes 30 seconds. Correcting it by email takes a day.
+Open the meeting, start the recorder, and [open](/posts/top-hugging-face-alternatives-2026) the AI Companion panel from the meeting toolbar. Ask it for a summary near the end of the call rather than after, so attendees can correct it while the context is fresh. Correcting a summary in the room takes 30 seconds. Correcting it by [email](/posts/best-ai-powered-influencer-outreach-email-templates-2026) takes a day.
 
 Do not skip the recording. The summary alone loses the exact phrasing people used, and exact phrasing is what settles disputes about what was agreed.
 
 ## Step 3: Collect the transcript, not just the summary
 
-After the meeting ends, Zoom posts the summary and, if recording was on, an audio transcript you can download as a text file. Take the transcript, not the summary, into the next step. Summaries compress away the sentence that contained the actual commitment.
+After the meeting ends, Zoom posts the summary and, if recording was on, an [audio](/posts/ai-generated-podcast-intro-outro-music-tutorial-2026) transcript you can download as a text file. Take the transcript, not the summary, into the next step. Summaries compress away the sentence that contained the actual commitment.
 
 ## Step 4: Run the extraction prompt
 
-Paste the transcript into your model with this prompt. Replace the bracketed parts.
+Paste the transcript into your [model with](/posts/auto-ml-tutorial) this prompt. Replace the bracketed parts.
 
 ```
 You are extracting action items from a meeting transcript.
@@ -73,7 +73,7 @@ Rules:
 1. Only include items where a specific person accepted or was assigned the work. If no name was said, mark the owner as UNASSIGNED.
 2. One line per item. Format: owner | action | due date | source quote
 3. Due dates must come from the transcript. If none was stated, write NONE. Do not invent dates.
-4. Skip discussion, opinions and status updates that need no follow-up.
+4. Skip discussion, opinions and status [updates](/posts/copy-ai-free-tier-limits-2026) that need no follow-up.
 5. Flag any item where two people seemed to disagree about who owns it.
 
 Transcript follows:
@@ -84,19 +84,19 @@ The rule that does the heavy lifting is number 3. Models will invent plausible d
 
 ## Step 5: Fix the UNASSIGNED rows yourself
 
-A good transcript will still produce three to six UNASSIGNED items in a typical hour-long meeting. That is not a model failure. It is an accurate record of a meeting where nobody volunteered.
+A [good](/posts/best-ai-tools-notebooklm-for-nonprofits-2026-ultimate-guide) transcript will still produce three to six UNASSIGNED items in a typical hour-long meeting. That is not a model failure. It is an accurate record of a meeting where nobody volunteered.
 
-This is the only part of the workflow that cannot be automated, and it is the part that pays. Send the UNASSIGNED list to the attendees with one question: who takes each. Ten minutes of replies turns a meeting into a plan.
+This is the only part of the workflow that cannot be [automated](/posts/2026-ai-powered-podcast-ad-creation-placement-tutorial), and it is the part that pays. Send the UNASSIGNED list to the attendees with one question: who takes each. Ten minutes of replies turns a meeting into a plan.
 
 ## Step 6: Push items to the task board
 
-Create the tasks in one batch, with the owner as assignee and the quoted sentence in the description. The quote matters more than the summary line. Six weeks later, "check pricing page" is meaningless and the quote tells you which page and why.
+Create the tasks in one batch, with the owner as assignee and the quoted sentence in the [description](/posts/best-ai-powered-resume-tailoring-ats-optimization-2026). The quote matters more than the summary line. Six weeks later, "check pricing page" is meaningless and the quote tells you which page and why.
 
 ## Step 7: Close the loop at the next meeting
 
-Open the previous meeting's task list at the start of the next call for two minutes. Anything untouched gets a new owner or gets dropped. A task list nobody reviews is a diary, not a system.
+Open the previous meeting's task list at the start of the next call for two minutes. Anything untouched gets a new owner or gets dropped. A task list nobody [reviews](/posts/2026-review-best-ai-multilingual-video-caption-tools) is a diary, not a system.
 
-## What can go wrong
+## What can go [wrong](/posts/jasper-limitations-2026-what-ai-writers-get-wrong)
 
 **The summary eats the action items.** Zoom's summary is written for reading, not for parsing. Always extract from the transcript.
 
@@ -112,11 +112,11 @@ Open the previous meeting's task list at the start of the next call for two minu
 
 If your meetings are already well run, with a named note-taker and a shared doc, this adds a step and saves nothing. If your meetings are standups under 15 minutes, the transcript overhead exceeds the value. And if the real problem is that nobody follows up, better extraction will just produce a longer list of ignored tasks. Fix the follow-up habit first.
 
-For a closer look at how the dedicated meeting tools compare on accuracy, our review of [AI meeting minutes and action item extraction](/posts/ai-meeting-minutes-action-item-extraction-review-2026) covers the field, and the [transcription comparison across Zoom, Teams and Meet](/posts/ai-transcription-showdown-zoom-teams-google-meet-2026) is worth reading before you assume Zoom's transcript is the best one available.
+For a closer look at how the dedicated meeting tools compare on [accuracy](/posts/copy-ai-accuracy-test-2026), our review of [AI meeting minutes and action item extraction](/posts/ai-meeting-minutes-action-item-extraction-review-2026) covers the field, and the [transcription comparison across Zoom, Teams and Meet](/posts/ai-transcription-showdown-zoom-teams-google-meet-2026) is worth reading before you assume Zoom's transcript is the best one available.
 
 ## The time budget
 
-Thirty minutes of setup. Four minutes per meeting, plus however long the UNASSIGNED round takes. On a team of six with two weekly meetings, that is about 25 minutes a week against an hour of "what did we decide" threads.
+Thirty minutes of [setup](/posts/copy-ai-setup-guide-2026-complete-installation-step-by-step). Four minutes per meeting, [plus](/posts/chatgpt-plus-vs-free-what-you-get-2026) however long the UNASSIGNED round takes. On a team of six with two weekly meetings, that is about 25 minutes a week against an hour of "what did we decide" threads.
 
 If you only adopt one piece of this, adopt step 5. The assignment conversation is where a meeting turns into work, and no model can have it for you.
 
@@ -128,11 +128,11 @@ It produces a meeting summary that includes next steps, but it does not assign o
 
 ### How many meeting summaries do I get on the free Zoom plan?
 
-Zoom's Basic plan lists meeting summaries for 3 hosted meetings per month, plus 20 AI queries and 3 note-taking uses. Paid plans lift those limits.
+Zoom's Basic plan lists meeting summaries for 3 hosted meetings per month, plus 20 AI queries and 3 note-taking uses. Paid plans lift those [limits](/posts/copilot-free-tier-limits-2026).
 
 ### Should I feed the summary or the transcript into the AI?
 
-The transcript. Summaries compress away the specific sentence where someone accepted the work, and that sentence is what you need for a task description.
+The transcript. Summaries compress away the specific sentence where someone accepted the work, and that sentence is [what you need](/posts/copy-ai-free-tier-limits-2026) for a task description.
 
 ---
 

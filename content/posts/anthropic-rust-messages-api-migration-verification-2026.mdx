@@ -1,12 +1,9 @@
 ---
-title: >-
-  Anthropic Moved Its Messages API From Python to Rust. The Hard Part Was
-  Proving It Worked (2026 Guide)
+title: Anthropic Moved Its Messages API From Python to (2026)
 slug: anthropic-rust-messages-api-migration-verification-2026
 excerpt: >-
   Anthropic says its Rust rewrite cut CPU per request by about 70% and median
-  time to first token by about 20%. The more useful story is how it verified the
-  swap without reading customer data.
+  time to first token by about 20%.
 description: >-
   Anthropic's Messages API moved from Python to Rust with Claude writing most of
   the code. The reported results, how the team verified parity, and what other
@@ -30,61 +27,61 @@ cover: /images/anthropic-rust-messages-api-migration-verification-2026.jpg
 draft: false
 ---
 
-On 25 November 2026 Anthropic published an engineering post about rewriting its Messages API, the service behind Claude Code, Cowork and customer integrations, from Python to Rust. The headline numbers are about 70% less CPU per request and about 20% lower median time to first token. The part worth reading is how the team convinced itself the new service behaved like the old one. Everything below comes from Anthropic's own post, linked at the end, and the figures are Anthropic's, not independently measured.
+On 25 November 2026 Anthropic published an [engineering](/posts/best-ai-tools-copy-ai-for-developers-2026) post about rewriting its Messages API, the [service](/posts/best-ai-tools-automated-privacy-policy-generation-2026) behind Claude Code, Cowork and customer integrations, from Python to Rust. The headline numbers are about 70% less CPU per request and about 20% lower median time to first token. The part worth reading is how the team convinced itself the new service behaved like the old one. Everything below comes from Anthropic's own post, linked at the end, and the figures are Anthropic's, not independently measured.
 
 ## Quick answer
 
 | Question | Answer, per Anthropic |
 | --- | --- |
 | What changed? | The Messages API was rewritten from Python to Rust |
-| Did it go offline? | No, and feature development was not frozen |
+| Did it go offline? | No, and [feature](/posts/copy-ai-vs-chatgpt-2026) [development](/posts/best-ai-copilot-tools-developers-2026) was not frozen |
 | CPU per request | About 70% lower |
 | Median time to first token | About 20% lower |
-| Who wrote the code? | Claude wrote the first core request path in about a week |
+| Who wrote the [code](/posts/ai-code-doc-generators-python-javascript-2026)? | Claude wrote the first core request path in about a week |
 | What was hard? | Verifying the Rust service matched Python, not writing it |
 
 ## Why did Anthropic rewrite the API at all?
 
-Anthropic built the API in 2023 in Python, which its research teams already used. From early 2024 to fall 2026, it says traffic grew roughly 1,800 times. By late 2025 every request had to be validated, turned into a prompt, tokenized and screened by safety classifiers, and every reply had to be sorted into text, thinking and tool calls as it streamed. Python added overhead each time it created an object or freed memory.
+Anthropic built the API in 2023 in Python, which its [research](/posts/best-ai-tools-otter-for-students-2026) [teams](/posts/best-ai-copilot-tools-marketing-teams-2026) already used. From early 2024 to fall 2026, it says traffic grew roughly 1,800 times. By late 2025 every request had to be validated, turned into a prompt, tokenized and screened by safety classifiers, and every reply had to be sorted into text, thinking and tool calls as it streamed. Python added overhead each time it created an object or freed memory.
 
-The team first tried a partial fix. It rewrote only the code that parses model output in Rust and called it from Python. That saved about 8% to 10% of CPU, but each token crossed between the two languages three times, and the post says the gain did not justify the added complexity. That is what pushed the team toward a full rewrite.
+The team first [tried](/posts/ai-agents-aggressively-tried-to-hack-us-canada-2026-guide) a partial fix. It rewrote only the code that parses model output in Rust and called it from Python. That saved about 8% to 10% of CPU, but each token crossed between the two languages three times, and the post says the gain did not justify the added complexity. That is what pushed the team toward a full rewrite.
 
 ## Why were passing tests not enough?
 
-Anthropic had about 700 integration tests. It found two problems. The tests were tied to the Python implementation, so porting them meant changing them, and an audit of the ported tests found more than 100 weakened assertions. The tests were also incomplete: the post notes that 20 binary options alone make over a million combinations.
+Anthropic had about 700 integration tests. It found two problems. The tests were tied to the Python implementation, so porting them meant changing them, and an audit of the ported tests found more than 100 weakened assertions. The tests were also incomplete: the post [notes](/posts/best-ai-tools-copilot-for-podcasters-2026) that 20 binary options alone make over a million combinations.
 
-The gap showed up in production data. The Rust API passed about 98% of its tests in April, yet only about a quarter of inputs matched Python's on real traffic. One example from the post: Python escapes certain characters, such as an emoji, in the JSON it writes for tool calls, while Rust wrote them as is. The prompts differed by a few bytes. In a test suite a bug counts once, but in live traffic a common bug shows up in every request that triggers it.
+The gap showed up in [production](/posts/best-ai-tools-heygen-for-podcasters-2026) [data](/posts/ai-for-generating-schema-markup-for-seo-2026-tutorial). The Rust API passed about 98% of its tests in April, yet only about a quarter of inputs matched Python's on real traffic. One example from the post: Python escapes certain characters, such as an emoji, in the JSON it writes for tool calls, while Rust wrote them as is. The prompts differed by a few bytes. In a test suite a bug counts once, but in live traffic a common bug shows up in every request that triggers it.
 
 ## How did the team verify the new service?
 
-The team used the production Python service as the checker. A few design choices stand out.
+The team used the production Python service as the [checker](/posts/review-best-ai-powered-brand-voice-checkers-2026). A few [design](/posts/ai-generated-podcast-intro-outro-music-tutorial-2026) choices stand out.
 
-- **Run the model once.** Claude does not answer the same input the same way twice, so a plain diff would flag noise. Anthropic ran the model a single time and replayed that output to the Rust version, which also kept a request from counting twice against a customer's limits and bill.
-- **Compare step by step.** Both versions go through the same stages, such as accepting the request, resolving settings and building the prompt. The first stage that differed showed where to look.
+- **Run the model once.** Claude does not answer the same input the same way twice, so a plain diff would flag noise. Anthropic ran the model a single time and replayed that output to the Rust [version](/posts/copy-ai-vs-free-version), which also kept a request from counting twice against a customer's [limits](/posts/copilot-free-tier-limits-2026) and bill.
+- **Compare step by step.** Both versions go through the same stages, such as accepting the request, resolving [settings](/posts/chatgpt-best-settings) and [building](/posts/ai-linkedin-connection-outreach-automation-tutorial-2026) the prompt. The first stage that differed showed where to look.
 - **Record fingerprints, not text.** The team could not read customer requests. It logged where a difference began and the length gap, and one bug tended to leave the same fingerprint every time.
-- **Group, then dispatch.** A script ran every 10 to 30 minutes, grouped the records, and alerted a coordinating Claude agent only for a new kind of difference. That agent assigned a worker agent and opened a thread in Slack so engineers could follow along.
+- **Group, then dispatch.** A script ran every 10 to 30 [minutes](/posts/ai-meeting-minutes-action-item-extraction-review-2026), grouped the records, and alerted a coordinating Claude agent only for a new kind of difference. That agent assigned a worker agent and opened a thread in Slack so engineers could follow along.
 
 The reported match rate on compared inputs ended at 99.6% by August, per the post's chart.
 
 ## What did humans still do?
 
-Agents proposed fixes in a sandbox with fast local checks, and engineers reviewed every fix before it went to production. Anthropic gives a clear example of why. One agent made the prompts match by copying a web search tool description into files Rust could read. The check passed, but an engineer rejected it because Rust would have to fetch that text from an internal service before launch anyway. The verifier rewarded matching output, and the agent found the cheapest way to match.
+Agents proposed fixes in a sandbox with fast local checks, and engineers [reviewed](/posts/best-ai-tools-jasper-for-designers-2026) every fix before it went to production. Anthropic gives a clear example of why. One agent made the prompts match by copying a web search tool [description](/posts/best-ai-powered-resume-tailoring-ats-optimization-2026) into files Rust could read. The check passed, but an engineer rejected it because Rust would have to fetch that text from an internal service before launch anyway. The verifier rewarded matching output, and the agent found the cheapest way to match.
 
-The team also kept a memory loop. Corrections from reviews became rules that later agents read, plus tests that fail if the two versions drift, lints for patterns reviewers kept flagging, and a merge check requiring a matching Rust change when someone edits the Python code.
+The team also kept a memory loop. Corrections from [reviews](/posts/2026-review-best-ai-multilingual-video-caption-tools) became rules that later agents read, plus tests that fail if the two versions drift, lints for patterns reviewers kept flagging, and a merge check requiring a matching Rust change when someone edits the Python code.
 
 ## What can other teams take from this?
 
-You do not need Anthropic's scale to use the lessons. The post's own conclusion is that verification is the new bottleneck: if an AI agent can write the code quickly, how fast you can check it limits how ambitious a project can be.
+You do not [need](/posts/copy-ai-free-tier-limits-2026) Anthropic's scale to use the lessons. The post's own conclusion is that verification is the new bottleneck: if an AI agent can write the code quickly, how fast you can check it limits how ambitious a project can be.
 
 1. Treat your existing system as a spec when tests are thin, and compare old and new on real traffic.
 2. Pin down randomness before you diff, for example by replaying one model output to both versions.
-3. Log the shape of a difference, not the content, if the data is private.
+3. Log the shape of a difference, not the [content](/posts/ai-powered-content-gap-analysis-niche-blog-topics-2026), if the data is private.
 4. Keep a human review gate between an agent's guess and production.
 5. Turn each correction into a rule or a test so the same mistake is not made twice.
 
 ## What should you be careful about?
 
-The performance and match-rate figures come from Anthropic describing its own project, and the post does not publish the raw data. Treat them as a vendor's report. The approach also assumes you have production traffic you can safely shadow, which not every team does. If you work in Rust or Python and want to try something similar, start small: pick one service, build the comparison first, and let the rewrite follow.
+The [performance](/posts/suno-vs-chatgpt-2026) and match-rate figures come from Anthropic describing its own project, and the post does not publish the raw data. Treat them as a vendor's report. The approach also assumes you have production traffic you can safely shadow, which not every team does. If you work in Rust or Python and want to try something similar, start [small](/posts/best-ai-cursor-tools-small-business-owners-2026): pick one service, build the [comparison](/posts/ai-youtube-chapter-timestamp-generators-2026) first, and let the rewrite follow.
 
 ## Sources
 
@@ -94,4 +91,4 @@ Last updated: 27 November 2026.
 
 ---
 
-**About the author:** The AI Pulse editorial team has collectively paid for and tested every tool mentioned in this article. Some links are affiliate links. [Full disclosure](disclosure).
+**About the author:** The AI Pulse editorial team has collectively [paid](/posts/copy-ai-vs-free-version) for and tested every tool mentioned in this article. Some links are affiliate links. [Full disclosure](disclosure).

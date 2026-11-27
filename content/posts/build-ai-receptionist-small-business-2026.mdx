@@ -9,7 +9,7 @@ slug: build-ai-receptionist-small-business-2026
 excerpt: >-
   A 90-minute build for a voice agent that answers the phone, books appointments
   and takes messages, with the real per-minute costs and the failure modes to
-  test first.
+  test first
 description: >-
   Build an AI receptionist for a small business: per-minute costs from Retell
   and Vapi, a working prompt, booking setup, and the calls to test before
@@ -30,11 +30,11 @@ draft: false
 
 A plumber with two vans cannot answer the phone at 11am on a Tuesday. Neither can a two-person law office, a dental clinic with one front-desk hire, or a landscaper on a mower. The call goes to voicemail, the caller dials the next name on the list, and nobody ever learns the job was lost.
 
-An AI receptionist fixes that specific problem for roughly the price of a coffee per hundred calls. Not the whole front desk. Not scheduling strategy. Just the phone, answered every time, with the caller's name, number and reason captured and the appointment booked or the message routed.
+An AI receptionist fixes that specific problem for roughly the [price](/posts/suno-vs-chatgpt-2026) of a coffee per hundred calls. Not the whole front desk. Not scheduling [strategy](/posts/ai-voice-search-seo-keyword-clustering-boost-rankings-2026). Just the phone, answered every time, with the caller's name, number and reason captured and the appointment booked or the message routed.
 
-This is the build we run for small businesses: a voice agent on a real phone number, five intents, a calendar, a transfer rule, and a hard cost ceiling. Budget 90 minutes for a first version and a week of supervised calls before it goes live unattended.
+This is the build we run for [small](/posts/best-ai-cursor-tools-small-business-owners-2026) businesses: a voice agent on a real phone number, five intents, a [calendar](/posts/ai-automated-social-media-content-calendar-non-profit), a transfer rule, and a hard cost ceiling. Budget 90 minutes for a first version and a week of supervised calls before it goes live unattended.
 
-*Last tested: November 2026.*
+*Last [tested](/posts/gamma-review-2026-ai-presentation-tool-tested-in-depth): November 2026.*
 
 ## Who this is for, and who should skip it
 
@@ -42,7 +42,7 @@ Build it if you miss calls and cannot hire for them: trades, clinics, salons, sm
 
 ## Step 1: Write the five intents before you touch a tool
 
-List every reason people call you, then cut to five. A working set for a service business:
+List every reason people call you, then cut to five. A working set for a [service](/posts/best-ai-tools-automated-privacy-policy-generation-2026) business:
 
 1. Book a new appointment.
 2. Reschedule or cancel an existing one.
@@ -50,28 +50,28 @@ List every reason people call you, then cut to five. A working set for a service
 4. Reach a specific person.
 5. Anything else, which becomes a message.
 
-Anything outside the five gets a message and a promise of a callback. Resist adding intents in week one. Each one adds a branch the agent can get wrong, and a wrong answer on a price question costs more trust than a missed call.
+Anything outside the five gets a message and a promise of a callback. Resist adding intents in week one. Each one adds a branch the agent can [get wrong](/posts/jasper-limitations-2026-what-ai-writers-get-wrong), and a wrong answer on a price question [costs](/posts/copy-ai-pricing-breakdown-2026) more trust than a missed call.
 
-## Step 2: Pick the platform on per-minute economics
+## Step 2: Pick the [platform](/posts/hugging-face-review-2026) on per-minute economics
 
-Two platforms dominate the build-it-yourself end, and they charge differently. Numbers below are from each vendor's own pricing page, checked November 2026.
+Two [platforms](/posts/best-ai-powered-push-notification-ab-testing-platforms-2026) dominate the build-it-yourself end, and they charge differently. Numbers below are from each vendor's own pricing page, checked November 2026.
 
 | Platform | Headline price | What you supply |
 | --- | --- | --- |
-| Retell AI | $0.07 to $0.31 per minute for voice agents, $10 in free credits, 20 free concurrent calls | Nothing mandatory; models, voices and telephony are bundled |
-| Vapi | $0.05 per minute for Vapi hosting, prepaid, plus $5 free credits | Your own model, voice and telephony accounts, billed separately |
+| Retell AI | $0.07 to $0.31 per minute for voice [agents](/posts/ai-agents-aggressively-hack-us-canada-2026-guide), $10 in free credits, 20 free concurrent calls | Nothing mandatory; models, voices and telephony are bundled |
+| Vapi | $0.05 per minute for Vapi [hosting](/posts/pinecone-setup-guide-2026), prepaid, [plus](/posts/chatgpt-plus-vs-free-what-you-get-2026) $5 free credits | Your own model, voice and telephony accounts, billed separately |
 
 The bundled model is simpler and usually cheaper to start. The unbundled model is cheaper at volume if you already have wholesale model and telephony rates, and more work to wire up.
 
-## Step 3: Understand what a minute actually costs
+## Step 3: Understand what a minute [actually](/posts/chatgpt-plus-vs-free-what-you-get-2026) costs
 
-Retell publishes a worked example that adds up to about $0.11 per minute: $0.04 for the language model, $0.055 for voice infrastructure, $0.015 for text to speech, and nothing for telephony. Swap in a premium voice and the number moves. Retell lists ElevenLabs Flash at $0.04 per minute, Multilingual v2 at $0.06, and v3 at $0.10, so a nicer voice can add more than the platform fee itself.
+Retell publishes a worked example that adds up to about $0.11 per minute: $0.04 for the [language](/posts/best-ai-claude-tools-translators-2026) model, $0.055 for voice infrastructure, $0.015 for text to speech, and nothing for telephony. Swap in a premium voice and the number moves. Retell lists ElevenLabs Flash at $0.04 per minute, Multilingual v2 at $0.06, and v3 at $0.10, so a nicer voice can add more than the platform fee itself.
 
-Run your own arithmetic before you build. A business taking 400 calls a month at 2.5 minutes each is 1,000 minutes, which is about $110 a month at $0.11, before the phone number. That is the number to compare against an answering service, not against a salary.
+Run your own arithmetic before you build. A business [taking](/posts/top-notebooklm-alternatives-2026-best-ai-note-taking-tools) 400 calls a month at 2.5 minutes each is 1,000 minutes, which is about $110 a month at $0.11, before the phone number. That is the number to compare against an answering service, not against a salary.
 
-Two cost traps worth knowing. First, failed and abandoned calls still burn minutes, so a bad prompt costs money every time it mishears. Second, premium voices plus long greetings plus a chatty agent multiply: the same 1,000 minutes at $0.20 lands at $200.
+Two cost traps [worth](/posts/grammarly-for-teams-2026-review) knowing. First, failed and abandoned calls still burn minutes, so a bad [prompt](/posts/fixing-undefined-errors-ai-apps) costs money every time it mishears. Second, premium voices plus long greetings plus a chatty agent multiply: the same 1,000 minutes at $0.20 lands at $200.
 
-## Step 4: Write the script as constraints, not prose
+## Step 4: Write the [script](/posts/ai-tutorial-youtube-shorts-scripts-thumbnails-2026) as constraints, not prose
 
 Give the agent rules, not a paragraph to recite. This skeleton works:
 
@@ -92,7 +92,7 @@ The "never guess a price" line is the one that saves you. Voice models will impr
 
 ## Step 5: Connect the calendar, not just the transcript
 
-A receptionist that takes messages is a voicemail with better manners. The value is in the booking: the agent reads real availability and writes the appointment back. Connect the calendar account the business actually uses, restrict the agent to open slots, and set a buffer between jobs.
+A receptionist that takes messages is a voicemail with better manners. The [value](/posts/copy-ai-pricing-breakdown-2026) is in the booking: the agent reads real availability and writes the appointment back. Connect the calendar account the business actually uses, restrict the agent to open slots, and set a buffer between jobs.
 
 Test the write path first. Book, then check the calendar, then cancel through the agent. If cancellation does not free the slot, stop and fix it before going live.
 
@@ -106,13 +106,13 @@ Then decide what happens when the platform is down or the caller has terrible re
 
 Record and read the transcripts of the first 20 calls. Score them on three things: did it get the name and number, did it book the right slot, did it say anything untrue. Expect two or three bad calls in that batch. Fix the prompt, not the model.
 
-Add a daily transcript review for the first two weeks. Most failures are one of four kinds: misheard names, interruptions, callers who talk over the greeting, and questions that should have been transferred.
+Add a daily transcript [review for](/posts/kaggle-limitations-2026) the first two weeks. Most failures are one of four kinds: misheard names, interruptions, callers who talk over the greeting, and questions that should have been transferred.
 
 ## What can go wrong
 
-**Recording disclosure.** Some jurisdictions require all parties to consent to recording. Put the disclosure in the greeting, not in a policy page.
+**Recording disclosure.** Some jurisdictions require all parties to consent to recording. Put the disclosure in the greeting, not in a [policy](/posts/best-ai-tools-automated-privacy-policy-generation-2026) page.
 
-**Latency.** A voice agent that pauses two seconds before every reply feels broken. Shorter prompts and a faster voice model fix more of this than any settings toggle.
+**Latency.** A voice agent that pauses two seconds before every reply feels broken. Shorter [prompts](/posts/copy-ai-prompting-guide-2026) and a faster voice model fix more of this than any [settings](/posts/chatgpt-best-settings) toggle.
 
 **Accents and names.** Expect the agent to mangle unusual names. Ask callers to spell, and read the number back.
 
@@ -120,11 +120,11 @@ Add a daily transcript review for the first two weeks. Most failures are one of 
 
 **The agent inventing policy.** "Yes, we take returns after 60 days" is the kind of sentence that costs real money. Constrain the agent to a written policy list, and say "I will have someone confirm" for anything else.
 
-If you want the wider context on where these systems fit against chat support, our review of [AI customer service chatbots](/posts/ai-driven-customer-service-chatbots-review) covers the same tradeoffs, and the [plain-English comparison of agents and chatbots](/posts/ai-agents-vs-chatbots-plain-english-2026) explains why voice is harder than text. For voice quality specifically, the [ElevenLabs guide for small business owners](/posts/best-ai-tools-elevenlabs-for-small-business-owners-2026) is the practical starting point.
+If you want the wider context on where these systems fit against chat [support](/posts/best-ai-tools-copilot-for-doctors-2026), our review of [AI customer service chatbots](/posts/ai-driven-customer-service-chatbots-review) covers the same tradeoffs, and the [plain-English comparison of agents and chatbots](/posts/ai-agents-vs-chatbots-plain-english-2026) explains why voice is harder than text. For voice quality specifically, the [ElevenLabs guide for small business owners](/posts/best-ai-tools-elevenlabs-for-small-business-owners-2026) is the practical starting point.
 
 ## The judgment call
 
-Build this if the phone is a real revenue channel and you are losing calls you never see. Do not build it to avoid hiring a receptionist you need anyway: a good front-desk person handles the exceptions, and the exceptions are where the money is. The realistic version is a hybrid. The agent covers overflow, after hours and the calls nobody wants to answer, and a human covers everything that matters.
+Build this if the phone is a real revenue channel and you are losing calls you never see. Do not build it to avoid [hiring](/posts/best-ai-chatgpt-tools-recruiters-2026) a receptionist you need anyway: a good front-desk person handles the exceptions, and the exceptions are where the money is. The realistic version is a hybrid. The agent covers overflow, after hours and the calls nobody wants to answer, and a human covers everything that matters.
 
 ## Frequently Asked Questions
 
