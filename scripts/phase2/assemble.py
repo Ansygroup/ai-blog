@@ -20,7 +20,11 @@ def existing_slugs():
         try:
             fm = p.read_text(encoding='utf-8').split('---', 2)[1]
             m = re.search(r'^slug:\s*(.+)$', fm, re.M)
-            slugs.add((m.group(1).strip().strip('"\'')) if m else p.stem)
+            val = (m.group(1).strip().strip('"\'')) if m else p.stem
+            if val in ('>-', '>', '|-', '|'):  # YAML folded/literal scalar: value on next line
+                m2 = re.search(r'^slug:\s*[>|]-?\s*\n\s*(.+)$', fm, re.M)
+                val = m2.group(1).strip().strip('"\'') if m2 else p.stem
+            slugs.add(val)
         except Exception:
             slugs.add(p.stem)
     return slugs

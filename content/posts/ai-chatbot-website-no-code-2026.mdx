@@ -1,0 +1,116 @@
+---
+title: "Add an AI Chatbot to Your Website (No Code)"
+slug: ai-chatbot-website-no-code-2026
+excerpt: "An afternoon build for a support bot that answers the questions you actually get: real replies as the knowledge base, four guardrails, and a tested handoff."
+description: "Add a no-code AI chatbot to your website: build the knowledge base from real support replies, set guardrails, test escalation, and measure accuracy."
+bottomLine: "Build the bot for the questions you are tired of answering, and give it an obvious way out. The measure of success is not conversations started, it is support emails that never arrive."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: Tutorials
+tags:
+  - chatbot
+  - no-code
+  - customer support
+  - chatbase
+  - intercom
+cover: "/images/ai-chatbot-website-no-code-2026.jpg"
+draft: false
+---
+
+Most no-code website chatbots fail for a boring reason: they answer questions the business never gets asked. The build is easy now. The hard part is deciding what the bot is allowed to say, and what it must hand to a person.
+
+This walkthrough builds a support bot on your own site in an afternoon: content sources, guardrails, an escalation rule, and a measurement plan that tells you whether it is helping or just adding a chat window nobody opens.
+
+*Last tested: November 2026.*
+
+## Who this is for
+
+Sites with repeat questions: pricing, shipping, returns, hours, compatibility, booking. If your inbox has the same five questions in it, a bot will handle them. If every enquiry is bespoke, a bot will frustrate people.
+
+## Step 1: Collect the answers you already give
+
+Export 50 real support replies, or copy the last 50 emails and DMs. Group them by question. You will usually find six to ten clusters, and those clusters are the entire knowledge base.
+
+Do not start from your help centre articles. Start from what people actually asked. The gap between those two is where most bots go wrong: they are built from marketing copy and cannot answer "do you ship to [country]".
+
+## Step 2: Pick the platform on the right pricing model
+
+There are two shapes of pricing, and they behave very differently as volume grows.
+
+| Model | Example | Best when |
+| --- | --- | --- |
+| Seat plus message credits | Chatbase lists Hobby at $40 a month, Basic at $150 and Business at $500, with yearly billing at $32, $120 and $400, and auto-recharge at $40 per 1,000 message credits | You want predictable cost and control over the model |
+| Per resolution | Intercom's Fin AI Agent is listed at $0.99 per outcome | You want cost tied to results, and you already run Intercom |
+
+The per-outcome model looks expensive until you compare it with the salary of the person answering the same tickets. The credit model looks cheap until a launch week triples your message volume. Pick based on which number you can forecast.
+
+## Step 3: Load the content, then test it against real questions
+
+Upload your FAQ, policy pages and the 50 replies from step one. Then test with the actual questions, verbatim, including the badly spelled ones. A bot that handles "how much is shipping to egypt" but fails "ship 2 egypt?" is not ready.
+
+Keep a test list of 25 questions with the correct answer beside each. Re-run it every time you change the knowledge base. That list is the only regression test you will have.
+
+## Step 4: Write the guardrails before the personality
+
+Four rules cover most of the risk:
+
+1. Answer only from the provided documents. If the answer is not there, say so and offer a human.
+2. Never quote a price, delivery date or refund outcome that is not in the documents.
+3. Never promise a discount, exception or timeline.
+4. Collect an email address before any handoff.
+
+Put these in the system prompt, not in a "tone" setting. Tone is easy to fix later; a bot inventing a refund policy is not.
+
+## Step 5: Build the escalation path
+
+Decide three triggers: the user asks for a human, the bot has failed twice, or the question matches a list of sensitive topics such as complaints, legal, billing disputes and cancellations.
+
+For each trigger, route to a form, an email, or live chat during hours. Then test it by asking "I want to speak to a person" and watching what actually happens. Half of all no-code bot failures are here, in the handoff nobody tested.
+
+## Step 6: Place it where it does not block the page
+
+Bottom right, collapsed, with a clear label. Do not auto-open the chat window on load, and do not use a popup that covers the mobile screen. Both raise bounce rates and both look like a lead capture trick.
+
+If you sell a product, put a link to the bot next to the product questions section instead of relying on a floating bubble.
+
+## Step 7: Measure three things for a month
+
+1. Deflection: conversations that ended without a handoff.
+2. Accuracy: sample 20 transcripts a week and mark each answer right, wrong or unanswerable.
+3. Handoff quality: did the human get enough context to reply without asking again?
+
+Accuracy is the number nobody wants to look at, and it is the one that decides whether the bot stays. A 40 percent deflection rate with 20 percent wrong answers is worse than no bot.
+
+## What can go wrong
+
+**The knowledge base goes stale.** A policy change that does not reach the bot produces confident wrong answers. Assign one person to update it monthly.
+
+**The bot answers what it should escalate.** Refunds, complaints and legal questions need a human, and a bot that handles them cheerfully does real damage.
+
+**Credits run out silently.** Check what happens at the limit: does the widget disappear, or fall back to a form? Neither should be a blank box.
+
+**Language drift.** If you serve multiple countries, test each language with native questions rather than translated ones.
+
+**No owner.** A bot with no owner becomes a liability within a quarter. Name the person who reads the transcripts.
+
+For the wider landscape, our review of [AI customer service chatbots](/posts/ai-driven-customer-service-chatbots-review) compares platforms, and the [chatbot builder comparison](/posts/ai-powered-chatbot-builders-comparison-review) covers the no-code options in more detail. If you are deciding between a bot and an agent, the [plain-English explainer](/posts/ai-agents-vs-chatbots-plain-english-2026) is the place to start.
+
+## The judgment call
+
+Build the bot for the questions you are tired of answering, and give it an obvious way out. The measure of success is not conversations started, it is support emails that never arrive. If after a month the bot is answering 60 percent of routine questions correctly and handing the rest over cleanly, keep it. If it is answering 90 percent confidently and wrongly, turn it off and fix the knowledge base first.
+
+## Frequently Asked Questions
+
+### How much does a no-code website chatbot cost?
+
+Chatbase lists Hobby at $40 a month, Basic at $150 and Business at $500, with lower prices on yearly billing. Intercom prices its Fin AI Agent at $0.99 per outcome, so the cheaper model depends on your volume.
+
+### What should I feed a support chatbot?
+
+Real support replies, not marketing copy. Export 50 actual answers, group them into six to ten question clusters, and test the bot against the original questions verbatim.
+
+### When should the bot hand over to a human?
+
+When the user asks, when it has failed twice, or when the question is about complaints, billing disputes, cancellations or legal issues. Test the handoff path before launch.
+

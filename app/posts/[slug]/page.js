@@ -6,6 +6,7 @@ import { getSeriesNavigation } from '../../../lib/series';
 import { renderSafeMarkdown } from '../../../lib/markdown';
 import { articleJsonLd, faqJsonLd, productReviewJsonLd, howtoJsonLd } from '../../../lib/schema';
 import { siteConfig } from '../../../lib/config';
+import { topicForPost } from '../../../lib/topicMatch';
 import { Mail, ChevronRight, ArrowLeft, ArrowRight, Plus } from 'lucide-react';
 import Badge from '../../../components/ui/Badge';
 import AdSlot from '../../../components/AdSlot';
@@ -53,6 +54,7 @@ export default async function PostPage({ params }) {
   const post = getPostBySlug(params.slug);
   if (!post) notFound();
   if (post.category === 'AI News') redirect(`/news/${post.slug}`);
+  const hub = topicForPost(post);
 
   // Render markdown -> HTML -> sanitize (XSS-safe). Sanitization happens in lib/markdown.js.
   const contentHtml = await renderSafeMarkdown(post.content);
@@ -97,6 +99,11 @@ export default async function PostPage({ params }) {
             </div>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">{post.title}</h1>
             {post.excerpt && <p className="text-xl text-slate-600 leading-relaxed">{post.excerpt}</p>}
+            {hub && (
+              <p className="mt-3 text-sm text-slate-500">Topic hub:{' '}
+                <Link href={`/topics/${hub.slug}`} className="text-blue-700 dark:text-blue-400 underline">{hub.title}</Link>
+              </p>
+            )}
             {post.bottomLine && (
               <div className="mt-5 p-4 rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/20 dark:border-emerald-800">
                 <div className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400 mb-1">Bottom line</div>
