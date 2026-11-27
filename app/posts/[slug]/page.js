@@ -44,9 +44,9 @@ export async function generateMetadata({ params }) {
       modifiedTime: post.lastUpdated || post.date,
       authors: [post.author || siteConfig.author],
       tags: post.tags,
-      images: [{ url: `${siteConfig.url}/og/${post.slug}`, width: 1200, height: 630 }],
+      images: [{ url: `${siteConfig.url}${post.cover || '/og-default.svg'}`, width: 1200, height: 630 }],
     },
-    twitter: { card: 'summary_large_image', title: post.title, description: post.excerpt, images: [`${siteConfig.url}/og/${post.slug}`] },
+    twitter: { card: 'summary_large_image', title: post.title, description: post.excerpt, images: [`${siteConfig.url}${post.cover || '/og-default.svg'}`] },
   };
 }
 
