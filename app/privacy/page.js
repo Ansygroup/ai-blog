@@ -1,35 +1,36 @@
 import { siteConfig } from '../../lib/config';
+import PageHeader from '../../components/PageHeader';
 
 export const metadata = {
   title: 'Privacy Policy',
-  description: `How ${siteConfig.name} collects, uses, and protects your personal data. Privacy-first analytics, cookie policy, and your GDPR/CCPA rights.`,
-  alternates: { canonical: `${siteConfig.url}/privacy` },
-  openGraph: {
-    title: 'Privacy Policy — AI Pulse Daily',
-    description: 'Privacy policy for AI Pulse Daily. How we collect, use, and protect your data.',
-    url: siteConfig.url + '/privacy',
-    siteName: siteConfig.name,
-    type: 'website',
-  },
+  description: 'What data AI Pulse Daily collects, which cookies and ad services it uses, and how to opt out.',
+  alternates: { canonical: siteConfig.url + '/privacy' },
+  openGraph: { title: 'Privacy Policy', description: 'How AI Pulse Daily handles data and cookies.', url: siteConfig.url + '/privacy', siteName: siteConfig.name, type: 'website', images: ['https://ansygroup.github.io/blog-images/mind-b3-25-B.jpg'] },
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12 prose-blog">
-      <h1>Privacy Policy</h1>
-      <p className="lead">Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
-      <h2>Information we collect</h2>
-      <p>We collect minimal information: anonymous usage analytics (via Plausible or Google Analytics) and email addresses you voluntarily provide when subscribing to our newsletter. We do not collect names, addresses, or payment information directly — purchases made through affiliate links are processed by the third-party vendor (e.g., Jasper, Surfer SEO).</p>
-      <h2>Cookies</h2>
-      <p>We use a minimal number of cookies: one for newsletter session, and one for ad personalization if you have consented. You can disable cookies in your browser without affecting site access.</p>
-      <h2>Advertising</h2>
-      <p>We use Google AdSense and possibly Ezoic to display ads. These vendors use cookies to serve ads based on your prior visits. You can opt out of personalized advertising at <a href="https://www.google.com/settings/ads">google.com/settings/ads</a>.</p>
-      <h2>Your rights (GDPR / CCPA)</h2>
-      <p>You may request access, correction, or deletion of your data at any time by emailing us. We respond within 30 days.</p>
-      <h2>Children's privacy</h2>
-      <p>This site is not directed at children under 13. We do not knowingly collect data from children.</p>
-      <h2>Contact</h2>
-      <p>Email: hello@ai-blog-ten-steel.vercel.app</p>
+    <div className="max-w-3xl mx-auto px-4 py-12">
+      <PageHeader image="mind-b3-25-B.jpg" title="Privacy Policy" lead="Last updated: November 27, 2026" />
+      <div className="prose-blog">
+        <h2>What we collect</h2>
+        <p>We do not ask you to create an account. We do not collect your name, address or payment details. The contact page opens your own email app, so a message you write reaches us only if you send it from there.</p>
+        <h2>Analytics</h2>
+        <p>We use Cloudflare Web Analytics to count visits and see which pages are read. It does not use cookies to track you across sites.</p>
+        <h2>Cookies and advertising</h2>
+        <p>The site may show ads from Google AdSense. Google and its partners may use cookies to show and measure ads, including ads based on your earlier visits where the law allows it. You can manage personalized ads at <a href="https://adssettings.google.com">adssettings.google.com</a>. You can also block cookies in your browser; the site still works.</p>
+        <p>We store one small item in your browser to remember that you dismissed a banner, such as the language suggestion. It stays on your device.</p>
+        <h2>Affiliate links</h2>
+        <p>Some links may be affiliate links. If you click one, the vendor may set its own cookies and handle your purchase under its own privacy policy. See the <a href="/disclosure">affiliate disclosure</a>.</p>
+        <h2>Your rights</h2>
+        <p>If you are in the EU, UK or California, you may ask what data we hold about you, or ask us to correct or delete it. Because we collect almost none, the answer is usually "none", but write to us and we will reply.</p>
+        <h2>Children</h2>
+        <p>This site is not aimed at children under 13, and we do not knowingly collect their data.</p>
+        <h2>Changes</h2>
+        <p>We will update the date above when this policy changes.</p>
+        <h2>Contact</h2>
+        <p>Use the <a href="/contact">contact page</a>.</p>
+      </div>
     </div>
   );
 }

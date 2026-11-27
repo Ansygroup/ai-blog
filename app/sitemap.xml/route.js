@@ -26,7 +26,7 @@ export async function GET() {
 
   const pageUrls = [
     `${base}/`, `${base}/news`, `${base}/reviews`, `${base}/best`, `${base}/comparisons`,
-    `${base}/tutorials`, `${base}/about`, `${base}/search`, `${base}/topics`,
+    `${base}/tutorials`, `${base}/about`, `${base}/contact`, `${base}/privacy`, `${base}/terms`, `${base}/disclaimer`, `${base}/search`, `${base}/topics`,
   ];
   const postUrls = [
     // noindex posts stay out of the sitemap: a sitemap entry says "index me".
