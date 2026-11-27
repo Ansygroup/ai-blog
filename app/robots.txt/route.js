@@ -5,6 +5,15 @@ export const dynamic = 'force-static';
 
 export async function GET() {
   const body = `User-agent: *
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Google-Extended
 Allow: /
 Disallow: /admin/
 Disallow: /api/
