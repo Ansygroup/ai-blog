@@ -1,0 +1,72 @@
+---
+title: "Gemini 4 Neon: Price, Context Window and Who Can Use It Today"
+slug: gemini-4-neon-pricing-context-availability-2026
+excerpt: "Google launched Gemini 4 Neon on 18 November 2026 at $3 per million input tokens and $15 per million output tokens, with a 1 million-token context window. What is confirmed and what is Google's own claim."
+description: "Gemini 4 Neon from Google: API price, 1M-token context, where it is available, thinking levels, and which benchmark claims are Google's own."
+bottomLine: "Neon is priced like a premium model, and most of its benchmark claims are Google's own selection. Test it on your own workload with the default thinking level before you move production traffic."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: AI News
+tags:
+  - google
+  - gemini
+  - gemini 4 neon
+  - ai models
+  - ai pricing
+  - ai news
+cover: "/images/gemini-4-neon-pricing-context-availability-2026.jpg"
+draft: false
+---
+
+Google introduced Gemini 4 Neon on 18 November 2026. It is a model aimed at long-running coding, knowledge-work and science tasks. This piece collects the practical facts from Google's launch post and its Google Cloud documentation, and separates what Google states as fact (price, limits, availability) from what it claims about quality (benchmarks). Sources are listed at the end.
+
+## Quick answer
+
+| Question | Answer, per Google |
+| --- | --- |
+| Release date | 18 November 2026 (Google Cloud lists it as GA) |
+| Input price | $3 per million tokens |
+| Cached input price | $0.15 per million tokens, a 95% discount |
+| Output price | $15 per million tokens |
+| Context window | 1 million tokens (1,048,576) |
+| Knowledge cutoff | March 2026 |
+| Where to use it | Gemini API in Google AI Studio, Gemini for business, Google Antigravity (paid Pro and Ultra), the Gemini app (Pro and Ultra) |
+
+## What does Gemini 4 Neon cost?
+
+Google's launch post states the price directly: $3 per million input tokens, $0.15 per million cached input tokens, and $15 per million output tokens, with a 1 million-token context window. Prices on vendor pages change, so confirm the figure on Google's pricing page before you budget.
+
+One detail from the Google Cloud documentation affects cost planning. Neon supports implicit context caching only, with a 4,096-token minimum, and explicit context caching is not supported. Durable caching is on by default. The same page says that from 12 January 2027, Gemini 4 Hydrogen and later models support cache control, so check that date if you rely on caching.
+
+## What are the limits?
+
+According to the Google Cloud model page, input and output share a unified limit of 1,048,576 tokens on the main API surfaces. Text is the only output type, while image, audio and video can be input. The page lists up to about 45 minutes of video with audio per prompt, and about 8.4 hours of audio, or up to 1 million tokens. It also accepts Microsoft Office and OpenDocument files in addition to PDF and plain text. Live API support is listed as not supported, and tuning is not supported.
+
+## Who can use it today?
+
+Google says Neon is rolling out in the Gemini API in Google AI Studio, in Gemini for business, to paid Google AI Pro and Ultra subscribers in Google Antigravity, and to Pro and Ultra subscribers in the Gemini app. A variant called Neon for cyber is described as rolling out to trusted defenders in the coming days as part of the Fairwind Program, so it is not a general release.
+
+## What does Google claim about performance?
+
+Google says Neon scores 61 on the Artificial Analysis Intelligence Index at its xhigh thinking level, which it describes as #3 overall, and ranks #2 on the Vals Index at 70.9%. It also reports 65.2% on Terminal-Bench 4.1 and 58.6 on the Artificial Analysis Coding Agent Index. On cost, Google says that at the default high thinking level Neon has a 32% lower cost per task than Carbon, an earlier Gemini 4 model.
+
+Treat these as vendor-selected results. Google chose which benchmarks to show and, for some, ran its own internal tests. The post names third-party indexes, but the full methodology sits behind them, and a ranking on one benchmark may not hold on your tasks.
+
+## How do thinking levels affect your bill?
+
+Google says Neon has four thinking levels and that teams can match intelligence and token spend to each workload. Since output tokens cost five times as much as input tokens at the listed price, a higher thinking level that produces more output will raise the bill even if the per-token price does not change. Google's own cost-per-task claims are tied to the default high level, and its highest intelligence score comes from xhigh.
+
+## What should you do with it?
+
+1. Run your real prompts at the default high level first, and measure cost per finished task, not cost per token.
+2. Try caching only after you check the 4,096-token minimum and the implicit-only behavior.
+3. If you need explicit cache control, note the 12 January 2027 date for later models.
+4. Do not rely on the benchmark rankings alone. Keep a small set of your own tests and compare Neon against the model you use today.
+
+## Sources
+
+- Google, "Introducing Gemini 4 Neon", 18 November 2026 (last updated 23 November): [blog.google](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/)
+- Google Cloud documentation, Gemini 4 Neon model page: [docs.cloud.google.com](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/4-neon)
+
+Last updated: 27 November 2026.
