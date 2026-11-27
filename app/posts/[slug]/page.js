@@ -112,7 +112,7 @@ export default async function PostPage({ params }) {
             <div className="flex items-center gap-3 mt-5 text-sm text-slate-600">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold">{post.author?.[0] || 'A'}</div>
               <div>
-                <div className="font-semibold text-slate-900">{post.author || siteConfig.author}</div>
+                <div className="font-semibold text-slate-900"><Link href="/authors/ai-pulse-editorial" className="hover:underline">{post.author || siteConfig.author}</Link></div>
                 <div className="text-xs text-slate-500">Last reviewed: {new Date(post.lastUpdated || post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
               </div>
             </div>

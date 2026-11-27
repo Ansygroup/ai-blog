@@ -90,6 +90,7 @@ export default async function NewsArticlePage({ params }) {
             <header className="mb-8">
               <div className="flex items-center gap-2 text-sm text-slate-500 mb-3 flex-wrap">
                 <time>{new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+                <span>· By <Link href="/authors/ai-pulse-editorial" className="hover:underline">AI Pulse Editorial</Link></span>
                 {post.readingTime && <span>· {post.readingTime} min read</span>}
                 {post.source && <span className="text-xs bg-slate-100 dark:bg-dark-bg px-2 py-0.5 rounded-full">via {post.source.replace(/^rss:/, '')}</span>}
               </div>
