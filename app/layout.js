@@ -8,6 +8,7 @@ import NewsletterPopover from '../components/NewsletterPopover';
 import ReadingProgress from '../components/ReadingProgress';
 import SkipLink from '../components/SkipLink';
 import CookieBanner from '../components/CookieBanner';
+import LangSuggest from '../components/LangSuggest';
 import BackToTop from '../components/BackToTop';
 import TrackVisit from '../components/TrackVisit';
 
@@ -96,6 +97,7 @@ export default function RootLayout({ children }) {
       <body className="bg-slate-50 dark:bg-dark-bg text-slate-900 dark:text-dark-text antialiased font-body">
         <ReadingProgress />
         <SkipLink />
+        <LangSuggest />
         <Header />
         {/* No animate-fade-in on <main>: it ran on every route change
             (client navigation re-mounts children inside <main>) and was

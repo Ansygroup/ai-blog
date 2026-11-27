@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getAllPosts, getAllCategories, slugify } from '../../lib/posts';
 import { topics } from '../../lib/topics';
 import { siteConfig } from '../../lib/config';
+import { LANGS, TRANSLATED_PATHS } from '../../lib/i18n';
 
 export const dynamic = 'force-static';
 
@@ -63,11 +64,25 @@ export async function GET() {
     return newestPost.toISOString();
   };
 
-  const allUrls = [...new Set([...pageUrls, ...postUrls, ...categoryUrls, ...topicUrls])];
+  const i18nUrls = LANGS.flatMap((l) => Object.values(TRANSLATED_PATHS).map((sub) => `${base}/${l}${sub}`));
+  const allUrls = [...new Set([...pageUrls, ...postUrls, ...categoryUrls, ...topicUrls, ...i18nUrls])];
+
+
+  const altFor = (u) => {
+    const rel = u.replace(base, '') || '/';
+    let en = null;
+    if (rel in TRANSLATED_PATHS) en = rel;
+    else { const m = LANGS.find((l) => rel === '/' + l || rel.startsWith('/' + l + '/')); if (m) { const sub = rel.slice(m.length + 1); en = sub === '' ? '/' : sub; } }
+    if (!en || !(en in TRANSLATED_PATHS)) return '';
+    const enUrl = base + (en === '/' ? '/' : en);
+    const links = [`<xhtml:link rel="alternate" hreflang="en" href="${enUrl}"/>`, `<xhtml:link rel="alternate" hreflang="x-default" href="${enUrl}"/>`];
+    LANGS.forEach((l) => links.push(`<xhtml:link rel="alternate" hreflang="${l}" href="${base}/${l}${TRANSLATED_PATHS[en]}"/>`));
+    return links.join('');
+  };
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allUrls.map((u) => `  <url><loc>${u}</loc><lastmod>${lastmodFor(u)}</lastmod><changefreq>${changefreqFor(u)}</changefreq><priority>${priorityFor(u)}</priority></url>`).join('\n')}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${allUrls.map((u) => `  <url><loc>${u}</loc><lastmod>${lastmodFor(u)}</lastmod><changefreq>${changefreqFor(u)}</changefreq><priority>${priorityFor(u)}</priority>${altFor(u)}</url>`).join('\n')}
 </urlset>`;
   return new NextResponse(xml, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=3600' } });
 }

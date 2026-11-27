@@ -11,13 +11,14 @@ import Badge from '../components/ui/Badge';
 import { Plus, Star, ArrowRight } from 'lucide-react';
 import { BEST_PICKS, BEST_UPDATED_LABEL } from '../lib/bestGuide';
 import { CATEGORY_INFO } from '../lib/categoryInfo';
+import { hreflangAlternates } from '../lib/i18n';
 
 export const dynamic = 'force-static';
 
 export const metadata = {
   title: 'AI Pulse Daily: AI News, Tool Reviews and Price-Checked Comparisons',
   description: siteConfig.description,
-  alternates: { canonical: siteConfig.url },
+  alternates: { canonical: siteConfig.url, languages: hreflangAlternates('/') },
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.description,

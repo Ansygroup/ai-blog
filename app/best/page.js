@@ -8,13 +8,14 @@ import AdSlot from '../../components/AdSlot';
 import PaginationNav from '../../components/PaginationNav';
 import { BEST_PICKS, BEST_FAQS, BEST_UPDATED, BEST_UPDATED_LABEL } from '../../lib/bestGuide';
 import { faqJsonLd, listJsonLd } from '../../lib/schema';
+import { hreflangAlternates } from '../../lib/i18n';
 
 const POSTS_PER_PAGE = 24;
 
 export const metadata = {
   title: 'Best AI Tools 2026: Top Picks by Job, With Prices Checked 27 Nov 2026',
   description: 'Best AI tools for chat, research, coding and voice, with each price read from the vendor pricing page on 27 November 2026. Free tiers flagged.',
-  alternates: { canonical: `${siteConfig.url}/best` },
+  alternates: { canonical: `${siteConfig.url}/best`, languages: hreflangAlternates('/best') },
   openGraph: {
     title: 'Best AI Tools 2026: Top Picks by Job, With Prices Checked 27 Nov 2026',
     description: 'Top AI tools by job with vendor-checked prices and free tiers.',

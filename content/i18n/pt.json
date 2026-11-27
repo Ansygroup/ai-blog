@@ -1,0 +1,56 @@
+{
+  "lang": "pt", "name": "Português", "dir": "ltr",
+  "ui": {
+    "switchPrompt": "Quer ler esta página em português?",
+    "yes": "Ver em português",
+    "no": "Não, obrigado",
+    "disclosure": "Traduzido do inglês com IA e conferido com o original (números e preços). Em caso de diferença, vale a versão em inglês.",
+    "english": "Read the English original"
+  },
+  "home": {
+    "title": "AI Pulse Daily: notícias de IA, análises e comparativos com preços verificados",
+    "description": "Notícias de IA com fontes primárias, análises de ferramentas e comparativos, com preços conferidos na página de cada fornecedor.",
+    "h1": "Análises honestas de ferramentas de IA, tutoriais e rankings para 2026",
+    "intro": "Pesquisamos cada ferramenta de IA para você não perder dinheiro. Análises, comparativos e tutoriais passo a passo, com preços verificados na página do fornecedor.",
+    "ctaBest": "Melhores ferramentas de IA 2026",
+    "ctaNews": "Últimas notícias de IA (em inglês)",
+    "picksH2": "Qual ferramenta de IA combina com o seu trabalho?",
+    "picksLink": "Lista completa com preços, verificada em 27 de novembro de 2026",
+    "latestH2": "Últimas notícias de IA (em inglês)"
+  },
+  "best": {
+    "title": "Melhores ferramentas de IA 2026: a melhor escolha por tarefa, com preços verificados",
+    "description": "As melhores ferramentas de IA para chat, pesquisa, programação e voz, com cada preço lido na página do fornecedor em 27 de novembro de 2026.",
+    "crumb": "Melhores ferramentas de IA 2026",
+    "h1": "Melhores ferramentas de IA 2026: a melhor escolha por tarefa",
+    "quick": "Resposta rápida: comece pelo plano gratuito do ChatGPT, Claude ou Gemini para uso geral, Perplexity para pesquisa com citações, Cursor ou GitHub Copilot para programar e ElevenLabs para voz. Cada preço abaixo foi lido na página do próprio fornecedor.",
+    "byline": "Por AI Pulse Editorial. Última atualização: 27 de novembro de 2026. Não fizemos testes práticos para esta página; as escolhas seguem os planos publicados por cada fornecedor.",
+    "picksH2": "Qual ferramenta de IA escolher para cada tarefa?",
+    "cols": ["Tarefa", "Escolha", "Por quê", "Preço na página do fornecedor (27 nov 2026)"],
+    "picks": [
+      {"need": "Assistente de chat geral", "why": "O conjunto de recursos mais amplo: modelos de raciocínio, criação de imagens, pesquisa profunda, Codex", "price": "Planos Free, Go, Plus e Pro (preços não aparecem na página que conseguimos ler)"},
+      {"need": "Escrita e documentos longos", "why": "Plano gratuito; o Pro oferece limites maiores", "price": "Free; Pro US$ 17/mês cobrado anualmente (US$ 20 no mensal); Max US$ 100/mês"},
+      {"need": "Pesquisa com citações", "why": "Respostas com citações em todas as respostas, pesquisa profunda no Pro", "price": "Free; Pro US$ 17/mês cobrado anualmente; Max US$ 167/mês cobrado anualmente"},
+      {"need": "Quem usa apps do Google", "why": "Gemini dentro do Gmail, Docs e Sheets, com armazenamento incluído no plano", "price": "Google AI Plus US$ 4,99/mês; os preços do Pro e do Ultra não puderam ser lidos na página"},
+      {"need": "Programar em um editor", "why": "Editor de código criado em torno da IA, com plano gratuito", "price": "Free; Plus US$ 8/mês; Premium US$ 30/mês; Super US$ 100/mês; Ultra US$ 200/mês"},
+      {"need": "Programar dentro do GitHub", "why": "Funciona no GitHub e nos editores comuns; tem plano gratuito", "price": "Free US$ 0; Pro US$ 10/mês; Pro+ US$ 39/mês; Max US$ 100/mês"},
+      {"need": "Voz e texto para fala", "why": "Plano gratuito para testar vozes antes de pagar", "price": "Free; Starter US$ 6/mês; Creator US$ 22/mês; Pro US$ 99/mês; Scale US$ 299/mês (a página mostra descontos da Black Friday)"}
+    ],
+    "pricesNote": "Os preços mudam com frequência. Só adicionamos ferramentas depois de ler a página de preços. Quando a página não mostrava um preço legível, dizemos isso.",
+    "howH2": "Como escolher uma ferramenta de IA?",
+    "how": [
+      "Defina primeiro a tarefa: chat, pesquisa, código ou voz. A melhor ferramenta muda conforme a tarefa.",
+      "Comece pelo plano gratuito de duas ferramentas e faça a mesma tarefa real nas duas.",
+      "Confira os limites. Planos gratuitos e baixos limitam o uso, e os limites estão na página de cada fornecedor.",
+      "Pague mês a mês no começo. O preço anual é menor por mês (o Claude Pro custa US$ 17 cobrado anualmente contra US$ 20 no mensal), mas prende você."
+    ],
+    "faqH2": "Melhores ferramentas de IA: perguntas frequentes",
+    "faqs": [
+      {"q": "Qual é a melhor ferramenta de IA em geral em 2026?", "a": "Não existe uma única melhor ferramenta. Para chat e tarefas variadas, a maioria começa com ChatGPT, Claude ou Gemini. Escolha pela tarefa: Perplexity para pesquisa com citações, Cursor ou GitHub Copilot para código, ElevenLabs para voz. As três ferramentas de chat têm planos gratuitos, então teste com o seu próprio trabalho."},
+      {"q": "Essas ferramentas de IA são gratuitas?", "a": "Claude, Perplexity, Cursor, GitHub Copilot e ElevenLabs mostram um plano de US$ 0 nas páginas de preços em 27 de novembro de 2026. Planos gratuitos têm limites de uso. Os planos pagos vão de cerca de US$ 5 a US$ 20 por mês para pessoas físicas, com níveis de US$ 100 a US$ 300 para uso intenso."},
+      {"q": "Como vocês verificam os preços desta página?", "a": "Lemos cada preço na página de preços do fornecedor e registramos a data. Quando a página não mostrava um preço em texto legível, dizemos isso em vez de adivinhar. Os preços mudam com frequência, então confira a página vinculada antes de pagar."},
+      {"q": "Qual ferramenta de IA é melhor para programar?", "a": "Cursor (um editor criado em torno da IA) e GitHub Copilot (funciona dentro do GitHub e dos editores comuns) têm planos gratuitos. O Copilot Pro custa US$ 10 por mês e o Cursor Plus US$ 8 por mês nas páginas de hoje. Teste o plano gratuito de cada um em um projeto real."},
+      {"q": "Com que frequência esta lista é atualizada?", "a": "Revisamos os preços de novo e adicionamos ferramentas conforme as verificamos. A última verificação foi em 27 de novembro de 2026."}
+    ]
+  }
+}
