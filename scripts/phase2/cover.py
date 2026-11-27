@@ -25,14 +25,20 @@ def font(size):
     return ImageFont.load_default()
 
 def main(slug, title, category):
+    # per-slug variant: same title/category still yields unique art
+    import zlib
+    v = zlib.crc32(slug.encode()) % 60
     c1, c2 = COLORS.get(category, COLORS['Best Of'])
+    def shift(c, d):
+        return tuple(max(0, min(255, x + d)) for x in c)
+    c1, c2 = shift(c1, ((v % 6) - 2) * 7 + (v // 6)), shift(c2, (2 - (v % 6)) * 9 - (v // 6))
     img = Image.new('RGB', (W, H))
     d = ImageDraw.Draw(img)
     for y in range(H):
         t = y / H
         d.line([(0, y), (W, y)], fill=tuple(int(a + (b - a) * t) for a, b in zip(c1, c2)))
-    d.ellipse([W - 420, -160, W + 160, 420], fill=tuple(min(255, c + 18) for c in c2))
-    d.ellipse([-200, H - 320, 320, H + 200], fill=tuple(max(0, c - 6) for c in c1))
+    d.ellipse([W - 420 + v * 30, -160 - v * 15, W + 160 + v * 30, 420], fill=tuple(min(255, c + 18) for c in c2))
+    d.ellipse([-200 + v * 25, H - 320, 320 + v * 25, H + 200], fill=tuple(max(0, c - 6) for c in c1))
     badge = BADGE.get(category, BADGE['Best Of'])
     d.rounded_rectangle([60, 120, 60 + 24 + d.textlength(category.upper(), font=font(30)), 172], 26, fill=badge)
     d.text((72, 130), category.upper(), font=font(30), fill=(10, 10, 14))
