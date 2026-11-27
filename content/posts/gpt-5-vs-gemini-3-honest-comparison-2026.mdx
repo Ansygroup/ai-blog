@@ -1,0 +1,87 @@
+---
+title: "GPT-6 vs Gemini 4: Where Each One Is Actually Cheaper (November 2026)"
+slug: gpt-5-vs-gemini-3-honest-comparison-2026
+excerpt: "GPT-5 vs Gemini 3 is a stale matchup. The live sheets say gpt-6.2 and Gemini 4, and the cheaper option depends on prompt length and the 1 December price change."
+description: "GPT-6 vs Gemini 4 on real rate cards: long-context surcharges, the 15x gap at the cheap end, batch discounts and Google's December price doubling."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: Comparisons
+tags:
+  - gpt-6
+  - gemini
+  - api pricing
+  - llm costs
+  - comparison
+cover: "/images/gpt-5-vs-gemini-3-honest-comparison-2026.jpg"
+draft: false
+---
+
+OpenAI and Google now publish rate cards that read like airline fares: the same model costs different amounts depending on how much context you send and how quickly you want the answer. So the useful question is not which model is smarter. It is which sheet charges your workload less, and the answer flips on two numbers: how long your prompts are, and how many tokens you push through in a month.
+
+Both families also renamed themselves since most teams last compared them. The label "GPT-5 vs Gemini 3" describes early 2026. As of 27 November 2026, OpenAI's API price sheet runs gpt-6.2-astra, gpt-6.2-sol, gpt-6.1-sol, gpt-6.1-terra and gpt-6-luna, with the gpt-5.6 generation still listed alongside. Google's runs Gemini 4 Carbon, Argon, Neon and Hydrogen. The version numbers moved. The pricing structures moved with them, in opposite directions.
+
+## The verdict first
+
+| Scenario | Winner | Why |
+| --- | --- | --- |
+| High volume, short prompts | OpenAI | gpt-6-luna is $0.10 input and $0.50 output per million tokens, against $1.50 and $7.50 for Gemini 4 Hydrogen |
+| One prompt holding an entire codebase or archive | Gemini 4 | 1M input context and decode up to 1M output tokens, with no long-context surcharge |
+| Prompts that cross the long-context line | Gemini 4 | OpenAI doubles the flagship input rate for long context, $16 against $8 |
+| Overnight batch jobs | OpenAI | The Batch tier halves every rate: astra at $4 and $20, sol at $1 and $5, luna at $0.05 and $0.25 |
+| Prototyping with no card | Gemini 4 | Hydrogen has a free API tier; no OpenAI model on the sheet is free |
+| A price that holds through December | OpenAI | Gemini 4 Carbon and Argon double to $4 and $20 on 1 December 2026 |
+| Top reasoning model in the chat app | OpenAI | Pro unlocks GPT-6 Astra reasoning, though Pro starts at $100 a month |
+
+## Two rate cards, not one
+
+OpenAI publishes standard, batch, flex, fast and ultrafast prices for the same models, and splits each of those into short context and long context. On gpt-6.2-astra the short-context rate is $8 input and $40 output per million tokens. The long-context rate for the same model is $16 and $60. On gpt-6.2-sol the pair is $2 and $10, or $4 and $15 long. Cached input runs at $0.40 on astra and $0.10 on sol, and writing to the cache costs extra: $10 for a 30-minute write and $20 for a 12-hour write on astra.
+
+Google's Gemini 4 Carbon and Argon have one input rate and one output rate, $2 and $10 today, with no long-context step. That structural difference matters more than the headline price. A workload whose prompts regularly cross OpenAI's short-context boundary pays double input on the flagship and nothing extra on Carbon. Run the arithmetic on your own token counts before you believe any per-token comparison, including this one.
+
+## The cheap end is not close
+
+The widest gap in either lineup is at the bottom. gpt-6-luna costs $0.10 input and $0.50 output per million tokens, with cached input at $0.01 and a batch rate of $0.05 and $0.25. Gemini 4 Hydrogen costs $1.50 and $7.50, with implicit caching at $0.075. That is a 15x difference on both input and output for the cheapest model each vendor sells.
+
+Gemini answers with a free tier instead of a cheap model. Hydrogen is free to call, and Google marks the free tier as data that may be used to improve its products, while the paid tier is not. That is a fair trade for a prototype and a bad one for anything with a customer's data in the prompt. Our [ChatGPT API cost comparison](/posts/chatgpt-api-cost-comparison-2026) walks through the OpenAI side in more detail.
+
+## Context windows in the apps, not just the API
+
+Model sheets hide this, so it is worth stating separately. In the ChatGPT apps, the reasoning context is 256K tokens on Go and Plus, and 400K on Pro, which OpenAI describes as roughly 680 pages of input. Instant answers run on a 54K window on Business and 128K on Enterprise. Gemini 4 models take a 1M token context and decode up to 1M output tokens. If your work is "paste the whole folder and ask questions", the gap between 256K and 1M is the whole decision.
+
+## What a batch run actually costs
+
+Both vendors sell asynchronous batch processing, and OpenAI's is a straight 50% off the standard short-context rate. A million tokens through gpt-6.2-astra in batch costs $4 in and $20 out instead of $8 and $40. Google's sheet lists batch as a separate tier without a published percentage in the table itself, so check the current number before you commit a pipeline to it. For a nightly summarisation job, the OpenAI batch tier is the single biggest lever on the sheet, and it is the reason some teams stay with OpenAI even when the on-demand price looks worse.
+
+## Where each one fails
+
+OpenAI's failure mode is bill shape. Five service tiers multiplied by two context bands multiplied by cache write durations means a competent team can produce four different prices for the same feature and only discover which one they are on when finance asks. The other trap is the app: the top reasoning model sits behind Pro, which starts at $100 a month and comes with three usage tiers of its own.
+
+Gemini's failure mode is time. Carbon and Argon double on 1 December 2026, the same date a deprecated Flash model starts rerouting to gemini-3.5-flash-lite, and caching on the two frontier models is implicit only, so you cannot pin a cache the way you can on OpenAI's sheet. Google is also the vendor more likely to change a model string under you.
+
+## Who should skip which
+
+Skip OpenAI if your prompts are routinely larger than a few hundred thousand tokens, because the long-context rate undoes the advantage. Skip Gemini if your traffic is high volume with short prompts, where gpt-6-luna is an order of magnitude cheaper, or if you need explicit cache control on the frontier models.
+
+## Which should you pick
+
+For a product that sends short prompts at volume, OpenAI wins on arithmetic and it is not close. For anything that treats a big document as the unit of work, Gemini 4 wins on context and on the absence of a long-context surcharge. For a team that wants one number to defend in a budget meeting, note the calendar: Gemini's frontier rates double in four days, while OpenAI's sheet has been stable through November. That, more than any capability claim, is what should decide the next twelve months. For how these two sit against Anthropic's models, see [our three-way assistant comparison](/posts/chatgpt-vs-claude-vs-gemini) and the [November pricing roundup](/posts/ai-model-pricing-changes-november-2026).
+
+## Frequently Asked Questions
+
+### Is GPT-5 still available?
+
+The gpt-5.6 generation still appears on OpenAI's price sheet, at $4 and $20 per million tokens for gpt-5.6-sol. It sits above the cheaper gpt-6.1-sol and gpt-6.2-sol, which both list at $2 and $10.
+
+### Why does OpenAI list two prices for the same model?
+
+OpenAI splits each service tier into short context and long context, and the long-context input rate is double on the flagship. Batch, flex, fast and ultrafast tiers add further prices for the same model.
+
+### Does Gemini have a free API tier?
+
+Yes, on Gemini 4 Hydrogen. The other three Gemini 4 models have no free tier, and Google states that free-tier data may be used to improve its products while paid-tier data is not.
+
+### Which is cheaper for a million tokens a month?
+
+For short prompts, gpt-6-luna at $0.10 and $0.50 per million tokens is far cheaper than Gemini 4 Hydrogen at $1.50 and $7.50. For prompts near a million tokens, Gemini has no long-context surcharge while OpenAI doubles its input rate.
+
