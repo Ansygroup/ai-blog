@@ -25,6 +25,7 @@ export function generateMetadata({ params }) {
   const cat = db.categories[params.category];
   if (!cat) return {};
   return {
+    robots: { index: false, follow: true },
     title: `${cat.name} — Best Deals ${new Date().getFullYear()} | AI Pulse Daily`,
     description: cat.description,
     alternates: { canonical: `${siteConfig.url}/recommendations/${params.category}` },

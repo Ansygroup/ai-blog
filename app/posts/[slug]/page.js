@@ -14,7 +14,6 @@ import AuthorBio from '../../../components/AuthorBio';
 import TableOfContents from '../../../components/TableOfContents';
 import ShareButtons from '../../../components/ShareButtons';
 import PostCard from '../../../components/PostCard';
-import RelatedProducts from '../../../components/RelatedProducts';
 import Breadcrumb from '../../../components/Breadcrumb';
 import RelatedPostsInline from '../../../components/RelatedPostsInline';
 import SeriesNav from '../../../components/SeriesNav';
@@ -152,7 +151,6 @@ export default async function PostPage({ params }) {
             </div>
           )}
 
-          <RelatedProducts tags={post.tags} category={post.category} limit={3} />
 
           {/* Prev/Next navigation */}
           <nav className="mt-10 pt-6 border-t border-slate-200 dark:border-dark-border flex flex-col sm:flex-row justify-between gap-4">

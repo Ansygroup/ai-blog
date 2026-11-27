@@ -14,6 +14,7 @@ function getDb() {
 }
 
 export const metadata = {
+  robots: { index: false, follow: true },
   title: `Amazon Tech & AI Store — Best Deals ${new Date().getFullYear()}`,
   description: 'Curated picks: best laptops, headphones, monitors, AI books, and creator gear. Every product hand-selected for AI professionals and creators.',
   alternates: { canonical: `${siteConfig.url}/recommendations` },

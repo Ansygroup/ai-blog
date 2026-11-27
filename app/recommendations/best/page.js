@@ -20,6 +20,7 @@ function getDb() {
 }
 
 export const metadata = {
+  robots: { index: false, follow: true },
   title: `Best Amazon Products ${new Date().getFullYear()} — Top Picks Across All Categories`,
   description: `Our top-rated picks across laptops, headphones, monitors, AI books, webcams, tablets, smart home, storage, keyboards, and office chairs. Updated for ${new Date().getFullYear()}.`,
   alternates: { canonical: `${siteConfig.url}/recommendations/best` },

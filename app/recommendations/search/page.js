@@ -6,6 +6,7 @@ import SearchClient from './SearchClient';
 export const dynamic = 'force-static';
 
 export const metadata = {
+  robots: { index: false, follow: true },
   title: 'Search Products — AI Pulse Daily Store',
   description: 'Search through our curated Amazon product catalog: laptops, headphones, monitors, AI books, and more.',
   openGraph: {

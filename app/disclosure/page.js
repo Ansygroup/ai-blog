@@ -22,15 +22,14 @@ export default function DisclosurePage() {
       <p>This site earns revenue in four ways:</p>
       <ol>
         <li><strong>Affiliate links.</strong> When we recommend a product and you click our link to purchase, the vendor pays us a small commission. This costs you nothing extra.</li>
-        <li><strong>Display advertising.</strong> We show ads via Google AdSense / Ezoic on some pages. Advertisers do not see or approve our content.</li>
+        <li><strong>Display advertising.</strong> We show ads via Google AdSense and Monetag on some pages. Advertisers do not see or approve our content.</li>
         <li><strong>Sponsored posts (rare).</strong> Occasionally a vendor pays us to write an in-depth review. Sponsored posts are always labeled with a clear "Sponsored" tag and meet the same editorial standards as our regular content.</li>
-        <li><strong>Digital products.</strong> We sell prompt packs and Notion templates related to our content.</li>
-      </ol>
+              </ol>
       <h2>What we never do</h2>
       <ul>
         <li>We never accept payment in exchange for a positive review.</li>
-        <li>We never let affiliate partnerships influence our testing rubric or scoring.</li>
-        <li>We never recommend a product we haven't personally used and paid for.</li>
+        <li>We never let affiliate partnerships influence what we research or conclude.</li>
+        <li>We never claim hands-on use we did not do. Recommendations come from documented research, and each article says exactly what we checked.</li>
       </ul>
       <h2>Our affiliate partners</h2>
       <p>Current partners include (but are not limited to): Jasper AI, Surfer SEO, NordVPN, Copy.ai, and Amazon. Affiliate programs are subject to change.</p>

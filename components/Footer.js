@@ -37,7 +37,7 @@ export default function Footer() {
           </div>
           <p className="text-xs text-slate-500 max-w-md">
             <strong>Disclosure:</strong> Some links on this site are affiliate links. We earn a commission if you click them and make a purchase — at no extra cost to you.
-            We only recommend products we've personally tested.
+            We recommend products based on documented research, and we say exactly what we checked.
           </p>
         </div>
         <div>
@@ -48,7 +48,6 @@ export default function Footer() {
             <li><Link href="/tutorials" className="hover:text-white transition">Tutorials</Link></li>
             <li><Link href="/topics" className="hover:text-white transition">Topics</Link></li>
             <li><Link href="/best" className="hover:text-white transition">Best Of Lists</Link></li>
-            <li><Link href="/recommendations" className="hover:text-white transition">Tech Store</Link></li>
           </ul>
         </div>
         <div>
@@ -66,6 +65,7 @@ export default function Footer() {
           <ul className="space-y-2 text-sm">
             <li><Link href="/about" className="hover:text-white transition">About</Link></li>
             <li><Link href="/editorial-policy" className="hover:text-white transition">Editorial Policy</Link></li>
+            <li><Link href="/how-we-test" className="hover:text-white transition">How We Test</Link></li>
             <li><Link href="/contact" className="hover:text-white transition">Contact</Link></li>
             <li><Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
             <li><Link href="/terms" className="hover:text-white transition">Terms</Link></li>
