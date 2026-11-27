@@ -130,8 +130,8 @@ export default function RootLayout({ children }) {
 
         {/* PropellerAds — Display Ads (zone 302312) */}
         <Script
-          src="https://quge5.com/88/tag.min.js"
-          data-zone="302312"
+          src="https://nap5k.com/tag.min.js"
+          data-zone="12362073"
           async
           data-cfasync="false"
           strategy="afterInteractive"
