@@ -126,8 +126,8 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* Monetag — In-Page Push (aiblogger.us.ci zone 12362073). RE-ENABLED 2026-11-27 per owner instruction ("don't stop the ads"). Loads after 3s delay or first interaction. Still opt-out gateable: set NEXT_PUBLIC_MONETAG_ENABLED=0 in the build environment to pause without a code change. Known risk: zone has served deceptive "Download is ready" creatives that triggered the GSC "Harmful downloads" flag; Monetag offers no publisher-side creative blocklist. */}
-        {process.env.NEXT_PUBLIC_MONETAG_ENABLED !== '0' && (
+        {/* Monetag — In-Page Push (aiblogger.us.ci zone 12362073). PAUSED 2026-11-27 (owner OK) until the GSC Harmful downloads review clears; enable by setting NEXT_PUBLIC_MONETAG_ENABLED=1 in the build environment. Known risk: zone has served deceptive "Download is ready" creatives that triggered the GSC "Harmful downloads" flag; Monetag offers no publisher-side creative blocklist. */}
+        {process.env.NEXT_PUBLIC_MONETAG_ENABLED === '1' && (
         <Script
           id="monetag-ipp"
           strategy="afterInteractive"
