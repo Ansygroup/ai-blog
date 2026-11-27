@@ -127,6 +127,30 @@ export default function RootLayout({ children }) {
         />
 
         {/* Monetag — In-Page Push (aiblogger.us.ci zone 12362073). PAUSED 2026-11-27 (owner OK) until the GSC Harmful downloads review clears; enable by setting NEXT_PUBLIC_MONETAG_ENABLED=1 in the build environment. Known risk: zone has served deceptive "Download is ready" creatives that triggered the GSC "Harmful downloads" flag; Monetag offers no publisher-side creative blocklist. */}
+        {/* Monetag Vignette Banner (aiblogger.us.ci zone 12364303), replaces In-Page Push 2026-11-27 (owner OK). Set NEXT_PUBLIC_MONETAG_VIGNETTE=0 in the build environment to pause. */}
+        {process.env.NEXT_PUBLIC_MONETAG_VIGNETTE !== '0' && (
+        <Script
+          id="monetag-vignette"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: `
+            (function(){
+              var done=false;
+              function load(){
+                if(done) return; done=true;
+                var s=document.createElement('script');
+                s.dataset.zone='12364303';
+                s.src='https://n6wxm.com/vignette.min.js';
+                s.async=true;
+                document.head.appendChild(s);
+              }
+              var t=setTimeout(load,4000);
+              ['scroll','pointerdown','touchstart'].forEach(function(ev){
+                window.addEventListener(ev,function(){clearTimeout(t);load();},{once:true,passive:true});
+              });
+            })();
+          `}}
+        />
+        )}
         {process.env.NEXT_PUBLIC_MONETAG_ENABLED === '1' && (
         <Script
           id="monetag-ipp"
