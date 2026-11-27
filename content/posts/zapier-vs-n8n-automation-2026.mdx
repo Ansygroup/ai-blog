@@ -1,0 +1,108 @@
+---
+title: "Zapier vs n8n in November 2026: Tasks vs Executions Decides the Bill"
+slug: zapier-vs-n8n-automation-2026
+excerpt: "Zapier bills per task. n8n bills per workflow execution. Worked examples show how a loop turns $39 into $129 on one and stays flat on the other."
+description: "Zapier vs n8n in November 2026: tasks vs executions, plan prices, worked cost examples, self-hosting and who should pick which automation tool."
+bottomLine: "Pick Zapier for short, simple flows and quick setup. Pick n8n for anything with branching, loops or high volume, and use the free Community Edition if you can run a server."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: Comparisons
+tags:
+  - zapier
+  - n8n
+  - automation
+  - workflow
+  - pricing
+cover: "/images/zapier-vs-n8n-automation-2026.jpg"
+draft: false
+---
+
+Zapier and n8n do not charge for the same thing. Zapier charges per task, which is each successful action step. n8n charges per execution, which is one full run of a workflow no matter how many steps it has. As of November 2026, that one difference moves the bill more than any feature does. Last tested: 27 November 2026, using both vendors' live pricing pages for plan details and a third party calculation for the cost examples.
+
+## The verdict first
+
+| Scenario | Winner | Why |
+| --- | --- | --- |
+| Simple two-step automations, no code | Zapier | 9,000+ apps and a visual editor, and trigger and filter steps do not count as tasks |
+| Multi-step or loop-heavy workflows | n8n | One execution per run, regardless of steps |
+| Lowest cost at 10,000 runs a month | n8n | Cloud Pro is 50€ a month for up to 10,000 executions, against $129 for 10,000 Zapier tasks |
+| Free self-hosting | n8n | Community Edition is on GitHub |
+| Team of up to 25 with shared connections | Zapier | Team plan lists 25 seats and SAML SSO |
+| Unlimited users on every plan | n8n | The pricing page says all plans include unlimited users and workflows |
+
+## How each one counts usage
+
+Zapier counts every successful action step. According to the comparison from [Vecta Solve](https://vectasolve.com/zapier-vs-make-vs-n8n-workflow-execution-limit-cost/), reviewed 5 November 2026, triggers, Filter and Paths steps, Formatter, Delay and Looping steps do not count, and steps that error do not count. Every action inside a loop does count, once per item.
+
+n8n's own pricing page says plans are based on monthly workflow executions "regardless of complexity" and that you only pay when a workflow runs from start to finish. A schedule that fires every 5 minutes uses about 8,600 to 8,900 executions a month, so schedules eat n8n quota faster than you expect.
+
+## Worked examples
+
+These are calculations from Vecta Solve using each vendor's counting rules, not real companies. Prices are billed annually.
+
+| Workflow | Zapier | n8n |
+| --- | --- | --- |
+| 500 runs a month, 2 actions after a filter | 1,000 tasks, needs the 1,500 tier at $39 a month | 500 executions, fits Cloud Starter at 20€ a month |
+| 2,500 runs, 4 actions plus formatting and branching | 10,000 tasks, 10K tier at $129 a month | 2,500 executions, fits Starter at 20€ a month |
+| 1,000 runs, 5 item loop with 2 actions each | 10 tasks a run, 10,000 tasks, $129 a month | 1,000 executions, fits Starter at 20€ a month |
+
+## Plans and prices
+
+| Plan | Price (annual billing) | Key limits |
+| --- | --- | --- |
+| Zapier Free | $0 | 100 tasks a month, two-step Zaps |
+| Zapier Professional | From $19.99 a month ($29.99 monthly) | 750 tasks, 1 seat |
+| Zapier Team | From $69 a month | 2,000 tasks, 25 seats, SAML SSO |
+| n8n Starter | 20€ a month | 2,500 executions, 5 concurrent, 1 shared project |
+| n8n Pro | 50€ a month | Up to 50 concurrent executions, 3 shared projects, 7 days of insights |
+| n8n Business | 667€ a month, self-hosted | SSO, LDAP, Git version control, queue mode |
+
+The Zapier and Starter n8n execution counts are from Vecta Solve. The n8n plan features and euro prices are from n8n's own page. Zapier's live page did not show dollar amounts in our fetch, so those come from the third party source.
+
+## AI features and extras
+
+Both now sell themselves around AI. Zapier's page describes an AI orchestration platform with Zap workflows, Tables for data, Forms and Zapier MCP, an action layer that connects AI agents to 9,000+ apps. Its tasks are one shared pool: Zaps, AI steps, code and MCP all draw from it, and the page warns that stronger AI models and longer code runs can use more tasks per action.
+
+n8n lists agents, MCP and AI nodes on its entry plan, plus Assistant credits of 1,600 a month on Starter and up to 9,600 on Pro. On self-hosted n8n you bring your own key for the assistant, so no credit limit applies there.
+
+## Support and governance
+
+Zapier's Team plan adds shared app connections and a shared workspace. SAML SSO is on Team and Enterprise, and Vecta Solve lists SCIM under Enterprise. n8n's entry plans offer forum support. Dedicated support with an SLA appears only on Enterprise, along with log streaming and an external secret store. If you need a vendor on call, price Enterprise or Zapier Team, not the entry plans.
+
+## Where each one fails
+
+Zapier fails on loops and long flows. The loop example above costs ten tasks for each run, which is why a tier jumps from $39 to $129 quickly. Pay-as-you-go also kicks in if you hit your limit, unless you turn it off.
+
+n8n fails on setup. The cloud plans are easy to start, but self-hosting means you run the server, and the Business plan self-hosted tier is 667€ a month. Its assistant is listed as preview, so do not plan around it.
+
+## Who should skip which
+
+Skip n8n if nobody on your team is comfortable debugging a workflow node. Skip Zapier if your automations loop over lists or run on frequent schedules. For a three-way view, see [n8n vs Zapier vs Make](/news/ai-workflow-automation-2026-n8n-vs-zapier-vs-make). For Zapier setup, see [AI automation with Zapier](/posts/ai-automation-with-zapier-2026).
+
+## Test it yourself
+
+1. Pick your three most common automations and write down the steps.
+2. Count Zapier tasks: action steps only, once per loop item.
+3. Count n8n executions: one per run.
+4. Multiply by your real monthly runs and compare to the tier tables above.
+5. Run the same flow on the Zapier free plan and the n8n trial, which is capped at 1,000 executions.
+
+## Which should you pick
+
+Pick Zapier for short, simple flows and quick setup. Pick n8n for anything with branching, loops or high volume, and use the free Community Edition if you can run a server. Prices were read on 27 November 2026 and will change.
+
+## Frequently Asked Questions
+
+### What is the difference between a Zapier task and an n8n execution?
+
+A Zapier task is each successful action step. An n8n execution is one full run of a workflow, no matter how many steps it has.
+
+### Is n8n free?
+
+The self-hosted Community Edition is free, and you pay for your own server. n8n Cloud starts at 20 euros a month billed annually.
+
+### How much does Zapier cost?
+
+Zapier Professional starts at $19.99 a month billed annually for 750 tasks, according to a November 2026 third party review of its pricing page.
+

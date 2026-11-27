@@ -74,13 +74,16 @@ def main(spec_path, body_path):
             f"### {q['q']}\n\n{q['a']}" for q in faq) + '\n'
 
     today = spec.get('date') or datetime.date.today().isoformat()
+    from bottomline import derive_bottom_line
+    bottom_line = spec.get('bottomLine') or derive_bottom_line(body)
+    bl_line = f'bottomLine: "{bottom_line.replace(chr(34), chr(39))}"\n' if bottom_line else ''
     tags = '\n'.join(f'  - {t}' for t in spec['tags'])
     mdx = f"""---
 title: "{spec['title'].replace('"', "'")}"
 slug: {slug}
 excerpt: "{spec['excerpt'].replace('"', "'")}"
 description: "{spec['description'].replace('"', "'")}"
-date: '{today}'
+{bl_line}date: '{today}'
 lastUpdated: '{today}'
 author: AI Pulse Editorial
 category: {spec['category']}

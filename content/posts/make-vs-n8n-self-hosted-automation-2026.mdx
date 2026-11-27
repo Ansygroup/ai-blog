@@ -1,0 +1,93 @@
+---
+title: "Make vs n8n in November 2026: Credits, Executions and Self-Hosting"
+slug: make-vs-n8n-self-hosted-automation-2026
+excerpt: "Make bills per credit and is hosted only. n8n bills per execution and has a free self-hosted edition. Pricing and a loop example compared."
+description: "Make vs n8n in November 2026: credits vs executions, plan prices, regional pricing caveats, self-hosting and which automation tool fits your flows."
+bottomLine: "Pick Make for a hosted visual builder at a low entry price and short flows. Pick n8n if you want to self-host, process lists, or avoid per-step cost growth."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: Comparisons
+tags:
+  - make
+  - n8n
+  - self-hosted
+  - automation
+  - pricing
+cover: "/images/make-vs-n8n-self-hosted-automation-2026.jpg"
+draft: false
+---
+
+Make and n8n both draw workflows on a canvas, and both are cheaper than Zapier for complex flows. They split on one point: where the workflow runs. Make is a hosted service that bills by credit. n8n bills by execution and also ships a free self-hosted edition. As of November 2026 that makes this a question about control, not just price. Last tested: 27 November 2026, using both vendors' live pages plus two third party pricing reviews.
+
+## The verdict first
+
+| Scenario | Winner | Why |
+| --- | --- | --- |
+| Cheapest hosted plan | Make | Core is $9 a month billed annually for 10,000 credits in one November review |
+| Run it on your own server | n8n | Community Edition is free on GitHub |
+| Workflows with loops over lists | n8n | A full run is one execution, while Make charges a credit per module run per item |
+| Quick visual builder, hosted | Make | Hosted only, with unlimited active scenarios from Core |
+| Governance and SSO on a budget | n8n | SSO and LDAP are on the Business plan |
+
+## How each one counts usage
+
+Make switched from operations to credits on 27 August. Most module actions cost 1 credit, including reading, searching, creating, updating, deleting, transforming and iterating data. Router and error handler modules cost nothing. Unused credits expire at the end of the term. If you run out, scenarios stop and incoming webhooks queue until credits return or you buy extra bundles of 1,000 or 10,000.
+
+n8n counts one execution per start-to-finish run, whatever the step count. Scheduled triggers count each time they fire, so a workflow every 5 minutes uses roughly 8,600 to 8,900 executions a month.
+
+## Worked example
+
+From [Vecta Solve](https://vectasolve.com/zapier-vs-make-vs-n8n-workflow-execution-limit-cost/), reviewed 5 November 2026: a workflow that receives a list of 5 items, runs 2 actions per item and runs 1,000 times a month uses 12 credits per run on Make, or 12,000 credits a month. That lands on Make Core's 20,000 credit level at $16 a month billed annually. The same workload is 1,000 executions on n8n and fits Cloud Starter at 20€ a month, or the free Community Edition on your own server. At this size Make is cheaper than hosted n8n. The gap flips when lists grow, because Make's credits scale with items and n8n's executions do not.
+
+## Plans and prices
+
+| Plan | Price (annual billing) | Notes |
+| --- | --- | --- |
+| Make Free | $0 | 1,000 credits a month, 1 data store |
+| Make Core | $9 a month (10,000 credits) | Unlimited active scenarios |
+| Make Pro | $16 a month (10,000 credits) | Priority execution, custom variables |
+| Make Teams | $29 a month (10,000 credits) | Teams and team roles |
+| n8n Starter | 20€ a month | 2,500 executions, 5 concurrent |
+| n8n Pro | 50€ a month | 10,000 executions, 50 concurrent |
+| n8n Business | 667€ a month, self-hosted | SSO, LDAP, Git version control, queue mode |
+| n8n Community | Free | Self-hosted, you pay for the server |
+
+Price caution: Make prices by country. A second review, [The AI School](https://the-aischool.com/guides/n8n-vs-zapier-vs-make), checked 8 November and listed Make Core at $12 a month in the US, $11 in the UK, Canada, Germany and France, and $9 in Spain, Mexico and Brazil. The two reviews disagree on the US figure, so read your own checkout page. Both give n8n Starter as 20€, billed at $20 for US buyers.
+
+## Where each one fails
+
+Make fails when you need to keep your data on your own machines, because there is no self-hosted edition on its page. It also fails when you underestimate list processing, since each iteration multiplies credits, and its credits do not carry over.
+
+n8n fails on operations work. Self-hosting means patching, backups and uptime are yours. The Community Edition has no vendor support, and the entry plans offer forum support only. The 667€ Business plan is a big jump from 50€ for a small team.
+
+## Who should skip which
+
+Skip Make if data residency or a private network rules out hosted tools. Skip n8n if nobody wants to maintain a server and your flows are short. For a three-way comparison, see [n8n vs Zapier vs Make](/news/ai-workflow-automation-2026-n8n-vs-zapier-vs-make). For agent-style workflows, see [AI agents with n8n and others](/news/ai-agents-2026-manus-n8n-langgraph-crewai-explained).
+
+## Test it yourself
+
+1. Pick one workflow and list each module.
+2. Count Make credits: every module that reads, writes or transforms is 1, and each loop item repeats the downstream modules.
+3. Count n8n executions: one per run.
+4. Spin up Make Free and the n8n trial, which is capped at 1,000 executions, and run the real flow.
+5. If you want to self-host, install the Community Edition on a small server and watch memory use for a week.
+
+## Which should you pick
+
+Pick Make for a hosted visual builder at a low entry price and short flows. Pick n8n if you want to self-host, process lists, or avoid per-step cost growth. Prices were read on 27 November 2026 and vary by region.
+
+## Frequently Asked Questions
+
+### Can I self-host Make?
+
+Make's pricing page describes a hosted service and lists no self-hosted edition. n8n offers a free self-hosted Community Edition on GitHub.
+
+### How does Make count credits?
+
+Most module actions cost 1 credit. Router and error handler modules cost none, and unused credits expire at the end of the term.
+
+### Which is cheaper, Make or n8n?
+
+For short flows, Make Core at about $9 to $12 a month is usually cheaper than n8n Cloud Starter at 20 euros. For long loops, n8n's per-run billing can win.
+
