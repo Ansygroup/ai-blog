@@ -128,7 +128,7 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* PropellerAds — Display Ads (zone 302312) */}
+        {/* Monetag — In-Page Push (aiblogger.us.ci zone 12362073) */}
         <Script
           src="https://nap5k.com/tag.min.js"
           data-zone="12362073"
