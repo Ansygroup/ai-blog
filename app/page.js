@@ -10,6 +10,7 @@ import AdSlot from '../components/AdSlot';
 import Badge from '../components/ui/Badge';
 import { Plus, Star, ArrowRight } from 'lucide-react';
 import { BEST_PICKS, BEST_UPDATED_LABEL } from '../lib/bestGuide';
+import { CATEGORY_INFO } from '../lib/categoryInfo';
 
 export const dynamic = 'force-static';
 
@@ -104,6 +105,16 @@ export default function HomePage() {
           </aside>
         </div>
       </section>
+      <nav aria-label="Browse categories" className="border-b border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center gap-2">
+          <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-dark-muted mr-1">Browse</span>
+          {getAllCategories().filter((c) => CATEGORY_INFO[slugify(c.name)]).map((c) => (
+            <Link key={c.name} href={`/category/${slugify(c.name)}`} className="text-sm px-3 py-1 rounded-full border border-slate-300 dark:border-dark-border hover:border-slate-900 dark:hover:border-dark-text transition">{CATEGORY_INFO[slugify(c.name)].label}</Link>
+          ))}
+          <Link href="/topics" className="text-sm px-3 py-1 rounded-full border border-slate-300 dark:border-dark-border hover:border-slate-900 transition">Topics</Link>
+          <Link href="/search" className="text-sm px-3 py-1 rounded-full border border-slate-300 dark:border-dark-border hover:border-slate-900 transition">Search</Link>
+        </div>
+      </nav>
       <section aria-labelledby="home-picks" className="border-b border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="flex items-baseline justify-between mb-5 flex-wrap gap-2">

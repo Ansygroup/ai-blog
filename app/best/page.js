@@ -60,7 +60,7 @@ export default function BestPage() {
         <section aria-labelledby="picks" className="mb-12">
           <h2 id="picks" className="text-2xl font-bold mb-4">Which AI tool should you pick for each job?</h2>
           <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-dark-border">
-            <table className="w-full text-sm text-left">
+            <table className="w-full min-w-[720px] text-sm text-left">
               <thead className="bg-slate-50 dark:bg-dark-card"><tr><th className="p-3">Job</th><th className="p-3">Pick</th><th className="p-3">Why</th><th className="p-3">Price on vendor page (27 Nov 2026)</th></tr></thead>
               <tbody>
                 {BEST_PICKS.map((t) => (

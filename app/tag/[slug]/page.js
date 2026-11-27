@@ -9,7 +9,8 @@ export const dynamic = 'force-dynamic';
 
 export function generateMetadata({ params }) {
   const name = params.slug.replace(/-/g, ' ');
-  return { title: `#${name} — AI Articles Tagged ${name}`, robots: { index: false } };
+  const n = getAllPosts().filter((p) => (p.tags || []).map((t) => String(t).toLowerCase()).includes(name.toLowerCase())).length;
+  return { title: `#${name}: AI Articles Tagged ${name}`, description: `${n} AI Pulse Daily article${n !== 1 ? 's' : ''} tagged ${name}: news, reviews and guides.`, robots: { index: false } };
 }
 
 export default function TagPage({ params }) {
