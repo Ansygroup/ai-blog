@@ -26,6 +26,7 @@ export function generateMetadata({ params }) {
     title: `${post.title} | AI News`,
     description: post.excerpt || post.description,
     keywords: post.tags,
+    robots: post.noindex ? { index: false, follow: true } : undefined,
     alternates: { canonical: `${siteConfig.url}/news/${post.slug}` },
     openGraph: { title: post.title, description: post.excerpt, type: 'article', publishedTime: post.date, images: [{ url: `${siteConfig.url}/og/${post.slug}`, width: 1200, height: 630 }] },
     twitter: { card: 'summary_large_image', title: post.title, description: post.excerpt, images: [`${siteConfig.url}/og/${post.slug}`] },

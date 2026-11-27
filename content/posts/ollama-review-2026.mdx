@@ -108,7 +108,7 @@ Compared to LM Studio’s “Project” concept, Ollama’s UI feels lighter a
 Ollama ships with a RESTful API that mirrors OpenAI’s [schema](/posts/ai-for-generating-schema-markup-for-seo-2026-tutorial), allowing seamless drop‑in re[placement](/posts/2026-ai-powered-podcast-ad-creation-placement-tutorial) for existing codebases. A typical request looks like:
 
 ```bash
-curl -X POST http://localhost:11434/v1/[chat](/posts/best-ai-tools-real-time-chat-sentiment-analysis-2026)/completions \
+curl -X POST http://localhost:11434/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
         "model": "llama3-8b",

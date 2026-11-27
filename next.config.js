@@ -32,6 +32,16 @@ const nextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
+      {
+        // Keep the legacy Vercel deployment out of Google's index: aiblogger.us.ci
+        // is the canonical site now. Host-scoped, so the Cloudflare build (which
+        // strips headers() in cf/prepare-static.mjs anyway) is unaffected.
+        source: '/(.*)',
+        has: [{ type: 'host', value: 'ai-blog-ten-steel.vercel.app' }],
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex' },
+        ],
+      },
     ];
   },
   async redirects() {

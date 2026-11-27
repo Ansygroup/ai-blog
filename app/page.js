@@ -28,10 +28,36 @@ export const metadata = {
 
 export default function HomePage() {
   const posts = getAllPosts();
-  const featured = posts[0];
-  const secondary = posts.slice(1, 4);
-  const grid = posts.slice(4, 13);
   const categories = getAllCategories().slice(0, 8);
+
+  // Category mix: the old layout took the N newest posts, so one prolific
+  // template (e.g. "Best AI Tools X for Y") filled the whole homepage.
+  // Feature each major section instead: news, comparisons, tutorials, reviews.
+  const NEWS = ['AI News'];
+  const CMP = ['Comparisons', 'Comparison'];
+  const TUT = ['Tutorials', 'Tutorial', 'Guides'];
+  const REV = ['Reviews', 'Review'];
+  const used = new Set();
+  const byCat = (cats, n) => {
+    const picks = posts.filter((p) => cats.includes(p.category) && !p.noindex && !used.has(p.slug)).slice(0, n);
+    picks.forEach((p) => used.add(p.slug));
+    return picks;
+  };
+
+  const newsTop = byCat(NEWS, 1);
+  const featured = newsTop[0] || posts.find((p) => !p.noindex && !used.has(p.slug));
+  if (featured) used.add(featured.slug);
+
+  const secondary = [...byCat(CMP, 1), ...byCat(TUT, 1), ...byCat(REV, 1)];
+  for (const p of posts) {
+    if (secondary.length >= 3) break;
+    if (!used.has(p.slug)) { secondary.push(p); used.add(p.slug); }
+  }
+
+  const newsRow = byCat(NEWS, 3);
+  const cmpRow = byCat(CMP, 3);
+  const tutRow = byCat(TUT, 3);
+  const grid = posts.filter((p) => !p.noindex && !used.has(p.slug)).slice(0, 9);
 
   const dbPath = path.join(process.cwd(), 'scripts', 'amazon-db.json');
   let topProducts = [];
@@ -113,6 +139,44 @@ export default function HomePage() {
             <div className="space-y-4">
               {secondary.map((p, i) => <PostCard key={p.slug} post={p} index={i} />)}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* CATEGORY MIX: news, comparisons, tutorials — keeps the homepage
+          from being a wall of near-identical template posts */}
+      {newsRow.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-heading font-bold">More AI News</h2>
+            <Link href="/news" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline text-sm">All news →</Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {newsRow.map((p, i) => <PostCard key={p.slug} post={p} index={i} />)}
+          </div>
+        </section>
+      )}
+
+      {cmpRow.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-heading font-bold">Side-by-Side Comparisons</h2>
+            <Link href="/comparisons" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline text-sm">All comparisons →</Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {cmpRow.map((p, i) => <PostCard key={p.slug} post={p} index={i} />)}
+          </div>
+        </section>
+      )}
+
+      {tutRow.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-heading font-bold">Tutorials & Guides</h2>
+            <Link href="/tutorials" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline text-sm">All tutorials →</Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tutRow.map((p, i) => <PostCard key={p.slug} post={p} index={i} />)}
           </div>
         </section>
       )}

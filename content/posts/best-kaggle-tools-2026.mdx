@@ -51,7 +51,7 @@ Kaggle Notebooks (formerly Kernels) have become the default launchpad for most c
 Google Colab has long been a favorite for Kaggle users who need more RAM or longer runtimes. The **Colab Pro+** tier, launched in early 2026, now offers **up to 32 GB RAM**, **NVIDIA A100 GPUs** at $0.30 / hour, and **persistent storage** of 200 GB per user. While not as tightly integrated with Kaggle datasets as native Notebooks, Colab’s **`kaggle` Python package** allows you to pull any competition data with a single line of code:
 
 ```python
-!kaggle competitions download -c titanic -p /[content](/posts/ai-content-moderation-system-user-generated-content)/data
+!kaggle competitions download -c titanic -p /content/data
 ```
 
 Colab shines for **[deep](/posts/hugging-face-review-2026)‑learning heavy competitions** where [you need](/posts/copy-ai-free-tier-limits-2026) the extra memory of an A100. The UI also supports **real‑time collaboration** and **magic commands** (`%tensorflow_version`) that simplify framework switching. However, the **cost** can add up quickly for long [train](/posts/auto-ml-tutorial)ing runs, and you must manage authentication tokens manually, which adds a small friction point for newcomers.

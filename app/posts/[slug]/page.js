@@ -32,6 +32,7 @@ export async function generateMetadata({ params }) {
     title: post.title,
     description: post.excerpt || post.description,
     keywords: post.tags,
+    robots: post.noindex ? { index: false, follow: true } : undefined,
     alternates: { canonical: `${siteConfig.url}/posts/${post.slug}` },
     openGraph: {
       type: 'article',

@@ -93,10 +93,23 @@ function isInsideAnchor(body, idx) {
   return true;
 }
 
+// Is offset `idx` part of a URL/path token (e.g. the `image` in `/images/foo.jpg`
+// or `user` in `example.com/users`)? Linking there corrupts the path: the
+// `/[image](/posts/x)s/foo.jpg` breakage. Paths are not prose — never link them.
+function isInsidePath(body, idx, kw) {
+  const before = body[idx - 1];
+  const after = body[idx + kw.length];
+  if (before && /[A-Za-z0-9/._~-]/.test(before)) return true;
+  if (after && /[A-Za-z0-9]/.test(after)) return true;
+  return false;
+}
+
 function isAlreadyLinked(body, idx, kw, slug) {
   // Never touch text that belongs to an existing anchor -- that is where the
   // `](url)](url)` glue came from.
   if (isInsideAnchor(body, idx)) return true;
+  // Never rewrite keywords that sit inside a URL or file path.
+  if (isInsidePath(body, idx, kw)) return true;
 
   // An occurrence of `kw` is already linked when EITHER
   //   a) the 50 chars BEFORE it contain a `](` anchor opener, or

@@ -28,8 +28,9 @@ export async function GET() {
     `${base}/tutorials`, `${base}/about`, `${base}/search`, `${base}/topics`,
   ];
   const postUrls = [
-    ...posts.filter((p) => p.category !== 'AI News').map((p) => `${base}/posts/${p.slug}`),
-    ...posts.filter((p) => p.category === 'AI News').map((p) => `${base}/news/${p.slug}`),
+    // noindex posts stay out of the sitemap: a sitemap entry says "index me".
+    ...posts.filter((p) => p.category !== 'AI News' && !p.noindex).map((p) => `${base}/posts/${p.slug}`),
+    ...posts.filter((p) => p.category === 'AI News' && !p.noindex).map((p) => `${base}/news/${p.slug}`),
   ];
   const categoryUrls = categories.map((c) => `${base}/category/${c.name.toLowerCase().replace(/\s+/g, '-')}`);
   const topicUrls = topics.map((t) => `${base}/topics/${t.slug}`);
