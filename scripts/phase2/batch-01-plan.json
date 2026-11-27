@@ -1,58 +1,423 @@
 {
   "batch": 1,
   "size": 50,
-  "formats": ["comparison-verdict", "decision-guide", "deep-dive", "tutorial-steps", "news-digest", "explainer-faq"],
+  "formats": [
+    "comparison-verdict",
+    "decision-guide",
+    "deep-dive",
+    "tutorial-steps",
+    "news-digest",
+    "explainer-faq"
+  ],
   "note": "Every fact/price quoted in an article must come from scripts/phase2/facts-*.json (fetched live from the vendor page named there) or be phrased without numbers. Unique angle per article - no two articles share the same section skeleton.",
   "articles": [
-    {"slug": "claude-4-vs-gpt-5-honest-comparison-2026", "title": "Claude 4 vs GPT-5 in 2026: An Honest Head-to-Head for Real Work", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://www.anthropic.com/pricing", "https://openai.com/api/pricing/"]},
-    {"slug": "midjourney-v7-vs-flux-image-generation-2026", "title": "Midjourney vs Flux in 2026: Which Image Model Wins for Which Job", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://www.midjourney.com/account"]},
-    {"slug": "perplexity-vs-google-ai-overviews-research-2026", "title": "Perplexity vs Google AI Overviews for Research in 2026: Where Each One Fails", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://www.perplexity.ai/pro"]},
-    {"slug": "cursor-vs-github-copilot-coding-2026", "title": "Cursor vs GitHub Copilot in 2026: What Changes After a Month of Daily Use", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://cursor.com/pricing", "https://github.com/features/copilot/plans"]},
-    {"slug": "elevenlabs-vs-openai-tts-voice-2026", "title": "ElevenLabs vs OpenAI TTS in 2026: Voice Quality, Languages, and True Cost per Minute", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://elevenlabs.io/pricing", "https://openai.com/api/pricing/"]},
-    {"slug": "notion-ai-vs-mem-ai-notes-2026", "title": "Notion AI vs Mem in 2026: Two Philosophies of AI Notes, Tested", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://www.notion.com/pricing"]},
-    {"slug": "runway-gen4-vs-sora-video-2026", "title": "Runway Gen-4 vs Sora in 2026: AI Video for People Who Actually Ship", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://runwayml.com/pricing"]},
-    {"slug": "jasper-vs-writesonic-content-teams-2026", "title": "Jasper vs Writesonic in 2026: Which AI Writer Fits a Content Team", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://www.jasper.ai/pricing", "https://writesonic.com/pricing"]},
-    {"slug": "grammarly-vs-claude-writing-edits-2026", "title": "Grammarly vs Claude for Editing in 2026: Proofreader or Ghostwriter", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://www.grammarly.com/plans"]},
-    {"slug": "suno-vs-udio-music-2026", "title": "Suno vs Udio in 2026: AI Music That Sounds Finished, Not Generated", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://suno.com/pricing", "https://www.udio.com/pricing"]},
-    {"slug": "otter-ai-vs-fireflies-meeting-notes-2026", "title": "Otter.ai vs Fireflies in 2026: Meeting Notes Without the Robot Feel", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://otter.ai/pricing", "https://fireflies.ai/pricing"]},
-    {"slug": "zapier-ai-vs-make-automation-2026", "title": "Zapier vs Make for AI Automation in 2026: Pricing Traps and Sweet Spots", "category": "Comparisons", "format": "comparison-verdict", "fact_urls": ["https://zapier.com/pricing", "https://www.make.com/en/pricing"]},
-    {"slug": "best-ai-tools-solo-founders-2026", "title": "The 2026 Solo Founder AI Stack: 9 Tools That Replace Your First Five Hires", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "best-ai-tools-teachers-lesson-planning-2026", "title": "Best AI Tools for Teachers in 2026: Lesson Planning, Grading, and the Privacy Catch", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "best-ai-tools-real-estate-agents-2026", "title": "Best AI Tools for Real Estate Agents in 2026: Listings, Follow-Ups, and Staging Photos", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "best-ai-tools-youtube-creators-2026", "title": "Best AI Tools for YouTubers in 2026: From Idea to Thumbnail in One Afternoon", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "best-ai-tools-accountants-bookkeeping-2026", "title": "Best AI Tools for Accountants in 2026: Bookkeeping Automation That Audits Clean", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "best-ai-tools-etsy-sellers-2026", "title": "Best AI Tools for Etsy Sellers in 2026: Listings, Mockups, and SEO That Converts", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "best-ai-tools-phd-researchers-literature-review-2026", "title": "Best AI Tools for PhD Researchers in 2026: Literature Reviews Without Hallucinated Citations", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "best-ai-tools-small-law-firms-2026", "title": "Best AI Tools for Small Law Firms in 2026: Drafting, Research, and Client Intake", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "best-ai-tools-non-native-english-writers-2026", "title": "Best AI Tools for Non-Native English Writers in 2026: Sound Natural, Not Translated", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "best-ai-tools-podcasters-2026", "title": "Best AI Tools for Podcasters in 2026: Edit, Clip, and Promote in Half the Time", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "best-ai-tools-customer-support-teams-2026", "title": "Best AI Tools for Support Teams in 2026: Deflect Tickets Without Infuriating Customers", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "best-ai-tools-job-seekers-2026", "title": "Best AI Tools for Job Seekers in 2026: Resumes, Cover Letters, and Interview Practice", "category": "Best Of", "format": "decision-guide", "fact_urls": []},
-    {"slug": "claude-4-deep-dive-2026", "title": "Claude 4 in 2026: What It Is Actually Good At After the Hype Settled", "category": "Reviews", "format": "deep-dive", "fact_urls": ["https://www.anthropic.com/pricing"]},
-    {"slug": "notebooklm-deep-dive-research-2026", "title": "NotebookLM in 2026: The Quiet Google Tool That Ate My Research Workflow", "category": "Reviews", "format": "deep-dive", "fact_urls": ["https://notebooklm.google/"]},
-    {"slug": "midjourney-v7-review-2026", "title": "Midjourney in 2026: Still the Prettiest, but Is It Still Worth the Subscription", "category": "Reviews", "format": "deep-dive", "fact_urls": ["https://www.midjourney.com/account"]},
-    {"slug": "cursor-editor-deep-dive-2026", "title": "Cursor in 2026: The AI Editor Developers Refuse to Give Back", "category": "Reviews", "format": "deep-dive", "fact_urls": ["https://cursor.com/pricing"]},
-    {"slug": "perplexity-pro-deep-dive-2026", "title": "Perplexity Pro in 2026: What the Paid Tier Buys and Where It Still Trips", "category": "Reviews", "format": "deep-dive", "fact_urls": ["https://www.perplexity.ai/pro"]},
-    {"slug": "elevenlabs-deep-dive-2026", "title": "ElevenLabs in 2026: Voice Cloning Quality, Limits, and the Real Bill", "category": "Reviews", "format": "deep-dive", "fact_urls": ["https://elevenlabs.io/pricing"]},
-    {"slug": "gamma-app-deep-dive-presentations-2026", "title": "Gamma in 2026: AI Presentations Good Enough for Clients", "category": "Reviews", "format": "deep-dive", "fact_urls": ["https://gamma.app/pricing"]},
-    {"slug": "descript-deep-dive-video-editing-2026", "title": "Descript in 2026: Editing Video Like a Doc, With Caveats", "category": "Reviews", "format": "deep-dive", "fact_urls": ["https://www.descript.com/pricing"]},
-    {"slug": "chatgpt-plus-vs-free-what-you-get-2026", "title": "ChatGPT Free vs Plus in 2026: Exactly What the Subscription Unlocks", "category": "Reviews", "format": "deep-dive", "fact_urls": ["https://openai.com/chatgpt/pricing/"]},
-    {"slug": "heygen-avatar-deep-dive-2026", "title": "HeyGen in 2026: AI Avatars for Training Videos, Tested on a Real Course", "category": "Reviews", "format": "deep-dive", "fact_urls": ["https://www.heygen.com/pricing"]},
-    {"slug": "build-personal-knowledge-assistant-claude-projects-2026", "title": "Build a Personal Knowledge Assistant with Claude Projects: A 2026 Walkthrough", "category": "Tutorials", "format": "tutorial-steps", "fact_urls": []},
-    {"slug": "automate-invoice-processing-gpt-vision-2026", "title": "Automate Invoice Processing with GPT Vision: From Photo to Spreadsheet", "category": "Tutorials", "format": "tutorial-steps", "fact_urls": ["https://openai.com/api/pricing/"]},
-    {"slug": "turn-blog-post-into-week-of-social-content-ai-2026", "title": "Turn One Blog Post into a Week of Social Content with AI (Without Sounding Robotic)", "category": "Tutorials", "format": "tutorial-steps", "fact_urls": []},
-    {"slug": "ai-powered-email-triage-gmail-filters-2026", "title": "Set Up AI Email Triage in Gmail: A Practical 2026 System That Cuts an Hour a Day", "category": "Tutorials", "format": "tutorial-steps", "fact_urls": []},
-    {"slug": "fine-tune-vs-prompt-engineering-when-2026", "title": "Fine-Tuning vs Prompt Engineering in 2026: A Decision Tree with Real Costs", "category": "Guides", "format": "tutorial-steps", "fact_urls": ["https://openai.com/api/pricing/"]},
-    {"slug": "ai-humanize-writing-workflow-2026", "title": "Make AI-Assisted Writing Sound Like You: A 2026 Editing Workflow", "category": "Tutorials", "format": "tutorial-steps", "fact_urls": []},
-    {"slug": "multilingual-content-ai-translation-workflow-2026", "title": "Publish in Three Languages with AI Translation: Quality Checks That Matter", "category": "Tutorials", "format": "tutorial-steps", "fact_urls": []},
-    {"slug": "ai-product-photos-on-a-budget-2026", "title": "AI Product Photos on a Budget: Studio-Looking Shots from Your Phone", "category": "Tutorials", "format": "tutorial-steps", "fact_urls": []},
-    {"slug": "ai-news-digest-late-november-2026", "title": "AI News Digest: What Actually Mattered This Week (Late November 2026)", "category": "AI News", "format": "news-digest", "fact_urls": []},
-    {"slug": "ai-model-pricing-changes-november-2026", "title": "AI API Pricing Moves You Should Know About (November 2026)", "category": "AI News", "format": "news-digest", "fact_urls": ["https://openai.com/api/pricing/", "https://www.anthropic.com/pricing"]},
-    {"slug": "ai-regulation-update-creators-november-2026", "title": "What November 2026 AI Regulation Moves Mean for Creators and Small Publishers", "category": "AI News", "format": "news-digest", "fact_urls": []},
-    {"slug": "new-ai-tools-worth-trying-december-2026", "title": "Five New AI Tools Worth an Hour of Your Time (December 2026 Edition)", "category": "AI News", "format": "news-digest", "fact_urls": []},
-    {"slug": "ai-search-visibility-small-sites-november-2026", "title": "AI Overviews and Small Sites: What November 2026 Data Says About Getting Cited", "category": "AI News", "format": "news-digest", "fact_urls": []},
-    {"slug": "what-is-context-window-why-it-matters-2026", "title": "What a Context Window Actually Is (and Why 200K Tokens Is Not Always Better)", "category": "Guides", "format": "explainer-faq", "fact_urls": []},
-    {"slug": "ai-agents-vs-chatbots-plain-english-2026", "title": "AI Agents vs Chatbots in Plain English: What Changes When AI Takes Actions", "category": "Guides", "format": "explainer-faq", "fact_urls": []},
-    {"slug": "rag-explained-for-non-developers-2026", "title": "RAG Explained for Non-Developers: How AI Answers from Your Documents", "category": "Guides", "format": "explainer-faq", "fact_urls": []}
+    {
+      "slug": "claude-4-vs-gpt-5-honest-comparison-2026",
+      "title": "Claude 4 vs GPT-5 in 2026: An Honest Head-to-Head for Real Work",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://www.anthropic.com/pricing",
+        "https://openai.com/api/pricing/"
+      ]
+    },
+    {
+      "slug": "midjourney-v7-vs-flux-image-generation-2026",
+      "title": "Midjourney vs Flux in 2026: Which Image Model Wins for Which Job",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://www.midjourney.com/account"
+      ]
+    },
+    {
+      "slug": "perplexity-vs-google-ai-overviews-research-2026",
+      "title": "Perplexity vs Google AI Overviews for Research in 2026: Where Each One Fails",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://www.perplexity.ai/pro"
+      ]
+    },
+    {
+      "slug": "cursor-vs-github-copilot-coding-2026",
+      "title": "Cursor vs GitHub Copilot in 2026: What Changes After a Month of Daily Use",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://cursor.com/pricing",
+        "https://github.com/features/copilot/plans"
+      ]
+    },
+    {
+      "slug": "elevenlabs-vs-openai-tts-voice-2026",
+      "title": "ElevenLabs vs OpenAI TTS in 2026: Voice Quality, Languages, and True Cost per Minute",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://elevenlabs.io/pricing",
+        "https://openai.com/api/pricing/"
+      ]
+    },
+    {
+      "slug": "notion-ai-vs-reflect-ai-notes-2026",
+      "title": "Notion AI vs Mem in 2026: Two Philosophies of AI Notes, Tested",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://www.notion.com/pricing"
+      ]
+    },
+    {
+      "slug": "runway-gen4-vs-veo3-video-2026",
+      "title": "Runway Gen-4 vs Sora in 2026: AI Video for People Who Actually Ship",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://runwayml.com/pricing"
+      ]
+    },
+    {
+      "slug": "jasper-vs-writesonic-content-teams-2026",
+      "title": "Jasper vs Writesonic in 2026: Which AI Writer Fits a Content Team",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://www.jasper.ai/pricing",
+        "https://writesonic.com/pricing"
+      ]
+    },
+    {
+      "slug": "grammarly-vs-claude-writing-edits-2026",
+      "title": "Grammarly vs Claude for Editing in 2026: Proofreader or Ghostwriter",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://www.grammarly.com/plans"
+      ]
+    },
+    {
+      "slug": "suno-vs-udio-music-2026",
+      "title": "Suno vs Udio in 2026: AI Music That Sounds Finished, Not Generated",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://suno.com/pricing",
+        "https://www.udio.com/pricing"
+      ]
+    },
+    {
+      "slug": "otter-ai-vs-fireflies-meeting-notes-2026",
+      "title": "Otter.ai vs Fireflies in 2026: Meeting Notes Without the Robot Feel",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://otter.ai/pricing",
+        "https://fireflies.ai/pricing"
+      ]
+    },
+    {
+      "slug": "zapier-ai-vs-make-automation-2026",
+      "title": "Zapier vs Make for AI Automation in 2026: Pricing Traps and Sweet Spots",
+      "category": "Comparisons",
+      "format": "comparison-verdict",
+      "fact_urls": [
+        "https://zapier.com/pricing",
+        "https://www.make.com/en/pricing"
+      ]
+    },
+    {
+      "slug": "best-ai-tools-solo-founders-2026",
+      "title": "The 2026 Solo Founder AI Stack: 9 Tools That Replace Your First Five Hires",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "best-ai-tools-teachers-lesson-planning-2026",
+      "title": "Best AI Tools for Teachers in 2026: Lesson Planning, Grading, and the Privacy Catch",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "best-ai-tools-real-estate-agents-2026",
+      "title": "Best AI Tools for Real Estate Agents in 2026: Listings, Follow-Ups, and Staging Photos",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "best-ai-tools-youtube-creators-2026",
+      "title": "Best AI Tools for YouTubers in 2026: From Idea to Thumbnail in One Afternoon",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "best-ai-tools-accountants-bookkeeping-2026",
+      "title": "Best AI Tools for Accountants in 2026: Bookkeeping Automation That Audits Clean",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "best-ai-tools-etsy-sellers-2026",
+      "title": "Best AI Tools for Etsy Sellers in 2026: Listings, Mockups, and SEO That Converts",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "best-ai-tools-phd-researchers-literature-review-2026",
+      "title": "Best AI Tools for PhD Researchers in 2026: Literature Reviews Without Hallucinated Citations",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "best-ai-tools-small-law-firms-2026",
+      "title": "Best AI Tools for Small Law Firms in 2026: Drafting, Research, and Client Intake",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "best-ai-tools-non-native-english-writers-2026",
+      "title": "Best AI Tools for Non-Native English Writers in 2026: Sound Natural, Not Translated",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "best-ai-tools-podcasters-2026",
+      "title": "Best AI Tools for Podcasters in 2026: Edit, Clip, and Promote in Half the Time",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "best-ai-tools-customer-support-teams-2026",
+      "title": "Best AI Tools for Support Teams in 2026: Deflect Tickets Without Infuriating Customers",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "best-ai-tools-job-seekers-2026",
+      "title": "Best AI Tools for Job Seekers in 2026: Resumes, Cover Letters, and Interview Practice",
+      "category": "Best Of",
+      "format": "decision-guide",
+      "fact_urls": []
+    },
+    {
+      "slug": "claude-4-deep-dive-2026",
+      "title": "Claude 4 in 2026: What It Is Actually Good At After the Hype Settled",
+      "category": "Reviews",
+      "format": "deep-dive",
+      "fact_urls": [
+        "https://www.anthropic.com/pricing"
+      ]
+    },
+    {
+      "slug": "notebooklm-deep-dive-research-2026",
+      "title": "NotebookLM in 2026: The Quiet Google Tool That Ate My Research Workflow",
+      "category": "Reviews",
+      "format": "deep-dive",
+      "fact_urls": [
+        "https://notebooklm.google/"
+      ]
+    },
+    {
+      "slug": "midjourney-v7-review-2026",
+      "title": "Midjourney in 2026: Still the Prettiest, but Is It Still Worth the Subscription",
+      "category": "Reviews",
+      "format": "deep-dive",
+      "fact_urls": [
+        "https://www.midjourney.com/account"
+      ]
+    },
+    {
+      "slug": "cursor-editor-deep-dive-2026",
+      "title": "Cursor in 2026: The AI Editor Developers Refuse to Give Back",
+      "category": "Reviews",
+      "format": "deep-dive",
+      "fact_urls": [
+        "https://cursor.com/pricing"
+      ]
+    },
+    {
+      "slug": "perplexity-pro-deep-dive-2026",
+      "title": "Perplexity Pro in 2026: What the Paid Tier Buys and Where It Still Trips",
+      "category": "Reviews",
+      "format": "deep-dive",
+      "fact_urls": [
+        "https://www.perplexity.ai/pro"
+      ]
+    },
+    {
+      "slug": "elevenlabs-deep-dive-2026",
+      "title": "ElevenLabs in 2026: Voice Cloning Quality, Limits, and the Real Bill",
+      "category": "Reviews",
+      "format": "deep-dive",
+      "fact_urls": [
+        "https://elevenlabs.io/pricing"
+      ]
+    },
+    {
+      "slug": "gamma-app-deep-dive-presentations-2026",
+      "title": "Gamma in 2026: AI Presentations Good Enough for Clients",
+      "category": "Reviews",
+      "format": "deep-dive",
+      "fact_urls": [
+        "https://gamma.app/pricing"
+      ]
+    },
+    {
+      "slug": "descript-deep-dive-video-editing-2026",
+      "title": "Descript in 2026: Editing Video Like a Doc, With Caveats",
+      "category": "Reviews",
+      "format": "deep-dive",
+      "fact_urls": [
+        "https://www.descript.com/pricing"
+      ]
+    },
+    {
+      "slug": "chatgpt-plus-vs-free-what-you-get-2026",
+      "title": "ChatGPT Free vs Plus in 2026: Exactly What the Subscription Unlocks",
+      "category": "Reviews",
+      "format": "deep-dive",
+      "fact_urls": [
+        "https://openai.com/chatgpt/pricing/"
+      ]
+    },
+    {
+      "slug": "heygen-avatar-deep-dive-2026",
+      "title": "HeyGen in 2026: AI Avatars for Training Videos, Tested on a Real Course",
+      "category": "Reviews",
+      "format": "deep-dive",
+      "fact_urls": [
+        "https://www.heygen.com/pricing"
+      ]
+    },
+    {
+      "slug": "build-personal-knowledge-assistant-claude-projects-2026",
+      "title": "Build a Personal Knowledge Assistant with Claude Projects: A 2026 Walkthrough",
+      "category": "Tutorials",
+      "format": "tutorial-steps",
+      "fact_urls": []
+    },
+    {
+      "slug": "automate-invoice-processing-gpt-vision-2026",
+      "title": "Automate Invoice Processing with GPT Vision: From Photo to Spreadsheet",
+      "category": "Tutorials",
+      "format": "tutorial-steps",
+      "fact_urls": [
+        "https://openai.com/api/pricing/"
+      ]
+    },
+    {
+      "slug": "turn-blog-post-into-week-of-social-content-ai-2026",
+      "title": "Turn One Blog Post into a Week of Social Content with AI (Without Sounding Robotic)",
+      "category": "Tutorials",
+      "format": "tutorial-steps",
+      "fact_urls": []
+    },
+    {
+      "slug": "ai-powered-email-triage-gmail-filters-2026",
+      "title": "Set Up AI Email Triage in Gmail: A Practical 2026 System That Cuts an Hour a Day",
+      "category": "Tutorials",
+      "format": "tutorial-steps",
+      "fact_urls": []
+    },
+    {
+      "slug": "fine-tune-vs-prompt-engineering-when-2026",
+      "title": "Fine-Tuning vs Prompt Engineering in 2026: A Decision Tree with Real Costs",
+      "category": "Guides",
+      "format": "tutorial-steps",
+      "fact_urls": [
+        "https://openai.com/api/pricing/"
+      ]
+    },
+    {
+      "slug": "ai-humanize-writing-workflow-2026",
+      "title": "Make AI-Assisted Writing Sound Like You: A 2026 Editing Workflow",
+      "category": "Tutorials",
+      "format": "tutorial-steps",
+      "fact_urls": []
+    },
+    {
+      "slug": "multilingual-content-ai-translation-workflow-2026",
+      "title": "Publish in Three Languages with AI Translation: Quality Checks That Matter",
+      "category": "Tutorials",
+      "format": "tutorial-steps",
+      "fact_urls": []
+    },
+    {
+      "slug": "ai-product-photos-on-a-budget-2026",
+      "title": "AI Product Photos on a Budget: Studio-Looking Shots from Your Phone",
+      "category": "Tutorials",
+      "format": "tutorial-steps",
+      "fact_urls": []
+    },
+    {
+      "slug": "ai-news-digest-late-november-2026",
+      "title": "AI News Digest: What Actually Mattered This Week (Late November 2026)",
+      "category": "AI News",
+      "format": "news-digest",
+      "fact_urls": []
+    },
+    {
+      "slug": "ai-model-pricing-changes-november-2026",
+      "title": "AI API Pricing Moves You Should Know About (November 2026)",
+      "category": "AI News",
+      "format": "news-digest",
+      "fact_urls": [
+        "https://openai.com/api/pricing/",
+        "https://www.anthropic.com/pricing"
+      ]
+    },
+    {
+      "slug": "ai-regulation-update-creators-november-2026",
+      "title": "What November 2026 AI Regulation Moves Mean for Creators and Small Publishers",
+      "category": "AI News",
+      "format": "news-digest",
+      "fact_urls": []
+    },
+    {
+      "slug": "new-ai-tools-worth-trying-december-2026",
+      "title": "Five New AI Tools Worth an Hour of Your Time (December 2026 Edition)",
+      "category": "AI News",
+      "format": "news-digest",
+      "fact_urls": []
+    },
+    {
+      "slug": "ai-search-visibility-small-sites-november-2026",
+      "title": "AI Overviews and Small Sites: What November 2026 Data Says About Getting Cited",
+      "category": "AI News",
+      "format": "news-digest",
+      "fact_urls": []
+    },
+    {
+      "slug": "what-is-context-window-why-it-matters-2026",
+      "title": "What a Context Window Actually Is (and Why 200K Tokens Is Not Always Better)",
+      "category": "Guides",
+      "format": "explainer-faq",
+      "fact_urls": []
+    },
+    {
+      "slug": "ai-agents-vs-chatbots-plain-english-2026",
+      "title": "AI Agents vs Chatbots in Plain English: What Changes When AI Takes Actions",
+      "category": "Guides",
+      "format": "explainer-faq",
+      "fact_urls": []
+    },
+    {
+      "slug": "rag-explained-for-non-developers-2026",
+      "title": "RAG Explained for Non-Developers: How AI Answers from Your Documents",
+      "category": "Guides",
+      "format": "explainer-faq",
+      "fact_urls": []
+    }
   ]
 }
