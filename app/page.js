@@ -93,7 +93,7 @@ export default function HomePage() {
           </span>
           <h1 className="text-4xl md:text-6xl font-heading font-extrabold mb-4 tracking-tight leading-tight">{siteConfig.tagline}</h1>
           <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8 font-body">
-            We test every AI tool so you don't waste money. Independent reviews, side-by-side comparisons, and step-by-step tutorials.
+            We research every AI tool so you don't waste money. Independent reviews, side-by-side comparisons, and step-by-step tutorials.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link href="/best" className="bg-amber-400 hover:bg-amber-500 text-amber-700 font-bold px-6 py-3 rounded-lg transition active:scale-[0.97]">Best AI Tools {new Date().getFullYear()}</Link>
