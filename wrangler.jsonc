@@ -1,8 +1,10 @@
 {
   "name": "ai-blog",
   "compatibility_date": "2026-11-01",
+  "main": "worker.js",
   "assets": {
     "directory": "out",
+    "binding": "ASSETS",
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page"
   }
