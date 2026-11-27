@@ -99,3 +99,22 @@
 .prose-blog h2:hover .anchor-link,
 .prose-blog h3:hover .anchor-link,
 .prose-blog h4:hover .anchor-link { opacity: 1; }
+
+/* Motion: light, CSS-only, progressive enhancement. Nothing starts hidden unless the
+   browser supports scroll-driven animation AND the user has not asked for reduced motion.
+   Transform/opacity only, so no layout shift; ad slots are not animated. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes hero-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .hero-in { animation: hero-in .7s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-in-2 { animation-delay: .12s; }
+  article a h3, article h3 a { transition: color .15s ease; }
+  main a { transition-property: color, background-color, border-color, box-shadow, transform; transition-duration: .18s; }
+  main article > div:hover { transform: translateY(-2px); }
+  main article > div { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+  .prose-blog a { background-image: linear-gradient(currentColor, currentColor); background-size: 0 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size .25s ease, color .15s; text-decoration: none; }
+  .prose-blog a:hover { background-size: 100% 1px; }
+  @supports (animation-timeline: view()) {
+    @keyframes reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+    [data-reveal] { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 35%; }
+  }
+}

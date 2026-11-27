@@ -74,8 +74,7 @@ export default function HomePage() {
       {/* HERO */}
       <section className="border-b border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20 grid lg:grid-cols-12 gap-10 items-end">
-          <div className="lg:col-span-8">
-            <p className="text-sm font-semibold tracking-wide text-brand-600 dark:text-brand-400 mb-4">Independent AI tool research</p>
+          <div className="lg:col-span-8 hero-in">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold tracking-tight leading-[1.05] text-slate-900 dark:text-dark-text">{siteConfig.tagline}</h1>
             <p className="mt-5 text-lg md:text-xl text-slate-600 dark:text-dark-muted max-w-2xl leading-relaxed">
               We research every AI tool so you don't waste money. Reviews, side-by-side comparisons, and step-by-step tutorials, with prices checked against the vendor's page.
@@ -85,7 +84,7 @@ export default function HomePage() {
               <Link href="/news" className="border border-slate-300 dark:border-dark-border hover:border-slate-900 dark:hover:border-dark-text text-slate-900 dark:text-dark-text font-semibold px-6 py-3 rounded-lg transition">Latest AI news</Link>
             </div>
           </div>
-          <dl className="lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-6 lg:gap-5 lg:border-l lg:border-slate-200 dark:lg:border-dark-border lg:pl-8">
+          <dl className="hero-in hero-in-2 lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-6 lg:gap-5 lg:border-l lg:border-slate-200 dark:lg:border-dark-border lg:pl-8">
             <div><dt className="text-sm text-slate-500 dark:text-dark-muted">Articles</dt><dd className="text-3xl font-heading font-bold text-slate-900 dark:text-dark-text">{posts.length.toLocaleString('en-US')}</dd></div>
             <div><dt className="text-sm text-slate-500 dark:text-dark-muted">Categories</dt><dd className="text-3xl font-heading font-bold text-slate-900 dark:text-dark-text">{categories.length}</dd></div>
             <div><dt className="text-sm text-slate-500 dark:text-dark-muted">Prices checked</dt><dd className="text-3xl font-heading font-bold text-slate-900 dark:text-dark-text">Live</dd></div>
@@ -94,7 +93,7 @@ export default function HomePage() {
       </section>
 
       {/* TOP CATEGORIES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section data-reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
           {categories.map((c) => (
             <Link key={c.name} href={`/category/${slugify(c.name)}`} className="whitespace-nowrap bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border hover:border-brand-500 dark:hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-400 px-4 py-2 rounded-full text-sm font-medium transition shrink-0">
@@ -132,7 +131,7 @@ export default function HomePage() {
       {/* CATEGORY MIX: news, comparisons, tutorials — keeps the homepage
           from being a wall of near-identical template posts */}
       {newsRow.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section data-reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight">More AI News</h2>
             <Link href="/news" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline text-sm">All news →</Link>
@@ -144,7 +143,7 @@ export default function HomePage() {
       )}
 
       {cmpRow.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section data-reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight">Side-by-Side Comparisons</h2>
             <Link href="/comparisons" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline text-sm">All comparisons →</Link>
@@ -156,7 +155,7 @@ export default function HomePage() {
       )}
 
       {tutRow.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section data-reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight">Tutorials & Guides</h2>
             <Link href="/tutorials" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline text-sm">All tutorials →</Link>
@@ -170,7 +169,7 @@ export default function HomePage() {
       <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />
 
       {/* LATEST GRID */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section data-reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight mb-6">Latest Reviews & Tutorials</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {grid.map((p, i) => <PostCard key={p.slug} post={p} index={i} />)}
