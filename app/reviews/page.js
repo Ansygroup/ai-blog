@@ -11,11 +11,11 @@ const POSTS_PER_PAGE = 24;
 
 export const metadata = {
   title: 'AI Tool Reviews — Honest, Hands-On Testing',
-  description: 'Honest, hands-on reviews of the best AI tools. We test every feature so you know exactly what you are getting before you buy.',
+  description: 'Plain-language reviews of AI tools, built from vendor documentation, official pricing pages and the hands-on checks each article names.',
   alternates: { canonical: `${siteConfig.url}/reviews` },
   openGraph: {
     title: 'AI Tool Reviews — Honest, Hands-On Testing',
-    description: 'Honest, hands-on reviews of the best AI tools.',
+    description: 'Plain-language reviews of AI tools based on vendor documentation and named checks.',
     url: `${siteConfig.url}/reviews`,
     siteName: siteConfig.name,
     type: 'website',
@@ -46,7 +46,7 @@ export default function ReviewsPage() {
         <header className="mb-10">
           <p className="text-sm text-slate-500 dark:text-dark-muted uppercase tracking-wider mb-2">Reviews</p>
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">AI Tool Reviews</h1>
-          <p className="text-lg text-slate-600 dark:text-dark-muted max-w-2xl">Honest, hands-on reviews of the best AI tools. We test every feature so you know exactly what you are getting before you buy.</p>
+          <p className="text-lg text-slate-600 dark:text-dark-muted max-w-2xl">Plain-language reviews of AI tools, built from vendor documentation, official pricing pages and the hands-on checks each article names.</p>
         </header>
         <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

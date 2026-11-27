@@ -67,8 +67,8 @@ export default function HomePage() {
 
   const homeFaqs = [
     { question: 'How do you research AI tools?', answer: 'We research from vendor documentation, official pricing pages checked on the article date, and reputable public sources. When we run our own check (like confirming a free-tier limit), the article says exactly what we did. See How We Test for details.' },
-    { question: 'Do you use affiliate links?', answer: 'Yes — full disclosure on every page. Affiliate links fund our testing. We never accept payment to publish a positive review.' },
-    { question: 'How often is content updated?', answer: 'Every "best of" list is re-tested quarterly. We add a "Last updated" date and revision log to every comparison so you can trust the data.' },
+    { question: 'Do you use affiliate links?', answer: 'Yes — full disclosure on every page. Affiliate links, if any, may earn us a commission at no cost to you. We never accept payment to publish a positive review.' },
+    { question: 'How often is content updated?', answer: 'We re-check prices on every "best of" list and update its date when we do. We add a "Last updated" date and revision log to every comparison so you can trust the data.' },
   ];
 
   return (
