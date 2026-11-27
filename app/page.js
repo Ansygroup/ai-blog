@@ -39,13 +39,16 @@ export default function HomePage() {
   const TUT = ['Tutorials', 'Tutorial', 'Guides'];
   const REV = ['Reviews', 'Review'];
   const used = new Set();
+  // Real, primary-sourced news first (newest first); older template posts follow.
+  const rank = (p) => (p.primarySourced ? 0 : 1);
+  const ordered = [...posts].sort((a, b) => rank(a) - rank(b));
   const byCat = (cats, n) => {
-    const picks = posts.filter((p) => cats.includes(p.category) && !p.noindex && !used.has(p.slug)).slice(0, n);
+    const picks = ordered.filter((p) => cats.includes(p.category) && !p.noindex && !used.has(p.slug)).slice(0, n);
     picks.forEach((p) => used.add(p.slug));
     return picks;
   };
 
-  const heroNews = posts.filter((p) => p.category === 'AI News' && !p.noindex).slice(0, 4);
+  const heroNews = ordered.filter((p) => p.category === 'AI News' && !p.noindex).slice(0, 4);
   const newsTop = byCat(NEWS, 1);
   const featured = newsTop[0] || posts.find((p) => !p.noindex && !used.has(p.slug));
   if (featured) used.add(featured.slug);

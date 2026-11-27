@@ -20,7 +20,7 @@ export const metadata = {
 
 export default function NewsPage() {
   const allPosts = getAllPosts();
-  const news = allPosts.filter(p => p.category === 'AI News').slice(0, 50);
+  const news = allPosts.filter(p => p.category === 'AI News').sort((a, b) => (a.primarySourced ? 0 : 1) - (b.primarySourced ? 0 : 1)).slice(0, 50);
 
   const jsonLd = {
     '@context': 'https://schema.org',
