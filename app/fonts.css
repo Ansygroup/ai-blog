@@ -1,33 +1,9 @@
-/* Self-hosted variable fonts.
-   WHY: next/font/google downloads the Google Fonts CSS at BUILD time. When
-   fonts.googleapis.com rate-limits or returns a truncated body, Next's
-   google loader throws "TypeError: Cannot read properties of null (reading '1')"
-   and the whole `next build` dies — in GitHub Actions AND in the Vercel cloud
-   build, so production silently stops updating.
-   These .woff2 files are committed, so the build now has zero network
-   dependency. Both are variable fonts: one file covers every weight.
-   latin subsets only (site copy is English); add more @font-face blocks here
-   if a non-latin locale ever ships. */
-
-@font-face {
-  font-family: 'Space Grotesk';
-  src: url('/fonts/SpaceGrotesk-latin.woff2') format('woff2');
-  font-weight: 300 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'DM Sans';
-  src: url('/fonts/DMSans-latin.woff2') format('woff2');
-  font-weight: 300 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Same contract as the next/font `variable` option: expose the family names as
-   CSS variables that tailwind.config.js references (heading/body fontFamily). */
+/* Self-hosted variable fonts (zero build-time network dependency).
+   Inter (body/UI) and Source Serif 4 (headlines): both SIL OFL 1.1, via fontsource. */
+@font-face { font-family: 'Inter'; src: url('/fonts/Inter-latin.woff2') format('woff2'); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Source Serif 4'; src: url('/fonts/SourceSerif4-latin.woff2') format('woff2'); font-weight: 200 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Source Serif 4'; src: url('/fonts/SourceSerif4-italic-latin.woff2') format('woff2'); font-weight: 200 900; font-style: italic; font-display: swap; }
 :root {
-  --font-heading: 'Space Grotesk';
-  --font-body: 'DM Sans';
+  --font-heading: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }

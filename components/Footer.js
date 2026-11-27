@@ -11,12 +11,12 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300 mt-20">
+    <footer className="bg-slate-950 text-slate-300 mt-24 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
         <div className="col-span-2 md:col-span-1">
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-heading font-bold text-sm">AI</span>
+            <div className="w-8 h-8 bg-white rounded-md flex items-center justify-center">
+              <span className="text-slate-900 font-heading font-bold text-sm">AI</span>
             </div>
             <span className="text-white font-heading font-bold text-lg">{siteConfig.name}</span>
           </div>

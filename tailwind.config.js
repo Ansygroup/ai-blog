@@ -11,11 +11,11 @@ module.exports = {
       },
       colors: {
         brand: {
-          50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
-          400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca',
-          800: '#3730a3', 900: '#312e81', 950: '#1e1b4b',
+          50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+          400: '#60a5fa', 500: '#2563eb', 600: '#1d4ed8', 700: '#1e40af',
+          800: '#1e3a8a', 900: '#172554', 950: '#0b1437',
         },
-        dark: { bg: '#0f172a', card: '#1e293b', border: '#334155', text: '#e2e8f0', muted: '#94a3b8' },
+        dark: { bg: '#0b0f17', card: '#121826', border: '#222b3b', text: '#e6e9ef', muted: '#97a1b3' },
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',

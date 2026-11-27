@@ -72,34 +72,29 @@ export default function HomePage() {
       <script id="ld-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(homeFaqs)) }} />
 
       {/* HERO */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-brand-900 text-white relative overflow-hidden">
-        {/* Static decorative gradient — no perpetual animation.
-            Pulse on a non-interactive decoration is the canonical AI-slop signal. */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-500/10 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center relative">
-          {/* Build-time current year so the badge can never rot on Jan 1. */}
-          <span className="inline-block bg-amber-400 text-amber-950 text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
-            Updated for {new Date().getFullYear()}
-          </span>
-          <h1 className="text-4xl md:text-6xl font-heading font-extrabold mb-4 tracking-tight leading-tight">{siteConfig.tagline}</h1>
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8 font-body">
-            We research every AI tool so you don't waste money. Independent reviews, side-by-side comparisons, and step-by-step tutorials.
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <Link href="/best" className="bg-amber-400 hover:bg-amber-500 text-amber-700 font-bold px-6 py-3 rounded-lg transition active:scale-[0.97]">Best AI Tools {new Date().getFullYear()}</Link>
-            <Link href="/reviews" className="bg-white/10 hover:bg-white/20 backdrop-blur text-white font-semibold px-6 py-3 rounded-lg transition">All Reviews</Link>
+      <section className="border-b border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20 grid lg:grid-cols-12 gap-10 items-end">
+          <div className="lg:col-span-8">
+            <p className="text-sm font-semibold tracking-wide text-brand-600 dark:text-brand-400 mb-4">Independent AI tool research</p>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold tracking-tight leading-[1.05] text-slate-900 dark:text-dark-text">{siteConfig.tagline}</h1>
+            <p className="mt-5 text-lg md:text-xl text-slate-600 dark:text-dark-muted max-w-2xl leading-relaxed">
+              We research every AI tool so you don't waste money. Reviews, side-by-side comparisons, and step-by-step tutorials, with prices checked against the vendor's page.
+            </p>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <Link href="/best" className="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-lg transition">Best AI tools {new Date().getFullYear()}</Link>
+              <Link href="/news" className="border border-slate-300 dark:border-dark-border hover:border-slate-900 dark:hover:border-dark-text text-slate-900 dark:text-dark-text font-semibold px-6 py-3 rounded-lg transition">Latest AI news</Link>
+            </div>
           </div>
-          <div className="flex justify-center gap-8 mt-12 text-sm text-slate-400">
-            <div><span className="text-white font-bold text-lg">{posts.length}+</span><br />Articles</div>
-            <div><span className="text-white font-bold text-lg">{categories.length}</span><br />Categories</div>
-            <div><span className="text-white font-bold text-lg">Since 2024</span><br />Published</div>
-          </div>
+          <dl className="lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-6 lg:gap-5 lg:border-l lg:border-slate-200 dark:lg:border-dark-border lg:pl-8">
+            <div><dt className="text-sm text-slate-500 dark:text-dark-muted">Articles</dt><dd className="text-3xl font-heading font-bold text-slate-900 dark:text-dark-text">{posts.length.toLocaleString('en-US')}</dd></div>
+            <div><dt className="text-sm text-slate-500 dark:text-dark-muted">Categories</dt><dd className="text-3xl font-heading font-bold text-slate-900 dark:text-dark-text">{categories.length}</dd></div>
+            <div><dt className="text-sm text-slate-500 dark:text-dark-muted">Prices checked</dt><dd className="text-3xl font-heading font-bold text-slate-900 dark:text-dark-text">Live</dd></div>
+          </dl>
         </div>
       </section>
 
       {/* TOP CATEGORIES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
           {categories.map((c) => (
             <Link key={c.name} href={`/category/${slugify(c.name)}`} className="whitespace-nowrap bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border hover:border-brand-500 dark:hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-400 px-4 py-2 rounded-full text-sm font-medium transition shrink-0">
@@ -112,16 +107,16 @@ export default function HomePage() {
       {/* FEATURED + SECONDARY */}
       {featured && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-          <h2 className="text-2xl font-heading font-bold mb-6">{featured.category === 'AI News' ? 'Latest News' : 'Featured Review'}</h2>
-          <div className="grid lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 group bg-white dark:bg-dark-card rounded-2xl border border-slate-200 dark:border-dark-border overflow-hidden hover:shadow-xl transition">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight mb-6">{featured.category === 'AI News' ? 'Latest News' : 'Featured Review'}</h2>
+          <div className="grid lg:grid-cols-3 gap-6 items-start">
+            <div className="lg:col-span-2 group bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border overflow-hidden hover:border-slate-400 hover:shadow-md transition">
               {featured.cover && <Link href={`/${featured.category === 'AI News' ? 'news' : 'posts'}/${featured.slug}`} className="block aspect-video relative overflow-hidden"><Image src={featured.cover} alt={featured.title} fill className="object-cover group-hover:scale-[1.02] transition duration-500" sizes="(max-width: 1024px) 100vw, 66vw" priority /></Link>}
               <div className="p-6">
                 <div className="flex items-center gap-2 text-xs text-slate-500 mb-3">
                   {featured.category && <Badge>{featured.category}</Badge>}
                   <time>{new Date(featured.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
                 </div>
-                <h3 className="text-3xl font-heading font-bold mb-3"><Link href={`/${featured.category === 'AI News' ? 'news' : 'posts'}/${featured.slug}`} className="hover:text-brand-600 dark:hover:text-brand-400 transition">{featured.title}</Link></h3>
+                <h3 className="text-2xl md:text-4xl font-heading font-bold tracking-tight leading-tight mb-3"><Link href={`/${featured.category === 'AI News' ? 'news' : 'posts'}/${featured.slug}`} className="hover:text-brand-600 dark:hover:text-brand-400 transition">{featured.title}</Link></h3>
                 {featured.rating && <div className="flex items-center gap-2 mb-3"><span className="flex text-amber-400">{Array.from({ length: 5 }, (_, i) => <Star key={i} className={`w-5 h-5 ${i < Math.round(featured.rating) ? 'fill-current' : 'opacity-30'}`} />)}</span><span className="text-sm text-slate-500">{featured.rating}/5</span></div>}
                 <p className="text-slate-600 dark:text-dark-text mb-4 font-body">{featured.excerpt}</p>
                 <Link href={`/${featured.category === 'AI News' ? 'news' : 'posts'}/${featured.slug}`} className="text-brand-600 dark:text-brand-400 font-semibold hover:underline">Read the full {featured.category === 'AI News' ? 'story' : 'review'} <ArrowRight className="w-4 h-4 inline" /></Link>
@@ -137,9 +132,9 @@ export default function HomePage() {
       {/* CATEGORY MIX: news, comparisons, tutorials — keeps the homepage
           from being a wall of near-identical template posts */}
       {newsRow.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-heading font-bold">More AI News</h2>
+            <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight">More AI News</h2>
             <Link href="/news" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline text-sm">All news →</Link>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -149,9 +144,9 @@ export default function HomePage() {
       )}
 
       {cmpRow.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-heading font-bold">Side-by-Side Comparisons</h2>
+            <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight">Side-by-Side Comparisons</h2>
             <Link href="/comparisons" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline text-sm">All comparisons →</Link>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -161,9 +156,9 @@ export default function HomePage() {
       )}
 
       {tutRow.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-heading font-bold">Tutorials & Guides</h2>
+            <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight">Tutorials & Guides</h2>
             <Link href="/tutorials" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline text-sm">All tutorials →</Link>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -175,8 +170,8 @@ export default function HomePage() {
       <AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOP} />
 
       {/* LATEST GRID */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <h2 className="text-2xl font-heading font-bold mb-6">Latest Reviews & Tutorials</h2>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight mb-6">Latest Reviews & Tutorials</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {grid.map((p, i) => <PostCard key={p.slug} post={p} index={i} />)}
         </div>

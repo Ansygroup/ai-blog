@@ -10,16 +10,15 @@ function postHref(post) {
 
 export default function PostCard({ post, index = 0 }) {
   const href = postHref(post);
-  const delay = Math.min((index % 6) * 100, 500);
   return (
-    <article className={`animate-fade-in opacity-0 [animation-fill-mode:forwards]`} style={{ animationDelay: `${delay}ms` }}>
+    <article>
       <Card className="group h-full flex flex-col" as="article">
         {post.cover && (
           <Link href={href} className="block aspect-video bg-slate-100 overflow-hidden relative">
             <Image src={post.cover} alt={post.title} fill className="object-cover group-hover:scale-105 transition duration-500" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
           </Link>
         )}
-        <div className="p-5 flex-1 flex flex-col">
+        <div className="p-5 flex-1 flex flex-col gap-0">
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-dark-muted mb-2 flex-wrap">
             {post.category && <Badge>{post.category}</Badge>}
             <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
@@ -33,10 +32,10 @@ export default function PostCard({ post, index = 0 }) {
               <span className="text-emerald-600 dark:text-emerald-400 font-medium">Updated</span>
             )}
           </div>
-          <h3 className="text-xl font-heading font-bold mb-2 leading-snug flex-1">
+          <h3 className="text-lg md:text-xl font-heading font-bold mb-2 leading-snug flex-1 tracking-tight">
             <Link href={href} className="hover:text-brand-600 dark:hover:text-brand-400 transition">{post.title}</Link>
           </h3>
-          <p className="text-slate-600 dark:text-dark-muted text-sm line-clamp-3 mb-3">{post.excerpt || post.description}</p>
+          <p className="text-slate-600 dark:text-dark-muted text-[0.9rem] leading-relaxed line-clamp-3 mb-4">{post.excerpt || post.description}</p>
           <div className="flex items-center justify-between text-sm mt-auto pt-3 border-t border-slate-100 dark:border-dark-border">
             <Link href={href} className="text-brand-600 dark:text-brand-400 font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
               Read {post.category === 'AI News' ? 'story' : 'review'}
