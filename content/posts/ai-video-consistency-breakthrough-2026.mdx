@@ -1,0 +1,97 @@
+---
+title: "AI Video Character Consistency in Late 2026: Improved, Not Solved"
+slug: ai-video-consistency-breakthrough-2026
+excerpt: "Most AI video tools now offer a way to keep a character the same across shots. We compare the methods and published limits as of 27 November 2026."
+description: "AI video character consistency in November 2026: three methods, reference limits for Kling, Vidu, Runway, Google Flow and more, and where drift persists."
+bottomLine: "Consistency is better and now a standard feature, with clear limits. Pick a tool by its reference cap and clip length, test with your own character and expect some drift."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: AI News
+tags:
+  - ai video
+  - character consistency
+  - kling
+  - runway
+  - ai news
+cover: "/images/ai-video-consistency-breakthrough-2026.jpg"
+draft: false
+---
+
+Keeping the same character across shots was the biggest weakness of AI video, and in late 2026 most major tools have a method for it. Calling that a single breakthrough overstates it. What changed is that nearly every maker now offers a way to tie a face, an outfit or a voice to every clip, and the methods fall into three groups. This explainer covers how they work, how the tools compare on published limits and where drift still happens. It was written on 27 November 2026 from vendor pages as summarized by Melius, which sells its own video product and says so on its blog. Last updated: 27 November 2026.
+
+## Quick answer
+
+| Question | Answer |
+| --- | --- |
+| Is consistency solved? | Improved, not solved. Every clip is still a new generation |
+| How do tools keep a character the same? | Reference images, a saved or trained identity, or a presenter avatar from real footage |
+| Longest clip per pass listed | 30 seconds on Kling 4.0 |
+| Most references in one generation | Kling lists up to 15 assets |
+
+## The three methods
+
+According to [Melius](https://www.melius.com/blog/best-ai-video-generators-consistent-characters) (11 November 2026), every AI video clip is a new generation, so a face, outfit or voice can drift unless something ties them together. The tools use one of three approaches:
+
+1. Reference images passed in with each clip.
+2. An identity saved or trained once and reused.
+3. A presenter avatar built from real footage.
+
+## How the tools compare
+
+Published limits as listed by Melius from each maker's pages:
+
+| Tool | How it keeps a character | References per generation | Clip length per pass |
+| --- | --- | --- | --- |
+| Google Flow | Ingredients to Video with @CharacterName tags | Up to 6 images in the Omni Flash API | 3 to 15 seconds on Omni Flash 1.2 |
+| Vidu | A reference subject per character | Up to 7 subjects, 3 images each | 3 to 16 seconds |
+| MiniMax | Omni-reference from images, video and audio | Up to 12 files | 4 to 15 seconds |
+| HeyGen | Avatar V from a webcam recording | One 15 second recording | Up to 30 minutes on Creator |
+| Higgsfield | Soul ID trained on photos of one person | 20 to 80 photos | Depends on the model |
+| Kling | Elements and Omni Reference | Up to 15 assets | 3 to 30 seconds on Kling 4.0 |
+| Runway | References, then Image to Video or Act-Two | Up to 3 References | 2 to 10 seconds on Gen-4.5, up to 30 on Act-Two |
+
+Vidu launched its Q3 Reference-to-Video in April 2026, per Melius. Each subject can carry its own voice, so two or three characters keep separate looks and voices in one clip.
+
+## Picking a method by job
+
+Melius groups its picks by job. For a trained identity, it points to Higgsfield's Soul ID, which learns one person from 20 to 80 photos. For long scenes with reusable characters, it points to Kling 4.0, which generates up to 30 seconds per pass with saved Elements. For directed performances, it points to Runway, where saved References set the look and Act-Two carries a recorded performance onto the character. For a talking presenter, it lists HeyGen's Avatar V, built from one 15 second webcam recording. Remember that this is a vendor's summary of other vendors, so confirm limits on each maker's page before you commit to a workflow.
+
+## What research is saying
+
+An arXiv technical report on LongCat-Video-Avatar 1.6, posted on 17 November 2026, tackles a narrower version of the problem: audio driven avatar video. Its abstract says long sequences still struggle with lip and audio sync, natural motion and visual consistency, and describes methods to reduce error build up during long generation. That is a research result from the authors, not a product benchmark, so we do not rank it against the tools above.
+
+## What could go wrong
+
+Melius itself lists a trade-off: each model caps how many references it accepts, so a large reference set may need trimming when a shot moves to a different model. Moving a character between tools resets the look. Stylized characters and photoreal ones behave differently, and a clip that holds one outfit may still drift on hands or background details. None of these sources publish a measured consistency score.
+
+## Who should skip it
+
+Skip the switch if your videos are single shots under 10 seconds, since drift matters less. Series, ads and short films with one character in many shots are where these features matter. For more on tools, see [AI video generators compared](/posts/ai-video-generators-compared) and [Runway tools for designers](/posts/best-ai-runway-tools-for-designers-2026-top-picks).
+
+## Test it yourself
+
+1. Make a character sheet with one front view and one side view.
+2. Generate three shots of the same character in different scenes in two tools.
+3. Compare face shape, hair, clothing and any logo across all six clips.
+4. Repeat with the voice on, if the tool supports it.
+5. Note how many references each tool accepted before you needed to trim.
+
+## Verdict
+
+Consistency is better and now a standard feature, with clear limits. Pick a tool by its reference cap and clip length, test with your own character and expect some drift. Treat any claim of perfect consistency as marketing until you test it.
+
+## Frequently Asked Questions
+
+### Is AI video character consistency solved?
+
+No. Every clip is still a new generation, and tools use references, saved identities or avatars to reduce drift.
+
+### Which AI video tool takes the most references?
+
+Kling lists up to 15 assets per generation, according to a November 2026 comparison by Melius.
+
+### How long can one clip be?
+
+Kling 4.0 lists up to 30 seconds per pass. Vidu lists up to 16 seconds and Google Omni Flash 1.2 up to 15.
+
