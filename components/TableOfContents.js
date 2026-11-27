@@ -12,7 +12,7 @@ export default function TableOfContents() {
     const elements = document.querySelectorAll('.prose-blog h2, .prose-blog h3');
     const items = Array.from(elements).map((el) => ({
       id: el.id,
-      text: el.textContent,
+      text: el.textContent.replace(/#+\s*$/, '').trim(),
       level: el.tagName === 'H2' ? 2 : 3,
     }));
     setHeadings(items);
