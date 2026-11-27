@@ -1,0 +1,128 @@
+---
+title: "AI Voiceover for YouTube Shorts"
+slug: ai-voiceover-youtube-shorts-workflow-2026
+excerpt: "Most synthetic voiceovers fail on cadence and pronunciation, not voice quality. Here is the pre-generation cleanup that fixes both, plus the edit pass that makes a read land."
+description: "AI voiceover for YouTube Shorts: write for the ear, normalize the words that break, generate in blocks, and fix cadence in the edit instead of re-rolling."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: Tutorials
+tags:
+  - youtube shorts
+  - voiceover
+  - elevenlabs
+  - ai audio
+  - workflow
+cover: "/images/ai-voiceover-youtube-shorts-workflow-2026.jpg"
+draft: false
+---
+
+A Shorts voiceover has about eight seconds to sound like a person who knows something. Synthetic voices fail that test in a predictable way: they read punctuation instead of meaning, and they mispronounce the one word the video is about.
+
+Everything below is about fixing those two problems before you generate, because no amount of re-rolling fixes a script written for the eye. Budget 20 minutes for the first Short and about eight minutes each after that.
+
+*Last tested: November 2026, on 9:16 Shorts of 25 to 45 seconds.*
+
+## What you need
+
+- A voice tool. ElevenLabs lists Starter at $6 a month after a $1 first month, Creator at $22 after an $11 first month, and Pro at $99, per its pricing page checked in November 2026. Annual billing runs $60, $220 and $990 for those three tiers. A Black Friday first-year discount was running to December 1, 2026.
+- A script of 60 to 110 words for a 25 to 45 second Short. YouTube allows Shorts up to three minutes, but short wins on this format.
+- An editor that can align captions to audio automatically.
+- Music you have the rights to.
+
+## Step 1: Write for the ear, not the page
+
+Three changes fix most synthetic reads:
+
+1. Sentences under 12 words.
+2. No parentheses, no semicolons, no dashes. If you need a pause, use a period.
+3. Numbers spelled the way they are said: "twenty-five percent", not "25%".
+
+Read the script out loud yourself first. If you stumble, the model will too, and it will stumble in a flatter way.
+
+## Step 2: Normalize the words that always break
+
+Before generating, rewrite the risky items in the script itself:
+
+| Item | What to write |
+| --- | --- |
+| Acronyms | Spell phonetically if the voice gets it wrong: "API" becomes "A P I" |
+| Product names | Add a phonetic hint in brackets, then delete the hint after generating |
+| Numbers with units | "3kg" becomes "three kilograms" |
+| Currency | "$19.99" becomes "nineteen ninety-nine" |
+| Names | Test the name alone before generating the full read |
+
+This step is unglamorous and it is the difference between a usable take and five minutes of re-rolls.
+
+## Step 3: Lock one voice and save the settings
+
+Pick a voice that matches the channel, then stop auditioning. Save the voice ID, stability and similarity settings, and the model version. Changing any of them between videos makes the same channel sound like three different people, and viewers notice even when they cannot say why.
+
+Put the settings in a note next to your script template. Future you will not remember.
+
+## Step 4: Generate in blocks, not in one take
+
+Split the script into blocks of two or three sentences and generate each block separately. Reasons:
+
+- A single bad word costs you three seconds of audio, not the whole read.
+- You can re-order blocks when the edit needs a different opening.
+- Natural pauses between blocks are easier to control than model-internal pauses.
+
+Assemble the blocks on the timeline, then tighten the gaps to about a third of a second.
+
+## Step 5: Fix the cadence with a second pass, not a new voice
+
+If the read sounds robotic, the problem is usually rhythm, not timbre. Fix it in the edit:
+
+- Shorten every gap longer than half a second.
+- Cut the first 150 milliseconds of each block, where models tend to swell.
+- Add a tiny pause before the payoff line so it lands.
+
+Re-generating with a different voice is the wrong fix. It resets consistency and rarely solves the rhythm.
+
+## Step 6: Align captions to the audio, not the script
+
+Auto-align captions to the generated audio, then correct them by reading along. Models often say a word differently than written, and captions that disagree with the voice look broken.
+
+Keep captions to three or four words per line, centered, in the middle third of the frame where the platform's interface will not cover them.
+
+## Step 7: Mix and check on a phone speaker
+
+Play the finished Short on a phone speaker at half volume. If the voice disappears under the music, the music is too loud. Duck the music under the voice rather than raising the voice, which clips.
+
+Check the first frame too: the visual should make sense muted, because many viewers start there.
+
+## What can go wrong
+
+**Mispronounced brand names.** Test the name in isolation before the full script. It is the single most common failure.
+
+**Voice drift between videos.** Save the settings, and re-use the same voice ID. Auditioning voices every week is how a channel loses its identity.
+
+**Generated content that needs a label.** If the Short includes realistic AI-generated scenes or people, disclose it. YouTube requires disclosure for realistic synthetic content through the AI use setting at upload.
+
+**Music licensing.** A track that is fine on one platform can be muted on another. Keep a folder of licensed tracks with the licence text saved.
+
+**Over-long intros.** The hook has to land in the first two seconds. A generated "hey guys, welcome back" is a retention hole.
+
+**Credits running out mid-batch.** Check the plan's monthly character allowance against your publishing cadence before you commit to a tier, especially if you generate multiple takes.
+
+For the script and thumbnail side, the [Shorts scripts and thumbnails walkthrough](/posts/ai-tutorial-youtube-shorts-scripts-thumbnails-2026) covers the structure that pairs with this audio workflow. Our older guide to [AI voiceovers for YouTube](/posts/ai-generated-voiceovers-youtube) covers long-form narration, and the [voice generator comparison](/posts/best-ai-voice-generators-2026) is where to start if you have not picked a vendor.
+
+## The judgment call
+
+Use a synthetic voice when you need volume and consistency, and your own when the channel is built on you. The test is simple: if viewers would recognize your voice in a room, do not replace it. If they would not, a good synthetic voice with a tightly written script will beat a tired human read recorded at midnight.
+
+## Frequently Asked Questions
+
+### How long should a Shorts voiceover script be?
+
+About 60 to 110 words for a 25 to 45 second Short. YouTube allows up to three minutes, but shorter clips hold attention better in the feed.
+
+### Why does my AI voice sound robotic?
+
+Usually rhythm rather than voice quality. Short sentences, spelled-out numbers, generating in blocks and tightening gaps in the edit fix more than switching voices does.
+
+### Do I need to disclose an AI voiceover on YouTube?
+
+A synthetic voice over your own footage generally does not require disclosure. Realistic AI-generated scenes or people do, and you set that through the AI use option when uploading.
+

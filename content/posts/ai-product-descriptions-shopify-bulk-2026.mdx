@@ -1,0 +1,129 @@
+---
+title: "Bulk AI Product Descriptions for Shopify"
+slug: ai-product-descriptions-shopify-bulk-2026
+excerpt: "The spreadsheet is the work: export, build one attribute row per product, generate 50 at a time, then run a claims check before anything imports."
+description: "Generate Shopify product descriptions in bulk with AI: attribute sheet structure, a row-level prompt, claims checks and a safe import process."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: Tutorials
+tags:
+  - shopify
+  - product descriptions
+  - ecommerce
+  - bulk editing
+  - seo
+cover: "/images/ai-product-descriptions-shopify-bulk-2026.jpg"
+draft: false
+---
+
+The hard part of bulk product descriptions is not the writing. It is the spreadsheet. A model given 300 product titles will produce 300 paragraphs of pleasant nothing, because a title is all it has. A model given a row of real attributes, material, size, use case and the one thing that makes the item different, will produce something a customer can decide from.
+
+So the workflow below spends most of its time on the export and the attribute sheet, and very little on the generating. Budget a day for the first 100 products, then about two hours per hundred after that.
+
+*Last tested: November 2026, on a Shopify store with variants and roughly 300 SKUs.*
+
+## What you need
+
+- A Shopify store on a paid plan. Basic is listed at $29 a month billed yearly or $39 monthly, with Grow at $79 and Advanced at $299, per Shopify's pricing page checked in November 2026.
+- A bulk import and export app that handles metafields and variants. Matrixify is the usual choice; Shopify's own CSV import works for simple catalogs.
+- A model with a long context window, or a script that loops rows through an API.
+- A staging theme or a single hidden product to test on.
+
+## Step 1: Export, then look at what you actually have
+
+Export products with handles, titles, variants, tags, metafields and current descriptions. Then open the sheet and count how many rows have a usable material, size or specification field. In most stores the answer is somewhere between a third and a half.
+
+That number decides the project. If 40 percent of your catalog has no attributes, generating descriptions for those rows will produce filler. Fill the attributes first, or accept shorter copy for those items.
+
+## Step 2: Build one attribute row per product
+
+Create a sheet with these columns: handle, product name, category, material, size or capacity, primary use case, who it is for, what makes it different, and any specification you can prove.
+
+Two rules. Every cell must be true, and "what makes it different" must be specific enough that a competitor could not paste their product into the same sentence. If you cannot fill that column, the product does not need a long description.
+
+## Step 3: Write the generation prompt against the row, not the catalog
+
+One row in, one description out. The prompt does the quality control:
+
+```
+Product: {name}
+Category: {category}
+Material: {material}
+Size: {size}
+Use case: {use case}
+Buyer: {buyer}
+Differentiator: {differentiator}
+Specs: {specs}
+
+Write a product description of 90 to 130 words.
+Structure: one sentence on what it is and who it is for, one paragraph on
+how it is used, one short line on the material or spec that matters.
+Rules: use only the facts above. Do not invent dimensions, certifications,
+warranties, origin or performance claims. Do not use the words premium,
+luxury, perfect or must-have. No emoji. No HTML.
+```
+
+The ban on invented dimensions and certifications is not decorative. A generated "dishwasher safe" on a product that is not is a refund and a bad review.
+
+## Step 4: Generate in batches, then deduplicate
+
+Run 50 rows at a time so a bad prompt costs you 50 descriptions, not 300. Then check for repetition: paste all outputs into one document and search for the three phrases that appear most. If a phrase shows up in more than a fifth of them, the prompt is producing a template and you should vary the structure by category.
+
+Categories need different structures anyway. Apparel needs fit and fabric. Tools need compatibility and dimensions. Food needs ingredients and storage.
+
+## Step 5: Run a claims check before import
+
+Read every description for four kinds of risk:
+
+1. Health or medical claims. Delete them.
+2. Comparative claims against named competitors. Delete them.
+3. Certifications and standards you cannot document.
+4. Guarantees and return terms that contradict your policy.
+
+This pass takes 20 minutes per hundred products and is the difference between a clean catalog and a support queue.
+
+## Step 6: Import only the description column
+
+Import the description field alone, keyed by handle. Overwriting whole rows is how stores lose SEO titles, images and variant data in one click.
+
+Back up the current export first, and test on five products in a staging theme. Check that line breaks survive: many CSV round trips strip paragraph breaks, and a description that imports as one block reads like a wall.
+
+## Step 7: Check twenty live pages, not twenty rows
+
+Open 20 product pages on the live theme, on a phone. Look for: the first two lines above the fold, whether the description repeats the title, and whether the length pushes the add-to-cart button off screen on mobile.
+
+Then check the meta description field. If your theme pulls it from the description, you now have 300 descriptions starting with the same phrase, which is worse than having none.
+
+## What can go wrong
+
+**The variant problem.** One handle with six sizes gets one description unless you write per variant. Decide which fields change per variant and write those by hand.
+
+**Duplicate meta descriptions.** Generate a separate 150-character meta description per product, or leave the field empty and let the platform build it from the page.
+
+**Tone drift across batches.** Keep a saved style instruction with three example outputs you approved, and paste it into every batch.
+
+**Overwriting good copy.** Some of your existing descriptions were written by someone who knew the product. Export, compare, and keep the best 20 percent by hand.
+
+**Claims that break ad platforms.** The same wording that fails a claims check can get product ads disapproved, which is a slower and more expensive discovery.
+
+For the SEO side of product copy, our guide to [SEO-optimized product description variations](/posts/ai-for-seo-optimized-product-description-variations-2026) covers title and keyword structure, and the [Amazon product description tutorial](/posts/ai-tutorial-seo-optimized-amazon-product-descriptions-2026) is worth reading for the marketplace-specific rules even if you sell on your own store.
+
+## The judgment call
+
+Bulk generation is worth it for catalogs where the products are genuinely similar: consumables, accessories, parts, basics. It is a bad fit for a store with 30 hero products, where a person should write each page and the model should only tighten it. If your differentiator column is empty for most rows, fix the catalog before you write the copy.
+
+## Frequently Asked Questions
+
+### Can AI write product descriptions for a whole Shopify catalog?
+
+Yes, if you feed it real attributes per product rather than titles alone. Generate in batches of about 50 so a weak prompt costs you a small batch, then deduplicate and check claims before import.
+
+### How do I import bulk descriptions without breaking other fields?
+
+Export everything first as a backup, then import only the description column keyed by handle. Overwriting whole rows can wipe SEO titles, images and variant data.
+
+### What claims should I strip from generated product copy?
+
+Health and medical claims, comparisons against named competitors, certifications you cannot document, and guarantees that contradict your published return policy.
+

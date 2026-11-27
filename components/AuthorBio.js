@@ -11,7 +11,7 @@ export default function AuthorBio({ author }) {
       <div className="min-w-0">
         <div className="font-semibold text-slate-900 dark:text-dark-text">{name}</div>
         <p className="text-sm text-slate-500 dark:text-dark-muted mt-1">
-          {siteConfig.name} is an independent publication that publishes expert reviews, comparisons, and tutorials about consumer and professional AI tools. Content is fact-checked, updated quarterly, and written for practitioners.
+          {siteConfig.name} is an independent publication about consumer and professional AI tools. Articles are researched from primary sources, checked by a person before publication, and updated when products change.
         </p>
         <div className="flex gap-3 mt-3">
           {siteConfig.social?.twitter && (

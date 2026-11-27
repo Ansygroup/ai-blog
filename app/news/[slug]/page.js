@@ -94,6 +94,12 @@ export default async function NewsArticlePage({ params }) {
                 {post.source && <span className="text-xs bg-slate-100 dark:bg-dark-bg px-2 py-0.5 rounded-full">via {post.source.replace(/^rss:/, '')}</span>}
               </div>
               <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">{post.title}</h1>
+              {post.bottomLine && (
+                <div className="mb-4 p-4 rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/20 dark:border-emerald-800">
+                  <div className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400 mb-1">Bottom line</div>
+                  <p className="text-[15px] text-slate-800 dark:text-slate-200 leading-relaxed">{post.bottomLine}</p>
+                </div>
+              )}
               {post.cover && <div className="relative w-full aspect-video mb-6 rounded-xl overflow-hidden"><Image src={post.cover} alt={post.title} fill className="object-cover" sizes="(max-width: 800px) 100vw, 800px" /></div>}
             </header>
 

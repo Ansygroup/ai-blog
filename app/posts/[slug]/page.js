@@ -97,6 +97,12 @@ export default async function PostPage({ params }) {
             </div>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">{post.title}</h1>
             {post.excerpt && <p className="text-xl text-slate-600 leading-relaxed">{post.excerpt}</p>}
+            {post.bottomLine && (
+              <div className="mt-5 p-4 rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/20 dark:border-emerald-800">
+                <div className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400 mb-1">Bottom line</div>
+                <p className="text-[15px] text-slate-800 dark:text-slate-200 leading-relaxed">{post.bottomLine}</p>
+              </div>
+            )}
             <div className="flex items-center gap-3 mt-5 text-sm text-slate-600">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold">{post.author?.[0] || 'A'}</div>
               <div>
@@ -114,12 +120,12 @@ export default async function PostPage({ params }) {
 
           <KeyTakeaways slug={params.slug} />
 
-          {/* How we test */}
+          {/* How we write */}
           <section className="mt-8 p-5 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl">
-            <h2 className="text-lg font-bold mb-2">How we test this tool</h2>
+            <h2 className="text-lg font-bold mb-2">How we write</h2>
             <p className="text-sm text-slate-700 dark:text-slate-300">
-              We sign up with a paid plan, run the same 10 real-world tasks across every tool, and rate output quality, speed, pricing, and support. 
-              Each review includes a transparent scoring rubric. We re-test every 90 days and update the article with new findings.
+              AI Pulse Editorial researches each article from primary sources: vendor documentation, official pricing pages, and hands-on checks where the article says so. We do not claim lab testing we did not perform, and AI tools help us draft while people verify the facts.{' '}
+              <Link href="/editorial-policy" className="text-blue-700 dark:text-blue-400 underline">Read our editorial policy</Link>.
             </p>
           </section>
 
