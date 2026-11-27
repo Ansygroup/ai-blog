@@ -72,6 +72,8 @@ export default function RootLayout({ children }) {
       <head>
         {/* Google AdSense account declaration (verification + auto ads) */}
         <meta name="google-adsense-account" content={siteConfig.adsenseClient} />
+        {/* Monetag site ownership verification (aiblogger.us.ci, site id 3596145) */}
+        <meta name="monetag" content="e4f329f07a687ea3b9345a356856e2d3" />
         {/* Preconnect & DNS-prefetch for third-party origins */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
