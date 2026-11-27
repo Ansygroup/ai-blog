@@ -1,0 +1,93 @@
+---
+title: "Midjourney vs OpenAI's Image Models: What Replaced DALL-E (November 2026)"
+slug: midjourney-v7-vs-dalle-4-2026
+excerpt: "DALL-E 4 does not exist and Midjourney is on V8.2. The real comparison is a GPU-minute subscription against metered image tokens, and they do not convert."
+description: "Midjourney V8.2 versus OpenAI's gpt-image models: real plan prices, GPU time per job, token rates and why you cannot compare cost per image."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: Comparisons
+tags:
+  - midjourney
+  - dall-e
+  - ai image generation
+  - gpt-image
+  - comparison
+cover: "/images/midjourney-v7-vs-dalle-4-2026.jpg"
+draft: false
+---
+
+There is no DALL-E 4, and there has not been a DALL-E model on OpenAI's price sheet for some time. If you searched for this comparison, you are comparing a Midjourney version two generations old against an image model family that no longer uses that name. Midjourney's default model is V8.2, released on 24 July 2026. OpenAI's image line now runs gpt-image-2.6-sunburst, gpt-image-2.6-flare, the 2.5 pair, gpt-image-2, gpt-image-1.5, gpt-image-1-mini and chatgpt-image-latest. The names on the box are wrong, and the pricing models behind them are not even the same shape.
+
+That mismatch is the real story, and it is part of a wider repricing we covered in [AI model pricing changes in November 2026](/posts/ai-model-pricing-changes-november-2026). Midjourney sells GPU minutes on a subscription. OpenAI sells image tokens through an API. One of those you can forecast, and the other you cannot, and which one that is depends on your workflow.
+
+## The verdict first
+
+| Scenario | Winner | Why |
+| --- | --- | --- |
+| Style control and a personal aesthetic profile | Midjourney | V8.2 was built around aesthetics and Personalization, and its Edit Model replaced the old reference and retexture tools |
+| Private outputs on a modest budget | Midjourney Pro | Stealth Mode is only on Pro and Mega, at $60 and $120 a month |
+| Paying only for what you generate | OpenAI | API image tokens are metered, from $2.50 input and $8 output per million tokens on gpt-image-1-mini |
+| High volume with a hard cost ceiling | Midjourney Standard | Unlimited Relax image generation from $30 a month |
+| Text inside images and editing through an API | OpenAI | Image input is priced separately from output, so iterative edits are billable line items you can measure |
+| Generating video, not just stills | Midjourney | Relax video is included on Pro and Mega; HD video on both |
+
+## What Midjourney actually charges
+
+Midjourney runs four tiers, and the numbers below come from its own plan documentation.
+
+| Plan | Monthly | Annual | Fast GPU time | Relax |
+| --- | --- | --- | --- | --- |
+| Basic | $10 | $96, which is $8 a month | 3.3 hours, 200 minutes | None |
+| Standard | $30 | $288, $24 a month | 15 hours | Unlimited images |
+| Pro | $60 | $576, $48 a month | 30 hours | Unlimited images and SD video |
+| Mega | $120 | $1,152, $96 a month | 60 hours | Unlimited images and SD video |
+
+Annual billing is a flat 20% discount with the full year paid up front. Extra fast time costs $4 an hour on every tier. Stealth Mode is Pro and Mega only, and the concurrency limit is 3 fast jobs on Basic and Standard against 12 on Pro and Mega.
+
+The detail that decides whether Basic is enough is GPU time per job. Midjourney's own V8.1 documentation puts a standard job at 0.8 minutes of GPU time and an HD job at 1.3 minutes. On 200 minutes of fast time, that arithmetic works out to roughly 250 standard images in a month, or about 150 if you work in HD. There is no Relax queue on Basic to fall back on, so the meter is the whole allowance.
+
+## What OpenAI actually charges
+
+OpenAI's image models are priced per million tokens, with image input and output billed separately from text. gpt-image-2.6-sunburst, gpt-image-2.6-flare, gpt-image-2.5-sunburst, gpt-image-2.5-flare, gpt-image-2 and chatgpt-image-latest all sit at $8 per million image input tokens and $30 per million image output tokens, with cached image input at $2. Text input on those models is $5 per million tokens, and cached text input is $1.25. gpt-image-1-mini is the cheap tier at $2.50 image input and $8 image output, with cached input at $0.25.
+
+One footnote matters if you build a pipeline: OpenAI notes that cached input rates for GPT Image 2 and GPT Image 2.5 only apply to images generated with the Responses API. If you generate through another path and assume the cached rate, your invoice will not match your model.
+
+## The comparison that does not work
+
+You cannot convert GPU minutes into image tokens without knowing the token count per image, and neither vendor publishes a conversion. Anyone who quotes you a clean "Midjourney is cheaper per image" or the reverse is inventing a number.
+
+What you can compare is shape. Midjourney's cost is fixed and predictable: $30 buys unlimited Relax images and 15 hours of fast time, and the only variable is how much extra fast time you buy at $4 an hour. OpenAI's cost scales exactly with use and with how much you edit, because every iteration is another round of input and output tokens. For a solo designer making 40 images a week, Midjourney Standard is a flat $30. For a product that renders one image per customer signup, the API is cheaper at low volume and infinitely flexible at high volume.
+
+## Where each one fails
+
+Midjourney's failure is the paywall on privacy and on the queue. On Basic and Standard, your generations are public, and Stealth Mode starts at $60 a month. Basic also has no Relax mode, which means the cheapest plan has the least forgiving meter of the four.
+
+OpenAI's failure is that the API is not a product. You get models and a price list, not a workspace, not a gallery, and not a plan that caps your spend. Image output at $30 per million tokens is also the most expensive line on the sheet, and output tokens are exactly what you cannot predict before you press generate.
+
+## Who should skip which
+
+Skip Midjourney if you need one image a week, because the $10 floor buys nothing you cannot get from a free tier elsewhere and the cheap plan is the one with no Relax mode. Skip OpenAI's image API if you want a place to work rather than an endpoint to call, or if you need private generations without building your own access control.
+
+## Which should you pick
+
+If image making is the job, buy Midjourney Standard at $30 and treat the fast hours as a budget for the good ideas, letting Relax carry the rest. If image making is a feature inside something else you are building, use the OpenAI API and start on gpt-image-1-mini while you measure your real token counts, then move up. And if you were looking for DALL-E 4, the honest answer is that the product was renamed and repriced, and [the ChatGPT image tools comparison](/posts/chatgpt-vs-midjourney) is where that history sits.
+
+## Frequently Asked Questions
+
+### Does DALL-E 4 exist?
+
+No. OpenAI's current price sheet lists gpt-image-2.6-sunburst, gpt-image-2.6-flare, gpt-image-2.5, gpt-image-2, gpt-image-1.5, gpt-image-1-mini and chatgpt-image-latest, with no DALL-E model among them.
+
+### What Midjourney version is current?
+
+V8.2 became the default on 24 July 2026. V8.1 shipped on 14 April 2026 and was default from 10 June to 23 July 2026, so v7 is two versions behind the current model.
+
+### How much does Midjourney cost per month?
+
+Basic is $10, Standard $30, Pro $60 and Mega $120. Annual billing takes 20% off with the year paid up front, which works out to $8, $24, $48 and $96 a month.
+
+### How many images do I get on Midjourney Basic?
+
+Basic includes 200 minutes of fast GPU time and no Relax mode. At the 0.8 minutes per standard job Midjourney documents for V8.1, that is roughly 250 standard images a month, or about 150 in HD at 1.3 minutes.
+

@@ -1,0 +1,88 @@
+---
+title: "Flux vs OpenAI Image Models: Real Costs After DALL-E (November 2026)"
+slug: flux-vs-dalle-4-image-generation-2026
+excerpt: "There is no DALL-E 4. The live comparison is FLUX 3 against OpenAI's gpt-image models, per-image pricing against per-token pricing."
+description: "Flux vs OpenAI image models in November 2026: per-image Flux prices, gpt-image token rates, open weights and why the two costs cannot be divided."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: Comparisons
+tags:
+  - flux
+  - dall-e
+  - gpt-image
+  - ai image generation
+  - api pricing
+cover: "/images/flux-vs-dalle-4-image-generation-2026.jpg"
+draft: false
+---
+
+The cheapest serious image model on the market right now is not from OpenAI, and it is not from Midjourney. As of 27 November 2026, Black Forest Labs lists FLUX 3 Image Klein at $0.008 per image at 768 by 768, and describes it as a 5.6B parameter model that runs on a single consumer GPU. That one line changes what "image generation cost" means for anyone building a product, and it is why this old Flux versus DALL-E question needs a new frame.
+
+Start with the name. There is no DALL-E 4. OpenAI's price sheet today lists gpt-image-2.6-sunburst, gpt-image-2.6-flare, the 2.5 pair, gpt-image-2, gpt-image-1.5, gpt-image-1-mini and chatgpt-image-latest. Flux has moved too: the current line is FLUX 3, with FLUX.2 and FLUX.1 still on the page as older families. So the real matchup is FLUX 3 against the gpt-image family.
+
+## The verdict first
+
+| Scenario | Winner | Why |
+| --- | --- | --- |
+| Lowest cost per image at scale | Flux | Klein lists at $0.008 per image at 768 by 768, billed per image with no subscription |
+| Running the model on your own hardware | Flux | Klein is described as 5.6B parameters on a single consumer GPU, with open weights |
+| Predictable per-image budgeting | Flux | Black Forest Labs prices by resolution per image; OpenAI prices by tokens |
+| Image editing inside one API you already use | OpenAI | Image and text tokens are billed on one sheet, with cached input rates |
+| Cheapest OpenAI option | OpenAI | gpt-image-1-mini at $2.50 input and $8 output per million image tokens |
+| A single bill with your language model | OpenAI | One vendor, one invoice, same account |
+
+## Two ways of charging
+
+Black Forest Labs sells pay as you go. Its pricing page says there are no subscriptions and no seat fees, and you only pay for what you generate. Prices are quoted per image and move with resolution. FLUX 3 Image at 768 by 768 lists at $0.041 per image, and Klein, the smaller model, lists at $0.008 at the same size. The page also shows higher resolution tiers up to 4K for both models, but the extracted layout does not label which price belongs to which size, so check the live page for 2K and 4K before you budget.
+
+OpenAI charges per million tokens, split by modality. gpt-image-2.6-sunburst, gpt-image-2.6-flare, gpt-image-2.5, gpt-image-2 and chatgpt-image-latest list at $8 per million image input tokens, with cached image input at $2. Output is $30 per million image tokens on most, and $32 on gpt-image-1.5 and chatgpt-image-latest. Text input is $5 per million tokens. The mini model is $2.50 and $8.
+
+## Why you cannot divide one by the other
+
+A per-image price and a per-token price do not convert without a token count per image, and OpenAI's sheet does not publish one. Anyone telling you "Flux is X times cheaper per image" against the gpt-image family is guessing. What you can say is structural: Flux gives you a number you can multiply by your expected volume today. OpenAI gives you a rate you can only turn into a cost after you run your own prompts and read the usage field on the response.
+
+That is the part marketing pages leave out. Run fifty of your real prompts through each service and read the invoice. It costs a few dollars, and it replaces every comparison article, including this one.
+
+## The part about owning the model
+
+Flux's open-weights angle is a real difference in kind. Klein is positioned as frontier-quality with the customization and speed of open weights. If you need fine-tuning, a private deployment, or a fixed monthly GPU cost instead of a metered one, that matters more than any quality ranking. OpenAI's image models are API-only, so your cost is always variable and your outputs always pass through their service.
+
+The flip side is operational. Running your own model means you own the queue, the cold starts and the upgrades. For a small team shipping a product, a metered API is often the cheaper choice once engineer hours are counted.
+
+## Editing and caching
+
+OpenAI's sheet has a detail worth knowing: cached input rates for GPT Image 2 and 2.5 only apply to images generated with the Responses API. If you call it another way and plan around the cached rate, your bill will be higher than your estimate. Flux has the opposite virtue. Its editing tools, including Kontext for local edits and consistency across turns, are separate listed products with their own prices, so you can see the cost of an edit before you make one.
+
+## Where each one fails
+
+Flux fails on pricing clarity at the top end. The resolution tiers are hard to read off the public page, and the FLUX 3 Image price jumps sharply from the small sizes. A team that budgets from the 768 by 768 number and then ships 2K output will be surprised.
+
+OpenAI fails on forecasting. Token billing for images means two near-identical prompts can cost different amounts, and the most expensive line on the sheet is image output at $30 per million tokens. There is also no way to cap quality versus cost per call the way a fixed per-image price does.
+
+## Who should skip which
+
+Skip Flux if you want one vendor for text and images, or if nobody on your team will read a per-resolution price table. Skip OpenAI's image models if your product generates thousands of simple images a day and a fixed per-image cost matters more than integration convenience.
+
+## Which should you pick
+
+For a product that generates images at volume, start with Flux Klein and price it per image. For an app already built around OpenAI where images are a side feature, use gpt-image-1-mini and measure real usage before moving up. If you are still looking for DALL-E 4, [our ChatGPT versus Midjourney comparison](/posts/chatgpt-vs-midjourney) explains what happened to it, and for the wider market see [AI model pricing changes in November 2026](/posts/ai-model-pricing-changes-november-2026).
+
+## Frequently Asked Questions
+
+### Is there a DALL-E 4?
+
+No. OpenAI's current price sheet lists the gpt-image family, from gpt-image-1-mini up to gpt-image-2.6-sunburst and gpt-image-2.6-flare, and no DALL-E model.
+
+### How much does Flux cost per image?
+
+Black Forest Labs lists FLUX 3 Image at $0.041 per image and FLUX 3 Image Klein at $0.008 per image at 768 by 768. Higher resolutions cost more, so check the live pricing page.
+
+### Can I run Flux on my own computer?
+
+Black Forest Labs describes FLUX 3 Image Klein as a 5.6B parameter model that runs on a single consumer GPU, with open weights.
+
+### Is Flux cheaper than OpenAI for images?
+
+The two use different units, per image against per million tokens, and OpenAI does not publish tokens per image. Test your own prompts on both and compare the invoices.
+
