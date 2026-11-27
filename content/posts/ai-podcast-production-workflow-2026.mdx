@@ -1,0 +1,115 @@
+---
+title: "AI Podcast Production Workflow"
+slug: ai-podcast-production-workflow-2026
+excerpt: "A weekly interview show produced in about 90 minutes of edit time: cleanup order, text-based editing, one prompt for notes and clips, and the checks that keep quotes honest."
+description: "An AI podcast production workflow: Descript and ElevenLabs costs, the right cleanup order, and a prompt that writes notes without inventing facts."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: Tutorials
+tags:
+  - podcasting
+  - descript
+  - elevenlabs
+  - audio editing
+  - workflow
+cover: "/images/ai-podcast-production-workflow-2026.jpg"
+draft: false
+---
+
+The podcast workflow most small shows run is backwards. They record for an hour, then spend three hours editing, then skip the publishing work that actually grows the show. AI changes the ratio only if you use it on the parts that repeat: cleanup, transcripts, show notes, clips, chapter markers.
+
+Here is the pipeline we run for a weekly interview show: two hosts, one guest, one hour of tape, published with notes and four clips inside 90 minutes of edit time. It is not a fully automated show, and it should not be. It removes the tedious hours and leaves the judgment calls.
+
+*Last tested: November 2026, on a two-person remote recording with Descript and ElevenLabs.*
+
+## What you need
+
+- A recorder that captures each speaker on a separate track. Separate tracks are what make AI cleanup possible.
+- An editor with text-based editing. Descript lists Hobbyist at $16 a month, Creator at $24 and Business at $50, with 400, 800 and 1,500 AI credits respectively, and 1080p export on the entry tier versus 4K higher up, per its pricing page in November 2026.
+- A voice tool only if you use synthetic intros or insert reads. ElevenLabs lists Creator at $22 a month for 121,000 credits, with a first-year Black Friday discount running to December 1, 2026.
+- A publishing destination and one place to store transcripts.
+
+## Step 1: Record with the edit in mind
+
+Ask each guest to record locally if the tool supports it. Cloud recording that drops packets cannot be repaired by any model, and a one-hour interview with a glitched syllable every 40 seconds is unsalvageable.
+
+Start each track with ten seconds of room tone. Noise removal works better with a sample of the room than with a guess.
+
+## Step 2: Clean up before you transcribe
+
+Order matters. Remove noise first, then level the tracks, then transcribe. Transcribing a noisy file gives you a transcript with holes, and every downstream step inherits them.
+
+In Descript, the studio sound and leveling tools run per track. Do them one at a time and listen to 30 seconds after each change. Stacked cleanup is how podcasts end up sounding like a phone call from 2009.
+
+## Step 3: Edit in text, not on the timeline
+
+Delete filler words across the whole project in one pass, then read the transcript and cut by paragraph. Text editing removes "um" without the risk of clipping the word before it, which is the classic manual-edit injury.
+
+Then fix the two things AI cannot: the rambling answer that needs its middle removed, and the tangent that should have been a separate episode. Both are judgment calls about what the show is.
+
+## Step 4: Generate the transcript and the show notes together
+
+One prompt, two outputs. Paste the cleaned transcript and ask for a summary and a set of notes:
+
+```
+From this transcript, produce:
+1. A 60-word episode summary in plain language, no hype.
+2. Five show notes bullets, each naming the specific claim or example.
+3. Three pull quotes under 20 words, with the speaker's name.
+4. Chapter markers with timestamps every 6 to 10 minutes.
+
+Do not add facts that are not in the transcript. If a number is unclear,
+write [unclear] instead of guessing.
+```
+
+The instruction to mark unclear numbers is what keeps the notes honest. Transcripts mishear figures constantly, and a published show note with the wrong statistic is a correction waiting to happen.
+
+## Step 5: Cut clips from the transcript, not the audio
+
+Find the three strongest 30-second passages in the text, then export those ranges. Cutting clips by listening means scrubbing an hour; cutting by reading takes ten minutes.
+
+Vertical clips need their own pass: reframe to 9:16, add captions, and check that the first line still makes sense without the previous sentence.
+
+## Step 6: Generate the intro read once, reuse it
+
+Record your own intro if you can. If you cannot, generate a consistent 15-second read and keep the voice ID and settings saved. Changing the intro voice every episode resets the small recognition a podcast builds.
+
+Keep the intro under 20 seconds. Every second before the guest speaks is a listener you might lose.
+
+## Step 7: Publish with the assets in one pass
+
+Upload audio, paste the summary as the description, paste chapters, upload the clips, and schedule the social posts. Batch this step so publishing is one sitting, not five.
+
+## What can go wrong
+
+**Transcript errors in quotes.** Never publish a pull quote without listening to that 20 seconds. Models smooth grammar and quietly change meaning.
+
+**Over-cleaned audio.** Aggressive noise removal creates a watery artifact that listeners notice even if they cannot name it. Clean less than you think.
+
+**Synthetic voices reading names.** A generated host will mispronounce a guest's name in the intro. Spell it phonetically in the script.
+
+**Credit burn.** AI credits run out mid-project on long files. Check the plan's monthly allowance against your episode length before you commit to a tier.
+
+**Show notes that invent context.** If the model adds a fact you did not discuss, delete it. The transcript is the only source.
+
+For a broader look at editing tools, see our roundup of [AI tools for podcast editing](/posts/best-ai-tools-for-podcast-editing) and the [podcast production overview](/posts/ai-podcast-production-2026). If you are choosing a host voice, the [podcaster tool guide](/posts/best-ai-tools-for-podcasters-2026) covers the field.
+
+## The judgment call
+
+Automate cleanup, transcripts, notes and clip finding. Keep the edit of ideas and the final listen for yourself. A show that sounds like a person thinking is worth an hour of anyone's time; a show that sounds like a workflow is not, no matter how fast it shipped.
+
+## Frequently Asked Questions
+
+### What order should I clean up podcast audio in?
+
+Noise removal first, then leveling, then transcription. Transcribing a noisy file produces a transcript with holes, and every step after that inherits the errors.
+
+### How much do podcast AI tools cost?
+
+Descript lists Hobbyist at $16 a month, Creator at $24 and Business at $50. ElevenLabs lists Creator at $22 a month for 121,000 credits. Both figures are from the vendors' pricing pages checked in November 2026.
+
+### Can AI write my show notes?
+
+Yes, from the transcript, but you have to constrain it. Ask it to mark unclear numbers instead of guessing, and check every pull quote against the audio before publishing.
+

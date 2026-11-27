@@ -1,0 +1,121 @@
+---
+title: "Repurpose One Webinar into 30 Posts with AI"
+slug: repurpose-webinar-into-30-posts-ai-2026
+excerpt: "A three-prompt pipeline that turns one 60-minute webinar into 30 posts across four formats, and the cutting rule that keeps them from sounding generic."
+description: "Repurpose a webinar into 30 social posts with AI: the beat-segmentation prompt, three output formats, and how to cut the filler before publishing."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: Tutorials
+tags:
+  - content repurposing
+  - webinars
+  - social media
+  - prompting
+  - workflow
+cover: "/images/repurpose-webinar-into-30-posts-ai-2026.jpg"
+draft: false
+---
+
+One webinar is about 9,000 spoken words. A month of social posts is about 4,000. The gap is not writing, it is deciding which 30 fragments of that hour deserve to exist on their own. That is the work AI is genuinely good at, as long as you give it the transcript and a hard format.
+
+This workflow turns a single 60-minute webinar into 30 posts across four formats without generating 30 pieces of generic advice. It takes about three hours for the first pass and under an hour for every webinar after that.
+
+*Last tested: November 2026.*
+
+## What you need
+
+- A recorded webinar with a clean transcript. Auto-transcripts work if the audio is good; check the names and numbers first.
+- A document with the webinar's three main claims written in your own words. This is the guardrail that keeps the output from drifting into filler.
+- A scheduler and a design tool, or a text-first channel if you skip visuals.
+- One model you trust with long input.
+
+## Step 1: Segment the transcript into beats
+
+Do not ask for posts yet. Ask for structure:
+
+```
+Below is a webinar transcript. Identify 10 distinct beats, where a beat
+is one complete idea with a beginning and an end.
+
+For each beat return: a 10-word label, the timestamp range, the single
+most specific sentence in it, and one number or example it contains.
+Do not summarise the whole webinar. Do not invent anything.
+
+Transcript: [paste]
+```
+
+Ten beats is the right number because each beat will produce three posts. If you get 20 beats, the ideas are too thin; ask it to merge.
+
+## Step 2: Write the three claims yourself
+
+Before generating anything, write down the three things you actually want people to remember. Every post that does not serve one of them gets cut. Without this step, the model produces 30 posts that are all equally true and equally forgettable.
+
+## Step 3: Generate three formats per beat
+
+One prompt, three outputs per beat:
+
+```
+Using beat [N] only, write:
+1. A 40-word LinkedIn post: one claim, one specific detail, no hashtags.
+2. A 5-tweet thread: hook, three supporting points, one takeaway.
+3. A 150-word newsletter section with a subhead.
+
+Rules: no invented statistics. Use only facts in the beat. No emoji.
+No "in today's world". Start each piece with the most specific sentence.
+```
+
+Repeat for all ten beats. That is 30 pieces. Expect to delete about a third, which is normal and is the point of generating more than you need.
+
+## Step 4: Cut anything that sounds like a summary
+
+Read each post and ask one question: could this have been written without attending the webinar? If yes, delete it. The posts that survive are the ones carrying a specific number, a named tool, a mistake you described, or an opinion you took.
+
+This is also where you catch the model smoothing a hedge into a claim. "Often" becomes "always" and "some teams" becomes "most teams". Put the hedge back.
+
+## Step 5: Turn the best four into vertical video
+
+Pick the four beats with the strongest single sentence. Record 45 seconds on each, or generate a voiceover and pair it with slides. Keep vertical clips under three minutes, which is YouTube Shorts' current limit, and under 60 seconds if the platform is TikTok or Reels.
+
+If you use generated visuals for a realistic scene, label the content. TikTok and YouTube both require disclosure for realistic synthetic media, and the label is cheaper than a takedown.
+
+## Step 6: Schedule in an order that builds
+
+Do not post all 30 in a week. Run the strongest claim first, then alternate formats so the same idea does not appear twice in a row on the same channel. A workable rhythm is six posts a week for five weeks, with the newsletter section carrying the fullest version of each idea.
+
+## Step 7: Feed the replies back
+
+Save every comment that pushes back. Those are the objections for the next webinar, and they are better input than any keyword tool. Two or three of them will become the hook of the next event.
+
+## What can go wrong
+
+**The transcript is wrong.** Auto-transcripts mangle product names and numbers. Fix them before generating, or you will publish a post with the wrong figure and a commenter will find it.
+
+**Everything sounds the same.** Thirty posts in one voice with one rhythm reads as a content mill. Vary length deliberately: some posts are two sentences, some are a paragraph.
+
+**The claims drift.** A model asked for 30 posts will stretch a 20-minute point into a universal law. The three-claims document is what stops that.
+
+**One idea, thirty times.** If five beats are really one beat, merge them. Repetition across a month is worse than a shorter month.
+
+**Scheduling without context.** A post about a live offer scheduled three weeks late is a mistake nobody catches until a customer replies.
+
+For the transcript step, our review of [AI tools for webinar transcript summarization](/posts/best-ai-tools-for-automated-webinar-transcript-summarization-2026) compares the options, and the [follow-up sequence guide](/posts/automating-webinar-follow-up-sequences-with-ai-step-by-step-2026) covers the email side. If you want the distribution view instead, see [webinar summaries and distribution tools](/posts/best-ai-tools-webinar-summaries-distribution-2026).
+
+## The judgment call
+
+Repurposing works when the original event had something specific in it. If the webinar was 60 minutes of general advice, 30 posts will be 30 versions of nothing. Record the hour with the assumption that ten moments in it will have to stand alone, and the whole pipeline gets easier.
+
+## Frequently Asked Questions
+
+### How many posts can one webinar produce?
+
+Ten beats with three formats each gives 30 pieces, which is about a month of posting at six a week. Expect to cut roughly a third of them for being too generic.
+
+### How long should repurposed video clips be?
+
+YouTube Shorts allows up to three minutes, but 45 to 60 seconds is the practical range for a single idea pulled from a webinar. Shorter clips hold better on TikTok and Reels.
+
+### What stops AI repurposing from sounding like a content mill?
+
+Three things: a written list of the three claims you want remembered, a rule that every post uses only facts from its beat, and a cut pass that deletes anything that could have been written without attending the event.
+
