@@ -25,13 +25,13 @@ export default function MobileNav({ navLinks }) {
       <button
         onClick={() => setOpen(true)}
         aria-label="Open menu"
-        className="md:hidden p-2 hover:bg-slate-100 dark:hover:bg-dark-card rounded-lg transition"
+        className="lg:hidden p-2 hover:bg-slate-100 dark:hover:bg-dark-card rounded-lg transition"
       >
         <Menu className="w-5 h-5" />
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-[60] md:hidden">
+        <div className="fixed inset-0 z-[60] lg:hidden">
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setOpen(false)} />
           <div className="absolute right-0 top-0 bottom-0 w-72 max-w-[85vw] bg-white dark:bg-dark-bg shadow-2xl animate-slide-down">
             <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-dark-border">

@@ -87,7 +87,7 @@ export default async function PostPage({ params }) {
       ]} />
 
       <div className="grid lg:grid-cols-3 gap-10">
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 min-w-0">
           <header className="mb-8">
             <div className="flex items-center gap-2 text-sm text-slate-500 mb-3">
               {post.category && <Link href={`/category/${post.category.toLowerCase().replace(/\s+/g, '-')}`}><Badge category={post.category}>{post.category}</Badge></Link>}

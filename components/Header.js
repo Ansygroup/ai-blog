@@ -38,17 +38,18 @@ export default function Header() {
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1 text-sm font-medium">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-sm font-medium">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-dark-card text-slate-600 dark:text-dark-muted hover:text-slate-900 dark:hover:text-dark-text transition"
+                className="px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-dark-card text-slate-600 dark:text-dark-muted hover:text-slate-900 dark:hover:text-dark-text transition"
               >
                 {link.label}
               </Link>
             ))}
-            <span className="mx-1 text-slate-300 dark:text-dark-border">|</span>
+            <span className="hidden xl:inline mx-1 text-slate-300 dark:text-dark-border">|</span>
+            <span className="hidden xl:contents">
             {networkLinks.map((link) => (
               <a
                 key={link.href}
@@ -60,6 +61,7 @@ export default function Header() {
                 {link.label}
               </a>
             ))}
+            </span>
           </nav>
 
           <div className="flex items-center gap-1">
@@ -73,7 +75,7 @@ export default function Header() {
             </Link>
             <a
               href="/#newsletter"
-              className="hidden sm:inline-flex bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition"
+              className="hidden xl:inline-flex bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition"
             >
               Subscribe
             </a>
