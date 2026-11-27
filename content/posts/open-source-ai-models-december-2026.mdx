@@ -1,0 +1,97 @@
+---
+title: "Open-Source AI Models Worth Watching Going Into December 2026"
+slug: open-source-ai-models-december-2026
+excerpt: "Most open-source AI models are open weights. Which ones you can run locally, what the licenses allow, and what hardware the big ones need, as of November 2026."
+description: "Open-weights AI models as of November 2026: sizes, licenses, which run locally in Ollama, and why open weights are not the same as open source."
+bottomLine: "For most readers the answer is small. Pick one Apache 2.0 or MIT model in the 20B to 30B range, run it locally, and only look at the trillion-parameter models if you already own cluster-scale hardware."
+date: '2026-11-27'
+lastUpdated: '2026-11-27'
+author: AI Pulse Editorial
+category: AI News
+tags:
+  - open source ai
+  - open weights
+  - ollama
+  - deepseek
+  - ai licenses
+  - local llm
+cover: "/images/open-source-ai-models-december-2026.jpg"
+draft: false
+---
+
+Last checked: November 2026. The model facts below come from The AI Engineering's open-weights comparison, updated 20 November 2026, which checked each entry against the lab's model card or license on 16 November 2026 ([source](https://theaiengineering.com/articles/best-open-source-llms)). The title says December because that is when many teams plan their next model choice. Nothing here is dated after 27 November 2026, and the "what to watch" section is a list of questions, not predictions.
+
+## First, a naming problem
+
+Almost every model people call open source is open weights. You can download the trained parameters, but the training code and data information are usually not released. The Open Source Initiative's Open Source AI Definition, version 1.0, asks for all three: parameters, complete training and inference code, and data information detailed enough to rebuild a substantially equivalent system. By that bar, very few models on the list qualify. NVIDIA's Nemotron 3 Ultra comes closest among the frontier-class entries, since its model card says major portions of the training data and the end-to-end recipe are published, though some datasets stay private.
+
+This matters for a plain reason: "open" tells you nothing about whether you may build a business on it. The license does.
+
+## Models you can run yourself
+
+The comparison table below is a selection of the 14 models in the source. Parameters are total and active, because these are mixture-of-experts models where only part of the network runs per token.
+
+| Model | Lab | Parameters (total / active) | Context | License | Ollama on 16 Nov 2026 |
+|---|---|---|---|---|---|
+| Kimi K3.1 Pro | Moonshot AI | 2.8T / 104B | 1M | Custom, MIT-style | Cloud only |
+| DeepSeek-V4-Pro-0813 | DeepSeek | 1.6T / 49B | 1M | MIT | Cloud only |
+| Qwen3.8-Max | Alibaba Qwen | 2.4T / 95B | 262K native | Custom | Not listed |
+| Muse Spark Open | Meta | 816B / 42B | 1M | Custom | Cloud only |
+| Inkling 2 Small | Thinking Machines Lab | 594B / 17B | 1M | Apache 2.0 | Cloud only |
+| gpt-oss-120b / 20b | OpenAI | 117B / 5.1B and 21B / 3.6B | 128K | Apache 2.0 | Local |
+| Qwen3.8-27B | Alibaba Qwen | 27B dense | 262K | Apache 2.0 | Local |
+| Muse Glimmer | Meta | 30B | 128K on Ollama | Apache 2.0 | Local |
+
+"Cloud only" in Ollama means the model runs on Ollama's servers and needs an account, so it is not local. If your goal is to run a model on your own machine, only the last four rows qualify in this table. Our [Ollama setup guide](/posts/ollama-setup-guide-2026) covers installing and running the local ones.
+
+## The size problem
+
+The source gives a rule of thumb: weight memory is roughly total parameters times bytes per parameter, 2 at BF16, 1 at FP8, about 0.5 at 4-bit, plus a context cache that grows with length. For Kimi K3.1 Pro at 2.8T parameters, that puts the weights near 1.4 TB even at about half a byte per parameter. Meta's model card for Muse Spark Open lists at least 700 GB of GPU memory for its NVFP4 weights. Inkling 2 Small needs at least 500 GB of aggregated GPU memory. These are cluster workloads, not something to run on a laptop.
+
+The practical split is simple. The frontier-class models are for teams with a GPU cluster or a hosting partner. The 20B to 30B models are for individuals.
+
+## Licenses are where the real differences are
+
+- **MIT or Apache 2.0:** DeepSeek (MIT), and gpt-oss, Qwen3.8-27B, Muse Glimmer and Inkling 2 Small (Apache 2.0). Commercial use, changes and redistribution are allowed with notices.
+- **Custom licenses with conditions:** Moonshot, Alibaba for Qwen3.8-Max, Z.ai, MiniMax, Meta for Muse Spark Open, and Mistral.
+
+Examples of the conditions: the Kimi K3.1 Pro license requires a separate agreement for model-as-a-service businesses above $20 million in revenue over 12 months, and a visible model name for products above 100 million monthly users or $20 million in monthly revenue. The Qwen3.8-Max license sets its separate-license line at $50 million in revenue for model-as-a-service and AI work assistant products. Muse Spark Open requires the notice "Built with Muse Spark Open." Most readers of this blog will be far below every threshold, but the attribution rules can still apply.
+
+## What you will not find on a vendor page
+
+Read the license file, not the model card summary. The source's selection method does exactly this, because summaries leave out conditions. Also treat lab-reported benchmark scores with care. Labs choose their own benchmarks, agent setups and settings, so scores from different model cards are not directly comparable. We have left them out of the table for that reason. If you want a neutral starting point, test two or three candidates on 20 of your own real tasks. That tells you more than any leaderboard.
+
+## Which one for which job
+
+- **A laptop or a single GPU:** gpt-oss-20b, Qwen3.8-27B or Muse Glimmer, all Apache 2.0 and local in Ollama. The source lists Muse Glimmer for machines with 24 to 32 GB.
+- **A server you control, permissive license:** DeepSeek-V4-Pro under MIT, or Inkling 2 Small under Apache 2.0.
+- **No hardware at all:** use a hosted API for any of these, which is often cheaper than buying GPUs for occasional use. For a side-by-side of hosted DeepSeek against the big closed models, see [DeepSeek vs ChatGPT vs Claude](/posts/deepseek-vs-chatgpt-vs-claude-2026-comparison-ultimate-2026-edition).
+- **Local runners and tooling:** [best Ollama tools](/posts/best-ollama-tools-2026) lists what sits around the models.
+
+## What to watch
+
+As of November 2026, these are open questions, not forecasts:
+
+- Whether more labs publish training data information, which would move models closer to the OSI definition.
+- Whether the custom license revenue thresholds are tightened or dropped.
+- Whether Ollama adds local versions of the larger models, or they stay cloud only.
+- Whether the Hugging Face weights for new releases arrive on launch day, as Inkling 2 Small's did not: it was announced on 5 November with closed weights and posted on 12 November after safety testing.
+
+## Our judgment
+
+For most readers the answer is small. Pick one Apache 2.0 or MIT model in the 20B to 30B range, run it locally, and only look at the trillion-parameter models if you already own cluster-scale hardware. The word "open" on the largest models describes downloadable files, not freedom to use them any way you like. Check the license before you build on one.
+
+## Frequently Asked Questions
+
+### Is an open-weights model the same as open source?
+
+No. Open weights means you can download the parameters. The Open Source Initiative's definition also requires training code and data information, which most of these models do not release.
+
+### Which open models can I run on my own computer?
+
+As of 16 November 2026, Ollama listed gpt-oss, Gemma 4, Qwen3.8-27B and Muse Glimmer as local downloads. Most frontier-class models were listed only as cloud models.
+
+### Can I use these models commercially?
+
+MIT and Apache 2.0 models generally allow it. Custom licenses add conditions such as revenue thresholds and attribution, so read the license file before building a product.
+
