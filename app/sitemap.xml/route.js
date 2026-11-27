@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAllPosts, getAllCategories } from '../../lib/posts';
+import { getAllPosts, getAllCategories, slugify } from '../../lib/posts';
 import { topics } from '../../lib/topics';
 import { siteConfig } from '../../lib/config';
 
@@ -32,7 +32,7 @@ export async function GET() {
     ...posts.filter((p) => p.category !== 'AI News' && !p.noindex).map((p) => `${base}/posts/${p.slug}`),
     ...posts.filter((p) => p.category === 'AI News' && !p.noindex).map((p) => `${base}/news/${p.slug}`),
   ];
-  const categoryUrls = categories.map((c) => `${base}/category/${c.name.toLowerCase().replace(/\s+/g, '-')}`);
+  const categoryUrls = categories.map((c) => `${base}/category/${slugify(c.name)}`);
   const topicUrls = topics.map((t) => `${base}/topics/${t.slug}`);
 
   const changefreqFor = (u) => {
