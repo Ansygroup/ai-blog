@@ -73,8 +73,6 @@ export default function RootLayout({ children }) {
       <head>
         {/* Google AdSense account declaration (verification + auto ads) */}
         <meta name="google-adsense-account" content={siteConfig.adsenseClient} />
-        {/* Monetag site ownership verification (aiblogger.us.ci, site id 3596145) */}
-        <meta name="monetag" content="e4f329f07a687ea3b9345a356856e2d3" />
         {/* Preconnect & DNS-prefetch for third-party origins */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
@@ -128,54 +126,6 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* Monetag — In-Page Push (aiblogger.us.ci zone 12362073). PAUSED 2026-11-27 (owner OK) until the GSC Harmful downloads review clears; enable by setting NEXT_PUBLIC_MONETAG_ENABLED=1 in the build environment. Known risk: zone has served deceptive "Download is ready" creatives that triggered the GSC "Harmful downloads" flag; Monetag offers no publisher-side creative blocklist. */}
-        {/* Monetag Vignette Banner (aiblogger.us.ci zone 12364303), replaces In-Page Push 2026-11-27 (owner OK). OFF 2026-11-27: it served a fake "Download is ready" creative on first test; opt-in only via NEXT_PUBLIC_MONETAG_VIGNETTE=1. */}
-        {process.env.NEXT_PUBLIC_MONETAG_VIGNETTE === '1' && (
-        <Script
-          id="monetag-vignette"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: `
-            (function(){
-              var done=false;
-              function load(){
-                if(done) return; done=true;
-                var s=document.createElement('script');
-                s.dataset.zone='12364303';
-                s.src='https://n6wxm.com/vignette.min.js';
-                s.async=true;
-                document.head.appendChild(s);
-              }
-              var t=setTimeout(load,4000);
-              ['scroll','pointerdown','touchstart'].forEach(function(ev){
-                window.addEventListener(ev,function(){clearTimeout(t);load();},{once:true,passive:true});
-              });
-            })();
-          `}}
-        />
-        )}
-        {process.env.NEXT_PUBLIC_MONETAG_ENABLED === '1' && (
-        <Script
-          id="monetag-ipp"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: `
-            (function(){
-              var done=false;
-              function load(){
-                if(done) return; done=true;
-                var s=document.createElement('script');
-                s.src='https://nap5k.com/tag.min.js';
-                s.setAttribute('data-zone','12362073');
-                s.async=true;
-                document.head.appendChild(s);
-              }
-              var t=setTimeout(load,3000);
-              ['scroll','pointerdown','touchstart'].forEach(function(ev){
-                window.addEventListener(ev,function(){clearTimeout(t);load();},{once:true,passive:true});
-              });
-            })();
-          `}}
-        />
-        )}
 
         {/* Ezoic — higher RPM than AdSense (enable: set NEXT_PUBLIC_EZOIC_ID) */}
         {process.env.NEXT_PUBLIC_EZOIC_ID && (

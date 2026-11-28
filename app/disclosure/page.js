@@ -22,7 +22,7 @@ export default function DisclosurePage() {
       <p>This site earns revenue in four ways:</p>
       <ol>
         <li><strong>Affiliate links.</strong> When we recommend a product and you click our link to purchase, the vendor pays us a small commission. This costs you nothing extra.</li>
-        <li><strong>Display advertising.</strong> We show ads via Google AdSense and Monetag on some pages. Advertisers do not see or approve our content.</li>
+        <li><strong>Display advertising.</strong> We show ads via Google AdSense on some pages. Advertisers do not see or approve our content.</li>
         <li><strong>Sponsored posts (rare).</strong> Occasionally a vendor pays us to write an in-depth review. Sponsored posts are always labeled with a clear "Sponsored" tag and meet the same editorial standards as our regular content.</li>
               </ol>
       <h2>What we never do</h2>
