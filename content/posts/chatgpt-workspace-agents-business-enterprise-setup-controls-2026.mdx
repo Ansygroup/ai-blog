@@ -1,0 +1,65 @@
+---
+title: "ChatGPT Workspace Agents: What Business and Enterprise Teams Can Build, Share and Control"
+slug: chatgpt-workspace-agents-business-enterprise-setup-controls-2026
+seoTitle: "ChatGPT Workspace Agents: Setup, Sharing, Controls"
+excerpt: "OpenAI's help page for ChatGPT workspace agents covers building, scheduling, Slack, API triggers, write-action approvals and sharing. Here is what it says, and where the safety controls stop."
+description: "OpenAI's ChatGPT workspace agents for Business and Enterprise: templates, schedules, Slack and API triggers, write-action approvals, action constraints, file limits and sharing roles."
+bottomLine: "Workspace agents can run on a schedule, in Slack and from an API. The default of asking before every write action is the safety control to keep, and action constraints limit what an agent asks an app to do, not what the app returns."
+date: '2026-11-28'
+lastUpdated: '2026-11-28'
+author: AI Pulse Editorial
+category: AI News
+tags:
+  - chatgpt
+  - openai
+  - ai agents
+  - enterprise ai
+  - workplace automation
+  - ai news
+cover: "/images/chatgpt-workspace-agents-business-enterprise-setup-controls-2026.jpg"
+primarySourced: true
+draft: false
+---
+
+OpenAI's help center has a page called "ChatGPT Workspace Agents for Enterprise and Business". It explains how to create, use, share and manage agents for repeatable tasks inside ChatGPT and Slack. This article summarizes that page, linked at the end. We have not used workspace agents, so everything below is OpenAI's description. The page is long and appears to have been updated over time, so details such as availability may change.
+
+## What are workspace agents?
+
+OpenAI says you can build an agent for a repeatable workflow, test it before publishing, choose its model and reasoning effort, connect it to apps and tools, share it with teammates or the whole workspace, use it in Slack, run it on a schedule or trigger it through an API.
+
+For Enterprise workspaces they are off by default at launch, and admins can enable them for eligible workspaces. Role-based access controls apply, so people only see and run agents they have permission to use.
+
+## How do you build one?
+
+In ChatGPT, open Explore, then Agents. You can start from a template, such as the Chief of Staff template shown in the page's screenshot, or describe the agent to the builder, review its draft plan and select Build this agent. A Preview step lets you test with a sample prompt before you create it.
+
+Agents can use apps such as Google Calendar, Google Drive, Slack and SharePoint, your own custom MCP servers, and tools such as image generation and web search. You can also add skills and upload files. Files are limited to 512 MB each and 10 GB per agent, and OpenAI warns that performance may drop, or very large collections may stop the agent running.
+
+## How do people run them?
+
+- **In ChatGPT.** Every agent gets a ChatGPT entry point. Access can be private, anyone in the organization with the link, or published to the organization directory.
+- **On a schedule.** Add an automation, pick a channel, a frequency and extra instructions.
+- **In Slack.** Add Slack as a channel. A Slack admin may need to approve first.
+- **Through an API.** Add an API channel and create a Workspace Agent access token in ChatGPT Admin, scoped to Workspace Agents. The API queues a run and returns `202 Accepted` with a JSON body that includes `conversation_url`, which can be null. OpenAI's examples include meeting follow-ups, routing procurement requests and qualifying inbound leads.
+
+## What safety controls exist?
+
+Each app connection can authenticate as the end user, so each person uses their own account, or as an agent-owned account, a shared connection. For agent-owned accounts OpenAI recommends a service account and limited access, and says not to use a personal account unless you understand the risks.
+
+By default, write actions for apps are set to "Always ask" during a run. Depending on the app, builders can set them to "Never ask" or use custom approval for specific actions. OpenAI's page includes a warning to use write action safety for risky workflows and to avoid unintended data exfiltration.
+
+**Action constraints** add a second layer. A builder describes a rule in plain language, such as only allowing email to recipients at one domain or only allowing reads from one Google Doc. The builder generates a rule to review before saving. OpenAI is explicit about the limit: constraints govern what the agent can ask an app to do, and they "do not filter or restrict the data an app returns". Its example is that blocking a search for "confidential" would not stop an email containing that word coming back through another permitted action.
+
+## Who can edit and share?
+
+The page describes three access levels: Can chat, Can edit and Owner. Editors can change instructions, files, skills, supported apps and publish new versions. They cannot grant edit access, change workspace-wide visibility, transfer or delete the agent, or manage owner-only setup such as channels, shared ChatGPT skills and custom MCPs. Owners can also share with workspace groups in eligible managed workspaces, and the highest access level a person receives applies.
+
+Multiplayer editing uses one shared draft and does not merge simultaneous edits. If someone saves first you see a Save conflict message and must refresh, which replaces your local draft. Version history lets you preview and republish earlier versions, and an analytics page shows unique users and runs over time.
+
+## Our take
+
+The setting worth checking is the write-action default. A scheduled or API-triggered agent that can send, edit or delete is a different risk from a chat assistant, and "Never ask" removes the pause. The action-constraint limit is the other detail to remember: it restricts requests, not results, so sensitive data should still be controlled at the app and permission level. If you manage a workspace, decide who gets Can edit before you publish widely.
+
+## Source
+
+- OpenAI Help Center, "ChatGPT Workspace Agents for Enterprise and Business": https://help.openai.com/en/articles/20001143-chatgpt-workspace-agents-for-enterprise-and-business
