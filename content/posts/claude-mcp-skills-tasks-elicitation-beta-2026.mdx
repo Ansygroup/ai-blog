@@ -1,0 +1,81 @@
+---
+title: "Claude's MCP Update: Servers Can Now Ship Skills, Run Long Tasks and Ask You Questions Mid-Call"
+slug: claude-mcp-skills-tasks-elicitation-beta-2026
+excerpt: "Anthropic put Skills over MCP into public beta and made Tasks and Elicitation generally available. File Uploads is 'rolling out soon'. Here is what each piece does and which plans get it."
+description: "Anthropic's 24 November 2026 MCP announcement: Skills over MCP (beta), Tasks and Elicitation (GA), File Uploads (soon), plan availability and the numbers Anthropic cites."
+bottomLine: "If you build MCP servers, Skills, Tasks and Elicitation are part of the open spec, so support you add is not Claude-only. If you only use Claude, expect servers such as Shopify or HubSpot to teach it their workflows, and expect more confirm-before-you-spend prompts."
+date: '2026-11-28'
+lastUpdated: '2026-11-28'
+author: AI Pulse Editorial
+category: AI News
+tags:
+  - claude
+  - anthropic
+  - mcp
+  - ai agents
+  - developers
+  - ai news
+cover: "/images/claude-mcp-skills-tasks-elicitation-beta-2026.jpg"
+primarySourced: true
+draft: false
+---
+
+On 24 November 2026, Anthropic published "MCP servers can now ship skills, run tasks, and more with Claude". The post covers four changes to how Claude works with Model Context Protocol (MCP) servers. This article lists each one, the plans that get it and the numbers Anthropic cites. Everything below comes from Anthropic's own post, linked at the end. We have not tested any of these features.
+
+## What changed?
+
+Anthropic says the aim is for Claude to work with a server more like it works with another agent: learning from it, delegating to it and exchanging input and files along the way. There are four pieces:
+
+- **Skills over MCP** is in public beta.
+- **Tasks** is generally available.
+- **Elicitation** is generally available.
+- **File Uploads** is "rolling out soon".
+
+## What is Skills over MCP?
+
+Tool names and descriptions tell Claude what a server can do, but not how to handle a particular use case. With Skills over MCP, a server can publish skills next to its tools. Claude loads a skill only when it is needed, which Anthropic says keeps context use low. Skills update with the server, so users have nothing separate to install.
+
+Anthropic gives four examples. Shopify helps Claude design and update a merchant's online store from start to finish. HubSpot onboards customers and gets them set up in Claude. Atlassian helps Claude draw on organizational context for insights and work analysis. Carta will help Claude draft and issue equity from an uploaded document, and Anthropic marks that one as coming soon.
+
+Availability: public beta in Claude and Claude Code, on by default for Pro, Max and Ultra plans, and available to Team plans once an admin enables it. Anthropic says it is coming soon to Enterprise.
+
+## What are Tasks and Elicitation?
+
+**Tasks** let a server handle work that takes time. Before, a tool call had to finish before Claude could move on. With Tasks, a server can run a long operation, or even a full agent loop, while Claude keeps working and picks up the result later. Anthropic's example is ZoomInfo running deeper account and contact research that used to take several prompts.
+
+**Elicitation** lets a server pause mid-call and ask the user for input through a form or a link, then carry on where it stopped. Anthropic says this suits actions that need a sign-off, such as spending money or deleting data. Its examples: Supabase confirms costs before it creates a paid project and before it runs destructive SQL. Railway asks before potentially destructive changes such as removing a service. GitHub has users type a repository's name before an agent deletes it.
+
+Tasks and Elicitation are generally available in Claude and Claude Code for Pro, Max and Ultra plans, and rolling out to Team and Enterprise organizations.
+
+## What is File Uploads?
+
+File Uploads is an extension that lets Claude pass files to MCP servers, not only text. Anthropic says it sends PDFs, spreadsheets and images to a server without passing them through the context window. It is "rolling out soon" in Claude and Claude Code to Pro, Max, Ultra and eligible Team and Enterprise plans, so it is not available yet by Anthropic's own wording.
+
+## Do these only work with Claude?
+
+No. Anthropic says the features are part of the open MCP spec and its extensions, so a server that supports them works in any compatible client. To add support, developers are pointed to the docs for each feature.
+
+## What numbers does Anthropic cite?
+
+The post says MCP now sees over 700 million monthly SDK downloads and that there are over 10,000 MCP connectors for Claude. It also says tool search, which loads tool definitions only when needed, can cut the context they use by over 85% in multi-server setups. These are Anthropic's figures and we have not checked them against any other source. It also names three other improvements: a stateless latest spec, an Enterprise Managed Auth extension that lets admins authorize supported servers once, and an MCP Apps extension that brings full interfaces into Claude.
+
+## Why it matters
+
+Skills are the notable change. Until now, a server described its tools and left Claude to guess the best way to combine them. Letting the server ship the playbook should make multi-step jobs, such as setting up a store, more reliable, at least in the vendors' own use cases. Elicitation addresses a real worry with agents: a prompt for confirmation before money is spent or data is deleted, built into the protocol instead of left to each developer.
+
+## What we could not verify
+
+This is a vendor announcement. We have not run any of these features, and the post gives no date for Enterprise availability of Skills over MCP or for File Uploads. The partner examples are Anthropic's descriptions, and we have not confirmed with Shopify, HubSpot, Atlassian, ZoomInfo, Supabase, Railway or GitHub how their implementations behave.
+
+## What should you do?
+
+1. Server developers: read the docs for Skills over MCP, Tasks and Elicitation, and add the confirm step before any action that spends money or deletes data.
+2. Pro, Max and Ultra users: Tasks and Elicitation are on, and Skills over MCP is on by default in beta.
+3. Team admins: enable Skills over MCP only after you have checked which servers your people connect.
+4. Enterprise admins: Skills over MCP is not available yet, so plan for it rather than expect it.
+
+## Source
+
+- Anthropic, "MCP servers can now ship skills, run tasks, and more with Claude", Claude resources, 24 November 2026: [claude.com](https://claude.com/resources/articles/skills-over-mcp-tasks-and-more)
+
+Last updated: 28 November 2026.

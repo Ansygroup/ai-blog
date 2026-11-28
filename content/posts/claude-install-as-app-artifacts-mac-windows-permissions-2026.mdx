@@ -1,0 +1,79 @@
+---
+title: "Claude Can Now Turn an Artifact Into a Mac or Windows App. Here Is What the Permissions Actually Allow"
+slug: claude-install-as-app-artifacts-mac-windows-permissions-2026
+excerpt: "Anthropic's new 'Install as app' beta gives a Claude artifact its own icon and window on Mac and Windows. The details that matter are the three permission levels and who can switch them on."
+description: "Anthropic announced Install as app for Claude artifacts on 24 November 2026. What it does, the three permission levels, plan and admin rules, and the limits Anthropic lists."
+bottomLine: "Install as app is a useful shortcut for personal tools, but Anthropic says it does not review installed apps. Leave permissions at the default unless you built the app yourself, and treat 'full computer access' as the same risk as running any program you wrote."
+date: '2026-11-28'
+lastUpdated: '2026-11-28'
+author: AI Pulse Editorial
+category: AI News
+tags:
+  - claude
+  - anthropic
+  - artifacts
+  - ai apps
+  - security
+  - ai news
+cover: "/images/claude-install-as-app-artifacts-mac-windows-permissions-2026.jpg"
+primarySourced: true
+draft: false
+---
+
+On 24 November 2026, Anthropic published a post called "Turn artifacts into Mac and Windows apps". It describes a beta feature named "Install as app" in Claude for Mac and Windows. This article sums up what Anthropic says the feature does, how its permission levels work, and what it leaves out. Everything below comes from Anthropic's own post, linked at the end. We have not installed or tested the feature.
+
+## What does Install as app do?
+
+Claude artifacts started as outputs you share, such as a chart or a web page. Anthropic says people now use them as everyday tools, for example a meeting prep page that pulls from a calendar and email, or a tracker for orders that must ship that day.
+
+With Install as app, an artifact gets its own icon and opens in its own window instead of inside Claude. You can share it with other people. Anthropic says each app can use Claude and your connectors, and that it updates automatically when the underlying artifact is edited. Requests an app makes to Claude count toward your plan's usage limits.
+
+Installed apps can also send notifications and add items to the menu bar or system tray. Anthropic lists five demo apps made by its own staff: Linnet (a layered image editor), Phosphor (a file manager), Sift (folder rules with Claude), Tern (a terminal with Claude beside you) and Vitals (a menu bar app for computer performance).
+
+## What are the three permission levels?
+
+This is the part to read before you click anything. Anthropic describes three levels:
+
+- **Default.** The app can only do what a page in a browser could do.
+- **App permissions.** The app can ask for features Claude can tightly control, such as always-on-top windows, global keyboard shortcuts and notifications.
+- **Full computer access.** The app can ask to run programs and to read, change or delete your files without asking each time.
+
+Two rules limit this. Your permission covers only the current version of the app, so Claude asks again after every update, including your own edits. And if part of an app comes from another website, Anthropic says that part can change without Claude asking you again. That second point is worth remembering: an approval does not freeze everything the app loads.
+
+Full access can only be given to apps you made yourself or, on Team and Enterprise plans, apps made by people in your organization. Anthropic adds plainly that it does not review apps before you install them, so it advises giving full access only to apps you trust.
+
+## Who gets it, and what are the limits?
+
+Anthropic says the feature is rolling out in beta on all plans. The plan and admin details it gives:
+
+- It is on by default for Team plans, with full access off.
+- On Enterprise, it is off until an owner turns it on.
+- Team and Enterprise admins can switch app permissions and full access on or off for the organization.
+- HIPAA-ready organizations and hybrid deployments cannot use it.
+- You must be online and signed in to Claude to open an app.
+- Some artifacts cannot be installed, including Claude Docs, Slides and Sheets.
+
+To try it, Anthropic says to update Claude for Mac or Windows, open an artifact you use every day and choose "Install as app" from the Share menu. You do not have to package or sign the app, and it uses your Claude account, so there is no API key or separate login.
+
+## Why it matters
+
+For a solo user, this turns a one-off artifact into something that sits in the dock or taskbar and can notify you. That is convenient for small internal tools. For a company, it adds a new kind of software that employees can create in minutes and that nobody in IT reviewed. Anthropic's own admin switches, and its default of "Enterprise off until an owner turns it on", suggest it expects that concern.
+
+The permission design is sensible in one respect: re-asking after each update means a later edit cannot quietly widen what an app does. The weak spot is the one Anthropic names itself, which is content an app pulls from another site after you approved it.
+
+## What we could not verify
+
+This is a vendor announcement in beta. We have not installed the feature, so we cannot say how smooth it is, how the permission prompts read, or how much of your plan's usage a typical app uses. Anthropic gives no numbers for usage limits, and it does not say when the feature leaves beta or whether it will reach other platforms.
+
+## What should you do?
+
+1. Individuals: try it on a low-stakes artifact first, and keep permissions at the default unless the app needs more.
+2. Only give full computer access to an app you built and understand. Re-check the prompt after every edit.
+3. Admins on Team: decide whether the default of app permissions on is right for you, and keep full access off unless there is a clear need.
+4. Admins on Enterprise: the feature is off until an owner enables it, so write the rule before anyone asks.
+
+## Source
+
+- Anthropic, "Turn artifacts into Mac and Windows apps", Claude resources, 24 November 2026: [claude.com](https://claude.com/resources/articles/install-as-app)
+
+Last updated: 28 November 2026.
