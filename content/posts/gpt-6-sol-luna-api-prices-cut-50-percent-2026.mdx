@@ -1,0 +1,64 @@
+---
+title: "GPT-6 Sol and Luna: API Prices Cut 50% and What OpenAI Says It Gets You"
+slug: gpt-6-sol-luna-api-prices-cut-50-percent-2026
+seoTitle: "GPT-6 Sol and Luna: 50% Lower API Prices"
+excerpt: "OpenAI's GPT-6 Sol and Luna halve API prices versus GPT-5.6 promotional pricing. Here are the prices, where the models are available and which benchmark claims are OpenAI's own."
+description: "OpenAI's GPT-6 Sol and Luna: API prices per million tokens, 90% cached-input discount, ChatGPT Work and Codex availability, and the benchmark claims OpenAI makes."
+bottomLine: "On OpenAI's numbers, Sol costs $2 input and $10 output per million tokens and Luna $0.10 and $0.50. The benchmark comparisons are OpenAI's own and mostly against rivals' public reports, so test on your own workload before switching."
+date: '2026-11-28'
+lastUpdated: '2026-11-28'
+author: AI Pulse Editorial
+category: AI News
+tags:
+  - openai
+  - gpt-6
+  - api pricing
+  - codex
+  - ai models
+  - ai news
+cover: "/images/gpt-6-sol-luna-api-prices-cut-50-percent-2026.jpg"
+primarySourced: true
+draft: false
+---
+
+OpenAI's page "Introducing GPT-6 Sol and Luna" describes two cheaper, faster models in the GPT-6 family, alongside GPT-6 Astra, which OpenAI calls its best model. The page carries later update notes about GPT-6.1 and GPT-6.2, so some details may have moved on since the original launch. This article reports what the page says today. We have not tested these models, and benchmark results below are OpenAI's claims.
+
+## What do GPT-6 Sol and Luna cost?
+
+OpenAI lists these API prices, per 1 million tokens, against the GPT-5.6 promotional pricing:
+
+| Model | Input | Output |
+| --- | --- | --- |
+| GPT-5.6 Sol to GPT-6 Sol | $4 to $2 | $20 to $10 |
+| GPT-5.6 Luna to GPT-6 Luna | $0.20 to $0.10 | $1.20 to $0.50 |
+
+OpenAI calls Sol and Luna 50% cheaper than the earlier promotional prices. The Luna output price falls from $1.20 to $0.50, which is a bit more than half off, so check your own bill rather than assuming exactly 50%.
+
+Caching is the other cost lever. OpenAI says it improved prompt caching for GPT-6 to raise cache hit rates by default, with a 90% discount on cached input-token reads. Changing reasoning effort or toggling tools now keeps earlier context cacheable, and explicit breakpoints let developers choose where a cached prefix ends. There is also a Prompt Caching Dashboard and a diagnostics tool. OpenAI quotes GitHub as saying fresh prompt-token processing fell by more than 50% across billions of requests.
+
+## Where can you use them?
+
+- **ChatGPT Work and Codex:** available for Plus, Pro, Business, Enterprise and Edu users. Free and Go users can use GPT-6 Luna in the desktop app.
+- **Chat:** not yet available there, per the page.
+- **API:** model names `gpt-6-sol` and `gpt-6-luna`.
+
+OpenAI says the rollout in ChatGPT was gradual over the launch day.
+
+## What does OpenAI claim about performance?
+
+All of the following comes from OpenAI's page, using its chosen evaluations. Competitor scores were "taken from publicly available reports", and OpenAI notes its own runs used its research environment or API, which can differ from production ChatGPT.
+
+- **AutomationBench (business workflows):** Sol at xhigh effort scores 33.2% at $0.27 per task. OpenAI lists Claude Opus 5 at max effort at 26.9%, costing 11.1 times as much per task. OpenAI also notes that the cost figure for Claude Fable 5.1 omits fallback costs, so it is understated.
+- **DeepSWE v1.1 (software engineering):** Sol at max effort scores 68.8%, within 1.1 points of Claude Fable 5's highest listed score of 69.9%, at roughly 80% lower cost per task. Luna at max effort scores 66.6%.
+- **OSWorld 2.0 offline (computer use):** Sol at xhigh scores 60.5% versus Claude Opus 5 at medium effort at 60.3%, at about 80% lower cost per task.
+- **Factuality:** on an internal test built from conversations where users flagged errors, OpenAI says Sol makes about half as many mistakes as its predecessor. OpenAI stresses these conversations are not typical usage.
+
+OpenAI also says Sol and Luna communicate more clearly, with fewer odd phrases and slightly shorter answers, and that alignment evaluations improved, including lower rates of misleading claims about coding work. It points to a system card for full results.
+
+## Our take
+
+Price is the clearest, checkable change: the table above is a plain list price. The comparisons are different. They are chosen by the vendor, they pit a specific effort setting against rivals' published numbers, and cost-per-task depends on how many tokens each model spends. If you run an agent in production, the useful step is a small test on your own tasks, measuring cost per completed task and not just price per token.
+
+## Source
+
+- OpenAI, "Introducing GPT-6 Sol and Luna": https://openai.com/index/introducing-gpt-6-sol-and-luna/
