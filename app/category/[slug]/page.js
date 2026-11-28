@@ -22,7 +22,7 @@ export function generateMetadata({ params }) {
   const name = getCategoryBySlug(slug);
   const info = CATEGORY_INFO[slug];
   return {
-    title: info ? info.title : `${name}: AI Tools, Reviews and Guides`,
+    title: info ? (info.seoTitle || info.title) : `${name}: AI Tools, Reviews and Guides`,
     description: info ? info.description : `${name} articles on AI tools: reviews, comparisons and tutorials.`,
     alternates: { canonical: siteConfig.url + '/category/' + slug },
     openGraph: {

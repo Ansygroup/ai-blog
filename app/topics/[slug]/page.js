@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { fitTitle } from '../../../lib/seo';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import fs from 'fs';
@@ -20,7 +21,7 @@ export function generateMetadata({ params }) {
   const topic = topics.find((t) => t.slug === params.slug);
   if (!topic) return {};
   return {
-    title: `${topic.title} — Guides & Comparisons ${new Date().getFullYear()}`,
+    title: fitTitle(`${topic.title} Guides ${new Date().getFullYear()}`),
     description: topic.description,
     alternates: { canonical: `${siteConfig.url}/topics/${topic.slug}` },
     openGraph: {

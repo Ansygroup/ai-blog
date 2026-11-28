@@ -1,6 +1,7 @@
 ---
 title: "Anthropic Moved Its Messages API From Python to Rust. The Hard Part Was Proving It Worked"
 slug: anthropic-rust-messages-api-migration-verification-2026
+seoTitle: "Anthropic Rust Messages API Migration"
 excerpt: "Anthropic says its Rust rewrite cut CPU per request by about 70% and median time to first token by about 20%. The more useful story is how it verified the swap without reading customer data."
 description: "Anthropic's Messages API moved from Python to Rust with Claude writing most of the code. The reported results, how the team verified parity, and what other teams can copy."
 bottomLine: "Anthropic's numbers are self-reported, but the method is the takeaway: when code is cheap to generate, a trustworthy way to check it becomes the real work. Build the checker before you start the rewrite."

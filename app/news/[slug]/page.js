@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { fitTitle, fitDesc } from '../../../lib/seo';
 import Image from 'next/image';
 import { getAllPosts, getPostBySlug, getRelatedPosts } from '../../../lib/posts';
 import { renderSafeMarkdown } from '../../../lib/markdown';
@@ -23,8 +24,8 @@ export function generateMetadata({ params }) {
   const post = getPostBySlug(params.slug);
   if (!post) return {};
   return {
-    title: `${post.title} | AI News`,
-    description: post.excerpt || post.description,
+    title: fitTitle(post.seoTitle || post.title),
+    description: fitDesc(post.description || post.excerpt),
     keywords: post.tags,
     robots: post.noindex ? { index: false, follow: true } : undefined,
     alternates: { canonical: `${siteConfig.url}/news/${post.slug}` },

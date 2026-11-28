@@ -13,7 +13,7 @@ import { hreflangAlternates } from '../../lib/i18n';
 const POSTS_PER_PAGE = 24;
 
 export const metadata = {
-  title: 'Best AI Tools 2026: Top Picks by Job, With Prices Checked 27 Nov 2026',
+  title: 'Best AI Tools 2026: Top Picks by Job and Price',
   description: 'Best AI tools for chat, research, coding and voice, with each price read from the vendor pricing page on 27 November 2026. Free tiers flagged.',
   alternates: { canonical: `${siteConfig.url}/best`, languages: hreflangAlternates('/best') },
   openGraph: {

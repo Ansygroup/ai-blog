@@ -1,5 +1,6 @@
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
+import { fitTitle, fitDesc } from '../../../lib/seo';
 import Image from 'next/image';
 import { getAllPosts, getPostBySlug, getRelatedPosts, getAdjacentPosts } from '../../../lib/posts';
 import { getSeriesNavigation } from '../../../lib/series';
@@ -29,8 +30,8 @@ export async function generateMetadata({ params }) {
   const post = getPostBySlug(params.slug);
   if (!post) return {};
   return {
-    title: post.title,
-    description: post.excerpt || post.description,
+    title: fitTitle(post.seoTitle || post.title),
+    description: fitDesc(post.excerpt || post.description),
     keywords: post.tags,
     robots: post.noindex ? { index: false, follow: true } : undefined,
     alternates: { canonical: `${siteConfig.url}/posts/${post.slug}` },

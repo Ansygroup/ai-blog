@@ -17,7 +17,6 @@ User-agent: Google-Extended
 Allow: /
 Disallow: /admin/
 Disallow: /api/
-Disallow: /_next/
 Disallow: /search?
 
 Sitemap: ${siteConfig.url}/sitemap.xml

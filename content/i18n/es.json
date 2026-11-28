@@ -1,5 +1,7 @@
 {
-  "lang": "es", "name": "Español", "dir": "ltr",
+  "lang": "es",
+  "name": "Español",
+  "dir": "ltr",
   "ui": {
     "switchPrompt": "¿Quieres leer esta página en español?",
     "yes": "Ver en español",
@@ -8,7 +10,7 @@
     "english": "Read the English original"
   },
   "home": {
-    "title": "AI Pulse Daily: noticias de IA, reseñas y comparativas con precios verificados",
+    "title": "Noticias de IA, reseñas y precios verificados",
     "description": "Noticias de IA con fuentes primarias, reseñas de herramientas y comparativas, con precios revisados en la página del proveedor.",
     "h1": "Reseñas honestas de herramientas de IA, tutoriales y rankings para 2026",
     "intro": "Investigamos cada herramienta de IA para que no pierdas dinero. Reseñas, comparativas y tutoriales paso a paso, con precios verificados en la página del proveedor.",
@@ -19,22 +21,55 @@
     "latestH2": "Últimas noticias de IA (en inglés)"
   },
   "best": {
-    "title": "Mejores herramientas de IA 2026: la mejor opción por tarea, con precios verificados",
+    "title": "Mejores herramientas de IA 2026 por tarea",
     "description": "Las mejores herramientas de IA para chat, investigación, programación y voz, con cada precio leído en la página del proveedor el 27 de noviembre de 2026.",
     "crumb": "Mejores herramientas de IA 2026",
     "h1": "Mejores herramientas de IA 2026: la mejor opción por tarea",
     "quick": "Respuesta rápida: empieza con el plan gratuito de ChatGPT, Claude o Gemini para trabajo general, Perplexity para investigación con citas, Cursor o GitHub Copilot para programar y ElevenLabs para voz. Cada precio de abajo se leyó en la página del propio proveedor.",
     "byline": "Por AI Pulse Editorial. Última actualización: 27 de noviembre de 2026. No hicimos pruebas prácticas para esta página; las recomendaciones siguen los planes publicados por cada proveedor.",
     "picksH2": "¿Qué herramienta de IA elegir para cada tarea?",
-    "cols": ["Tarea", "Opción", "Por qué", "Precio en la página del proveedor (27 nov 2026)"],
+    "cols": [
+      "Tarea",
+      "Opción",
+      "Por qué",
+      "Precio en la página del proveedor (27 nov 2026)"
+    ],
     "picks": [
-      {"need": "Asistente de chat general", "why": "El conjunto de funciones más amplio: modelos de razonamiento, creación de imágenes, investigación profunda, Codex", "price": "Planes Free, Go, Plus y Pro (los precios no se muestran en la página que pudimos leer)"},
-      {"need": "Escritura y documentos largos", "why": "Plan gratuito; Pro ofrece límites más altos", "price": "Free; Pro $17/mes facturado anualmente ($20 mensual); Max $100/mes"},
-      {"need": "Investigación con citas", "why": "Respuestas con citas en cada respuesta, investigación profunda en Pro", "price": "Free; Pro $17/mes facturado anualmente; Max $167/mes facturado anualmente"},
-      {"need": "Usuarios de apps de Google", "why": "Gemini dentro de Gmail, Docs y Sheets, y almacenamiento incluido en el plan", "price": "Google AI Plus $4.99/mes; los precios de Pro y Ultra no se pudieron leer en la página"},
-      {"need": "Programar en un editor", "why": "Editor de código con IA desde el diseño y plan gratuito", "price": "Free; Plus $8/mes; Premium $30/mes; Super $100/mes; Ultra $200/mes"},
-      {"need": "Programar dentro de GitHub", "why": "Funciona en GitHub y en los editores habituales; tiene plan gratuito", "price": "Free $0; Pro $10/mes; Pro+ $39/mes; Max $100/mes"},
-      {"need": "Voz y texto a voz", "why": "Plan gratuito para probar voces antes de pagar", "price": "Free; Starter $6/mes; Creator $22/mes; Pro $99/mes; Scale $299/mes (la página muestra descuentos de Black Friday)"}
+      {
+        "need": "Asistente de chat general",
+        "why": "El conjunto de funciones más amplio: modelos de razonamiento, creación de imágenes, investigación profunda, Codex",
+        "price": "Planes Free, Go, Plus y Pro (los precios no se muestran en la página que pudimos leer)"
+      },
+      {
+        "need": "Escritura y documentos largos",
+        "why": "Plan gratuito; Pro ofrece límites más altos",
+        "price": "Free; Pro $17/mes facturado anualmente ($20 mensual); Max $100/mes"
+      },
+      {
+        "need": "Investigación con citas",
+        "why": "Respuestas con citas en cada respuesta, investigación profunda en Pro",
+        "price": "Free; Pro $17/mes facturado anualmente; Max $167/mes facturado anualmente"
+      },
+      {
+        "need": "Usuarios de apps de Google",
+        "why": "Gemini dentro de Gmail, Docs y Sheets, y almacenamiento incluido en el plan",
+        "price": "Google AI Plus $4.99/mes; los precios de Pro y Ultra no se pudieron leer en la página"
+      },
+      {
+        "need": "Programar en un editor",
+        "why": "Editor de código con IA desde el diseño y plan gratuito",
+        "price": "Free; Plus $8/mes; Premium $30/mes; Super $100/mes; Ultra $200/mes"
+      },
+      {
+        "need": "Programar dentro de GitHub",
+        "why": "Funciona en GitHub y en los editores habituales; tiene plan gratuito",
+        "price": "Free $0; Pro $10/mes; Pro+ $39/mes; Max $100/mes"
+      },
+      {
+        "need": "Voz y texto a voz",
+        "why": "Plan gratuito para probar voces antes de pagar",
+        "price": "Free; Starter $6/mes; Creator $22/mes; Pro $99/mes; Scale $299/mes (la página muestra descuentos de Black Friday)"
+      }
     ],
     "pricesNote": "Los precios cambian con frecuencia. Solo añadimos herramientas después de leer su página de precios. Si una página no mostraba un precio legible, lo decimos.",
     "howH2": "¿Cómo elegir una herramienta de IA?",
@@ -46,11 +81,26 @@
     ],
     "faqH2": "Mejores herramientas de IA: preguntas frecuentes",
     "faqs": [
-      {"q": "¿Cuál es la mejor herramienta de IA en general en 2026?", "a": "No hay una sola mejor herramienta. Para chat y tareas mixtas, la mayoría empieza con ChatGPT, Claude o Gemini. Elige según la tarea: Perplexity para investigación con citas, Cursor o GitHub Copilot para código, ElevenLabs para voz. Las tres herramientas de chat tienen planes gratuitos, así que pruébalas con tu propio trabajo."},
-      {"q": "¿Estas herramientas de IA son gratuitas?", "a": "Claude, Perplexity, Cursor, GitHub Copilot y ElevenLabs muestran un plan de $0 en sus páginas de precios al 27 de noviembre de 2026. Los planes gratuitos tienen límites de uso. Los planes de pago van de unos $5 a $20 al mes para particulares, con niveles de $100 a $300 para uso intensivo."},
-      {"q": "¿Cómo verifican los precios de esta página?", "a": "Leemos cada precio en la página de precios del proveedor y anotamos la fecha. Si una página no mostraba un precio en texto legible, lo decimos en lugar de adivinar. Los precios cambian a menudo, así que revisa la página enlazada antes de pagar."},
-      {"q": "¿Qué herramienta de IA es mejor para programar?", "a": "Cursor (un editor creado en torno a la IA) y GitHub Copilot (funciona dentro de GitHub y en los editores habituales) tienen planes gratuitos. Copilot Pro cuesta $10 al mes y Cursor Plus $8 al mes en sus páginas hoy. Prueba el plan gratuito de cada uno en un proyecto real."},
-      {"q": "¿Con qué frecuencia se actualiza esta lista?", "a": "Volvemos a revisar los precios y añadimos herramientas a medida que las verificamos. La última revisión fue el 27 de noviembre de 2026."}
+      {
+        "q": "¿Cuál es la mejor herramienta de IA en general en 2026?",
+        "a": "No hay una sola mejor herramienta. Para chat y tareas mixtas, la mayoría empieza con ChatGPT, Claude o Gemini. Elige según la tarea: Perplexity para investigación con citas, Cursor o GitHub Copilot para código, ElevenLabs para voz. Las tres herramientas de chat tienen planes gratuitos, así que pruébalas con tu propio trabajo."
+      },
+      {
+        "q": "¿Estas herramientas de IA son gratuitas?",
+        "a": "Claude, Perplexity, Cursor, GitHub Copilot y ElevenLabs muestran un plan de $0 en sus páginas de precios al 27 de noviembre de 2026. Los planes gratuitos tienen límites de uso. Los planes de pago van de unos $5 a $20 al mes para particulares, con niveles de $100 a $300 para uso intensivo."
+      },
+      {
+        "q": "¿Cómo verifican los precios de esta página?",
+        "a": "Leemos cada precio en la página de precios del proveedor y anotamos la fecha. Si una página no mostraba un precio en texto legible, lo decimos en lugar de adivinar. Los precios cambian a menudo, así que revisa la página enlazada antes de pagar."
+      },
+      {
+        "q": "¿Qué herramienta de IA es mejor para programar?",
+        "a": "Cursor (un editor creado en torno a la IA) y GitHub Copilot (funciona dentro de GitHub y en los editores habituales) tienen planes gratuitos. Copilot Pro cuesta $10 al mes y Cursor Plus $8 al mes en sus páginas hoy. Prueba el plan gratuito de cada uno en un proyecto real."
+      },
+      {
+        "q": "¿Con qué frecuencia se actualiza esta lista?",
+        "a": "Volvemos a revisar los precios y añadimos herramientas a medida que las verificamos. La última revisión fue el 27 de noviembre de 2026."
+      }
     ]
   }
 }
